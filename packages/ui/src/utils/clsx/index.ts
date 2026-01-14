@@ -1,0 +1,1 @@
+export { swClsx } from './clxs'
