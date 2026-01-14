@@ -3,5 +3,11 @@
     {
       "mode": "auto"
     }
-  ]
+  ],
+  "tailwindCSS.classAttributes": ["className", "classNames"],
+  "tailwindCSS.classFunctions": ["swTwVariants"],
+  "tailwindCSS.experimental.configFile": {
+    "packages/ui/src/styles/switchwon-styles.css": "packages/ui/src/**",
+    "apps/docs/src/styles/app.css": "apps/docs/src/**"
+  }
 }

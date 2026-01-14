@@ -1,5 +1,6 @@
 import { Slot } from 'radix-ui' // 또는 '@radix-ui/react-slot'
 import { ComponentProps } from 'react'
+import { AsChild } from '../../types'
 import { swClsx } from '../../utils/clsx'
 
 const styleMap = {
@@ -16,9 +17,7 @@ const styleMap = {
 // h1~h6 모두 HTMLHeadingElement를 공유하므로 타입을 하나로 통일해도 안전합니다.
 type HeadingElement = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
 
-type Props = {
-  asChild?: boolean
-}
+type Props = {} & AsChild
 
 // React 19: ComponentProps<'h1'> 안에 ref가 포함되어 있습니다.
 export type HeadingProps = ComponentProps<HeadingElement> & Props

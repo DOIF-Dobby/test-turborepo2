@@ -1,5 +1,6 @@
 import '@/styles/app.css'
 import type { Metadata } from 'next'
+import { AppProviders } from './providers'
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -12,8 +13,10 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
-      <body>{children}</body>
+    <html lang="ko" data-theme="switchui-light">
+      <body>
+        <AppProviders>{children}</AppProviders>
+      </body>
     </html>
   )
 }

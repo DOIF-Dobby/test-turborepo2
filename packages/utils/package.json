@@ -1,12 +1,9 @@
 {
-  "name": "@repo/ui",
+  "name": "@repo/utils",
   "version": "0.0.0",
   "private": true,
   "exports": {
-    "./components/*": "./src/components/*/index.tsx",
-    "./providers": "./src/providers/index.tsx",
-    "./utils/*": "./src/utils/*/index.ts",
-    "./styles.css": "./src/styles/switchwon-styles.css"
+    "./*": "./src/*/index.ts"
   },
   "scripts": {
     "lint": "eslint . --max-warnings 0",
@@ -14,16 +11,6 @@
     "check-types": "tsc --noEmit"
   },
   "dependencies": {
-    "@repo/utils": "workspace:*",
-    "@react-aria/interactions": "^3.26.0",
-    "@react-aria/utils": "^3.32.0",
-    "clsx": "^2.1.1",
-    "motion": "^12.26.2",
-    "radix-ui": "^1.4.3",
-    "react": "19.2.3",
-    "react-dom": "19.2.3",
-    "tailwind-merge": "^3.4.0",
-    "tailwind-variants": "^3.2.2"
   },
   "devDependencies": {
     "@repo/config-eslint": "workspace:*",

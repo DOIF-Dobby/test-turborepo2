@@ -1,5 +1,6 @@
 import { Slot } from 'radix-ui' // 또는 '@radix-ui/react-slot'
 import { ComponentProps } from 'react'
+import { AsChild } from '../../types'
 import { swClsx } from '../../utils/clsx'
 
 // 1. 스타일 맵 정의 (Tailwind 클래스 감지용)
@@ -13,9 +14,7 @@ const styleMap = {
 } as const
 
 // 2. 공통 타입 정의
-type Props = {
-  asChild?: boolean
-}
+type Props = {} & AsChild
 
 // React 19: ComponentProps<'p'> 안에 ref가 포함되어 있습니다.
 export type ParagraphProps = ComponentProps<'p'> & Props
