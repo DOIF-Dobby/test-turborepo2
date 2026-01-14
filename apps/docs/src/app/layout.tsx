@@ -1,5 +1,5 @@
+import '@/styles/app.css'
 import type { Metadata } from 'next'
-import '../styles/app.css'
 
 export const metadata: Metadata = {
   title: 'Create Next App',
