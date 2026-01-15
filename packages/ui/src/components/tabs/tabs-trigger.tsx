@@ -38,8 +38,12 @@ export function TabsTrigger(props: TabsTriggerProps) {
         <LazyMotion features={domMax}>
           <m.span
             className={cursorStyles}
-            layoutDependency={false}
             layoutId={`cursor-${context.tabsId}`}
+            transition={{
+              type: 'spring',
+              stiffness: 500,
+              damping: 30,
+            }}
           />
         </LazyMotion>
       ) : null}
