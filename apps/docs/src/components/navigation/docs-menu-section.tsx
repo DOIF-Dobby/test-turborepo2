@@ -8,6 +8,7 @@ import {
 import { Heading4 } from '@repo/ui/components/typography'
 import { swClsx } from '@repo/ui/utils/clsx'
 import { capitalizeFirstLetter } from '@repo/utils/string'
+import { ChevronRight } from 'lucide-react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useState } from 'react'
@@ -24,7 +25,15 @@ export function DocsMenuSection({ title, contentPaths }: DocsMenuSectionProps) {
   return (
     <Collapsible open={open} onOpenChange={setOpen} className="px-sw-sm">
       <CollapsibleTrigger className="flex w-full cursor-pointer items-center justify-between">
-        <Heading4>{title}</Heading4>
+        <Heading4 className="text-base-600">{title}</Heading4>
+        <ChevronRight
+          size={20}
+          className={swClsx(
+            'stroke-base-600',
+            'transition-transform duration-300 ease-in-out',
+            open ? 'rotate-90' : '',
+          )}
+        />
       </CollapsibleTrigger>
       <CollapsibleContent>
         <ul className="pt-sw-2xs pb-sw-sm gap-sw-3xs flex flex-col">
@@ -38,7 +47,7 @@ export function DocsMenuSection({ title, contentPaths }: DocsMenuSectionProps) {
                   className={swClsx(
                     'text-base-600 px-sw-xs py-sw-2xs rounded-input-sm font-medium',
                     pathname === href
-                      ? 'bg-cta1 text-base-100 font-semibold'
+                      ? 'text-cta1 font-bold'
                       : 'hover:text-base-700 hover:bg-base-200',
                   )}
                 >
