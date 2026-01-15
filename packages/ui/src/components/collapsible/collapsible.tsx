@@ -42,7 +42,7 @@ export function Collapsible({
 export function CollapsibleTrigger({
   ...props
 }: React.ComponentProps<typeof CollapsiblePrimitive.Trigger>) {
-  return <CollapsiblePrimitive.Trigger {...props} />
+  return <CollapsiblePrimitive.Trigger {...props} suppressHydrationWarning />
 }
 
 // 4. Content Component (애니메이션 적용)
