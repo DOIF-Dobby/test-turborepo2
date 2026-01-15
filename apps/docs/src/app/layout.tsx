@@ -2,7 +2,6 @@ import '@/styles/app.css'
 import { swClsx } from '@repo/ui/utils/clsx'
 import type { Metadata, Viewport } from 'next'
 import localFont from 'next/font/local'
-import { AppProviders } from './providers'
 
 const pretendard = localFont({
   src: '../../../../assets/fonts/PretendardVariable.woff2',
@@ -32,11 +31,9 @@ export default function RootLayout({
   return (
     <html lang="ko" data-theme="switchui-light">
       <body className={swClsx(pretendard.className)}>
-        <AppProviders>
-          <div className="text-base-content bg-background mx-auto max-w-400">
-            {children}
-          </div>
-        </AppProviders>
+        <div className="text-base-content bg-background mx-auto max-w-400">
+          {children}
+        </div>
       </body>
     </html>
   )

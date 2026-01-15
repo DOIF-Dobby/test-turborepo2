@@ -3,11 +3,11 @@
 import { useUIStore } from '@/stores/ui-store'
 import { UIProvider } from '@repo/ui/providers'
 
-interface AppProvidersProps {
+interface DocsProvidersProps {
   children: React.ReactNode
 }
 
-export function AppProviders({ children }: AppProvidersProps) {
+export function DocsProviders({ children }: DocsProvidersProps) {
   const uiStore = useUIStore()
 
   return (
