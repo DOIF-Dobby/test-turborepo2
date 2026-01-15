@@ -31,6 +31,7 @@ export function TabsTrigger(props: TabsTriggerProps) {
       className={swClsx(triggerStyles)}
       value={value}
       {...otherProps}
+      suppressHydrationWarning
     >
       <div className="relative z-10">{children}</div>
       {context.value === value ? (

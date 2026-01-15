@@ -20,6 +20,10 @@ export function TabsContent(props: TabsContentProps) {
   })
 
   return (
-    <TabsPrimitive.TabsContent className={swClsx(styles)} {...otherProps} />
+    <TabsPrimitive.TabsContent
+      className={swClsx(styles)}
+      {...otherProps}
+      suppressHydrationWarning
+    />
   )
 }
