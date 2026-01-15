@@ -17,6 +17,7 @@
     "@repo/ui": "workspace:*",
     "@repo/utils": "workspace:*",
     "estree-util-value-to-estree": "^3.5.0",
+    "lucide-react": "^0.562.0",
     "mdast-util-to-string": "^4.0.0",
     "next": "16.1.1",
     "react": "19.2.3",

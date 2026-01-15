@@ -14,10 +14,11 @@
     "check-types": "tsc --noEmit"
   },
   "dependencies": {
-    "@repo/utils": "workspace:*",
     "@react-aria/interactions": "^3.26.0",
     "@react-aria/utils": "^3.32.0",
+    "@repo/utils": "workspace:*",
     "clsx": "^2.1.1",
+    "lucide-react": "^0.562.0",
     "motion": "^12.26.2",
     "radix-ui": "^1.4.3",
     "react": "19.2.3",

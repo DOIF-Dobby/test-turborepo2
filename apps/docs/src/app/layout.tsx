@@ -32,7 +32,11 @@ export default function RootLayout({
   return (
     <html lang="ko" data-theme="switchui-light">
       <body className={swClsx(pretendard.className)}>
-        <AppProviders>{children}</AppProviders>
+        <AppProviders>
+          <div className="text-base-content bg-background mx-auto max-w-400">
+            {children}
+          </div>
+        </AppProviders>
       </body>
     </html>
   )

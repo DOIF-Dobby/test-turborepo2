@@ -22,12 +22,12 @@ export function DocsMenuSection({ title, contentPaths }: DocsMenuSectionProps) {
   const [open, setOpen] = useState(true)
 
   return (
-    <Collapsible open={open} onOpenChange={setOpen} className="px-sone-sm">
+    <Collapsible open={open} onOpenChange={setOpen} className="px-sw-sm">
       <CollapsibleTrigger className="flex w-full cursor-pointer items-center justify-between">
         <Heading4>{title}</Heading4>
       </CollapsibleTrigger>
       <CollapsibleContent>
-        <ul className="pt-sone-2xs pb-sone-sm gap-sone-3xs flex flex-col">
+        <ul className="pt-sw-2xs pb-sw-sm gap-sw-3xs flex flex-col">
           {contentPaths.map((contentPath) => {
             const href = `/docs/${contentPath.join('/')}`
             const content = contentPath[contentPath.length - 1]
@@ -36,7 +36,7 @@ export function DocsMenuSection({ title, contentPaths }: DocsMenuSectionProps) {
               <Link href={href} key={href}>
                 <li
                   className={swClsx(
-                    'text-base-600 px-sone-xs py-sone-2xs rounded-input-sm font-medium',
+                    'text-base-600 px-sw-xs py-sw-2xs rounded-input-sm font-medium',
                     pathname === href
                       ? 'bg-cta1 text-base-100 font-semibold'
                       : 'hover:text-base-700 hover:bg-base-200',
