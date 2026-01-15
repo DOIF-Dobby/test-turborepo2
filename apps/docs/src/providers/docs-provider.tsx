@@ -1,18 +1,43 @@
+// providers/docs-provider.tsx
 'use client'
 
-import { useUIStore } from '@/stores/ui-store'
+import { type DocsStore, createDocsStore } from '@/stores/docs-store'
 import { UIProvider } from '@repo/ui/providers'
+import { type ReactNode, createContext, useContext, useRef } from 'react'
+import { useStore } from 'zustand'
+
+export type DocsStoreApi = ReturnType<typeof createDocsStore>
+export const DocsStoreContext = createContext<DocsStoreApi | undefined>(
+  undefined,
+)
 
 interface DocsProvidersProps {
-  children: React.ReactNode
+  children: ReactNode
 }
 
 export function DocsProviders({ children }: DocsProvidersProps) {
-  const uiStore = useUIStore()
+  const storeRef = useRef<DocsStoreApi>(createDocsStore())
 
   return (
-    <UIProvider disableAnimation={uiStore.disableAnimation}>
-      {children}
-    </UIProvider>
+    <DocsStoreContext.Provider value={storeRef.current}>
+      {children} {/* ← UIProvider를 여기서 제거 */}
+    </DocsStoreContext.Provider>
   )
+}
+
+// UIProvider를 별도로 분리
+export function DocsUIProviderWrapper({ children }: { children: ReactNode }) {
+  const disableAnimation = useDocsStore((state) => state.disableAnimation)
+
+  return <UIProvider disableAnimation={disableAnimation}>{children}</UIProvider>
+}
+
+export function useDocsStore<T>(selector: (store: DocsStore) => T): T {
+  const docsStoreContext = useContext(DocsStoreContext)
+
+  if (!docsStoreContext) {
+    throw new Error(`useDocsStore must be used within DocsProviders`)
+  }
+
+  return useStore(docsStoreContext, selector)
 }
