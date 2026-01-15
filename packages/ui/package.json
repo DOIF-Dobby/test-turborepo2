@@ -13,6 +13,10 @@
     "generate:component": "turbo gen react-component",
     "check-types": "tsc --noEmit"
   },
+  "peerDependencies": {
+    "react": "19.2.3",
+    "react-dom": "19.2.3"
+  },
   "dependencies": {
     "@react-aria/interactions": "^3.26.0",
     "@react-aria/utils": "^3.32.0",
@@ -21,8 +25,6 @@
     "lucide-react": "^0.562.0",
     "motion": "^12.26.2",
     "radix-ui": "^1.4.3",
-    "react": "19.2.3",
-    "react-dom": "19.2.3",
     "tailwind-merge": "^3.4.0",
     "tailwind-variants": "^3.2.2"
   },
@@ -36,6 +38,8 @@
     "@types/react-dom": "19.2.3",
     "eslint": "^9.39.1",
     "tailwindcss": "^4.1.18",
-    "typescript": "5.9.2"
+    "typescript": "5.9.2",
+    "react": "19.2.3",
+    "react-dom": "19.2.3"
   }
 }

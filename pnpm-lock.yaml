@@ -29,6 +29,9 @@ importers:
       '@next/mdx':
         specifier: 16.1.1
         version: 16.1.1(@mdx-js/loader@3.1.1(webpack@5.104.1))(@mdx-js/react@3.1.1(@types/react@19.2.3)(react@19.2.3))
+      '@repo/hooks':
+        specifier: workspace:*
+        version: link:../../packages/hooks
       '@repo/ui':
         specifier: workspace:*
         version: link:../../packages/ui
@@ -183,6 +186,33 @@ importers:
 
   packages/config/typescript: {}
 
+  packages/hooks:
+    devDependencies:
+      '@repo/config-eslint':
+        specifier: workspace:*
+        version: link:../config/eslint
+      '@repo/config-prettier':
+        specifier: workspace:*
+        version: link:../config/prettier
+      '@repo/config-typescript':
+        specifier: workspace:*
+        version: link:../config/typescript
+      '@types/node':
+        specifier: ^22.15.3
+        version: 22.15.3
+      '@types/react':
+        specifier: 19.2.3
+        version: 19.2.3
+      eslint:
+        specifier: ^9.39.1
+        version: 9.39.1(jiti@2.6.1)
+      react:
+        specifier: 19.2.3
+        version: 19.2.3
+      typescript:
+        specifier: 5.9.2
+        version: 5.9.2
+
   packages/ui:
     dependencies:
       '@react-aria/interactions':
@@ -206,12 +236,6 @@ importers:
       radix-ui:
         specifier: ^1.4.3
         version: 1.4.3(@types/react-dom@19.2.3(@types/react@19.2.3))(@types/react@19.2.3)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
-      react:
-        specifier: 19.2.3
-        version: 19.2.3
-      react-dom:
-        specifier: 19.2.3
-        version: 19.2.3(react@19.2.3)
       tailwind-merge:
         specifier: ^3.4.0
         version: 3.4.0
@@ -243,6 +267,12 @@ importers:
       eslint:
         specifier: ^9.39.1
         version: 9.39.1(jiti@2.6.1)
+      react:
+        specifier: 19.2.3
+        version: 19.2.3
+      react-dom:
+        specifier: 19.2.3
+        version: 19.2.3(react@19.2.3)
       tailwindcss:
         specifier: ^4.1.18
         version: 4.1.18
@@ -261,9 +291,6 @@ importers:
       '@repo/config-typescript':
         specifier: workspace:*
         version: link:../config/typescript
-      '@tailwindcss/postcss':
-        specifier: ^4.1.18
-        version: 4.1.18
       '@types/node':
         specifier: ^22.15.3
         version: 22.15.3
@@ -276,9 +303,6 @@ importers:
       eslint:
         specifier: ^9.39.1
         version: 9.39.1(jiti@2.6.1)
-      tailwindcss:
-        specifier: ^4.1.18
-        version: 4.1.18
       typescript:
         specifier: 5.9.2
         version: 5.9.2
