@@ -12,7 +12,7 @@ const nextConfig = {
   turbopack: {
     rules: {
       './src/contents/**/*.tsx': {
-        loaders: [path.join(__dirname, 'scripts/conditional-raw-loader.js')],
+        loaders: [path.join(__dirname, 'plugins/conditional-raw-loader.js')],
       },
     },
   },
@@ -21,7 +21,7 @@ const nextConfig = {
 const withMDX = createMDX({
   options: {
     remarkPlugins: [
-      path.join(__dirname, 'scripts/remark-extract-headings.js'),
+      path.join(__dirname, 'plugins/remark-extract-headings.js'),
       'remark-gfm',
       'remark-frontmatter',
       'remark-mdx-frontmatter',
