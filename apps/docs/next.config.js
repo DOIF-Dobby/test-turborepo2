@@ -2,19 +2,26 @@ import createMDX from '@next/mdx'
 import path from 'path'
 import { fileURLToPath } from 'url'
 
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   transpilePackages: ['@repo/ui'],
   pageExtensions: ['ts', 'tsx', 'mdx'],
+  turbopack: {
+    rules: {
+      './src/contents/**/*.tsx': {
+        loaders: [path.join(__dirname, 'scripts/conditional-raw-loader.mjs')],
+      },
+    },
+  },
 }
-
-const __filename = fileURLToPath(import.meta.url)
-const __dirname = path.dirname(__filename)
 
 const withMDX = createMDX({
   options: {
     remarkPlugins: [
-      path.join(__dirname, 'remark-extract-headings.mjs'),
+      path.join(__dirname, 'scripts/remark-extract-headings.mjs'),
       'remark-gfm',
       'remark-frontmatter',
       'remark-mdx-frontmatter',
