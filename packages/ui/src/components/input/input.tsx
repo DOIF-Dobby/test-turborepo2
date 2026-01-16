@@ -7,10 +7,10 @@ type Props = Omit<React.ComponentProps<'input'>, keyof InputVariants> &
 export interface InputProps extends Props {}
 
 export function Input(props: InputProps) {
-  const { color, className, ...otherProps } = props
+  const { size, className, ...otherProps } = props
 
   const styles = inputVariants({
-    color,
+    size,
     className,
   })
 
