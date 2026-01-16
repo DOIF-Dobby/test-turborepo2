@@ -84,6 +84,7 @@ export function CollapsibleContent({
         ref={scope} // Motion Scope 연결
         style={{ ...initialStyle, ...style }} // 초기 스타일 적용
         className={swClsx(className)}
+        suppressHydrationWarning
       >
         {children}
       </div>
