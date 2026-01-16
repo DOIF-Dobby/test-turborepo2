@@ -1,4 +1,4 @@
-import { type VariantProps } from 'tailwind-variants'
+import type { VariantProps } from 'tailwind-variants'
 import { swTwVariants } from '../../utils/tw-variants'
 
 export const buttonVariants = swTwVariants({

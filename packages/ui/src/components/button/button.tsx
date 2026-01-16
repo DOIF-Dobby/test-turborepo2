@@ -1,16 +1,16 @@
 'use client'
 
-import { PressEvent, usePress } from '@react-aria/interactions'
+import { type PressEvent, usePress } from '@react-aria/interactions'
 import { chain, mergeProps } from '@react-aria/utils'
 import { Slot } from 'radix-ui'
 import { useCallback, useRef } from 'react'
 import { useScaleAnimation } from '../../animations/use-scale-animation'
-import { AsChild } from '../../types'
+import type { AsChild } from '../../types'
 import { swClsx } from '../../utils/clsx'
 import { mergeRefs } from '../../utils/merge-refs'
 import { Ripple } from '../ripple'
 import { useRipple } from '../ripple/use-ripple'
-import { ButtonVariants, buttonVariants } from './variants'
+import { type ButtonVariants, buttonVariants } from './variants'
 
 type Props = Omit<
   Omit<React.ComponentProps<'button'>, keyof ButtonVariants>,

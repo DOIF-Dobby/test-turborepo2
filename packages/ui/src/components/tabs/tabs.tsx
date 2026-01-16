@@ -2,10 +2,10 @@
 
 import { Tabs as TabsPrimitive } from 'radix-ui'
 import { useId } from 'react'
-import { SlotsToClasses } from '../../types'
+import type { SlotsToClasses } from '../../types'
 import { swClsx } from '../../utils/clsx'
 import { TabsContext } from './tabs-context'
-import { TabsSlots, TabsVariants, tabsVariatns } from './variants'
+import { type TabsSlots, type TabsVariants, tabsVariatns } from './variants'
 
 type OmittedType = TabsVariants & {
   defaultValue: TabsPrimitive.TabsProps['defaultValue']

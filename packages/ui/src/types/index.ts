@@ -1,4 +1,4 @@
-import { ClassValue } from 'tailwind-variants'
+import type { ClassValue } from 'tailwind-variants'
 
 export type AsChild = {
   asChild?: boolean

@@ -20,6 +20,14 @@ export const config = [
     rules: {
       "turbo/no-undeclared-env-vars": "warn",
       "@typescript-eslint/no-unused-vars": "warn",
+      "@typescript-eslint/consistent-type-imports": [
+        "warn", // 또는 'error'
+        {
+          prefer: "type-imports", // 타입은 무조건 type import로
+          fixStyle: "inline-type-imports", // { type A, B } 형태 권장 (TS 4.5+)
+        },
+      ],
+      "@typescript-eslint/no-import-type-side-effects": "error",
     },
   },
   {

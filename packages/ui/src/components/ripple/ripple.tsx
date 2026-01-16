@@ -4,7 +4,7 @@ import { clamp } from '@repo/utils/number'
 import {
   AnimatePresence,
   domAnimation,
-  HTMLMotionProps,
+  type HTMLMotionProps,
   LazyMotion,
   m,
 } from 'motion/react'

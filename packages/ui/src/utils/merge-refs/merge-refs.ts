@@ -1,4 +1,4 @@
-import { Ref, RefCallback } from 'react'
+import type { Ref, RefCallback } from 'react'
 
 export function mergeRefs<T>(refs: (Ref<T> | undefined)[]): Ref<T> {
   return (value: T | null) => {

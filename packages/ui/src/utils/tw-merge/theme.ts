@@ -1,4 +1,4 @@
-import { DefaultThemeGroupIds } from 'tailwind-merge'
+import type { DefaultThemeGroupIds } from 'tailwind-merge'
 
 const textGroups = [
   'button-2xs',

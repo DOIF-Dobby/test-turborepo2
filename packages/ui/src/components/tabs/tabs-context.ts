@@ -1,6 +1,6 @@
 import { createContext, use } from 'react'
-import { SlotsToClasses } from '../../types'
-import { TabsSlots, TabsVariants } from './variants'
+import type { SlotsToClasses } from '../../types'
+import type { TabsSlots, TabsVariants } from './variants'
 
 type TabsContextType = {
   tabsId: string

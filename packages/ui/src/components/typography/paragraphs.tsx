@@ -1,6 +1,6 @@
 import { Slot } from 'radix-ui' // 또는 '@radix-ui/react-slot'
-import { ComponentProps } from 'react'
-import { AsChild } from '../../types'
+import type { ComponentProps } from 'react'
+import type { AsChild } from '../../types'
 import { swClsx } from '../../utils/clsx'
 
 // 1. 스타일 맵 정의 (Tailwind 클래스 감지용)

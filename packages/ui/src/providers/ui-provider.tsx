@@ -1,5 +1,5 @@
 import { MotionConfig } from 'motion/react'
-import { UIContext, UIContextType } from './ui-context'
+import { UIContext, type UIContextType } from './ui-context'
 
 export interface UIProviderProps extends UIContextType {
   children: React.ReactNode

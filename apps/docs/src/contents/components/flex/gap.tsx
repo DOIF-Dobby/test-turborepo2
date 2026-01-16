@@ -1,6 +1,6 @@
 'use client'
 
-import { Flex, FlexProps } from '@repo/ui/components/flex'
+import { Flex, type FlexProps } from '@repo/ui/components/flex'
 import { useState } from 'react'
 
 const items = ['안녕하세요.', '반갑습니다.', '또 만나요.']

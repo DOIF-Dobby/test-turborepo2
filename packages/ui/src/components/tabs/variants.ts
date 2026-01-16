@@ -1,4 +1,4 @@
-import { type VariantProps } from 'tailwind-variants'
+import type { VariantProps } from 'tailwind-variants'
 import { swTwVariants } from '../../utils/tw-variants'
 
 export const tabsVariatns = swTwVariants({
@@ -20,7 +20,7 @@ export const tabsVariatns = swTwVariants({
       'data-[state=active]:text-base-700',
       'data-[state=active]:font-medium',
       'data-[state=inactive]:text-base-600',
-      'data-[state=inactive]:hover:text-base-500',
+      'data-[state=inactive]:hover:text-base-700',
       'data-[state=inactive]:disabled:text-base-400',
       'not-disabled:cursor-pointer',
     ],
