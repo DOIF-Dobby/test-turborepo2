@@ -25,7 +25,6 @@ export function Tabs(props: TabsProps) {
     children,
     className,
     classNames,
-    size,
     variant,
     radius,
     value,
@@ -43,7 +42,6 @@ export function Tabs(props: TabsProps) {
       value={{
         tabsId,
         classNames,
-        size,
         variant,
         radius,
         value,

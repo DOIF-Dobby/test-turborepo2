@@ -5,18 +5,18 @@ export const tabsVariatns = swTwVariants({
   slots: {
     tabsRoot: [
       'flex',
-      'gap-2',
+      'gap-sw-2xs',
       'data-[orientation=horizontal]:flex-col',
       'data-[orientation=vertical]:flex-row',
     ],
-    tabList: ['flex', 'gap-2', 'w-fit', 'px-1'],
+    tabList: ['flex', 'gap-sw-2xs', 'w-fit', 'px-sw-3xs'],
     tabTrigger: [
       'relative',
       'z-0',
       'flex',
       'justify-center',
-      'px-3',
-      'py-2',
+      'px-sw-xs',
+      'py-sw-2xs',
       'data-[state=active]:text-base-700',
       'data-[state=active]:font-medium',
       'data-[state=inactive]:text-base-600',
@@ -28,10 +28,9 @@ export const tabsVariatns = swTwVariants({
     cursor: '',
   },
   variants: {
-    size: {},
     variant: {
       solid: {
-        tabList: ['bg-base-100', 'py-1'],
+        tabList: ['bg-base-100', 'py-sw-3xs'],
         cursor: ['absolute', 'inset-0', 'z-0', 'bg-background'],
       },
       underlined: {

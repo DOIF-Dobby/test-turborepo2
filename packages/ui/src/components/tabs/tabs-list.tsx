@@ -17,7 +17,6 @@ export function TabsList(props: TabsListProps) {
 
   const styles = slots.tabList({
     className: swClsx(context.classNames?.tabList, className),
-    size: context.size,
     variant: context.variant,
     radius: context.radius,
   })
