@@ -1,5 +1,2 @@
-export { UIContext, useUIContext } from './ui-context'
-export type { UIContextType } from './ui-context'
-
-export { UIProvider } from './ui-provider'
-export type { UIProviderProps } from './ui-provider'
+export { UIContext, useUIContext, type UIContextType } from './ui-context'
+export { UIProvider, type UIProviderProps } from './ui-provider'
