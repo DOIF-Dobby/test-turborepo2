@@ -22,7 +22,7 @@ export function DocsMenus({ contentPathArrays }: DocsMenusProps) {
 
   return (
     <aside className="border-r-base-200 bg-background pt-sw-md sticky top-0 z-10 h-full min-h-dvh min-w-3xs border-r">
-      <div className="gap-sw-md flex flex-col">
+      <div className="gap-sw-xs flex flex-col">
         <DocsMenuSection title="Guides" contentPaths={guides} />
         <DocsMenuSection title="Components" contentPaths={components} />
       </div>

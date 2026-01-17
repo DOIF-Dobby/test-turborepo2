@@ -90,6 +90,11 @@ const spacingGroups = [
   'sw-4xl',
   'page-without-nav',
   'page-with-nav',
+  'sw-btn-md',
+  'sw-btn-sm',
+  'sw-btn-xs',
+  'sw-btn-2xs',
+  'sw-btn-3xs',
 ]
 
 export const swTheme: Partial<ThemeObject<DefaultThemeGroupIds>> = {

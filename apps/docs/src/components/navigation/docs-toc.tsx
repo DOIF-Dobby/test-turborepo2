@@ -25,7 +25,7 @@ export function DocsToc({ headings }: DocsTocProps) {
 
   return (
     <nav>
-      <div className="sticky top-24 my-6 xl:mx-2 xl:my-0 xl:mt-32 xl:w-[130px]">
+      <div className="sticky top-24 mx-6 my-6 xl:mx-2 xl:my-0 xl:mt-32 xl:w-[130px]">
         {headings.map((heading) => {
           const isActive = activeId === heading.id
 

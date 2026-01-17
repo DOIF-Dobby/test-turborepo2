@@ -25,7 +25,7 @@ export function CodeBlock({ preview, code }: Props) {
         <TabsTrigger value="code">Code</TabsTrigger>
       </TabsList>
       <TabsContent value="preview">
-        <div className="border-base-200 overflow-x-auto rounded-lg border px-2 py-4">
+        <div className="border-base-200 overflow-x-auto rounded-lg border p-4">
           {preview}
         </div>
       </TabsContent>

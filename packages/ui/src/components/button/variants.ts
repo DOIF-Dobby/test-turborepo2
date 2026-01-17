@@ -28,11 +28,11 @@ export const buttonVariants = swTwVariants({
       light: '',
     },
     size: {
-      md: ['rounded-input-md', 'text-button-md h-13', 'min-h-13'],
-      sm: ['rounded-input-sm', 'text-button-sm h-11', 'min-h-11'],
-      xs: ['rounded-input-xs', 'text-button-xs h-9', 'min-h-9'],
-      '2xs': ['rounded-input-xs', 'text-button-2xs h-7', 'min-h-7'],
-      '3xs': ['rounded-input-xs', 'text-button-2xs h-5', 'min-h-5'],
+      md: ['rounded-input-md', 'text-button-md h-13', 'min-h-sw-btn-md'],
+      sm: ['rounded-input-sm', 'text-button-sm h-11', 'min-h-sw-btn-sm'],
+      xs: ['rounded-input-xs', 'text-button-xs h-9', 'min-h-sw-btn-xs'],
+      '2xs': ['rounded-input-xs', 'text-button-2xs h-7', 'min-h-sw-btn-2xs'],
+      '3xs': ['rounded-input-xs', 'text-button-2xs h-5', 'min-h-sw-btn-3xs'],
     },
     // isDisabled Variant는 제거하고 HTML disabled 속성에 위임합니다.
     fullWidth: {

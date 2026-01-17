@@ -10,7 +10,9 @@
     "generate:component": "turbo gen react-component",
     "check-types": "tsc --noEmit"
   },
-  "dependencies": {},
+  "dependencies": {
+    "es-toolkit": "^1.44.0"
+  },
   "devDependencies": {
     "@repo/config-eslint": "workspace:*",
     "@repo/config-prettier": "workspace:*",

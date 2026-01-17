@@ -4,7 +4,7 @@ import { swTwVariants } from '../../utils/tw-variants'
 export const labelVariants = swTwVariants({
   slots: {
     label: [
-      'flex',
+      'inline-flex',
       'gap-sw-4xs',
       'cursor-default',
       'peer-disabled:cursor-not-allowed peer-disabled:text-base-500',

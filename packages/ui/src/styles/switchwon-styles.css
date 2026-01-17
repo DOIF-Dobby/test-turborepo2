@@ -22,6 +22,12 @@
   --sw-spacing-page-without-nav: 24px;
   --sw-spacing-page-with-nav: 16px;
 
+  --sw-spacing-btn-md: 52px;
+  --sw-spacing-btn-sm: 44px;
+  --sw-spacing-btn-xs: 36px;
+  --sw-spacing-btn-2xs: 28px;
+  --sw-spacing-btn-3xs: 20px;
+
   --sw-input-radius-xs: 8px;
   --sw-input-radius-sm: 8px;
   --sw-input-radius-md: 10px;
@@ -306,6 +312,12 @@
   --spacing-sw-4xl: var(--sw-spacing-4xl);
   --spacing-page-without-nav: var(--sw-spacing-page-without-nav);
   --spacing-page-with-nav: var(--sw-spacing-page-with-nav);
+
+  --spacing-sw-btn-md: var(--sw-spacing-btn-md);
+  --spacing-sw-btn-sm: var(--sw-spacing-btn-sm);
+  --spacing-sw-btn-xs: var(--sw-spacing-btn-xs);
+  --spacing-sw-btn-2xs: var(--sw-spacing-btn-2xs);
+  --spacing-sw-btn-3xs: var(--sw-spacing-btn-3xs);
 
   --radius-input-xs: var(--sw-input-radius-xs);
   --radius-input-sm: var(--sw-input-radius-sm);

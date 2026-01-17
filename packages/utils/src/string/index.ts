@@ -1,10 +1,11 @@
+import { capitalize, pascalCase } from 'es-toolkit/string'
+
 /**
  * 첫글자를 대문자로 바꾼다.
  */
-export function capitalizeFirstLetter(str: string) {
-  if (!str) {
-    return ''
-  }
+export const capitalizeFirstLetter = (str: string) => capitalize(str)
 
-  return str.charAt(0).toUpperCase() + str.slice(1)
-}
+/**
+ * 파스칼 케이스로 변환한다.
+ */
+export const toPascalCase = (str: string) => pascalCase(str)

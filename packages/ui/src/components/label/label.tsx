@@ -3,7 +3,10 @@ import type { SlotsToClasses } from '../../types'
 import { swClsx } from '../../utils/clsx'
 import { type LabelSlots, labelVariants, type LabelVariants } from './variants'
 
-type Props = Omit<React.ComponentProps<'label'>, keyof LabelVariants> &
+type Props = Omit<
+  React.ComponentProps<'label'>,
+  keyof LabelVariants | 'className'
+> &
   LabelVariants
 
 export interface LabelProps extends Props {

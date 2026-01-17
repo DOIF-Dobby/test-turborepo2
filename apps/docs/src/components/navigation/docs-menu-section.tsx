@@ -7,7 +7,7 @@ import {
 } from '@repo/ui/components/collapsible'
 import { Heading4 } from '@repo/ui/components/typography'
 import { swClsx } from '@repo/ui/utils/clsx'
-import { capitalizeFirstLetter } from '@repo/utils/string'
+import { toPascalCase } from '@repo/utils/string'
 import { ChevronRight } from 'lucide-react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
@@ -36,7 +36,7 @@ export function DocsMenuSection({ title, contentPaths }: DocsMenuSectionProps) {
         />
       </CollapsibleTrigger>
       <CollapsibleContent>
-        <ul className="pt-sw-2xs pb-sw-sm gap-sw-3xs flex flex-col">
+        <ul className="pt-sw-2xs pb-sw-sm flex flex-col">
           {contentPaths.map((contentPath) => {
             const href = `/docs/${contentPath.join('/')}`
             const content = contentPath[contentPath.length - 1]
@@ -51,7 +51,7 @@ export function DocsMenuSection({ title, contentPaths }: DocsMenuSectionProps) {
                       : 'hover:text-base-700 hover:bg-base-200',
                   )}
                 >
-                  {capitalizeFirstLetter(content || '')}
+                  {toPascalCase(content || '')}
                 </li>
               </Link>
             )
