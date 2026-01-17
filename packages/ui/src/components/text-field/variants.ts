@@ -9,7 +9,7 @@ export const textFieldVariants = swTwVariants({
       'border-base-400',
       'rounded-input-md',
       'flex',
-      'gap-sw-3xs',
+      'gap-sw-2xs',
       'items-center',
       'focus-within:border-cta1-hover',
       'focus-within:border-2',
@@ -18,20 +18,62 @@ export const textFieldVariants = swTwVariants({
     input: [],
     label: [],
     labelIndicator: [],
+    clearButton: [
+      'rounded-full',
+      'size-5',
+      'min-h-5',
+      'min-w-5',
+      'p-0',
+      'bg-base-500',
+      'hover:bg-base-600',
+      'data-[pressed=true]:bg-base-700',
+    ],
+    errorMessage: ['text-destructive'],
   },
   variants: {
     size: {
       md: {
         container: ['gap-sw-2xs'],
         inputWrapper: ['min-h-sw-btn-md', 'py-sw-2xs px-sw-sm'],
+        errorMessage: [
+          'text-paragraph-2',
+          'leading-paragraph-2',
+          'font-paragraph-2',
+        ],
       },
       sm: {
         container: ['gap-sw-3xs'],
         inputWrapper: ['min-h-sw-btn-sm', 'py-sw-3xs px-sw-sm'],
+        errorMessage: [
+          'text-paragraph-2',
+          'leading-paragraph-2',
+          'font-paragraph-2',
+        ],
       },
       xs: {
         container: ['gap-sw-3xs'],
         inputWrapper: ['min-h-sw-btn-xs', 'py-sw-3xs px-sw-xs'],
+        errorMessage: [
+          'text-paragraph-4',
+          'leading-paragraph-4',
+          'font-paragraph-4',
+        ],
+      },
+    },
+    isDisabled: {
+      true: {
+        inputWrapper: ['bg-base-100', 'pointer-events-none'],
+        label: ['text-base-500'],
+      },
+    },
+    isInvalid: {
+      true: {
+        inputWrapper: [
+          'border-destructive',
+          'border-2',
+          'hover:border-destructive',
+          'focus-within:border-destructive',
+        ],
       },
     },
   },
