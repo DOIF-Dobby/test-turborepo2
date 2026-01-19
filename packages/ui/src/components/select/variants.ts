@@ -40,6 +40,15 @@ export const selectVariants = swTwVariants({
       'px-sw-2xs',
       'shadow-popover',
     ],
+    clearButton: [
+      'hover:bg-base-200',
+      'text-base-600',
+      'cursor-pointer',
+      'rounded-full',
+      'p-0.5',
+      'transition-colors',
+    ],
+    clearIcon: ['size-4'],
   },
   variants: {
     size: {
