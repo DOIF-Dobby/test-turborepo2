@@ -149,20 +149,22 @@ export function TextField(props: TextFieldProps) {
         }),
       )}
     >
-      <Label
-        classNames={{
-          label: slots.label({
-            className: classNames?.label,
-          }),
-          indicator: slots.labelIndicator({
-            className: classNames?.labelIndicator,
-          }),
-        }}
-        size={size}
-        requiredIndicator={isRequired}
-      >
-        {label}
-      </Label>
+      {label && (
+        <Label
+          classNames={{
+            label: slots.label({
+              className: classNames?.label,
+            }),
+            indicator: slots.labelIndicator({
+              className: classNames?.labelIndicator,
+            }),
+          }}
+          size={size}
+          requiredIndicator={isRequired}
+        >
+          {label}
+        </Label>
+      )}
       <div
         className={swClsx(
           slots.inputWrapper({
