@@ -97,6 +97,8 @@ const spacingGroups = [
   'sw-btn-3xs',
 ]
 
+const shadowGroups = ['shadow-popover']
+
 export const swTheme: Partial<ThemeObject<DefaultThemeGroupIds>> = {
   color: colorGroups,
   spacing: spacingGroups,
@@ -104,6 +106,7 @@ export const swTheme: Partial<ThemeObject<DefaultThemeGroupIds>> = {
   leading: leadingGroups,
   'font-weight': fontWeightGroups,
   text: textGroups,
+  shadow: shadowGroups,
 }
 
 type ThemeObject<ThemeGroupIds extends string> = Record<

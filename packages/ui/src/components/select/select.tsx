@@ -20,6 +20,7 @@ export interface SelectProps extends Props {
   classNames?: SlotsToClasses<SelectSlots>
   isRequired?: boolean
   errorMessage?: React.ReactNode
+  placeholder?: string
 }
 
 export function Select(props: SelectProps) {
@@ -30,6 +31,7 @@ export function Select(props: SelectProps) {
     classNames,
     isRequired = false,
     errorMessage,
+    placeholder = '선택없음',
     ...otherProps
   } = props
 
@@ -77,7 +79,7 @@ export function Select(props: SelectProps) {
           <span
             className={swClsx(slots.value({ className: classNames?.value }))}
           >
-            <SelectPrimitive.Value placeholder="선택해주세요" />
+            <SelectPrimitive.Value placeholder={placeholder} />
           </span>
 
           <SelectPrimitive.Icon asChild>
@@ -89,6 +91,7 @@ export function Select(props: SelectProps) {
         <SelectPrimitive.Portal>
           <SelectPrimitive.Content
             position="popper"
+            sideOffset={6}
             className={swClsx(
               slots.content({
                 className: classNames?.content,

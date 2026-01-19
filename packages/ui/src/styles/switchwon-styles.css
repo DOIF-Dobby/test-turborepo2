@@ -297,6 +297,8 @@
   );
   --color-destructive-content: var(--sw-consistent-white);
 
+  --shadow-popover: 0 4px 8px 0 rgba(0, 0, 0, 0.08);
+
   --spacing-sw-4xs: var(--sw-spacing-4xs);
   --spacing-sw-3xs: var(--sw-spacing-3xs);
   --spacing-sw-2xs: var(--sw-spacing-2xs);

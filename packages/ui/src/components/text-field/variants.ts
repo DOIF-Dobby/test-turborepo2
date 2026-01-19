@@ -7,7 +7,6 @@ export const textFieldVariants = swTwVariants({
     inputWrapper: [
       'border',
       'border-base-400',
-      'rounded-input-md',
       'flex',
       'gap-sw-2xs',
       'items-center',
@@ -34,7 +33,11 @@ export const textFieldVariants = swTwVariants({
     size: {
       md: {
         container: ['gap-sw-2xs'],
-        inputWrapper: ['min-h-sw-btn-md', 'py-sw-2xs px-sw-sm'],
+        inputWrapper: [
+          'min-h-sw-btn-md',
+          'py-sw-2xs px-sw-sm',
+          'rounded-input-md',
+        ],
         errorMessage: [
           'text-paragraph-2',
           'leading-paragraph-2',
@@ -43,7 +46,11 @@ export const textFieldVariants = swTwVariants({
       },
       sm: {
         container: ['gap-sw-3xs'],
-        inputWrapper: ['min-h-sw-btn-sm', 'py-sw-3xs px-sw-sm'],
+        inputWrapper: [
+          'min-h-sw-btn-sm',
+          'py-sw-3xs px-sw-sm',
+          'rounded-input-sm',
+        ],
         errorMessage: [
           'text-paragraph-2',
           'leading-paragraph-2',
@@ -52,7 +59,11 @@ export const textFieldVariants = swTwVariants({
       },
       xs: {
         container: ['gap-sw-3xs'],
-        inputWrapper: ['min-h-sw-btn-xs', 'py-sw-3xs px-sw-xs'],
+        inputWrapper: [
+          'min-h-sw-btn-xs',
+          'py-sw-3xs px-sw-xs',
+          'rounded-input-xs',
+        ],
         errorMessage: [
           'text-paragraph-4',
           'leading-paragraph-4',
