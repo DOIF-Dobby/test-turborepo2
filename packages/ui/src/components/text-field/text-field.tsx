@@ -1,7 +1,8 @@
 'use client'
 
+import { useControllableState } from '@radix-ui/react-use-controllable-state'
 import type { PressEvent } from '@react-aria/interactions'
-import { useMemo, useRef, useState } from 'react'
+import { useRef } from 'react'
 import type { SlotsToClasses } from '../../types'
 import { swClsx } from '../../utils/clsx'
 import { mergeRefs } from '../../utils/merge-refs'
@@ -31,6 +32,7 @@ export interface TextFieldProps extends Props {
   isReadOnly?: boolean
   onClear?: () => void
   onValueChange?: (value: string) => void
+
   startContent?: React.ReactNode
   endContent?: React.ReactNode
   errorMessage?: React.ReactNode
@@ -50,7 +52,7 @@ export function TextField(props: TextFieldProps) {
     onClear,
     onChange,
     onValueChange,
-    value, // value와 defaultValue 모두 꺼냄
+    value: valueProp,
     defaultValue,
     startContent,
     endContent,
@@ -60,83 +62,50 @@ export function TextField(props: TextFieldProps) {
 
   const inputRef = useRef<HTMLInputElement>(null)
   const mergedInputRef = mergeRefs([ref, inputRef])
-
-  // 제어/비제어 모드 판단
-  const isControlled = value !== undefined
-
-  // 에러 상태 판단
   const isInvalid = errorMessage !== undefined
 
-  // 비제어(Uncontrolled) 모드일 때만 내부 상태 사용
-  const [internalHasValue, setInternalHasValue] = useState(() => {
-    if (isControlled) return false // 제어 모드면 이 state 안 씀
-    return defaultValue ? String(defaultValue).length > 0 : false
+  const [value, setValue] = useControllableState({
+    prop: valueProp !== undefined ? String(valueProp) : undefined,
+    defaultProp: defaultValue !== undefined ? String(defaultValue) : '',
+    onChange: onValueChange,
   })
 
-  // 버튼 표시 여부를 렌더링 시점에 즉시 계산 (Derived State)
-  const showClearIcon = useMemo(() => {
-    if (!isClearable) return false
-    if (isDisabled) return false
-    if (isReadOnly) return false
+  // 3. Clear 아이콘 표시 여부 (value는 항상 string이므로 안전하게 체크)
+  const showClearIcon =
+    isClearable &&
+    !isDisabled &&
+    !isReadOnly &&
+    value !== undefined &&
+    value.length > 0
 
-    if (isControlled) {
-      // 제어 모드: 부모가 준 value를 믿음
-      return value !== '' && value !== null && String(value).length > 0
-    } else {
-      // 비제어 모드: 내부 state를 믿음
-      return internalHasValue
-    }
-  }, [
-    isClearable,
-    isControlled,
-    value,
-    internalHasValue,
-    isDisabled,
-    isReadOnly,
-  ])
-
+  // 4. 입력 핸들러
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (!isControlled) {
-      setInternalHasValue(e.target.value.length > 0)
-    }
+    // 훅의 상태 업데이트 (onValueChange 실행됨)
+    setValue(e.target.value)
+    // 부모의 onChange 실행
     onChange?.(e)
-    onValueChange?.(e.target.value)
   }
 
+  // 5. Clear 핸들러
   const handleClear = (e: PressEvent) => {
-    // e.preventDefault() // 폼 제출 방지 등 안전장치
-    // e.stopPropagation()
-
-    const input = inputRef.current
-    if (!input) return
-
-    // React와 폼 라이브러리가 값을 인지하도록 네이티브 세터 호출
-    const nativeInputValueSetter = Object.getOwnPropertyDescriptor(
-      window.HTMLInputElement.prototype,
-      'value',
-    )?.set
-    nativeInputValueSetter?.call(input, '')
-
-    // 강제로 input 이벤트 발송 (이걸 해야 react-hook-form이 감지함)
-    input.dispatchEvent(new Event('input', { bubbles: true }))
-
-    // 비제어 모드라면 내부 상태 즉시 갱신
-    if (!isControlled) {
-      setInternalHasValue(false)
-    }
-
-    // 부모 핸들러 호출 (Mock Event)
-    // 주의: 실제 input 이벤트가 dispatch 되었으므로, onChange가 이미 한 번 실행됐을 수 있음.
-    // 하지만 명시적으로 한 번 더 호출해 주는 것이 안전함 (중복 호출은 React가 보통 막아줌)
-    const event = {
-      ...e,
-      target: { ...input, value: '' },
-      currentTarget: { ...input, value: '' },
-    } as unknown as React.ChangeEvent<HTMLInputElement>
-
-    onChange?.(event)
+    // 상태 비우기
+    setValue('')
     onClear?.()
-    input.focus()
+
+    // 포커스 유지
+    inputRef.current?.focus()
+
+    // 부모가 onChange(Native Event)를 사용하는 경우를 위한 합성 이벤트 발송
+    // (react-hook-form 등과의 호환성 보장)
+    if (onChange && inputRef.current) {
+      const event = {
+        ...e,
+        target: { ...inputRef.current, value: '' },
+        currentTarget: { ...inputRef.current, value: '' },
+        type: 'change',
+      } as unknown as React.ChangeEvent<HTMLInputElement>
+      onChange(event)
+    }
   }
 
   const slots = textFieldVariants({ size, isDisabled, isInvalid })
@@ -149,6 +118,7 @@ export function TextField(props: TextFieldProps) {
         }),
       )}
     >
+      {/* 라벨 영역 */}
       {label && (
         <Label
           classNames={{
@@ -165,6 +135,8 @@ export function TextField(props: TextFieldProps) {
           {label}
         </Label>
       )}
+
+      {/* 인풋 래퍼 */}
       <div
         className={swClsx(
           slots.inputWrapper({
@@ -173,6 +145,7 @@ export function TextField(props: TextFieldProps) {
         )}
       >
         {startContent}
+
         <Input
           ref={mergedInputRef}
           disabled={isDisabled}
@@ -183,16 +156,18 @@ export function TextField(props: TextFieldProps) {
             }),
           )}
           size={size}
+          // 훅에서 관리되는 string 값을 주입 (제어 컴포넌트로 동작)
           value={value}
-          defaultValue={defaultValue}
           onChange={handleChange}
           {...otherProps}
         />
+
+        {/* Clear 버튼 */}
         {showClearIcon && (
           <Button
             type="button"
             onPress={handleClear}
-            tabIndex={-1}
+            tabIndex={-1} // 탭 이동 방지
             className={swClsx(
               slots.clearButton({
                 className: classNames?.clearButton,
@@ -202,8 +177,11 @@ export function TextField(props: TextFieldProps) {
             {clearIcon}
           </Button>
         )}
+
         {endContent}
       </div>
+
+      {/* 에러 메시지 */}
       {errorMessage && (
         <div
           className={swClsx(
