@@ -36,7 +36,7 @@ export function DocsMenuSection({ title, contentPaths }: DocsMenuSectionProps) {
         />
       </CollapsibleTrigger>
       <CollapsibleContent>
-        <ul className="pt-sw-2xs pb-sw-sm flex flex-col">
+        <ul className="pt-sw-2xs pb-sw-sm">
           {contentPaths.map((contentPath) => {
             const href = `/docs/${contentPath.join('/')}`
             const content = contentPath[contentPath.length - 1]
@@ -45,9 +45,9 @@ export function DocsMenuSection({ title, contentPaths }: DocsMenuSectionProps) {
               <Link href={href} key={href}>
                 <li
                   className={swClsx(
-                    'text-base-600 px-sw-xs py-sw-2xs rounded-input-sm font-medium',
+                    'text-base-600 px-sw-xs py-sw-2xs rounded-input-sm',
                     pathname === href
-                      ? 'text-cta1 font-bold'
+                      ? 'text-cta1 font-semibold'
                       : 'hover:text-base-700 hover:bg-base-200',
                   )}
                 >
