@@ -39,6 +39,7 @@ export const selectVariants = swTwVariants({
       'py-sw-2xs',
       'px-sw-2xs',
       'shadow-popover',
+      'max-h-[300px]',
     ],
     clearButton: [
       'hover:bg-base-200',
