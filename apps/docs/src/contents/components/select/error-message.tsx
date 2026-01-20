@@ -2,14 +2,15 @@ import { Select, SelectItem } from '@repo/ui/components/select'
 
 const sizes = ['md', 'sm'] as const
 
-export default function Sizes() {
+export default function ErrorMessage() {
   return (
     <div className="gap-sw-md flex">
       {sizes.map((size) => (
         <Select
-          label={size}
+          label="Error field"
           size={size}
           key={size}
+          errorMessage="error message"
           classNames={{
             container: 'w-1/2',
           }}

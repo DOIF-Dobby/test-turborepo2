@@ -14,7 +14,7 @@ import {
 
 type Props = Omit<
   React.ComponentPropsWithoutRef<typeof SelectPrimitive.Root>,
-  keyof SelectVariants | 'className'
+  keyof SelectVariants | 'className' | 'disabled'
 > &
   SelectVariants
 
@@ -22,9 +22,11 @@ export interface SelectProps extends Props {
   label?: React.ReactNode
   classNames?: SlotsToClasses<SelectSlots>
   isRequired?: boolean
+  isClearable?: boolean
+  isDisabled?: boolean
   errorMessage?: React.ReactNode
   placeholder?: string
-  isClearable?: boolean
+  startContent?: React.ReactNode
   onClear?: () => void
 }
 
@@ -39,8 +41,10 @@ export function Select(props: SelectProps) {
     placeholder = '선택없음',
     value: valueProp, // 외부 제어 값 (별칭 사용)
     defaultValue, // 초기 값
-    onValueChange, // 변경 핸들러
     isClearable = true,
+    isDisabled = false,
+    startContent,
+    onValueChange, // 변경 핸들러
     onClear,
     ...otherProps
   } = props
@@ -82,6 +86,7 @@ export function Select(props: SelectProps) {
   const slots = selectVariants({
     size,
     isInvalid,
+    isDisabled,
   })
 
   return (
@@ -114,6 +119,7 @@ export function Select(props: SelectProps) {
       <SelectPrimitive.Root
         value={value}
         onValueChange={setValue}
+        disabled={isDisabled}
         {...otherProps}
       >
         <SelectPrimitive.Trigger
@@ -124,12 +130,17 @@ export function Select(props: SelectProps) {
             }),
           )}
         >
-          {/* 선택된 값 표시 영역 */}
-          <span
-            className={swClsx(slots.value({ className: classNames?.value }))}
-          >
-            <SelectPrimitive.Value placeholder={placeholder} />
-          </span>
+          <div className="gap-sw-2xs flex flex-1 items-center overflow-hidden">
+            {/* startContent */}
+            {startContent && <span className="shrink-0">{startContent}</span>}
+
+            {/* 선택된 값 표시 영역 */}
+            <span
+              className={swClsx(slots.value({ className: classNames?.value }))}
+            >
+              <SelectPrimitive.Value placeholder={placeholder} />
+            </span>
+          </div>
 
           {/* 아이콘 및 Clear 버튼 영역 */}
           <div className="flex items-center gap-1">
