@@ -18,9 +18,9 @@
     "react-dom": "19.2.3"
   },
   "dependencies": {
-    "@radix-ui/react-use-controllable-state": "^1.2.2",
     "@react-aria/interactions": "^3.26.0",
     "@react-aria/utils": "^3.32.0",
+    "@repo/hooks": "workspace:*",
     "@repo/utils": "workspace:*",
     "clsx": "^2.1.1",
     "lucide-react": "^0.562.0",

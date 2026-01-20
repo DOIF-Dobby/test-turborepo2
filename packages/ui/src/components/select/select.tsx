@@ -1,6 +1,6 @@
 'use client'
 
-import { useControllableState } from '@radix-ui/react-use-controllable-state'
+import { useControllableState } from '@repo/hooks/use-controllable-state'
 import { ChevronDown, X } from 'lucide-react'
 import { Select as SelectPrimitive } from 'radix-ui'
 import type { SlotsToClasses } from '../../types'
@@ -47,8 +47,8 @@ export function Select(props: SelectProps) {
 
   // 1. ✨ Radix 공식 훅을 사용해 제어/비제어 로직 통합
   const [value, setValue] = useControllableState({
-    prop: valueProp,
-    defaultProp: defaultValue || '',
+    value: valueProp,
+    defaultValue,
     onChange: onValueChange,
   })
 

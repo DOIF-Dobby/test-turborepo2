@@ -1,7 +1,7 @@
 'use client'
 
-import { useControllableState } from '@radix-ui/react-use-controllable-state'
 import type { PressEvent } from '@react-aria/interactions'
+import { useControllableState } from '@repo/hooks/use-controllable-state'
 import { useRef } from 'react'
 import type { SlotsToClasses } from '../../types'
 import { swClsx } from '../../utils/clsx'
@@ -65,8 +65,8 @@ export function TextField(props: TextFieldProps) {
   const isInvalid = errorMessage !== undefined
 
   const [value, setValue] = useControllableState({
-    prop: valueProp !== undefined ? String(valueProp) : undefined,
-    defaultProp: defaultValue !== undefined ? String(defaultValue) : '',
+    value: valueProp !== undefined ? String(valueProp) : undefined,
+    defaultValue: defaultValue !== undefined ? String(defaultValue) : '',
     onChange: onValueChange,
   })
 

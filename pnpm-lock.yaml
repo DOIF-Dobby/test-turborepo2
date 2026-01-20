@@ -187,6 +187,10 @@ importers:
   packages/config/typescript: {}
 
   packages/hooks:
+    dependencies:
+      '@radix-ui/react-use-controllable-state':
+        specifier: ^1.2.2
+        version: 1.2.2(@types/react@19.2.3)(react@19.2.3)
     devDependencies:
       '@repo/config-eslint':
         specifier: workspace:*
@@ -215,15 +219,15 @@ importers:
 
   packages/ui:
     dependencies:
-      '@radix-ui/react-use-controllable-state':
-        specifier: ^1.2.2
-        version: 1.2.2(@types/react@19.2.3)(react@19.2.3)
       '@react-aria/interactions':
         specifier: ^3.26.0
         version: 3.26.0(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
       '@react-aria/utils':
         specifier: ^3.32.0
         version: 3.32.0(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
+      '@repo/hooks':
+        specifier: workspace:*
+        version: link:../hooks
       '@repo/utils':
         specifier: workspace:*
         version: link:../utils
