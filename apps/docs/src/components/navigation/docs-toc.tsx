@@ -35,6 +35,7 @@ export function DocsToc({ headings }: DocsTocProps) {
                 href={`#${heading.id}`}
                 className={swClsx([
                   `${paddingMap[heading.depth] ?? ''}`,
+                  'truncate',
                   'text-base-600 hover:text-base-700',
                   isActive && 'text-base-700 font-bold',
                 ])}

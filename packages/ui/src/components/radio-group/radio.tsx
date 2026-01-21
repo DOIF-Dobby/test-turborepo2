@@ -10,6 +10,7 @@ import type { SlotsToClasses } from '../../types'
 import { swClsx } from '../../utils/clsx'
 import { mergeRefs } from '../../utils/merge-refs'
 import { AnimatedRadioIcon } from './animated-radio-icon'
+import { useRadioGroupContext } from './radio-group-context'
 import { radioVariants, type RadioSlots, type RadioVariants } from './variants'
 
 type Props = Omit<
@@ -23,24 +24,35 @@ export interface RadioProps extends Props {
   classNames?: SlotsToClasses<RadioSlots>
   disableAnimation?: boolean
   isDisabled?: boolean
+  isInvalid?: boolean
 }
 
 export function Radio(props: RadioProps) {
   const {
     children,
     classNames,
-    size,
+    size: sizeProp,
     id: idProp,
-    isDisabled = false,
-    disableAnimation: localDisableAnimation = false,
+    isDisabled: isDisabledProp,
+    isInvalid: isInvalidProp,
+    disableAnimation: localDisableAnimation,
     ...otherProps
   } = props
 
   const id = useFallbackId(idProp)
   const innerRef = useRef<HTMLButtonElement>(null)
 
+  const groupContext = useRadioGroupContext()
+
+  const size = groupContext?.size || sizeProp || 'md'
+  const isDisabled = groupContext?.isDisabled || isDisabledProp || false
+  const isInvalid = groupContext?.isInvalid || isInvalidProp || false
+
   const { disableAnimation: globalDisableAnimation } = useUIContext()
-  const shouldDisableAnimation = localDisableAnimation || globalDisableAnimation
+  const shouldDisableAnimation =
+    localDisableAnimation ||
+    groupContext?.disableAnimation || // 그룹 설정 추가
+    globalDisableAnimation
 
   const { pressProps, isPressed } = usePress({
     isDisabled,
@@ -51,16 +63,17 @@ export function Radio(props: RadioProps) {
     isPressed,
     duration: 0.2,
     scale: 0.92,
-    disableAnimation: localDisableAnimation,
+    disableAnimation: shouldDisableAnimation,
   })
 
-  const slots = radioVariants({ size })
+  const slots = radioVariants({ size, isInvalid })
 
   return (
     <div
       className={swClsx(slots.container({ className: classNames?.container }))}
     >
       <RadioGroupPrimitive.Item
+        suppressHydrationWarning
         ref={mergeRefs([innerRef, scope])}
         id={id}
         className={swClsx(slots.root({ className: classNames?.root }))}
@@ -79,6 +92,7 @@ export function Radio(props: RadioProps) {
 
       {children && (
         <label
+          suppressHydrationWarning
           htmlFor={id}
           className={swClsx(slots.label({ className: classNames?.label }))}
         >

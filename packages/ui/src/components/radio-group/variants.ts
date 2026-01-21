@@ -70,21 +70,29 @@ export const radioVariants = swTwVariants({
     size: {
       sm: {
         root: ['size-4'],
-        // ✨ [변경] after:size-2 -> size-2 (컨테이너 크기 지정)
         indicator: ['size-2'],
         label: ['text-sm'],
       },
       md: {
         root: ['size-5'],
-        // ✨ [변경] after:size-2.5 -> size-2.5
         indicator: ['size-2.5'],
         label: ['text-base'],
       },
       lg: {
         root: ['size-6'],
-        // ✨ [변경] after:size-3 -> size-3
         indicator: ['size-3'],
         label: ['text-lg'],
+      },
+    },
+    isInvalid: {
+      true: {
+        root: [
+          'border-destructive',
+          'data-[state=checked]:border-destructive',
+          'not-disabled:hover:border-destructive-hover',
+          'text-destructive',
+        ],
+        label: ['text-destructive'],
       },
     },
   },
