@@ -1,7 +1,7 @@
 'use client'
 
+import { useFallbackId } from '@repo/hooks/use-fallback-id'
 import { Tabs as TabsPrimitive } from 'radix-ui'
-import { useId } from 'react'
 import type { SlotsToClasses } from '../../types'
 import { swClsx } from '../../utils/clsx'
 import { TabsContext } from './tabs-context'
@@ -19,8 +19,6 @@ export interface TabsProps extends Props {
 }
 
 export function Tabs(props: TabsProps) {
-  const tabsId = useId()
-
   const {
     children,
     className,
@@ -28,9 +26,11 @@ export function Tabs(props: TabsProps) {
     variant,
     radius,
     value,
+    id,
     ...otherProps
   } = props
 
+  const tabsId = useFallbackId(id)
   const slots = tabsVariatns()
 
   const styles = slots.tabsRoot({

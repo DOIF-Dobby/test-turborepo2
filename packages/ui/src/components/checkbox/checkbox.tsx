@@ -1,9 +1,9 @@
 'use client'
 
 import { useControllableState } from '@repo/hooks/use-controllable-state'
+import { useFallbackId } from '@repo/hooks/use-fallback-id'
 import { Minus } from 'lucide-react'
 import { Checkbox as CheckboxPrimitive } from 'radix-ui'
-import { useId } from 'react'
 import { useUIContext } from '../../providers'
 import type { SlotsToClasses } from '../../types'
 import { swClsx } from '../../utils/clsx'
@@ -53,8 +53,7 @@ export function Checkbox(props: CheckboxProps) {
   } = props
 
   // 1. ID 생성
-  const generatedId = useId()
-  const id = idProp || generatedId
+  const id = useFallbackId(idProp)
 
   const { disableAnimation: globalDisableAnimation } = useUIContext()
   const shouldDisableAnimation = localDisableAnimation || globalDisableAnimation

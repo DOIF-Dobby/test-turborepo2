@@ -22,6 +22,8 @@ export const checkboxVariants = swTwVariants({
       'ease-in-out',
       'text-cta1-content',
 
+      'not-disabled:hover:border-cta1-hover',
+
       // Checked & Indeterminate 상태 (배경색 채우기)
       'data-[state=checked]:bg-cta1',
       'data-[state=checked]:border-cta1',
