@@ -13,6 +13,7 @@ export const selectVariants = swTwVariants({
       'gap-sw-2xs',
       'items-center',
       'outline-none',
+      'cursor-pointer',
       'data-[state=open]:border-cta1-hover',
       'data-[state=open]:border-2',
       'focus-within:border-cta1-hover',

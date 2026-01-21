@@ -1,11 +1,13 @@
 'use client'
 
 import { useControllableState } from '@repo/hooks/use-controllable-state'
-import { Check, Minus } from 'lucide-react'
+import { Minus } from 'lucide-react'
 import { Checkbox as CheckboxPrimitive } from 'radix-ui'
 import { useId } from 'react'
+import { useUIContext } from '../../providers'
 import type { SlotsToClasses } from '../../types'
 import { swClsx } from '../../utils/clsx'
+import { AnimatedCheckIcon } from './animated-check-icon'
 import {
   type CheckboxSlots,
   checkboxVariants,
@@ -13,7 +15,7 @@ import {
 } from './variants'
 
 // Radix의 CheckedState는 boolean | 'indeterminate' 입니다.
-type CheckedState = CheckboxPrimitive.CheckedState
+export type CheckedState = CheckboxPrimitive.CheckedState
 
 type Props = Omit<
   React.ComponentPropsWithoutRef<typeof CheckboxPrimitive.Root>,
@@ -45,6 +47,7 @@ export function Checkbox(props: CheckboxProps) {
     size,
     isInvalid,
     isDisabled,
+    disableAnimation: localDisableAnimation,
     id: idProp,
     ...otherProps
   } = props
@@ -52,6 +55,9 @@ export function Checkbox(props: CheckboxProps) {
   // 1. ID 생성
   const generatedId = useId()
   const id = idProp || generatedId
+
+  const { disableAnimation: globalDisableAnimation } = useUIContext()
+  const shouldDisableAnimation = localDisableAnimation || globalDisableAnimation
 
   // 2. 상태 관리
   const [checked, setChecked] = useControllableState<CheckedState>({
@@ -61,7 +67,12 @@ export function Checkbox(props: CheckboxProps) {
   })
 
   // 3. 스타일 슬롯
-  const slots = checkboxVariants({ size, isInvalid, isDisabled })
+  const slots = checkboxVariants({
+    size,
+    isInvalid,
+    isDisabled,
+    disableAnimation: shouldDisableAnimation,
+  })
 
   return (
     <div
@@ -76,7 +87,7 @@ export function Checkbox(props: CheckboxProps) {
         className={swClsx(slots.root({ className: classNames?.root }))}
         {...otherProps}
       >
-        <CheckboxPrimitive.Indicator
+        <div
           className={swClsx(
             slots.indicator({ className: classNames?.indicator }),
           )}
@@ -86,21 +97,20 @@ export function Checkbox(props: CheckboxProps) {
               className={swClsx(slots.icon({ className: classNames?.icon }))}
             />
           ) : (
-            <Check
+            <AnimatedCheckIcon
+              checked={checked === true}
+              disableAnimation={shouldDisableAnimation}
               className={swClsx(slots.icon({ className: classNames?.icon }))}
             />
           )}
-        </CheckboxPrimitive.Indicator>
+        </div>
       </CheckboxPrimitive.Root>
 
-      {/* 불필요한 labelWrapper div 제거하고 바로 label 렌더링 */}
       {children && (
         <label
           suppressHydrationWarning
           htmlFor={id}
           className={swClsx(slots.label({ className: classNames?.label }))}
-          // 라벨 클릭 시 텍스트 드래그 방지 및 커서 포인터
-          style={{ userSelect: 'none', cursor: 'pointer' }}
         >
           {children}
         </label>

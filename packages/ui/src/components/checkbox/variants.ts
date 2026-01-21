@@ -3,42 +3,38 @@ import { swTwVariants } from '../../utils/tw-variants'
 
 export const checkboxVariants = swTwVariants({
   slots: {
-    container: ['flex', 'items-start', 'gap-2'], // 라벨과 체크박스를 감싸는 컨테이너
+    container: ['flex', 'gap-sw-2xs', 'items-center'],
     root: [
       'peer',
       'shrink-0',
       'border',
       'border-base-400',
+      'cursor-pointer',
       'ring-offset-background',
       'focus-visible:outline-none',
       'focus-visible:ring-2',
       'focus-visible:ring-cta1-hover',
       'focus-visible:ring-offset-2',
       'disabled:cursor-not-allowed',
-      'disabled:opacity-50',
+
+      'transition-all',
+      'duration-200',
+      'ease-in-out',
+      'text-cta1-content',
 
       // Checked & Indeterminate 상태 (배경색 채우기)
       'data-[state=checked]:bg-cta1',
-      'data-[state=checked]:text-cta1-content',
       'data-[state=checked]:border-cta1',
 
       'data-[state=indeterminate]:bg-cta1',
-      'data-[state=indeterminate]:text-cta1-content',
       'data-[state=indeterminate]:border-cta1',
 
-      'transition-colors',
+      'disabled:data-[state=checked]:bg-base-400',
+      'disabled:data-[state=checked]:border-base-400',
     ],
     indicator: ['flex', 'items-center', 'justify-center', 'text-current'],
     icon: ['size-full'],
-    labelWrapper: ['grid', 'gap-1.5', 'leading-none'],
-    label: [
-      'text-sm',
-      'font-medium',
-      'leading-none',
-      'peer-disabled:cursor-not-allowed',
-      'peer-disabled:opacity-70',
-      'select-none',
-    ],
+    label: ['select-none', 'cursor-pointer', 'peer-disabled:text-base-400'],
     description: ['text-sm', 'text-base-500'],
   },
   variants: {
@@ -46,17 +42,12 @@ export const checkboxVariants = swTwVariants({
       sm: {
         root: ['size-4', 'rounded-sm'],
         icon: ['size-3'],
-        label: ['text-xs'],
+        label: ['text-paragraph-2', 'font-paragraph-2', 'leading-paragraph-2'],
       },
       md: {
-        root: ['size-5', 'rounded'],
+        root: ['size-5', 'rounded-md'],
         icon: ['size-3.5'],
-        label: ['text-sm'],
-      },
-      lg: {
-        root: ['size-6', 'rounded-md'],
-        icon: ['size-4'],
-        label: ['text-base'],
+        label: ['text-heading-6', 'font-heading-6', 'leading-heading-6'],
       },
     },
     isInvalid: {
@@ -71,8 +62,13 @@ export const checkboxVariants = swTwVariants({
     },
     isDisabled: {
       true: {
-        root: ['cursor-not-allowed', 'opacity-50'],
-        label: ['cursor-not-allowed', 'opacity-50'],
+        root: ['cursor-not-allowed'],
+        label: ['cursor-not-allowed'],
+      },
+    },
+    disableAnimation: {
+      true: {
+        root: ['transition-none', 'duration-0'],
       },
     },
   },

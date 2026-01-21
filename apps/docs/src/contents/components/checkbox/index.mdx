@@ -2,9 +2,51 @@ import { CodeBlock } from '@/components/code-block'
 
 import Default from './default'
 import DefaultRaw from './default?raw'
+import Sizes from './sizes'
+import SizesRaw from './sizes?raw'
+import Disabled from './disabled'
+import DisabledRaw from './disabled?raw'
+import DefaultChecked from './default-checked'
+import DefaultCheckedRaw from './default-checked?raw'
+import Controlled from './controlled'
+import ControlledRaw from './controlled?raw'
+import Indeterminate from './indeterminate'
+import IndeterminateRaw from './indeterminate?raw'
+import DisableAnimation from './disable-animation'
+import DisableAnimationRaw from './disable-animation?raw'
 
 # Checkbox
 
 ## Default
 
 <CodeBlock preview={<Default />} code={DefaultRaw} />
+
+## Sizes
+
+<CodeBlock preview={<Sizes />} code={SizesRaw} />
+
+## Disabled
+
+<CodeBlock preview={<Disabled />} code={DisabledRaw} />
+
+## Default Checked
+
+`defaultChecked` 속성을 사용하면 기본값을 설정할 수 있습니다. 이 방식은 **Uncontrolled** 방식입니다.
+
+<CodeBlock preview={<DefaultChecked />} code={DefaultCheckedRaw} />
+
+## Controlled
+
+`checked` 속성을 사용하면 상태를 제어할 수 있습니다. 이 방식은 **Controlled** 방식입니다.
+
+<CodeBlock preview={<Controlled />} code={ControlledRaw} />
+
+## Indeterminate
+
+`checked` 속성을 `indeterminate`로 설정하면 중간 상태를 표현할 수 있습니다.
+
+<CodeBlock preview={<Indeterminate />} code={IndeterminateRaw} />
+
+## Disable Animation
+
+<CodeBlock preview={<DisableAnimation />} code={DisableAnimationRaw} />
