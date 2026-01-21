@@ -17,7 +17,7 @@ export const checkboxVariants = swTwVariants({
       'focus-visible:ring-offset-2',
       'disabled:cursor-not-allowed',
 
-      'transition-all',
+      'transition-colors',
       'duration-200',
       'ease-in-out',
       'text-cta1-content',
@@ -33,6 +33,9 @@ export const checkboxVariants = swTwVariants({
 
       'disabled:data-[state=checked]:bg-base-400',
       'disabled:data-[state=checked]:border-base-400',
+
+      'will-change-transform',
+      'transform-gpu',
     ],
     indicator: ['flex', 'items-center', 'justify-center', 'text-current'],
     icon: ['size-full'],

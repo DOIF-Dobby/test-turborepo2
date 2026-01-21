@@ -1,12 +1,16 @@
 'use client'
 
+import { usePress } from '@react-aria/interactions'
 import { useControllableState } from '@repo/hooks/use-controllable-state'
 import { useFallbackId } from '@repo/hooks/use-fallback-id'
 import { Minus } from 'lucide-react'
 import { Checkbox as CheckboxPrimitive } from 'radix-ui'
+import { useRef } from 'react'
+import { useScaleAnimation } from '../../animations/use-scale-animation'
 import { useUIContext } from '../../providers'
 import type { SlotsToClasses } from '../../types'
 import { swClsx } from '../../utils/clsx'
+import { mergeRefs } from '../../utils/merge-refs'
 import { AnimatedCheckIcon } from './animated-check-icon'
 import { useCheckboxGroupContext } from './checkbox-group-context'
 import {
@@ -91,6 +95,20 @@ export function Checkbox(props: CheckboxProps) {
     },
   })
 
+  const innerRef = useRef<HTMLButtonElement>(null)
+
+  const { pressProps, isPressed } = usePress({
+    isDisabled,
+    ref: innerRef,
+  })
+
+  const { scope } = useScaleAnimation({
+    isPressed,
+    duration: 0.2,
+    scale: 0.92,
+    disableAnimation: localDisableAnimation,
+  })
+
   // 3. 스타일 슬롯
   const slots = checkboxVariants({
     size,
@@ -104,6 +122,7 @@ export function Checkbox(props: CheckboxProps) {
       className={swClsx(slots.container({ className: classNames?.container }))}
     >
       <CheckboxPrimitive.Root
+        ref={mergeRefs([innerRef, scope])}
         suppressHydrationWarning
         id={id}
         disabled={isDisabled}
@@ -112,6 +131,7 @@ export function Checkbox(props: CheckboxProps) {
         className={swClsx(slots.root({ className: classNames?.root }))}
         name={name}
         {...otherProps}
+        {...pressProps}
       >
         <div
           className={swClsx(

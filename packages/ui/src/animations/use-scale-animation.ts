@@ -1,5 +1,5 @@
 import { useAnimate } from 'motion/react'
-import { useEffect } from 'react'
+import { useLayoutEffect } from 'react'
 import { useUIContext } from '../providers'
 
 export interface UseScaleAnimation {
@@ -27,7 +27,7 @@ export function useScaleAnimation({
   const activeScale = isDisabled ? 1 : scale
   const activeDuration = isDisabled ? 0 : duration
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (isPressed) {
       animate(
         scope.current,
