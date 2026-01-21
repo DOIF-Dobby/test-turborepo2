@@ -6,6 +6,7 @@ export const switchVariants = swTwVariants({
     container: ['group', 'flex', 'items-center', 'gap-sw-2xs'],
     root: [
       'peer',
+      // group/switch 등 active 관련 클래스 제거
       'inline-flex',
       'shrink-0',
       'cursor-pointer',
@@ -19,15 +20,12 @@ export const switchVariants = swTwVariants({
       'data-[state=unchecked]:justify-start',
       'data-[state=checked]:justify-end',
 
-      // Focus Base (색상은 variant에서 처리)
       'focus-visible:ring-2',
       'focus-visible:ring-offset-2',
       'focus-visible:ring-offset-background',
 
-      // Disabled
       'disabled:cursor-not-allowed',
 
-      // Unchecked Background (기본적으로 모두 동일)
       'not-disabled:data-[state=unchecked]:bg-base-500',
       'disabled:data-[state=unchecked]:bg-base-300',
     ],
@@ -69,6 +67,13 @@ export const switchVariants = swTwVariants({
         label: ['text-xl'],
       },
     },
+    // ✨ isPressed 상태 추가
+    // 각 사이즈별로 눌렸을 때의 너비(w-?)를 정의합니다.
+    isPressed: {
+      true: {
+        thumb: [], // 아래 compoundVariants에서 정의
+      },
+    },
     color: {
       cta1: {
         root: [
@@ -93,9 +98,17 @@ export const switchVariants = swTwVariants({
       },
     },
   },
+  // ✨ 복합 조건 (사이즈 + 눌림) 정의
+  compoundVariants: [
+    { size: 'xs', isPressed: true, class: { thumb: 'w-4' } }, // w-3 -> w-4
+    { size: 'sm', isPressed: true, class: { thumb: 'w-5' } }, // w-4 -> w-5
+    { size: 'md', isPressed: true, class: { thumb: 'w-7' } }, // w-6 -> w-7
+    { size: 'lg', isPressed: true, class: { thumb: 'w-11' } }, // w-9.5 -> w-11
+  ],
   defaultVariants: {
     size: 'md',
     color: 'cta1',
+    isPressed: false,
   },
 })
 

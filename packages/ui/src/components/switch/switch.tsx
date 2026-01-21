@@ -1,9 +1,11 @@
 'use client'
 
+import { usePress } from '@react-aria/interactions'
 import { useControllableState } from '@repo/hooks/use-controllable-state'
 import { useFallbackId } from '@repo/hooks/use-fallback-id'
 import { domMax, LazyMotion, m } from 'motion/react'
 import { Switch as SwitchPrimitive } from 'radix-ui'
+import { useRef } from 'react'
 import { useUIContext } from '../../providers'
 import type { SlotsToClasses } from '../../types'
 import { swClsx } from '../../utils/clsx'
@@ -54,13 +56,24 @@ export function Switch(props: SwitchProps) {
   const { disableAnimation: globalDisableAnimation } = useUIContext()
   const shouldDisableAnimation = localDisableAnimation || globalDisableAnimation
 
+  const innerRef = useRef<HTMLButtonElement>(null)
+
+  const { pressProps, isPressed } = usePress({
+    isDisabled,
+    ref: innerRef,
+  })
+
   const [checked, setChecked] = useControllableState<boolean>({
     value: checkedProp,
     defaultValue: defaultChecked ?? false,
     onChange: onCheckedChange,
   })
 
-  const slots = switchVariants({ size, color })
+  const slots = switchVariants({
+    size,
+    color,
+    isPressed: shouldDisableAnimation ? false : isPressed,
+  })
 
   return (
     <div
@@ -68,12 +81,14 @@ export function Switch(props: SwitchProps) {
     >
       <SwitchPrimitive.Root
         suppressHydrationWarning
+        ref={innerRef}
         id={id}
         checked={checked}
         onCheckedChange={setChecked}
         disabled={isDisabled}
         className={swClsx(slots.root({ className: classNames?.root }))}
         {...otherProps}
+        {...pressProps}
       >
         <LazyMotion features={domMax}>
           <SwitchPrimitive.Thumb asChild>
