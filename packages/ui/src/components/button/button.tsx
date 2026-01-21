@@ -10,6 +10,7 @@ import { swClsx } from '../../utils/clsx'
 import { mergeRefs } from '../../utils/merge-refs'
 import { Ripple } from '../ripple'
 import { useRipple } from '../ripple/use-ripple'
+import { Spinner, type SpinnerProps } from '../spinner'
 import { type ButtonVariants, buttonVariants } from './variants'
 
 type Props = Omit<
@@ -25,6 +26,10 @@ export interface ButtonProps extends Props {
   disableRipple?: boolean
   disableAnimation?: boolean
   isDisabled?: boolean
+  isLoading?: boolean
+  startContent?: React.ReactNode
+  endContent?: React.ReactNode
+  spinnerSize?: SpinnerProps['size']
 }
 
 export function Button(props: ButtonProps) {
@@ -37,10 +42,14 @@ export function Button(props: ButtonProps) {
     size,
     className,
     isDisabled = false,
+    isLoading = false,
     fullWidth,
     role = 'button',
     disableRipple = false,
     disableAnimation = false,
+    startContent: startContentProp,
+    endContent,
+    spinnerSize,
     onPress,
     ...otherProps
   } = props
@@ -83,6 +92,12 @@ export function Button(props: ButtonProps) {
     className: swClsx(className),
   })
 
+  const startContent = isLoading ? (
+    <Spinner size={spinnerSize} />
+  ) : (
+    startContentProp
+  )
+
   const Comp = asChild ? Slot.Root : 'button'
 
   // asChild가 true면 Ripple을 렌더링하지 않음 (Slot은 단일 자식만 허용)
@@ -98,7 +113,9 @@ export function Button(props: ButtonProps) {
       data-pressed={isPressed}
       {...mergeProps(pressProps, otherProps)}
     >
+      {startContent}
       {children}
+      {endContent}
       {shouldRenderRipple && <Ripple ripples={ripples} onClear={onClear} />}
     </Comp>
   )

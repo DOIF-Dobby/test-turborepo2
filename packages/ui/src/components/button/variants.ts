@@ -12,6 +12,7 @@ export const buttonVariants = swTwVariants({
     'font-semibold',
     'cursor-pointer',
     'overflow-hidden',
+    'gap-sw-2xs',
     // Disabled 기본 동작 정의
     'disabled:pointer-events-none',
     'disabled:cursor-not-allowed',

@@ -384,6 +384,18 @@
   --leading-paragraph-6: var(--sw-paragraph-6-line-height);
 }
 
+@keyframes uib-dot-pulse {
+  0%,
+  100% {
+    transform: scale(0);
+    opacity: 0.5;
+  }
+  50% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
 /* :focus {
   @apply outline-none;
 }
