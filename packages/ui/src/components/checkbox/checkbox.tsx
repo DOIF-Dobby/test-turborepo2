@@ -8,6 +8,7 @@ import { useUIContext } from '../../providers'
 import type { SlotsToClasses } from '../../types'
 import { swClsx } from '../../utils/clsx'
 import { AnimatedCheckIcon } from './animated-check-icon'
+import { useCheckboxGroupContext } from './checkbox-group-context'
 import {
   type CheckboxSlots,
   checkboxVariants,
@@ -35,6 +36,7 @@ export interface CheckboxProps extends Props {
   classNames?: SlotsToClasses<CheckboxSlots>
   isInvalid?: boolean
   isDisabled?: boolean
+  value?: string
 }
 
 export function Checkbox(props: CheckboxProps) {
@@ -44,25 +46,49 @@ export function Checkbox(props: CheckboxProps) {
     onCheckedChange,
     children,
     classNames,
-    size,
-    isInvalid,
-    isDisabled,
+    size: sizeProp,
+    isInvalid: isInvalidProp,
+    isDisabled: isDisabledProp,
     disableAnimation: localDisableAnimation,
     id: idProp,
+    name: nameProp,
+    value,
     ...otherProps
   } = props
 
   // 1. ID 생성
   const id = useFallbackId(idProp)
 
+  const groupContext = useCheckboxGroupContext()
+  const isInGroup = !!groupContext
+
+  const isCheckedInGroup =
+    isInGroup && value ? groupContext.value.includes(value) : undefined
+
   const { disableAnimation: globalDisableAnimation } = useUIContext()
   const shouldDisableAnimation = localDisableAnimation || globalDisableAnimation
 
+  const isDisabled = groupContext?.isDisabled || isDisabledProp
+  const isInvalid = groupContext?.isInvalid || isInvalidProp
+  const name = groupContext?.name || nameProp
+  const size = groupContext?.size || sizeProp
+
   // 2. 상태 관리
   const [checked, setChecked] = useControllableState<CheckedState>({
-    value: checkedProp,
+    // 그룹 모드면 계산된 값(isCheckedInGroup) 사용
+    value: isInGroup ? isCheckedInGroup : checkedProp,
     defaultValue: defaultChecked ?? false,
-    onChange: onCheckedChange,
+    onChange: (checkedState) => {
+      const isChecked = checkedState === true
+
+      if (isInGroup && value) {
+        // 그룹 모드일 땐 Context 핸들러 실행
+        groupContext.onCheckedChange(value, isChecked)
+      }
+
+      // 항상 외부 핸들러도 실행
+      onCheckedChange?.(checkedState)
+    },
   })
 
   // 3. 스타일 슬롯
@@ -84,6 +110,7 @@ export function Checkbox(props: CheckboxProps) {
         checked={checked}
         onCheckedChange={setChecked}
         className={swClsx(slots.root({ className: classNames?.root }))}
+        name={name}
         {...otherProps}
       >
         <div

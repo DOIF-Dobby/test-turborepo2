@@ -58,6 +58,7 @@ export const checkboxVariants = swTwVariants({
           'border-destructive',
           'data-[state=checked]:bg-destructive',
           'data-[state=checked]:border-destructive',
+          'not-disabled:hover:border-destructive-hover',
         ],
         label: ['text-destructive'],
       },
@@ -79,5 +80,27 @@ export const checkboxVariants = swTwVariants({
   },
 })
 
+export const checkboxGroupVariants = swTwVariants({
+  slots: {
+    root: ['flex', 'gap-sw-sm'],
+  },
+  variants: {
+    orientation: {
+      horizontal: {
+        root: ['flex-row'],
+      },
+      vertical: {
+        root: ['flex-col'],
+      },
+    },
+  },
+  defaultVariants: {
+    orientation: 'horizontal',
+  },
+})
+
 export type CheckboxVariants = VariantProps<typeof checkboxVariants>
 export type CheckboxSlots = keyof ReturnType<typeof checkboxVariants>
+
+export type CheckboxGroupVariants = VariantProps<typeof checkboxGroupVariants>
+export type CheckboxGroupSlots = keyof ReturnType<typeof checkboxGroupVariants>
