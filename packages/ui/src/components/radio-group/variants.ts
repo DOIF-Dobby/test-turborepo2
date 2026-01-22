@@ -44,7 +44,7 @@ export const radioVariants = swTwVariants({
       'focus-visible:ring-offset-2',
 
       // Disabled
-      'disabled:cursor-not-allowed',
+      'disabled:cursor-default',
       'disabled:opacity-50',
 
       // Not Disabled
@@ -62,7 +62,7 @@ export const radioVariants = swTwVariants({
       'cursor-pointer',
       'select-none',
       'text-base-900',
-      'peer-disabled:cursor-not-allowed',
+      'peer-disabled:cursor-default',
       'peer-disabled:opacity-50',
     ],
   },

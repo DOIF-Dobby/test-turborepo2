@@ -29,7 +29,7 @@ export interface ButtonProps extends Props {
   isLoading?: boolean
   startContent?: React.ReactNode
   endContent?: React.ReactNode
-  spinnerSize?: SpinnerProps['size']
+  spinnerProps?: SpinnerProps
 }
 
 export function Button(props: ButtonProps) {
@@ -49,8 +49,8 @@ export function Button(props: ButtonProps) {
     disableAnimation = false,
     startContent: startContentProp,
     endContent,
-    spinnerSize,
     onPress,
+    spinnerProps,
     ...otherProps
   } = props
 
@@ -72,7 +72,7 @@ export function Button(props: ButtonProps) {
   )
 
   const { pressProps, isPressed } = usePress({
-    isDisabled,
+    isDisabled: isDisabled || isLoading,
     onPress: chain(onPress, handlePress),
     ref: innerRef,
   })
@@ -89,11 +89,12 @@ export function Button(props: ButtonProps) {
     variant,
     size,
     fullWidth,
+    isLoading,
     className: swClsx(className),
   })
 
   const startContent = isLoading ? (
-    <Spinner size={spinnerSize} />
+    <Spinner size="sm" {...spinnerProps} />
   ) : (
     startContentProp
   )

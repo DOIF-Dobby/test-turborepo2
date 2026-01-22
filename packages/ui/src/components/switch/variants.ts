@@ -24,7 +24,7 @@ export const switchVariants = swTwVariants({
       'focus-visible:ring-offset-2',
       'focus-visible:ring-offset-background',
 
-      'disabled:cursor-not-allowed',
+      'disabled:cursor-default',
 
       'not-disabled:data-[state=unchecked]:bg-base-500',
       'disabled:data-[state=unchecked]:bg-base-300',
@@ -40,7 +40,7 @@ export const switchVariants = swTwVariants({
     label: [
       'select-none',
       'cursor-pointer',
-      'peer-disabled:cursor-not-allowed',
+      'peer-disabled:cursor-default',
       'peer-disabled:text-base-500',
     ],
   },

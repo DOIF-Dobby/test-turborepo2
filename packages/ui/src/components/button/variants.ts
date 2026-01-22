@@ -13,15 +13,21 @@ export const buttonVariants = swTwVariants({
     'cursor-pointer',
     'overflow-hidden',
     'gap-sw-2xs',
+
+    'focus-visible:outline-none',
+    'focus-visible:ring-2',
+    'focus-visible:ring-cta1-hover',
+    'focus-visible:ring-offset-2',
+
     // Disabled 기본 동작 정의
     'disabled:pointer-events-none',
-    'disabled:cursor-not-allowed',
+    'disabled:cursor-default',
   ],
   variants: {
     color: {
-      cta1: '',
-      cta2: '',
-      destructive: '',
+      cta1: ['focus-visible:ring-cta1-hover'],
+      cta2: ['focus-visible:ring-cta2-hover'],
+      destructive: ['focus-visible:ring-destructive-hover'],
     },
     variant: {
       solid: '',
@@ -37,7 +43,10 @@ export const buttonVariants = swTwVariants({
     },
     // isDisabled Variant는 제거하고 HTML disabled 속성에 위임합니다.
     fullWidth: {
-      true: 'w-full',
+      true: ['w-full'],
+    },
+    isLoading: {
+      true: ['cursor-default', 'pointer-events-none', 'opacity-60'],
     },
   },
   defaultVariants: {

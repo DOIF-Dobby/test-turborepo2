@@ -7,11 +7,11 @@ export const spinnerVariants = swTwVariants({
   },
   variants: {
     size: {
-      xs: { root: ['size-3'] },
-      sm: { root: ['size-4'] },
+      xs: { root: ['size-4'] },
+      sm: { root: ['size-5'] },
       md: { root: ['size-6'] },
-      lg: { root: ['size-8'] },
-      xl: { root: ['size-12'] },
+      lg: { root: ['size-7'] },
+      xl: { root: ['size-8'] },
     },
     color: {
       current: { root: ['text-current'] },

@@ -7,7 +7,7 @@ export const labelVariants = swTwVariants({
       'inline-flex',
       'gap-sw-4xs',
       'cursor-default',
-      'peer-disabled:cursor-not-allowed peer-disabled:text-base-500',
+      'peer-disabled:cursor-default peer-disabled:text-base-500',
     ],
     indicator: ['text-destructive'],
   },

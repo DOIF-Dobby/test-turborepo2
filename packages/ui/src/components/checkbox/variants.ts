@@ -10,12 +10,11 @@ export const checkboxVariants = swTwVariants({
       'border',
       'border-base-400',
       'cursor-pointer',
-      'ring-offset-background',
       'focus-visible:outline-none',
       'focus-visible:ring-2',
       'focus-visible:ring-cta1-hover',
       'focus-visible:ring-offset-2',
-      'disabled:cursor-not-allowed',
+      'disabled:cursor-default',
 
       'transition-colors',
       'duration-200',
@@ -68,8 +67,8 @@ export const checkboxVariants = swTwVariants({
     },
     isDisabled: {
       true: {
-        root: ['cursor-not-allowed'],
-        label: ['cursor-not-allowed'],
+        root: ['cursor-default'],
+        label: ['cursor-default'],
       },
     },
     disableAnimation: {
