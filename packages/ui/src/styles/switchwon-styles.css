@@ -177,6 +177,14 @@
   --sw-consistent-white: oklch(1 0 0);
   --sw-focus-ring: oklch(0.26 0.0343 264.71);
 
+  --sw-status-buy: oklch(0.6747 0.2106 24.78);
+  --sw-status-buy-hover: oklch(0.9538 0.0229 17.56);
+  --sw-status-buy-pressed: oklch(0.9236 0.038958 17.879);
+
+  --sw-status-sell: oklch(0.5901 0.2227 265.28);
+  --sw-status-sell-hover: oklch(0.9612 0.0182 269.09);
+  --sw-status-sell-pressed: oklch(0.9353 0.0307 271.71);
+
   --sw-gray-0: oklch(0.98 0.0017 247.84);
   --sw-gray-100: oklch(0.96 0.0029 264.54);
   --sw-gray-200: oklch(0.94 0.0046 258.33);
@@ -215,6 +223,18 @@
   --sw-background: oklch(0.23 0.0171 248.59);
   --sw-consistent-white: oklch(1 0 0);
   --sw-focus-ring: oklch(0.75 0.1663 62.59);
+
+  --sw-background: oklch(1 0 0);
+  --sw-consistent-white: oklch(1 0 0);
+  --sw-focus-ring: oklch(0.26 0.0343 264.71);
+
+  --sw-status-buy: oklch(0.6747 0.2106 24.78);
+  --sw-status-buy-hover: oklch(0.3089 0.0254 18.62);
+  --sw-status-buy-pressed: oklch(0.3089 0.0254 18.62);
+
+  --sw-status-sell: oklch(0.5901 0.2227 265.28);
+  --sw-status-sell-hover: oklch(0.3109 0.0279 270.36);
+  --sw-status-sell-pressed: oklch(0.3109 0.0279 270.36);
 
   --sw-gray-0: oklch(0 0 0);
   --sw-gray-100: oklch(0.31 0.0226 248.56);
@@ -257,6 +277,12 @@
   --color-status-good: var(--sw-status-good);
   --color-status-fair: var(--sw-status-fair);
   --color-status-poor: var(--sw-status-poor);
+  --color-status-buy: var(--sw-status-buy);
+  --color-status-buy-hover: var(--sw-status-buy-hover);
+  --color-status-buy-pressed: var(--sw-status-buy-pressed);
+  --color-status-sell: var(--sw-status-sell);
+  --color-status-sell-hover: var(--sw-status-sell-hover);
+  --color-status-sell-pressed: var(--sw-status-sell-pressed);
 
   --color-base-0: var(--sw-gray-0);
   --color-base-100: var(--sw-gray-100);
