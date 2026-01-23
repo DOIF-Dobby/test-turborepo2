@@ -1,11 +1,11 @@
 'use client'
 
-import { usePress } from '@react-aria/interactions'
 import { useControllableState } from '@repo/hooks/use-controllable-state'
 import { useFallbackId } from '@repo/hooks/use-fallback-id'
 import { Minus } from 'lucide-react'
 import { Checkbox as CheckboxPrimitive } from 'radix-ui'
 import { useRef } from 'react'
+import { usePress } from 'react-aria'
 import { useScaleAnimation } from '../../animations/use-scale-animation'
 import { useUIContext } from '../../providers'
 import type { SlotsToClasses } from '../../types'
@@ -100,6 +100,7 @@ export function Checkbox(props: CheckboxProps) {
   const { pressProps, isPressed } = usePress({
     isDisabled,
     ref: innerRef,
+    onPress: () => setChecked((prev) => !prev),
   })
 
   const { scope } = useScaleAnimation({

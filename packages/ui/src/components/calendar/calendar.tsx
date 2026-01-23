@@ -1,183 +1,128 @@
-/* eslint-disable react/prop-types */
 'use client'
 
-import { ko } from 'date-fns/locale'
-import { ChevronLeft, ChevronRight } from 'lucide-react'
+import { createCalendar, getWeeksInMonth } from '@internationalized/date'
+import { useRef } from 'react'
 import {
-  DayFlag,
-  DayPicker,
-  SelectionState,
-  UI,
-  type DayPickerProps,
-} from 'react-day-picker'
-import type { SlotsToClasses } from '../../types'
-import { swClsx } from '../../utils/clsx'
+  useCalendar,
+  useCalendarCell,
+  useCalendarGrid,
+  useLocale,
+} from 'react-aria'
+import { useCalendarState } from 'react-stately'
 import { Button } from '../button'
-import { calendarVariants, type CalendarSlots } from './variants'
 
-const DAYS_OF_WEEK = [
-  'sunday',
-  'monday',
-  'tuesday',
-  'wednesday',
-  'thursday',
-  'friday',
-  'saturday',
-]
+// 1. 메인 캘린더 컴포넌트
+export function Calendar(props: any) {
+  const { locale } = useLocale()
 
-export type CalendarProps = DayPickerProps & {
-  customClassNames?: SlotsToClasses<CalendarSlots>
-  isDivide?: boolean
-}
-
-export function Calendar(props: CalendarProps) {
-  const {
-    classNames,
-    customClassNames,
-    showOutsideDays = true,
-    isDivide = true,
-    ...otherProps
-  } = props
-
-  // 스타일 슬롯 생성
-  const slots = calendarVariants({
-    isDivide,
+  // 상태 관리 (뇌)
+  const state = useCalendarState({
+    ...props,
+    locale,
+    createCalendar,
   })
 
+  // 캘린더 뼈대 (UI 동작)
+  const ref = useRef(null)
+  const { calendarProps, prevButtonProps, nextButtonProps, title } =
+    useCalendar(props, state)
+
   return (
-    <DayPicker
-      showOutsideDays={showOutsideDays}
-      className={swClsx(slots.root({ className: customClassNames?.root }))}
-      locale={ko}
-      classNames={{
-        // 1. Root & Navigation
-        [UI.Months]: slots.months({
-          className: customClassNames?.months,
-        }),
-        [UI.Month]: slots.month({
-          className: customClassNames?.month,
-        }),
-        [UI.MonthCaption]: slots.monthCaption({
-          className: customClassNames?.monthCaption,
-        }),
-        [UI.CaptionLabel]: slots.captionLabel({
-          className: customClassNames?.captionLabel,
-        }),
-        [UI.Nav]: slots.nav({
-          className: customClassNames?.nav,
-        }),
-        [UI.PreviousMonthButton]: slots.buttonPrevious({
-          className: customClassNames?.buttonPrevious,
-        }),
-        [UI.NextMonthButton]: slots.buttonNext({
-          className: customClassNames?.buttonNext,
-        }),
-        [UI.Chevron]: slots.navigationIcon({
-          className: customClassNames?.navigationIcon,
-        }),
+    <div
+      {...calendarProps}
+      ref={ref}
+      style={{ padding: 20, border: '1px solid #ccc', display: 'inline-block' }}
+    >
+      {/* 헤더 영역 */}
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          marginBottom: 10,
+        }}
+      >
+        <Button {...prevButtonProps}>&lt; 이전</Button>
+        <h2 style={{ margin: 0 }}>{title}</h2>
+        <Button {...nextButtonProps}>다음 &gt;</Button>
+      </div>
 
-        // 2. Grid (Table)
-        [UI.MonthGrid]: slots.monthGrid({
-          className: customClassNames?.monthGrid,
-        }),
-        [UI.Weekdays]: slots.weekdays({
-          className: customClassNames?.weekdays,
-        }),
-        [UI.Weekday]: slots.weekday({
-          className: customClassNames?.weekday,
-        }),
-        [UI.Weeks]: slots.weeks({
-          className: customClassNames?.weeks,
-        }),
-        [UI.Week]: slots.week({
-          className: customClassNames?.week,
-        }),
+      {/* 달력 그리드 영역 */}
+      <CalendarGrid state={state} />
+    </div>
+  )
+}
 
-        // 3. Day (Cell)
-        [UI.Day]: slots.day({
-          className: customClassNames?.day,
-        }),
-        [UI.DayButton]: slots.dayButton({
-          className: customClassNames?.dayButton,
-        }),
+// 2. 그리드 컴포넌트 (달력 판)
+function CalendarGrid({ state, ...props }: any) {
+  const { locale } = useLocale()
+  const { gridProps, headerProps, weekDays } = useCalendarGrid(props, state)
 
-        // 4. Modifiers (상태값)
-        [SelectionState.selected]: slots.selected({
-          className: customClassNames?.selected,
-        }),
-        [SelectionState.range_middle]: slots.rangeMiddle({
-          className: customClassNames?.rangeMiddle,
-        }),
-        [SelectionState.range_end]: slots.rangeEnd({
-          className: customClassNames?.rangeEnd,
-        }),
+  // 해당 월이 몇 주인지 계산 (행 개수 결정을 위해 필요)
+  const weeksInMonth = getWeeksInMonth(state.visibleRange.start, locale)
 
-        [DayFlag.today]: slots.today({
-          className: customClassNames?.today,
-        }),
-        [DayFlag.disabled]: slots.disabled({
-          className: customClassNames?.disabled,
-        }),
-        [DayFlag.hidden]: slots.hidden({
-          className: customClassNames?.hidden,
-        }),
+  return (
+    <table {...gridProps} cellPadding={0} cellSpacing={0}>
+      <thead {...headerProps}>
+        <tr>
+          {weekDays.map((day, index) => (
+            <th key={index} style={{ padding: 8, fontSize: 12 }}>
+              {day}
+            </th>
+          ))}
+        </tr>
+      </thead>
+      <tbody>
+        {[...new Array(weeksInMonth)].map((_, weekIndex) => (
+          <tr key={weekIndex}>
+            {state
+              .getDatesInWeek(weekIndex)
+              .map((date, i) =>
+                date ? (
+                  <CalendarCell key={i} state={state} date={date} />
+                ) : (
+                  <td key={i} />
+                ),
+              )}
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  )
+}
 
-        ...classNames,
-      }}
-      components={{
-        MonthGrid: ({ children, ...props }) => <div {...props}>{children}</div>,
-        Weekdays: ({ children, ...props }) => <div {...props}>{children}</div>,
-        Weekday: ({ children, ...props }) => <div {...props}>{children}</div>,
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        Week: ({ children, week, ...props }) => {
-          return <div {...props}>{children}</div>
-        },
-        Weeks: ({ children, ...props }) => <div {...props}>{children}</div>,
+// 3. 셀 컴포넌트 (날짜 하루하루)
+function CalendarCell({ state, date }: any) {
+  const ref = useRef(null)
+  const {
+    cellProps,
+    buttonProps,
+    isSelected,
+    isOutsideVisibleRange,
+    isDisabled,
+    formattedDate,
+  } = useCalendarCell({ date }, state, ref)
 
-        Day: ({ children, day, modifiers, ...props }) => {
-          const dayOfWeek = DAYS_OF_WEEK[day.date.getDay()]
-
-          return (
-            <div
-              {...props}
-              data-day-of-week={dayOfWeek}
-              data-outside={modifiers.outside}
-            >
-              {children}
-            </div>
-          )
-        },
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        DayButton: ({ children, day, modifiers, ...props }) => {
-          return (
-            <button {...props} data-selected={modifiers.selected}>
-              <span
-                data-selected={modifiers.selected}
-                className={swClsx(
-                  slots.dayButtonText({
-                    className: customClassNames?.dayButtonText,
-                  }),
-                )}
-              >
-                {children}
-              </span>
-            </button>
-          )
-        },
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        PreviousMonthButton: ({ disabled, color, ...props }) => {
-          return <Button {...props} isDisabled={disabled} variant="light" />
-        },
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        NextMonthButton: ({ disabled, color, ...props }) => {
-          return <Button {...props} isDisabled={disabled} variant="light" />
-        },
-        Chevron: ({ orientation, ...props }) => {
-          const Icon = orientation === 'left' ? ChevronLeft : ChevronRight
-          return <Icon {...props} />
-        },
-      }}
-      {...otherProps}
-    />
+  return (
+    <td {...cellProps}>
+      <div
+        {...buttonProps}
+        ref={ref}
+        hidden={isOutsideVisibleRange} // 이번 달이 아니면 숨김 (옵션)
+        style={{
+          width: 32,
+          height: 32,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          cursor: 'pointer',
+          background: isSelected ? 'blue' : 'transparent', // 선택되면 파란색
+          color: isSelected ? 'white' : isDisabled ? '#ccc' : 'black',
+          borderRadius: '50%',
+        }}
+      >
+        {formattedDate}
+      </div>
+    </td>
   )
 }

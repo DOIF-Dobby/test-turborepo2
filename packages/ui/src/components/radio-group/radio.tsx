@@ -1,9 +1,9 @@
 'use client'
 
-import { usePress } from '@react-aria/interactions'
 import { useFallbackId } from '@repo/hooks/use-fallback-id'
 import { RadioGroup as RadioGroupPrimitive } from 'radix-ui'
 import { useRef } from 'react'
+import { usePress } from 'react-aria'
 import { useScaleAnimation } from '../../animations/use-scale-animation'
 import { useUIContext } from '../../providers'
 import type { SlotsToClasses } from '../../types'

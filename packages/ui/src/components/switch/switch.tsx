@@ -1,11 +1,11 @@
 'use client'
 
-import { usePress } from '@react-aria/interactions'
 import { useControllableState } from '@repo/hooks/use-controllable-state'
 import { useFallbackId } from '@repo/hooks/use-fallback-id'
 import { domMax, LazyMotion, m } from 'motion/react'
 import { Switch as SwitchPrimitive } from 'radix-ui'
 import { useRef } from 'react'
+import { usePress } from 'react-aria'
 import { useUIContext } from '../../providers'
 import type { SlotsToClasses } from '../../types'
 import { swClsx } from '../../utils/clsx'
@@ -61,6 +61,7 @@ export function Switch(props: SwitchProps) {
   const { pressProps, isPressed } = usePress({
     isDisabled,
     ref: innerRef,
+    onPress: () => setChecked((prev) => !prev),
   })
 
   const [checked, setChecked] = useControllableState<boolean>({

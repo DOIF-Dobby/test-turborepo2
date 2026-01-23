@@ -22,6 +22,9 @@ export const buttonVariants = swTwVariants({
     // Disabled 기본 동작 정의
     'disabled:pointer-events-none',
     'disabled:cursor-default',
+
+    // 로딩 중일 때는 투명도 60%
+    'disabled:data-[loading=true]:opacity-60',
   ],
   variants: {
     color: {
@@ -41,12 +44,8 @@ export const buttonVariants = swTwVariants({
       '2xs': ['rounded-input-xs', 'text-button-2xs h-7', 'min-h-sw-btn-2xs'],
       '3xs': ['rounded-input-xs', 'text-button-2xs h-5', 'min-h-sw-btn-3xs'],
     },
-    // isDisabled Variant는 제거하고 HTML disabled 속성에 위임합니다.
     fullWidth: {
       true: ['w-full'],
-    },
-    isLoading: {
-      true: ['cursor-default', 'pointer-events-none', 'opacity-60'],
     },
   },
   defaultVariants: {
@@ -69,8 +68,7 @@ export const buttonVariants = swTwVariants({
         'hover:bg-cta1-hover',
         'data-[pressed=true]:bg-cta1-pressed',
         // Disabled Style
-        'disabled:bg-cta1-disabled',
-        // Text color는 disabled 상태에서도 cta1-content 유지 (기존 코드 반영)
+        'disabled:data-[loading=false]:bg-cta1-disabled',
       ],
     },
     // Bordered
@@ -79,12 +77,13 @@ export const buttonVariants = swTwVariants({
       variant: 'bordered',
       class: [
         'bg-background',
-        'border border-cta1',
+        'border',
+        'border-cta1',
         'text-cta1',
         'hover:bg-cta1-secondary-hover',
         // Disabled Style
-        'disabled:border-cta1-disabled',
-        'disabled:text-cta1-disabled',
+        'disabled:data-[loading=false]:border-cta1-disabled',
+        'disabled:data-[loading=false]:text-cta1-disabled',
       ],
     },
     // Light
@@ -96,7 +95,7 @@ export const buttonVariants = swTwVariants({
         'text-cta1',
         'hover:bg-cta1-secondary-hover',
         // Disabled Style
-        'disabled:text-cta1-disabled',
+        'disabled:data-[loading=false]:text-cta1-disabled',
       ],
     },
 
@@ -113,7 +112,7 @@ export const buttonVariants = swTwVariants({
         'hover:bg-cta2-hover',
         'data-[pressed=true]:bg-cta2-pressed',
         // Disabled Style
-        'disabled:bg-cta2-disabled',
+        'disabled:data-[loading=false]:bg-cta2-disabled',
       ],
     },
     // Bordered
@@ -126,8 +125,8 @@ export const buttonVariants = swTwVariants({
         'text-cta2',
         'hover:bg-cta2-secondary-hover',
         // Disabled Style
-        'disabled:border-cta2-disabled',
-        'disabled:text-cta2-disabled',
+        'disabled:data-[loading=false]:border-cta2-disabled',
+        'disabled:data-[loading=false]:text-cta2-disabled',
       ],
     },
     // Light
@@ -139,7 +138,7 @@ export const buttonVariants = swTwVariants({
         'text-cta2',
         'hover:bg-cta2-secondary-hover',
         // Disabled Style
-        'disabled:text-cta2-disabled',
+        'disabled:data-[loading=false]:text-cta2-disabled',
       ],
     },
 
@@ -156,7 +155,7 @@ export const buttonVariants = swTwVariants({
         'hover:bg-destructive-hover',
         'data-[pressed=true]:bg-destructive-pressed',
         // Disabled Style
-        'disabled:bg-destructive-disabled',
+        'disabled:data-[loading=false]:bg-destructive-disabled',
       ],
     },
     // Bordered
@@ -165,12 +164,13 @@ export const buttonVariants = swTwVariants({
       variant: 'bordered',
       class: [
         'bg-background',
-        'border border-destructive',
+        'border',
+        'border-destructive',
         'text-destructive',
         'hover:bg-destructive-secondary-hover',
         // Disabled Style
-        'disabled:border-destructive-disabled',
-        'disabled:text-destructive-disabled',
+        'disabled:data-[loading=false]:border-destructive-disabled',
+        'disabled:data-[loading=false]:text-destructive-disabled',
       ],
     },
     // Light
@@ -182,7 +182,7 @@ export const buttonVariants = swTwVariants({
         'text-destructive',
         'hover:bg-destructive-secondary-hover',
         // Disabled Style
-        'disabled:text-destructive-disabled',
+        'disabled:data-[loading=false]:text-destructive-disabled',
       ],
     },
   ],

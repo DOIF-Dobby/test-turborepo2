@@ -1,9 +1,14 @@
 'use client'
 
-import { type PressEvent, usePress } from '@react-aria/interactions'
-import { chain, mergeProps } from '@react-aria/utils'
 import { Slot } from 'radix-ui'
 import { useCallback, useRef } from 'react'
+import {
+  type AriaButtonProps,
+  chain,
+  mergeProps,
+  type PressEvent,
+  useButton,
+} from 'react-aria'
 import { useScaleAnimation } from '../../animations/use-scale-animation'
 import type { AsChild } from '../../types'
 import { swClsx } from '../../utils/clsx'
@@ -14,10 +19,11 @@ import { Spinner, type SpinnerProps } from '../spinner'
 import { type ButtonVariants, buttonVariants } from './variants'
 
 type Props = Omit<
-  Omit<React.ComponentProps<'button'>, keyof ButtonVariants>,
-  'onClick'
+  React.ComponentProps<'button'>,
+  keyof ButtonVariants | 'onClick' | 'onDrag' | 'onDragStart' | 'onDragEnd'
 > &
   ButtonVariants &
+  AriaButtonProps &
   AsChild
 
 export interface ButtonProps extends Props {
@@ -44,12 +50,12 @@ export function Button(props: ButtonProps) {
     isDisabled = false,
     isLoading = false,
     fullWidth,
-    role = 'button',
     disableRipple = false,
     disableAnimation = false,
     startContent: startContentProp,
     endContent,
     onPress,
+    onFocusChange,
     spinnerProps,
     ...otherProps
   } = props
@@ -58,7 +64,7 @@ export function Button(props: ButtonProps) {
 
   const { ripples, onClear, onPress: onRipplePressHandler } = useRipple()
 
-  const handlePress = useCallback(
+  const handleRipplePress = useCallback(
     (e: PressEvent) => {
       if (isDisabled) {
         return
@@ -71,11 +77,22 @@ export function Button(props: ButtonProps) {
     [isDisabled, onRipplePressHandler],
   )
 
-  const { pressProps, isPressed } = usePress({
-    isDisabled: isDisabled || isLoading,
-    onPress: chain(onPress, handlePress),
-    ref: innerRef,
-  })
+  // const { pressProps, isPressed } = usePress({
+  //   isDisabled: isDisabled || isLoading,
+  //   onPress: chain(onPress, handlePress),
+  //   ref: innerRef,
+  // })
+
+  const { buttonProps, isPressed } = useButton(
+    {
+      ...props,
+      isDisabled: isDisabled || isLoading,
+      onPress: chain(onPress, handleRipplePress),
+      onFocusChange,
+      elementType: asChild ? 'span' : 'button',
+    },
+    innerRef,
+  )
 
   const { scope } = useScaleAnimation({
     isPressed,
@@ -89,7 +106,6 @@ export function Button(props: ButtonProps) {
     variant,
     size,
     fullWidth,
-    isLoading,
     className: swClsx(className),
   })
 
@@ -106,17 +122,23 @@ export function Button(props: ButtonProps) {
 
   return (
     <Comp
-      role={role}
-      data-slot="button"
+      {...mergeProps(buttonProps, otherProps)}
       ref={mergeRefs([innerRef, scope, ref])}
-      disabled={isDisabled}
       className={styles}
-      data-pressed={isPressed}
-      {...mergeProps(pressProps, otherProps)}
+      data-slot="button"
+      data-pressed={isPressed ? 'true' : 'false'} // 스타일링용 data 속성
+      data-loading={isLoading ? 'true' : 'false'}
     >
-      {startContent}
-      {children}
-      {endContent}
+      {asChild ? (
+        children
+      ) : (
+        <>
+          {startContent}
+          {children}
+          {endContent}
+        </>
+      )}
+
       {shouldRenderRipple && <Ripple ripples={ripples} onClear={onClear} />}
     </Comp>
   )

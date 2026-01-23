@@ -18,7 +18,7 @@ export default function OnPress() {
         setIsLoading(false)
       }}
     >
-      Save
+      {isLoading ? 'Saving...' : 'Save'}
     </Button>
   )
 }

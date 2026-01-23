@@ -23,9 +23,14 @@ export const tabsVariatns = swTwVariants({
       'data-[state=inactive]:hover:text-base-700',
       'data-[state=inactive]:disabled:text-base-400',
       'not-disabled:cursor-pointer',
+
+      'focus-visible:outline-none',
+      'focus-visible:ring-2',
+      'focus-visible:ring-cta1-hover',
+      'focus-visible:ring-offset-2',
     ],
     tabContent: ['text-base-content'],
-    cursor: '',
+    cursor: [],
   },
   variants: {
     variant: {
