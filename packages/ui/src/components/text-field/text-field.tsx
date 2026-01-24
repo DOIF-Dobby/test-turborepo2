@@ -1,8 +1,8 @@
 'use client'
 
-import type { PressEvent } from '@react-aria/interactions'
 import { useControllableState } from '@repo/hooks/use-controllable-state'
 import { useRef } from 'react'
+import type { PressEvent } from 'react-aria'
 import type { SlotsToClasses } from '../../types'
 import { swClsx } from '../../utils/clsx'
 import { mergeRefs } from '../../utils/merge-refs'

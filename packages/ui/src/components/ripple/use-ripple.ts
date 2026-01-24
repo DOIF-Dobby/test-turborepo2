@@ -1,7 +1,7 @@
-import type { PressEvent } from '@react-aria/interactions'
 import { getUniqueID } from '@repo/utils/common'
-import type React from 'react';
+import type React from 'react'
 import { useCallback, useState } from 'react'
+import type { PressEvent } from 'react-aria'
 
 export type RippleType = {
   key: React.Key

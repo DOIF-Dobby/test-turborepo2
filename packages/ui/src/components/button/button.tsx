@@ -50,6 +50,7 @@ export function Button(props: ButtonProps) {
     isDisabled = false,
     isLoading = false,
     fullWidth,
+    isIconOnly,
     disableRipple = false,
     disableAnimation = false,
     startContent: startContentProp,
@@ -77,12 +78,6 @@ export function Button(props: ButtonProps) {
     [isDisabled, onRipplePressHandler],
   )
 
-  // const { pressProps, isPressed } = usePress({
-  //   isDisabled: isDisabled || isLoading,
-  //   onPress: chain(onPress, handlePress),
-  //   ref: innerRef,
-  // })
-
   const { buttonProps, isPressed } = useButton(
     {
       ...props,
@@ -106,6 +101,7 @@ export function Button(props: ButtonProps) {
     variant,
     size,
     fullWidth,
+    isIconOnly,
     className: swClsx(className),
   })
 

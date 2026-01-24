@@ -1,4 +1,5 @@
 import { MotionConfig } from 'motion/react'
+import { I18nProvider } from 'react-aria'
 import { UIContext, type UIContextType } from './ui-context'
 
 export interface UIProviderProps extends UIContextType {
@@ -8,11 +9,13 @@ export interface UIProviderProps extends UIContextType {
 export function UIProvider({
   children,
   disableAnimation = false,
+  locale = 'ko-KR',
 }: UIProviderProps) {
   return (
     <UIContext
       value={{
         disableAnimation,
+        locale,
       }}
     >
       <MotionConfig
@@ -22,7 +25,7 @@ export function UIProvider({
         //    모션 라이브러리 내부의 불필요한 연산을 방지할 수 있습니다.
         reducedMotion={disableAnimation ? 'always' : 'user'}
       >
-        {children}
+        <I18nProvider locale={locale}>{children}</I18nProvider>
       </MotionConfig>
     </UIContext>
   )

@@ -47,6 +47,9 @@ export const buttonVariants = swTwVariants({
     fullWidth: {
       true: ['w-full'],
     },
+    isIconOnly: {
+      true: ['px-0', 'aspect-square'],
+    },
   },
   defaultVariants: {
     color: 'cta1',

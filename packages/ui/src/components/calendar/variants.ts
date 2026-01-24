@@ -1,72 +1,87 @@
 import type { VariantProps } from 'tailwind-variants'
 import { swTwVariants } from '../../utils/tw-variants'
 
+/**
+ * 달력
+ */
 export const calendarVariants = swTwVariants({
   slots: {
-    root: [''],
-    months: ['relative'],
-    month: ['flex', 'flex-col', 'gap-sw-2xs'],
+    container: ['flex', 'flex-col', 'gap-4'],
+    header: ['flex', 'items-center', 'gap-sw-sm'],
+    title: [],
+    prevButton: [],
+    nextButton: [],
+    prevButtonIcon: ['size-5'],
+    nextButtonIcon: ['size-5'],
+  },
+})
 
-    // Caption & Nav
-    monthCaption: ['h-10', 'flex', 'items-center'],
-    captionLabel: ['font-semibold'],
-    nav: ['absolute', 'right-0', 'h-10', 'flex', 'items-center'],
+/**
+ * 달력 그리드
+ */
+export const calendarGridVariants = swTwVariants({
+  slots: {
+    grid: ['flex', 'flex-col', 'gap-sw-sm'],
+    header: ['grid', 'grid-cols-7', 'w-full'],
+    dayOfWeek: ['flex', 'items-center', 'justify-center'],
+    dayOfWeekContent: ['font-medium', 'text-base-600'],
+    body: ['flex', 'flex-col', 'w-full', 'gap-sw-3xs'],
+    week: ['grid', 'grid-cols-7', 'w-full'],
+  },
+  variants: {
+    showDivideY: {
+      true: {
+        body: ['divide-y', 'divide-base-200'],
+      },
+    },
+    showDivideX: {
+      true: {
+        week: ['divide-x', 'divide-base-200'],
+      },
+    },
+  },
+})
 
-    // Navigation Buttons
-    buttonPrevious: ['size-8', 'p-sw-3xs', 'min-w-fit', 'min-h-0'],
-    buttonNext: ['size-8', 'p-sw-3xs', 'min-w-fit', 'min-h-0'],
-
-    // Navigation Icons
-    navigationIcon: ['size-5'],
-
-    // Grid (Table)
-    monthGrid: ['flex', 'flex-col', 'divide-base-200', 'divide-y'],
-    weekdays: ['flex', 'w-full', 'pb-sw-2xs'],
-    weekday: ['flex', 'w-full', 'justify-center', 'text-sm'],
-    weeks: ['flex', 'flex-col', 'w-full'],
-    week: ['flex', 'w-full'],
-
-    // Day (Cell)
-    day: [
-      'w-full',
-      'flex',
-      'justify-start',
-      'aspect-video',
-      'data-[day-of-week=sunday]:text-red-500',
-      'data-[day-of-week=saturday]:text-blue-500',
-      'data-[outside=true]:text-base-300',
-      'text-base',
-      'p-sw-3xs',
-    ],
-    dayButton: [
-      'flex',
-      'justify-start',
-      'w-full',
-      'h-fit',
-      'hover:cursor-pointer',
-    ],
-    dayButtonText: [
+/**
+ * 달력 셀
+ */
+export const calendarCellVariants = swTwVariants({
+  slots: {
+    cell: ['aspect-square'],
+    cellButton: [
+      'rounded-lg',
+      'w-8',
       'flex',
       'items-center',
       'justify-center',
-      'rounded-full',
-      'size-6',
-      'data-[selected=true]:bg-red-500',
-    ],
+      'aspect-square',
+      'cursor-pointer',
 
-    // Modifiers (State)
-    rangeEnd: [],
-    selected: [''],
-    today: ['text-cta2'],
-    disabled: [],
-    rangeMiddle: [],
-    hidden: [],
+      'focus-visible:outline-none',
+      'focus-visible:ring-2',
+      'focus-visible:ring-cta1-hover',
+      'focus-visible:ring-offset-2',
+
+      'data-[selected=true]:bg-cta1',
+      'data-[selected=true]:text-cta1-content',
+      'data-[today=true]:text-cta2',
+    ],
   },
   variants: {
-    isDivide: {
+    isSelected: {
       true: {
-        weeks: ['divide-y', 'divide-base-200'],
-        week: ['divide-x', 'divide-base-200'],
+        cellButton: [''],
+      },
+    },
+    isDisabled: {
+      true: {
+        cell: [''],
+        cellButton: ['text-base-300', 'cursor-default'],
+      },
+    },
+    isUnavailable: {
+      true: {
+        cellButton: ['text-base-300', 'cursor-default'],
       },
     },
   },
@@ -74,3 +89,9 @@ export const calendarVariants = swTwVariants({
 
 export type CalendarVariants = VariantProps<typeof calendarVariants>
 export type CalendarSlots = keyof ReturnType<typeof calendarVariants>
+
+export type CalendarGridVariants = VariantProps<typeof calendarGridVariants>
+export type CalendarGridSlots = keyof ReturnType<typeof calendarGridVariants>
+
+export type CalendarCellVariants = VariantProps<typeof calendarCellVariants>
+export type CalendarCellSlots = keyof ReturnType<typeof calendarCellVariants>
