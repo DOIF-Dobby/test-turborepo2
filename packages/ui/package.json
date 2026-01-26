@@ -22,7 +22,6 @@
     "@repo/utils": "workspace:*",
     "@repo/date": "workspace:*",
     "clsx": "^2.1.1",
-    "date-fns": "*",
     "lucide-react": "*",
     "motion": "^12.26.2",
     "radix-ui": "^1.4.3",

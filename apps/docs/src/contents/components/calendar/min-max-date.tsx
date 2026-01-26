@@ -1,11 +1,15 @@
+'use client'
+
+import { getToday } from '@repo/date'
 import { Calendar } from '@repo/ui/components/calendar'
-import { addDays, subDays } from 'date-fns'
 
 export default function MinMaxDate() {
+  const today = getToday()
+
   return (
     <Calendar
-      minValue={subDays(new Date(), 7)}
-      maxValue={addDays(new Date(), 14)}
+      minValue={today.subtract({ days: 7 })}
+      maxValue={today.add({ days: 14 })}
     />
   )
 }

@@ -17,7 +17,7 @@
     "@repo/hooks": "workspace:*",
     "@repo/ui": "workspace:*",
     "@repo/utils": "workspace:*",
-    "date-fns": "*",
+    "@repo/date": "workspace:*",
     "estree-util-value-to-estree": "^3.5.0",
     "lucide-react": "*",
     "mdast-util-to-string": "^4.0.0",
