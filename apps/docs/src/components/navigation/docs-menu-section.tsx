@@ -7,7 +7,7 @@ import {
 } from '@repo/ui/components/collapsible'
 import { Heading4 } from '@repo/ui/components/typography'
 import { swClsx } from '@repo/ui/utils/clsx'
-import { toPascalCase } from '@repo/utils/string'
+import { pascalCase } from '@repo/utils/string'
 import { ChevronRight } from 'lucide-react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
@@ -51,7 +51,7 @@ export function DocsMenuSection({ title, contentPaths }: DocsMenuSectionProps) {
                       : 'hover:text-base-700 hover:bg-base-200',
                   )}
                 >
-                  {toPascalCase(content || '')}
+                  {pascalCase(content || '')}
                 </li>
               </Link>
             )
