@@ -49,6 +49,7 @@ export function CalendarGrid(props: CalendarGridProps) {
 
   return (
     <div
+      suppressHydrationWarning
       {...gridProps}
       role="table"
       className={swClsx(slots.grid({ className: classNames?.grid }))}

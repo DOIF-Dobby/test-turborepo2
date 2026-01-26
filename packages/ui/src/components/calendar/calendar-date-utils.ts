@@ -1,6 +1,7 @@
 import {
   CalendarDate,
   getLocalTimeZone,
+  today,
   type DateValue,
 } from '@internationalized/date'
 
@@ -24,4 +25,11 @@ export function toDateValue(date?: Date | null): DateValue | undefined {
  */
 export function toNativeDate(dateValue: DateValue): Date {
   return dateValue.toDate(getLocalTimeZone())
+}
+
+/**
+ * 로컬 타임존 기준 오늘 날짜
+ */
+export function getToday(): CalendarDate {
+  return today(getLocalTimeZone())
 }

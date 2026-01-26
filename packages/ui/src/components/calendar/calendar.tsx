@@ -1,10 +1,6 @@
 'use client'
 
-import {
-  createCalendar,
-  getLocalTimeZone,
-  today,
-} from '@internationalized/date'
+import { createCalendar } from '@internationalized/date'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { useRef } from 'react'
 import {
@@ -14,11 +10,11 @@ import {
   useLocale,
 } from 'react-aria'
 import { useCalendarState } from 'react-stately'
-import { toDateValue, toNativeDate } from '../../internal/convert-date'
 import type { SlotsToClasses } from '../../types'
 import { swClsx } from '../../utils/clsx'
 import { Button } from '../button'
 import { Heading5 } from '../typography'
+import { getToday, toDateValue, toNativeDate } from './calendar-date-utils'
 import { CalendarGrid, type PublicCalendarGridProps } from './calendar-grid'
 import {
   type CalendarSlots,
@@ -94,10 +90,12 @@ export function Calendar(props: CalendarProps) {
   const { calendarProps, prevButtonProps, nextButtonProps, title } =
     useCalendar(ariaProps, state)
 
+  const today = getToday()
   const slots = calendarVariants({})
 
   return (
     <div
+      suppressHydrationWarning
       {...calendarProps}
       ref={ref}
       className={swClsx(
@@ -162,9 +160,11 @@ export function Calendar(props: CalendarProps) {
           />
         </Button>
         <Button
-          onPress={() => state.selectDate(today(getLocalTimeZone()))}
+          onPress={() => {
+            state.setFocusedDate(today)
+          }}
           size="xs"
-          isDisabled={state.isCellDisabled(today(getLocalTimeZone()))}
+          isDisabled={state.isCellUnavailable(today)}
         >
           Today
         </Button>
