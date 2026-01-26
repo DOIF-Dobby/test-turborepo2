@@ -11,7 +11,7 @@
     "check-types": "tsc --noEmit"
   },
   "peerDependencies": {
-    "react": "19.2.3"
+    "react": "*"
   },
   "dependencies": {
     "@radix-ui/react-use-controllable-state": "^1.2.2"
@@ -20,10 +20,10 @@
     "@repo/config-eslint": "workspace:*",
     "@repo/config-prettier": "workspace:*",
     "@repo/config-typescript": "workspace:*",
-    "@types/node": "^22.15.3",
-    "@types/react": "19.2.3",
-    "eslint": "^9.39.1",
-    "react": "19.2.3",
-    "typescript": "5.9.2"
+    "@types/node": "*",
+    "@types/react": "*",
+    "eslint": "*",
+    "react": "*",
+    "typescript": "*"
   }
 }

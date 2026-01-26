@@ -14,16 +14,16 @@
     "check-types": "tsc --noEmit"
   },
   "peerDependencies": {
-    "react": "19.2.3",
-    "react-dom": "19.2.3"
+    "react": "*",
+    "react-dom": "*"
   },
   "dependencies": {
     "@repo/hooks": "workspace:*",
     "@repo/utils": "workspace:*",
     "@repo/date": "workspace:*",
     "clsx": "^2.1.1",
-    "date-fns": "^4.1.0",
-    "lucide-react": "^0.562.0",
+    "date-fns": "*",
+    "lucide-react": "*",
     "motion": "^12.26.2",
     "radix-ui": "^1.4.3",
     "react-aria": "^3.45.0",
@@ -35,14 +35,14 @@
     "@repo/config-eslint": "workspace:*",
     "@repo/config-prettier": "workspace:*",
     "@repo/config-typescript": "workspace:*",
-    "@tailwindcss/postcss": "^4.1.18",
-    "@types/node": "^22.15.3",
-    "@types/react": "19.2.3",
-    "@types/react-dom": "19.2.3",
-    "eslint": "^9.39.1",
-    "react": "19.2.3",
-    "react-dom": "19.2.3",
-    "tailwindcss": "^4.1.18",
-    "typescript": "5.9.2"
+    "@tailwindcss/postcss": "*",
+    "@types/node": "*",
+    "@types/react": "*",
+    "@types/react-dom": "*",
+    "eslint": "*",
+    "react": "*",
+    "react-dom": "*",
+    "tailwindcss": "*",
+    "typescript": "*"
   }
 }

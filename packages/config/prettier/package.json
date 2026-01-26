@@ -7,7 +7,7 @@
     "config.mjs"
   ],
   "devDependencies": {
-    "prettier": "^3.7.4",
+    "prettier": "*",
     "prettier-plugin-organize-imports": "^4.3.0",
     "prettier-plugin-tailwindcss": "^0.6.14"
   }
