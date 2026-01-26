@@ -1,8 +1,4 @@
-import {
-  getLocalTimeZone,
-  today,
-  type CalendarDate,
-} from '@internationalized/date'
+import { getLocalTimeZone, today, type CalendarDate } from '@repo/date'
 import { useRef } from 'react'
 import { useCalendarCell, type AriaCalendarCellProps } from 'react-aria'
 import type { CalendarState } from 'react-stately'

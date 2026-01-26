@@ -18,9 +18,9 @@
     "react-dom": "19.2.3"
   },
   "dependencies": {
-    "@internationalized/date": "^3.10.1",
     "@repo/hooks": "workspace:*",
     "@repo/utils": "workspace:*",
+    "@repo/date": "workspace:*",
     "clsx": "^2.1.1",
     "date-fns": "^4.1.0",
     "lucide-react": "^0.562.0",

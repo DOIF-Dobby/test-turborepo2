@@ -1,6 +1,6 @@
 'use client'
 
-import { createCalendar } from '@internationalized/date'
+import { createCalendar } from '@repo/date'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { useRef } from 'react'
 import {

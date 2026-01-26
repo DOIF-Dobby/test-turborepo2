@@ -1,4 +1,4 @@
-import { getWeeksInMonth } from '@internationalized/date'
+import { getWeeksInMonth } from '@repo/date'
 import {
   useCalendarGrid,
   useLocale,

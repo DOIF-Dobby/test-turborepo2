@@ -3,7 +3,7 @@ import {
   getLocalTimeZone,
   today,
   type DateValue,
-} from '@internationalized/date'
+} from '@repo/date'
 
 /**
  * Date -> DateValue

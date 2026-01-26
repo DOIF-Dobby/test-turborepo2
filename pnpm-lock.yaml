@@ -4,6 +4,9 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+overrides:
+  '@internationalized/date': 3.10.1
+
 importers:
 
   .:
@@ -189,6 +192,37 @@ importers:
 
   packages/config/typescript: {}
 
+  packages/date:
+    dependencies:
+      '@internationalized/date':
+        specifier: 3.10.1
+        version: 3.10.1
+    devDependencies:
+      '@repo/config-eslint':
+        specifier: workspace:*
+        version: link:../config/eslint
+      '@repo/config-prettier':
+        specifier: workspace:*
+        version: link:../config/prettier
+      '@repo/config-typescript':
+        specifier: workspace:*
+        version: link:../config/typescript
+      '@types/node':
+        specifier: ^22.15.3
+        version: 22.15.3
+      '@types/react':
+        specifier: 19.2.3
+        version: 19.2.3
+      '@types/react-dom':
+        specifier: 19.2.3
+        version: 19.2.3(@types/react@19.2.3)
+      eslint:
+        specifier: ^9.39.1
+        version: 9.39.1(jiti@2.6.1)
+      typescript:
+        specifier: 5.9.2
+        version: 5.9.2
+
   packages/hooks:
     dependencies:
       '@radix-ui/react-use-controllable-state':
@@ -222,9 +256,9 @@ importers:
 
   packages/ui:
     dependencies:
-      '@internationalized/date':
-        specifier: ^3.10.1
-        version: 3.10.1
+      '@repo/date':
+        specifier: workspace:*
+        version: link:../date
       '@repo/hooks':
         specifier: workspace:*
         version: link:../hooks

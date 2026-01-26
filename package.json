@@ -24,6 +24,9 @@
   "pnpm": {
     "onlyBuiltDependencies": [
       "sharp"
-    ]
+    ],
+    "overrides": {
+      "@internationalized/date": "3.10.1"
+    }
   }
 }
