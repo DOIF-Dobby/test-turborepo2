@@ -13,9 +13,9 @@
     "check-types": "turbo run check-types"
   },
   "devDependencies": {
-    "prettier": "^3.7.4",
+    "prettier": "*",
     "turbo": "^2.7.4",
-    "typescript": "5.9.2"
+    "typescript": "*"
   },
   "packageManager": "pnpm@10.0.0",
   "engines": {
@@ -26,7 +26,20 @@
       "sharp"
     ],
     "overrides": {
-      "@internationalized/date": "3.10.1"
+      "react": "19.2.3",
+      "react-dom": "19.2.3",
+      "next": "16.1.1",
+      "@internationalized/date": "3.10.1",
+      "date-fns": "4.1.0",
+      "lucide-react": "0.562.0",
+      "typescript": "5.9.2",
+      "eslint": "9.39.1",
+      "prettier": "3.7.4",
+      "tailwindcss": "4.1.18",
+      "@tailwindcss/postcss": "4.1.18",
+      "@types/node": "22.15.3",
+      "@types/react": "19.2.3",
+      "@types/react-dom": "19.2.3"
     }
   }
 }
