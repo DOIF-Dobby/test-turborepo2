@@ -5,7 +5,7 @@ import { useFallbackId } from '@repo/hooks/use-fallback-id'
 import { Minus } from 'lucide-react'
 import { Checkbox as CheckboxPrimitive } from 'radix-ui'
 import { useRef } from 'react'
-import { usePress } from 'react-aria'
+import { mergeProps, usePress } from 'react-aria'
 import { useScaleAnimation } from '../../animations/use-scale-animation'
 import { useUIContext } from '../../providers'
 import type { SlotsToClasses } from '../../types'
@@ -131,8 +131,7 @@ export function Checkbox(props: CheckboxProps) {
         onCheckedChange={setChecked}
         className={swClsx(slots.root({ className: classNames?.root }))}
         name={name}
-        {...otherProps}
-        {...pressProps}
+        {...mergeProps(pressProps, otherProps)}
       >
         <div
           className={swClsx(

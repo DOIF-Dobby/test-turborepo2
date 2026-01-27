@@ -5,7 +5,7 @@ import { useFallbackId } from '@repo/hooks/use-fallback-id'
 import { domMax, LazyMotion, m } from 'motion/react'
 import { Switch as SwitchPrimitive } from 'radix-ui'
 import { useRef } from 'react'
-import { usePress } from 'react-aria'
+import { mergeProps, usePress } from 'react-aria'
 import { useUIContext } from '../../providers'
 import type { SlotsToClasses } from '../../types'
 import { swClsx } from '../../utils/clsx'
@@ -88,8 +88,7 @@ export function Switch(props: SwitchProps) {
         onCheckedChange={setChecked}
         disabled={isDisabled}
         className={swClsx(slots.root({ className: classNames?.root }))}
-        {...otherProps}
-        {...pressProps}
+        {...mergeProps(pressProps, otherProps)}
       >
         <LazyMotion features={domMax}>
           <SwitchPrimitive.Thumb asChild>
