@@ -23,7 +23,7 @@ type Props = Omit<
   keyof ButtonVariants | 'onClick' | 'onDrag' | 'onDragStart' | 'onDragEnd'
 > &
   ButtonVariants &
-  AriaButtonProps &
+  Omit<AriaButtonProps, 'onClick'> &
   AsChild
 
 export interface ButtonProps extends Props {
@@ -55,11 +55,14 @@ export function Button(props: ButtonProps) {
     disableAnimation = false,
     startContent: startContentProp,
     endContent,
+    spinnerProps,
     onPress,
     onFocusChange,
-    spinnerProps,
+    onClick,
     ...otherProps
-  } = props
+  } = props as ButtonProps & {
+    onClick?: AriaButtonProps['onClick']
+  }
 
   const innerRef = useRef<HTMLButtonElement>(null)
 
@@ -80,7 +83,8 @@ export function Button(props: ButtonProps) {
 
   const { buttonProps, isPressed } = useButton(
     {
-      ...props,
+      ...otherProps,
+      onClick: onClick,
       isDisabled: isDisabled || isLoading,
       onPress: chain(onPress, handleRipplePress),
       onFocusChange,
@@ -119,11 +123,12 @@ export function Button(props: ButtonProps) {
   return (
     <Comp
       {...mergeProps(buttonProps, otherProps)}
+      suppressHydrationWarning
       ref={mergeRefs([innerRef, scope, ref])}
       className={styles}
       data-slot="button"
-      data-pressed={isPressed ? 'true' : 'false'} // 스타일링용 data 속성
-      data-loading={isLoading ? 'true' : 'false'}
+      data-pressed={isPressed}
+      data-loading={isLoading}
     >
       {asChild ? (
         children

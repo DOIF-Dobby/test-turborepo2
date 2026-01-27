@@ -98,6 +98,7 @@ const spacingGroups = [
 ]
 
 const shadowGroups = ['shadow-popover']
+const dropShadowGroups = ['drop-shadow-popover-arrow']
 
 export const swTheme: Partial<ThemeObject<DefaultThemeGroupIds>> = {
   color: colorGroups,
@@ -107,6 +108,7 @@ export const swTheme: Partial<ThemeObject<DefaultThemeGroupIds>> = {
   'font-weight': fontWeightGroups,
   text: textGroups,
   shadow: shadowGroups,
+  'drop-shadow': dropShadowGroups,
 }
 
 type ThemeObject<ThemeGroupIds extends string> = Record<
