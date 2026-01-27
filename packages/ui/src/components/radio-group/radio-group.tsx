@@ -12,7 +12,7 @@ import {
 } from './variants'
 
 type Props = Omit<
-  React.ComponentPropsWithoutRef<typeof RadioGroupPrimitive.Root>,
+  RadioGroupPrimitive.RadioGroupProps,
   keyof RadioGroupVariants | 'className'
 > &
   RadioGroupVariants

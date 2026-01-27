@@ -14,7 +14,7 @@ import { useRadioGroupContext } from './radio-group-context'
 import { radioVariants, type RadioSlots, type RadioVariants } from './variants'
 
 type Props = Omit<
-  React.ComponentPropsWithoutRef<typeof RadioGroupPrimitive.Item>,
+  RadioGroupPrimitive.RadioGroupItemProps,
   keyof RadioVariants | 'className'
 > &
   RadioVariants

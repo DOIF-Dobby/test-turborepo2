@@ -9,7 +9,7 @@ import {
 } from './variants'
 
 type Props = Omit<
-  React.ComponentPropsWithoutRef<typeof SelectPrimitive.Item>,
+  SelectPrimitive.SelectItemProps,
   keyof SelectItemVariants | 'className'
 > &
   SelectItemVariants

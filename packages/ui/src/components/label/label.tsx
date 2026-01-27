@@ -4,7 +4,7 @@ import { swClsx } from '../../utils/clsx'
 import { type LabelSlots, labelVariants, type LabelVariants } from './variants'
 
 type Props = Omit<
-  React.ComponentProps<'label'>,
+  LabelPrimitive.LabelProps,
   keyof LabelVariants | 'className'
 > &
   LabelVariants
@@ -17,7 +17,6 @@ export interface LabelProps extends Props {
 
 export function Label(props: LabelProps) {
   const {
-    ref,
     size,
     classNames,
     children,
@@ -38,11 +37,7 @@ export function Label(props: LabelProps) {
   })
 
   return (
-    <LabelPrimitive.Root
-      ref={ref}
-      className={swClsx(labelStyles)}
-      {...otherProps}
-    >
+    <LabelPrimitive.Root className={swClsx(labelStyles)} {...otherProps}>
       {children}
       {requiredIndicator && (
         <span className={swClsx(indicatorStyles)}>{indicatorValue}</span>

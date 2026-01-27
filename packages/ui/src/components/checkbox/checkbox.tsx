@@ -23,7 +23,7 @@ import {
 export type CheckedState = CheckboxPrimitive.CheckedState
 
 type Props = Omit<
-  React.ComponentPropsWithoutRef<typeof CheckboxPrimitive.Root>,
+  CheckboxPrimitive.CheckboxProps,
   | keyof CheckboxVariants
   | 'className'
   | 'checked'

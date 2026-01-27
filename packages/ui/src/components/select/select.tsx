@@ -13,7 +13,7 @@ import {
 } from './variants'
 
 type Props = Omit<
-  React.ComponentPropsWithoutRef<typeof SelectPrimitive.Root>,
+  SelectPrimitive.SelectProps,
   keyof SelectVariants | 'className' | 'disabled'
 > &
   SelectVariants

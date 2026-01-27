@@ -1,10 +1,7 @@
 import { Popover as PopoverPrimitive } from 'radix-ui'
 import type { PopoverVariants } from './variants'
 
-type Props = Omit<
-  React.ComponentPropsWithoutRef<typeof PopoverPrimitive.Root>,
-  keyof PopoverVariants
-> &
+type Props = Omit<PopoverPrimitive.PopoverProps, keyof PopoverVariants> &
   PopoverVariants
 
 export interface PopoverProps extends Props {}

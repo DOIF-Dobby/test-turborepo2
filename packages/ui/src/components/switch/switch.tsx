@@ -16,7 +16,7 @@ import {
 } from './variants'
 
 type Props = Omit<
-  React.ComponentPropsWithoutRef<typeof SwitchPrimitive.Root>,
+  SwitchPrimitive.SwitchProps,
   | keyof SwitchVariants
   | 'className'
   | 'checked'
