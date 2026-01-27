@@ -1,6 +1,6 @@
 'use client'
 
-import { Flex, type FlexProps } from '@repo/ui/components/flex'
+import { Frame, type FrameProps } from '@repo/ui/components/frame'
 import { useState } from 'react'
 
 const items = ['안녕하세요.', '반갑습니다.', '또 만나요.']
@@ -21,7 +21,7 @@ const gaps = [
 ]
 
 export default function Gap() {
-  const [gap, setGap] = useState<FlexProps['gap']>('xs')
+  const [gap, setGap] = useState<FrameProps['gap']>('xs')
 
   return (
     <>
@@ -33,18 +33,18 @@ export default function Gap() {
               name="gap"
               value={gapOption}
               checked={gapOption === gap}
-              onChange={(e) => setGap(e.target.value as FlexProps['gap'])}
+              onChange={(e) => setGap(e.target.value as FrameProps['gap'])}
             />
             {gapOption}
           </label>
         ))}
       </div>
 
-      <Flex gap={gap}>
+      <Frame gap={gap}>
         {items.map((item) => (
           <div key={item}>{item}</div>
         ))}
-      </Flex>
+      </Frame>
     </>
   )
 }

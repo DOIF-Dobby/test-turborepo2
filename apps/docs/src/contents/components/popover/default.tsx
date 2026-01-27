@@ -1,4 +1,4 @@
-import { Button } from '@repo/ui/components/button'
+import { Frame } from '@repo/ui/components/frame'
 import {
   Popover,
   PopoverContent,
@@ -8,10 +8,12 @@ import {
 export default function Default() {
   return (
     <Popover>
-      <PopoverTrigger asChild>
-        <Button>Trigger</Button>
-      </PopoverTrigger>
-      <PopoverContent arrowPadding={50}>Content</PopoverContent>
+      <PopoverTrigger>Trigger</PopoverTrigger>
+      <PopoverContent>
+        <Frame>Content</Frame>
+        <Frame>Content</Frame>
+        <Frame>Content</Frame>
+      </PopoverContent>
     </Popover>
   )
 }

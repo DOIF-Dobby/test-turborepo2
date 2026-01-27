@@ -1,7 +1,7 @@
 import type { VariantProps } from 'tailwind-variants'
 import { swTwVariants } from '../../utils/tw-variants'
 
-export const flexVariants = swTwVariants({
+export const frameVariants = swTwVariants({
   base: ['flex', 'px-sw-ml', 'py-sw-sm'],
   variants: {
     direction: {
@@ -30,4 +30,4 @@ export const flexVariants = swTwVariants({
   },
 })
 
-export type FlexVariants = VariantProps<typeof flexVariants>
+export type FrameVariants = VariantProps<typeof frameVariants>

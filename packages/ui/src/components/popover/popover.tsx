@@ -46,6 +46,8 @@ export function PopoverContent(props: PopoverContentProps) {
     forceMount,
     showArrow = false,
     sideOffset = 5,
+    side = 'bottom',
+    align = 'start',
     classNames,
     ...contentProps
   } = props
@@ -57,6 +59,8 @@ export function PopoverContent(props: PopoverContentProps) {
       <PopoverPrimitive.Content
         {...contentProps}
         sideOffset={sideOffset}
+        side={side}
+        align={align}
         className={swClsx(
           slots.content({
             className: classNames?.content,
