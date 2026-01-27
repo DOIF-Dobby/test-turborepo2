@@ -15,7 +15,7 @@ export function Collapsible({
   onOpenChange,
   defaultOpen,
   ...props
-}: React.ComponentProps<typeof CollapsiblePrimitive.Root>) {
+}: CollapsiblePrimitive.CollapsibleProps) {
   const [isOpenState, setIsOpenState] = useState(defaultOpen || false)
 
   const isOpen = openProp ?? isOpenState
@@ -41,20 +41,18 @@ export function Collapsible({
 // 3. Trigger Component (단순 래퍼)
 export function CollapsibleTrigger({
   ...props
-}: React.ComponentProps<typeof CollapsiblePrimitive.Trigger>) {
+}: CollapsiblePrimitive.CollapsibleTriggerProps) {
   return <CollapsiblePrimitive.Trigger {...props} suppressHydrationWarning />
 }
 
 // 4. Content Component (애니메이션 적용)
-interface CollapsibleContentProps extends React.ComponentProps<
-  typeof CollapsiblePrimitive.Content
-> {
+interface CollapsibleContentProps
+  extends CollapsiblePrimitive.CollapsibleContentProps {
   disableAnimation?: boolean
   duration?: number
 }
 
 export function CollapsibleContent({
-  ref,
   className,
   children,
   disableAnimation,
@@ -76,7 +74,6 @@ export function CollapsibleContent({
     <CollapsiblePrimitive.Content
       // Radix Content는 닫히면 언마운트되므로 forceMount 필수
       forceMount
-      ref={ref}
       {...props}
       asChild
     >
