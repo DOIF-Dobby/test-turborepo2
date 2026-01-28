@@ -21,6 +21,8 @@ export interface PopoverContentProps extends ContentProps {
   showArrow?: boolean
   classNames?: SlotsToClasses<PopoverContentSlots>
   zIndex?: number
+  closeOnEscape?: boolean
+  closeOnOutsideClick?: boolean
 }
 
 export function PopoverContent(props: PopoverContentProps) {
@@ -34,6 +36,10 @@ export function PopoverContent(props: PopoverContentProps) {
     align = 'start',
     zIndex = 50,
     classNames,
+    closeOnEscape = true,
+    closeOnOutsideClick = true,
+    onEscapeKeyDown,
+    onPointerDownOutside,
     ...contentProps
   } = props
 
@@ -67,6 +73,18 @@ export function PopoverContent(props: PopoverContentProps) {
             className: classNames?.content,
           }),
         )}
+        onEscapeKeyDown={(event) => {
+          onEscapeKeyDown?.(event)
+          if (closeOnEscape === false) {
+            event.preventDefault()
+          }
+        }}
+        onPointerDownOutside={(event) => {
+          onPointerDownOutside?.(event)
+          if (closeOnOutsideClick === false) {
+            event.preventDefault()
+          }
+        }}
       >
         {children}
 
