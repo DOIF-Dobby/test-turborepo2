@@ -14,7 +14,7 @@
   },
   "devDependencies": {
     "prettier": "*",
-    "turbo": "^2.7.4",
+    "turbo": "2.7.6",
     "typescript": "*"
   },
   "packageManager": "pnpm@10.28.2",
@@ -41,7 +41,8 @@
       "@tailwindcss/postcss": "4.1.18",
       "@types/node": "22.15.3",
       "@types/react": "19.2.3",
-      "@types/react-dom": "19.2.3"
+      "@types/react-dom": "19.2.3",
+      "eslint-plugin-turbo": "2.7.6"
     }
   }
 }
