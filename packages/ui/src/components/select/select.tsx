@@ -52,7 +52,7 @@ export function Select(props: SelectProps) {
   // 1. ✨ Radix 공식 훅을 사용해 제어/비제어 로직 통합
   const [value, setValue] = useControllableState({
     value: valueProp,
-    defaultValue,
+    defaultValue: defaultValue ?? '',
     onChange: onValueChange,
   })
 

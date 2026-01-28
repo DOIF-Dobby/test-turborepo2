@@ -109,7 +109,9 @@ export function DateField(props: DateFieldProps) {
   const slots = dateFieldVariants({ size, isDisabled, isInvalid })
 
   return (
-    <div className={slots.container({ className: classNames?.container })}>
+    <div
+      className={swClsx(slots.container({ className: classNames?.container }))}
+    >
       {label && (
         <Label
           requiredIndicator={isRequired}
