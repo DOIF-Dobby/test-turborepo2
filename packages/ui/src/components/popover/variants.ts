@@ -4,14 +4,14 @@ import { swTwVariants } from '../../utils/tw-variants'
 export const popoverContentVariants = swTwVariants({
   slots: {
     content: [
-      'rounded-xl',
+      'rounded-input-md',
       'bg-background',
       'shadow-popover',
       'py-sw-sm',
+      'border',
+      'border-base-200',
+
       'focus-visible:outline-none',
-      'focus-visible:ring-2',
-      'focus-visible:ring-cta1-hover',
-      'focus-visible:ring-offset-2',
     ],
     arrow: ['fill-background', 'drop-shadow-popover-arrow'],
   },

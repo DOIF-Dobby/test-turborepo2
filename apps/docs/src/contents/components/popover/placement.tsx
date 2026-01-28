@@ -1,3 +1,4 @@
+import { Button } from '@repo/ui/components/button'
 import { Frame } from '@repo/ui/components/frame'
 import {
   Popover,
@@ -15,11 +16,10 @@ export default function Placement() {
         <div key={align} className="gap-sw-xl flex flex-col">
           {sides.map((side) => (
             <Popover key={side}>
-              <PopoverTrigger>{`${side}-${align}`}</PopoverTrigger>
+              <PopoverTrigger asChild>
+                <Button>{`${side}-${align}`}</Button>
+              </PopoverTrigger>
               <PopoverContent side={side} align={align}>
-                <Frame>
-                  Content {side}-{align}
-                </Frame>
                 <Frame>
                   Content {side}-{align}
                 </Frame>
