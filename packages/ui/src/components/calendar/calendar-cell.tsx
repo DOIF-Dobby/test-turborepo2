@@ -19,6 +19,11 @@ interface CalendarCellProps extends Props {
   classNames?: SlotsToClasses<CalendarCellSlots>
 }
 
+export type PublicCalendarCellProps = Omit<
+  CalendarCellProps,
+  keyof AriaCalendarCellProps | keyof CalendarCellVariants | 'state' | 'date'
+>
+
 export function CalendarCell(props: CalendarCellProps) {
   const { state, date, classNames, ...otherProps } = props
 

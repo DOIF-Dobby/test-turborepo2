@@ -46,6 +46,7 @@ export function DateField(props: DateFieldProps) {
     startContent,
     endContent,
     onChange,
+    isDateUnavailable,
     ...otherProps
   } = props
 
@@ -69,13 +70,19 @@ export function DateField(props: DateFieldProps) {
       return
     }
 
+    let targetDate = newDate
+
     if (newDate.compare(minDate) < 0) {
-      setDate(minDate) // 너무 작으면 minDate로 고정
+      targetDate = minDate
     } else if (newDate.compare(maxDate) > 0) {
-      setDate(maxDate) // 너무 크면 maxDate로 고정
-    } else {
-      setDate(newDate) // 통과
+      targetDate = maxDate
     }
+
+    if (isDateUnavailable && isDateUnavailable(targetDate)) {
+      return
+    }
+
+    setDate(targetDate)
   }
 
   const state = useDateFieldState({

@@ -27,21 +27,13 @@ export interface DatePickerProps extends Props {
 }
 
 export function DatePicker(props: DatePickerProps) {
-  const {
-    label,
-    size,
-    classNames,
-    isRequired,
-    isInvalid: isInvalidProps,
-    errorMessage,
-    ...otherProps
-  } = props
+  const { label, size, classNames, ...otherProps } = props
 
-  const isInvalid = !!errorMessage || isInvalidProps
+  const isInvalid = !!props.errorMessage || props.isInvalid
 
   const state = useDatePickerState({
     label,
-    isRequired,
+    isInvalid,
     ...otherProps,
   })
   const ref = useRef<HTMLDivElement>(null)
@@ -57,16 +49,14 @@ export function DatePicker(props: DatePickerProps) {
   } = useDatePicker(
     {
       label,
-      isRequired,
       isInvalid,
-      errorMessage,
       ...otherProps,
     },
     state,
     ref,
   )
 
-  const slots = datePickerVariants({ size })
+  const slots = datePickerVariants({ size, isDisabled: props.isDisabled })
 
   return (
     <div
@@ -79,7 +69,7 @@ export function DatePicker(props: DatePickerProps) {
       {label && (
         <Label
           {...labelProps}
-          requiredIndicator={isRequired}
+          requiredIndicator={props.isRequired}
           suppressHydrationWarning
           size={size}
           classNames={{
@@ -100,6 +90,9 @@ export function DatePicker(props: DatePickerProps) {
               isInvalid={isInvalid}
               errorMessage={false}
               size={size}
+              minValue={props.minValue}
+              maxValue={props.maxValue}
+              isDateUnavailable={props.isDateUnavailable}
               startContent={
                 <CalendarIcon
                   className={swClsx(
@@ -143,15 +136,33 @@ export function DatePicker(props: DatePickerProps) {
         >
           <Calendar
             {...calendarProps}
+            classNames={{
+              container: 'px-sw-sm gap-sw-xs',
+              header: 'justify-center',
+            }}
             gridProps={{
               showDivideX: false,
               showDivideY: false,
+              classNames: {
+                grid: 'gap-sw-3xs',
+                dayOfWeekContent:
+                  'text-paragraph-4 font-paragraph-4 leading-paragraph-4',
+              },
+            }}
+            cellProps={{
+              classNames: {
+                cell: 'aspect-5/4 flex items-center justify-center',
+                cellButton: [
+                  'text-paragraph-1 font-paragraph-1 leading-paragraph-1',
+                  'hover:bg-base-200',
+                ],
+              },
             }}
           />
         </PopoverContent>
       </Popover>
 
-      {errorMessage && (
+      {props.errorMessage && (
         <div
           {...errorMessageProps}
           className={swClsx(
@@ -160,7 +171,7 @@ export function DatePicker(props: DatePickerProps) {
             }),
           )}
         >
-          {errorMessage}
+          {props.errorMessage}
         </div>
       )}
     </div>

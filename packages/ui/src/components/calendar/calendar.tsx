@@ -9,6 +9,7 @@ import type { SlotsToClasses } from '../../types'
 import { swClsx } from '../../utils/clsx'
 import { Button } from '../button'
 import { Heading5 } from '../typography'
+import type { PublicCalendarCellProps } from './calendar-cell'
 import { CalendarGrid, type PublicCalendarGridProps } from './calendar-grid'
 import {
   type CalendarSlots,
@@ -22,10 +23,11 @@ type Props = Omit<AriaCalendarProps<DateValue>, keyof CalendarVariants> &
 export interface CalendarProps extends Props {
   classNames?: SlotsToClasses<CalendarSlots>
   gridProps?: PublicCalendarGridProps
+  cellProps?: PublicCalendarCellProps
 }
 
 export function Calendar(props: CalendarProps) {
-  const { classNames, gridProps, ...otherProps } = props
+  const { classNames, gridProps, cellProps, ...otherProps } = props
 
   const { locale } = useLocale()
 
@@ -120,7 +122,7 @@ export function Calendar(props: CalendarProps) {
       </div>
 
       {/* 달력 그리드 영역 */}
-      <CalendarGrid state={state} {...gridProps} />
+      <CalendarGrid state={state} cellProps={cellProps} {...gridProps} />
     </div>
   )
 }

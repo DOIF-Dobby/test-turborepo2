@@ -7,7 +7,7 @@ import {
 import type { CalendarState } from 'react-stately'
 import type { SlotsToClasses } from '../../types'
 import { swClsx } from '../../utils/clsx'
-import { CalendarCell } from './calendar-cell'
+import { CalendarCell, type PublicCalendarCellProps } from './calendar-cell'
 import {
   calendarGridVariants,
   type CalendarGridSlots,
@@ -20,6 +20,7 @@ type Props = Omit<AriaCalendarGridProps, keyof CalendarGridVariants> &
 interface CalendarGridProps extends Props {
   state: CalendarState
   classNames?: SlotsToClasses<CalendarGridSlots>
+  cellProps?: PublicCalendarCellProps
 }
 
 export type PublicCalendarGridProps = Omit<
@@ -33,6 +34,7 @@ export function CalendarGrid(props: CalendarGridProps) {
     classNames,
     showDivideY = true,
     showDivideX = false,
+    cellProps,
     ...otherProps
   } = props
 
@@ -88,7 +90,12 @@ export function CalendarGrid(props: CalendarGridProps) {
               .getDatesInWeek(weekIndex)
               .map((date, i) =>
                 date ? (
-                  <CalendarCell key={i} state={state} date={date} />
+                  <CalendarCell
+                    key={i}
+                    state={state}
+                    date={date}
+                    {...cellProps}
+                  />
                 ) : (
                   <div key={i} />
                 ),

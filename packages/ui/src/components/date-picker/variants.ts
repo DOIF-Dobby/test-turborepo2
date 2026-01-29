@@ -47,6 +47,11 @@ export const datePickerVariants = swTwVariants({
         openButton: ['h-6', 'min-h-6', 'w-6', 'min-w-6', 'p-0'],
       },
     },
+    isDisabled: {
+      true: {
+        startIcon: ['stroke-base-500'],
+      },
+    },
   },
   defaultVariants: {
     size: 'md',

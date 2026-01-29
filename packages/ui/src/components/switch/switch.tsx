@@ -33,7 +33,7 @@ export interface SwitchProps extends Props {
   children?: React.ReactNode
   classNames?: SlotsToClasses<SwitchSlots>
   isDisabled?: boolean
-  disableAnimation?: boolean // ✨ 애니메이션 제어 Prop
+  disableAnimation?: boolean
 }
 
 export function Switch(props: SwitchProps) {

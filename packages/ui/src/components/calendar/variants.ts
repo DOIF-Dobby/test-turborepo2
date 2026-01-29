@@ -6,9 +6,9 @@ import { swTwVariants } from '../../utils/tw-variants'
  */
 export const calendarVariants = swTwVariants({
   slots: {
-    container: ['flex', 'flex-col', 'gap-4'],
+    container: ['flex', 'flex-col', 'gap-sw-md'],
     header: ['flex', 'items-center', 'gap-sw-sm'],
-    title: [],
+    title: ['text-heading-5', 'font-heading-5', 'leading-heading-5'],
     prevButton: [],
     nextButton: [],
     prevButtonIcon: ['size-5'],
