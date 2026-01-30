@@ -12,10 +12,10 @@ export default async function DocsLayout({
 
   return (
     <DocsProviders>
-      <div className="flex">
+      <DocsHeader />
+      <div className="mx-auto flex max-w-400">
         <DocsMenus contentPathArrays={contentPathArrays} />
         <div className="w-full">
-          <DocsHeader />
           <div className="flex flex-col-reverse justify-between gap-6 xl:flex-row">
             <DocsUIProviderWrapper>{children}</DocsUIProviderWrapper>
           </div>
