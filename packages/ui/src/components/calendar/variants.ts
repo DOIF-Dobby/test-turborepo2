@@ -9,6 +9,7 @@ export const calendarVariants = swTwVariants({
     container: ['flex', 'flex-col', 'gap-sw-md'],
     header: ['flex', 'items-center', 'gap-sw-sm'],
     title: ['text-heading-5', 'font-heading-5', 'leading-heading-5'],
+    todayButton: [],
     prevButton: [],
     nextButton: [],
     prevButtonIcon: ['size-5'],

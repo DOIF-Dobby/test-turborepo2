@@ -137,8 +137,9 @@ export function DatePicker(props: DatePickerProps) {
           <Calendar
             {...calendarProps}
             classNames={{
-              container: 'px-sw-sm gap-sw-xs',
-              header: 'justify-center',
+              container: 'px-sw-2xs gap-sw-xs w-68',
+              header: 'justify-center gap-sw-2xs',
+              todayButton: 'w-16',
             }}
             gridProps={{
               showDivideX: false,

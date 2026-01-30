@@ -24,10 +24,17 @@ export interface CalendarProps extends Props {
   classNames?: SlotsToClasses<CalendarSlots>
   gridProps?: PublicCalendarGridProps
   cellProps?: PublicCalendarCellProps
+  showTodayButton?: boolean
 }
 
 export function Calendar(props: CalendarProps) {
-  const { classNames, gridProps, cellProps, ...otherProps } = props
+  const {
+    classNames,
+    gridProps,
+    cellProps,
+    showTodayButton = true,
+    ...otherProps
+  } = props
 
   const { locale } = useLocale()
 
@@ -110,15 +117,22 @@ export function Calendar(props: CalendarProps) {
             )}
           />
         </Button>
-        <Button
-          onPress={() => {
-            state.setFocusedDate(today)
-          }}
-          size="xs"
-          isDisabled={state.isCellUnavailable(today)}
-        >
-          Today
-        </Button>
+        {showTodayButton && (
+          <Button
+            className={swClsx(
+              slots.todayButton({
+                className: classNames?.todayButton,
+              }),
+            )}
+            onPress={() => {
+              state.setFocusedDate(today)
+            }}
+            size="xs"
+            isDisabled={state.isCellUnavailable(today)}
+          >
+            Today
+          </Button>
+        )}
       </div>
 
       {/* 달력 그리드 영역 */}
