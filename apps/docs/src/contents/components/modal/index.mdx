@@ -1,0 +1,38 @@
+import { CodeBlock } from '@/components/code-block'
+
+import Default from './default'
+import DefaultRaw from './default?raw'
+import WithTitleDescription from './with-title-description'
+import WithTitleDescriptionRaw from './with-title-description?raw'
+import Sizes from './sizes'
+import SizesRaw from './sizes?raw'
+import CloseOnEscape from './close-on-escape'
+import CloseOnEscapeRaw from './close-on-escape?raw'
+import CloseOnOutsideClick from './close-on-outside-click'
+import CloseOnOutsideClickRaw from './close-on-outside-click?raw'
+
+# Modal
+
+## Default
+
+<CodeBlock preview={<Default />} code={DefaultRaw} />
+
+## With Title Description
+
+<CodeBlock preview={<WithTitleDescription />} code={WithTitleDescriptionRaw} />
+
+## Sizes
+
+<CodeBlock preview={<Sizes />} code={SizesRaw} />
+
+## Close On Escape
+
+`closeOnEscape` 속성을 `false`로 설정하면 ESC 키를 눌러도 모달이 닫히지 않습니다.
+
+<CodeBlock preview={<CloseOnEscape />} code={CloseOnEscapeRaw} />
+
+## Close On Outside Click
+
+`closeOnOutsideClick` 속성을 `false`로 설정하면 모달 외부를 클릭해도 모달이 닫히지 않습니다.
+
+<CodeBlock preview={<CloseOnOutsideClick />} code={CloseOnOutsideClickRaw} />
