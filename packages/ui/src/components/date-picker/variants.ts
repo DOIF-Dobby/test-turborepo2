@@ -9,7 +9,7 @@ export const datePickerVariants = swTwVariants({
     errorMessage: ['text-destructive'],
     startIcon: [],
     openButton: ['group'],
-    endIcon: ['group-aria-expanded:rotate-180', 'duration-200'],
+    endIcon: ['group-aria-expanded:rotate-180'],
   },
   variants: {
     size: {
@@ -50,6 +50,14 @@ export const datePickerVariants = swTwVariants({
     isDisabled: {
       true: {
         startIcon: ['stroke-base-500'],
+      },
+    },
+    disableAnimation: {
+      true: {
+        endIcon: ['transition-none'],
+      },
+      false: {
+        endIcon: ['transition-transform', 'duration-200'],
       },
     },
   },

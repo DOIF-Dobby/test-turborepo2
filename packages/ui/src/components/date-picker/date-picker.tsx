@@ -57,7 +57,11 @@ export function DatePicker(props: DatePickerProps) {
     ref,
   )
 
-  const slots = datePickerVariants({ size, isDisabled: props.isDisabled })
+  const slots = datePickerVariants({
+    size,
+    isDisabled: props.isDisabled,
+    disableAnimation,
+  })
 
   return (
     <div
@@ -104,6 +108,7 @@ export function DatePicker(props: DatePickerProps) {
               endContent={
                 <Button
                   {...buttonProps}
+                  disableAnimation={disableAnimation}
                   onPress={() => state.setOpen(!state.isOpen)}
                   isIconOnly
                   variant="light"
