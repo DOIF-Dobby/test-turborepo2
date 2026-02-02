@@ -15,7 +15,7 @@ export default function Controlled() {
   return (
     <div className="gap-sw-sm flex">
       <Popover open={open} onOpenChange={setOpen}>
-        <PopoverTrigger asChild>
+        <PopoverTrigger>
           <Button>Trigger</Button>
         </PopoverTrigger>
         <PopoverContent>

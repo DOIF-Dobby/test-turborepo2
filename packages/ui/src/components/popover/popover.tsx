@@ -4,10 +4,6 @@ export function Popover(props: PopoverPrimitive.PopoverProps) {
   return <PopoverPrimitive.Root {...props} />
 }
 
-export function PopoverTrigger(props: PopoverPrimitive.PopoverTriggerProps) {
-  return <PopoverPrimitive.Trigger {...props} suppressHydrationWarning />
-}
-
 export function PopoverArrow(props: PopoverPrimitive.PopoverArrowProps) {
   return <PopoverPrimitive.Arrow {...props} suppressHydrationWarning />
 }

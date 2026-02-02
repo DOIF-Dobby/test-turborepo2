@@ -9,7 +9,7 @@ import {
 export default function CloseOnOutsideClick() {
   return (
     <Popover>
-      <PopoverTrigger asChild>
+      <PopoverTrigger>
         <Button>Trigger</Button>
       </PopoverTrigger>
       <PopoverContent closeOnOutsideClick={false}>

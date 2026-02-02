@@ -9,7 +9,7 @@ import {
 export default function CloseOnEscape() {
   return (
     <Popover>
-      <PopoverTrigger asChild>
+      <PopoverTrigger>
         <Button>Trigger</Button>
       </PopoverTrigger>
       <PopoverContent closeOnEscape={false}>

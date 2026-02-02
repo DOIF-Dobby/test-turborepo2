@@ -9,7 +9,7 @@ import {
 export default function DisableAnimation() {
   return (
     <Popover>
-      <PopoverTrigger asChild>
+      <PopoverTrigger>
         <Button>Trigger</Button>
       </PopoverTrigger>
       <PopoverContent disableAnimation>

@@ -9,7 +9,7 @@ import {
 export default function DefaultOpen() {
   return (
     <Popover defaultOpen>
-      <PopoverTrigger asChild>
+      <PopoverTrigger>
         <Button>Trigger</Button>
       </PopoverTrigger>
       <PopoverContent>

@@ -9,7 +9,7 @@ import {
 export default function WithButton() {
   return (
     <Popover>
-      <PopoverTrigger asChild>
+      <PopoverTrigger>
         <Button>Trigger</Button>
       </PopoverTrigger>
       <PopoverContent>

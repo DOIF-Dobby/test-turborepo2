@@ -28,7 +28,7 @@ export function Tooltip(props: TooltipProps) {
     children,
     classNames,
     content,
-    sideOffset = 6,
+    sideOffset = 5,
     side = 'top',
     align = 'center',
     zIndex = 50,
