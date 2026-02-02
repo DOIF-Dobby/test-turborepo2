@@ -24,10 +24,11 @@ type Props = Omit<AriaDatePickerProps<DateValue>, keyof DatePickerVariants> &
 export interface DatePickerProps extends Props {
   classNames?: SlotsToClasses<DatePickerSlots>
   errorMessage?: React.ReactNode
+  disableAnimation?: boolean
 }
 
 export function DatePicker(props: DatePickerProps) {
-  const { label, size, classNames, ...otherProps } = props
+  const { label, size, classNames, disableAnimation, ...otherProps } = props
 
   const isInvalid = !!props.errorMessage || props.isInvalid
 
@@ -123,6 +124,7 @@ export function DatePicker(props: DatePickerProps) {
 
         <PopoverContent
           {...dialogProps}
+          disableAnimation={disableAnimation}
           onPointerDownOutside={(event) => {
             if (ref.current?.contains(event.target as Node)) {
               event.preventDefault()

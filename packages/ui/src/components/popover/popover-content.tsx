@@ -1,10 +1,10 @@
 'use client'
 
+import { motion, type HTMLMotionProps } from 'motion/react'
 import { Popover as PopoverPrimitive } from 'radix-ui'
-import { useCallback } from 'react'
+import { useUIContext } from '../../providers'
 import type { SlotsToClasses } from '../../types'
 import { swClsx } from '../../utils/clsx'
-import { mergeRefs } from '../../utils/merge-refs'
 import {
   popoverContentVariants,
   type PopoverContentSlots,
@@ -24,6 +24,7 @@ export interface PopoverContentProps extends ContentProps {
   zIndex?: number
   closeOnEscape?: boolean
   closeOnOutsideClick?: boolean
+  disableAnimation?: boolean
 }
 
 export function PopoverContent(props: PopoverContentProps) {
@@ -39,6 +40,8 @@ export function PopoverContent(props: PopoverContentProps) {
     classNames,
     closeOnEscape = true,
     closeOnOutsideClick = true,
+    disableAnimation = false,
+    style,
     ref,
     onEscapeKeyDown,
     onPointerDownOutside,
@@ -46,31 +49,39 @@ export function PopoverContent(props: PopoverContentProps) {
     ...contentProps
   } = props
 
-  const setRef = useCallback(
-    (node: HTMLDivElement | null) => {
-      if (!node) return
+  const { disableAnimation: globalDisableAnimation } = useUIContext()
+  const shouldDisableAnimation = disableAnimation || globalDisableAnimation
 
-      const wrapper = node.closest(
-        '[data-radix-popper-content-wrapper]',
-      ) as HTMLElement | null
-
-      if (wrapper) {
-        wrapper.style.zIndex = zIndex.toString()
-      }
+  const finalMotionProps: HTMLMotionProps<'section'> = {
+    initial: {
+      opacity: 0,
+      y: 'var(--y-initial, 0px)',
+      x: 'var(--x-initial, 0px)',
     },
-    [zIndex],
-  )
+    animate: {
+      opacity: 1,
+      y: 0,
+      x: 0,
+    },
+    ...{ transition: { duration: 0.15 } },
+    ...(shouldDisableAnimation ? { transition: { duration: 0 } } : {}),
+  }
 
   const slots = popoverContentVariants({})
 
   return (
     <PopoverPrimitive.Portal container={container} forceMount={forceMount}>
       <PopoverPrimitive.Content
+        asChild
         {...contentProps}
-        ref={mergeRefs([ref, setRef])}
+        ref={ref}
         sideOffset={sideOffset}
         side={side}
         align={align}
+        style={{
+          zIndex,
+          ...style,
+        }}
         className={swClsx(
           slots.content({
             className: classNames?.content,
@@ -95,17 +106,19 @@ export function PopoverContent(props: PopoverContentProps) {
           }
         }}
       >
-        {children}
+        <motion.section {...finalMotionProps}>
+          {children}
 
-        {showArrow && (
-          <PopoverPrimitive.Arrow
-            className={swClsx(
-              slots.arrow({
-                className: classNames?.arrow,
-              }),
-            )}
-          />
-        )}
+          {showArrow && (
+            <PopoverPrimitive.Arrow
+              className={swClsx(
+                slots.arrow({
+                  className: classNames?.arrow,
+                }),
+              )}
+            />
+          )}
+        </motion.section>
       </PopoverPrimitive.Content>
     </PopoverPrimitive.Portal>
   )

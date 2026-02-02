@@ -28,8 +28,7 @@ export interface ModalProps extends Props {
   onPointerDownOutside?: DialogPrimitive.DialogContentProps['onPointerDownOutside']
 }
 
-// ✨ 애니메이션 상수는 컴포넌트 외부로 분리하여 가독성을 높입니다.
-const DROP_IN_ANIMATION = {
+const DEFAULT_ANIMATION = {
   initial: { y: 25, opacity: 0 },
   animate: { y: 0, opacity: 1 },
 }
@@ -56,9 +55,9 @@ export function Modal(props: ModalProps) {
   const shouldDisableAnimation = disableAnimation || globalDisableAnimation
 
   const finalMotionProps: HTMLMotionProps<'section'> = {
-    ...DROP_IN_ANIMATION,
-    ...(shouldDisableAnimation ? { transition: { duration: 0 } } : {}),
+    ...DEFAULT_ANIMATION,
     ...motionProps,
+    ...(shouldDisableAnimation ? { transition: { duration: 0 } } : {}),
   }
 
   const slots = modalVariants({ size })
