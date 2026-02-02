@@ -26,11 +26,7 @@ export const selectVariants = swTwVariants({
     labelIndicator: [],
     errorMessage: ['text-destructive'],
     value: ['truncate'],
-    icon: [
-      'group-data-[state=open]:rotate-180',
-      'duration-200',
-      'text-base-700',
-    ],
+    icon: ['group-data-[state=open]:rotate-180', 'text-base-700'],
     content: [
       'w-(--radix-select-trigger-width)',
       'bg-background',
@@ -41,6 +37,11 @@ export const selectVariants = swTwVariants({
       'px-sw-2xs',
       'shadow-popover',
       'max-h-[300px]',
+
+      'data-[side=bottom]:[--y-initial:-8px] data-[side=bottom]:[--x-initial:0px]',
+      'data-[side=top]:[--y-initial:8px] data-[side=top]:[--x-initial:0px]',
+      'data-[side=right]:[--x-initial:-8px] data-[side=right]:[--y-initial:0px]',
+      'data-[side=left]:[--x-initial:8px] data-[side=left]:[--y-initial:0px]',
     ],
     clearButton: [
       'hover:bg-base-200',
@@ -101,6 +102,14 @@ export const selectVariants = swTwVariants({
           'focus-within:border-destructive',
           'data-[state=open]:border-destructive',
         ],
+      },
+    },
+    disableAnimation: {
+      true: {
+        icon: ['transition-none'],
+      },
+      false: {
+        icon: ['transition-transform', 'duration-200'],
       },
     },
   },

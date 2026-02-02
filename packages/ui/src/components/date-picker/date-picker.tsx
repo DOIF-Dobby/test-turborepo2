@@ -5,6 +5,7 @@ import { CalendarIcon, ChevronDownIcon } from 'lucide-react'
 import { useRef } from 'react'
 import { useDatePicker, type AriaDatePickerProps } from 'react-aria'
 import { useDatePickerState } from 'react-stately'
+import { useUIContext } from '../../providers'
 import type { SlotsToClasses } from '../../types'
 import { swClsx } from '../../utils/clsx'
 import { Button } from '../button'
@@ -57,10 +58,12 @@ export function DatePicker(props: DatePickerProps) {
     ref,
   )
 
+  const { disableAnimation: globalDisableAnimation } = useUIContext()
+
   const slots = datePickerVariants({
     size,
     isDisabled: props.isDisabled,
-    disableAnimation,
+    disableAnimation: disableAnimation || globalDisableAnimation,
   })
 
   return (

@@ -2,7 +2,9 @@
 
 import { useControllableState } from '@repo/hooks/use-controllable-state'
 import { ChevronDown, X } from 'lucide-react'
+import { type HTMLMotionProps, motion } from 'motion/react'
 import { Select as SelectPrimitive } from 'radix-ui'
+import { useUIContext } from '../../providers'
 import type { SlotsToClasses } from '../../types'
 import { swClsx } from '../../utils/clsx'
 import { Label } from '../label'
@@ -24,6 +26,7 @@ export interface SelectProps extends Props {
   isRequired?: boolean
   isClearable?: boolean
   isDisabled?: boolean
+  disableAnimation?: boolean
   errorMessage?: React.ReactNode
   placeholder?: string
   startContent?: React.ReactNode
@@ -43,6 +46,7 @@ export function Select(props: SelectProps) {
     defaultValue, // 초기 값
     isClearable = true,
     isDisabled = false,
+    disableAnimation = false,
     startContent,
     onValueChange, // 변경 핸들러
     onClear,
@@ -82,11 +86,30 @@ export function Select(props: SelectProps) {
   // 에러 상태 판단
   const isInvalid = errorMessage !== undefined
 
+  const { disableAnimation: globalDisableAnimation } = useUIContext()
+  const shouldDisableAnimation = disableAnimation || globalDisableAnimation
+
+  const finalMotionProps: HTMLMotionProps<'section'> = {
+    initial: {
+      opacity: 0,
+      y: 'var(--y-initial, 0px)',
+      x: 'var(--x-initial, 0px)',
+    },
+    animate: {
+      opacity: 1,
+      y: 0,
+      x: 0,
+    },
+    ...{ transition: { duration: 0.15 } },
+    ...(shouldDisableAnimation ? { transition: { duration: 0 } } : {}),
+  }
+
   // 스타일 슬롯 생성
   const slots = selectVariants({
     size,
     isInvalid,
     isDisabled,
+    disableAnimation: shouldDisableAnimation,
   })
 
   return (
@@ -177,6 +200,7 @@ export function Select(props: SelectProps) {
         {/* 팝업 컨텐츠 영역 */}
         <SelectPrimitive.Portal>
           <SelectPrimitive.Content
+            asChild
             position="popper"
             sideOffset={6}
             className={swClsx(
@@ -185,7 +209,9 @@ export function Select(props: SelectProps) {
               }),
             )}
           >
-            <SelectPrimitive.Viewport>{children}</SelectPrimitive.Viewport>
+            <motion.section {...finalMotionProps}>
+              <SelectPrimitive.Viewport>{children}</SelectPrimitive.Viewport>
+            </motion.section>
           </SelectPrimitive.Content>
         </SelectPrimitive.Portal>
       </SelectPrimitive.Root>
