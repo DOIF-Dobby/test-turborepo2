@@ -12,7 +12,7 @@ import {
 } from './variants'
 
 type Props = Omit<
-  RadioGroupPrimitive.RadioGroupProps,
+  React.ComponentProps<typeof RadioGroupPrimitive.Root>,
   keyof RadioGroupVariants | 'className'
 > &
   RadioGroupVariants
@@ -36,6 +36,7 @@ export function RadioGroup(props: RadioGroupProps) {
     name,
     disableAnimation,
     value,
+    ref,
     onValueChange,
     ...otherProps
   } = props
@@ -53,6 +54,7 @@ export function RadioGroup(props: RadioGroupProps) {
       }}
     >
       <RadioGroupPrimitive.Root
+        ref={ref}
         suppressHydrationWarning
         className={swClsx(slots.root({ className: classNames?.root }))}
         orientation={orientation}

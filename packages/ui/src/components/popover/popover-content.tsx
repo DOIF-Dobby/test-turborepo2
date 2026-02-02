@@ -4,6 +4,7 @@ import { Popover as PopoverPrimitive } from 'radix-ui'
 import { useCallback } from 'react'
 import type { SlotsToClasses } from '../../types'
 import { swClsx } from '../../utils/clsx'
+import { mergeRefs } from '../../utils/merge-refs'
 import {
   popoverContentVariants,
   type PopoverContentSlots,
@@ -11,7 +12,7 @@ import {
 } from './variants'
 
 type ContentProps = Omit<
-  PopoverPrimitive.PopoverContentProps,
+  React.ComponentProps<typeof PopoverPrimitive.Content>,
   keyof PopoverContentVariants | 'className'
 > &
   PopoverContentVariants &
@@ -38,8 +39,10 @@ export function PopoverContent(props: PopoverContentProps) {
     classNames,
     closeOnEscape = true,
     closeOnOutsideClick = true,
+    ref,
     onEscapeKeyDown,
     onPointerDownOutside,
+    onFocusOutside,
     ...contentProps
   } = props
 
@@ -64,7 +67,7 @@ export function PopoverContent(props: PopoverContentProps) {
     <PopoverPrimitive.Portal container={container} forceMount={forceMount}>
       <PopoverPrimitive.Content
         {...contentProps}
-        ref={setRef}
+        ref={mergeRefs([ref, setRef])}
         sideOffset={sideOffset}
         side={side}
         align={align}
@@ -81,6 +84,12 @@ export function PopoverContent(props: PopoverContentProps) {
         }}
         onPointerDownOutside={(event) => {
           onPointerDownOutside?.(event)
+          if (closeOnOutsideClick === false) {
+            event.preventDefault()
+          }
+        }}
+        onFocusOutside={(event) => {
+          onFocusOutside?.(event)
           if (closeOnOutsideClick === false) {
             event.preventDefault()
           }

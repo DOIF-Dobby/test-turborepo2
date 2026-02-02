@@ -14,7 +14,7 @@ import { useRadioGroupContext } from './radio-group-context'
 import { radioVariants, type RadioSlots, type RadioVariants } from './variants'
 
 type Props = Omit<
-  RadioGroupPrimitive.RadioGroupItemProps,
+  React.ComponentProps<typeof RadioGroupPrimitive.Item>,
   keyof RadioVariants | 'className'
 > &
   RadioVariants
@@ -36,6 +36,7 @@ export function Radio(props: RadioProps) {
     isDisabled: isDisabledProp,
     isInvalid: isInvalidProp,
     disableAnimation: localDisableAnimation,
+    ref,
     ...otherProps
   } = props
 
@@ -74,7 +75,7 @@ export function Radio(props: RadioProps) {
     >
       <RadioGroupPrimitive.Item
         suppressHydrationWarning
-        ref={mergeRefs([innerRef, scope])}
+        ref={mergeRefs([ref, innerRef, scope])}
         id={id}
         className={swClsx(slots.root({ className: classNames?.root }))}
         disabled={isDisabled}

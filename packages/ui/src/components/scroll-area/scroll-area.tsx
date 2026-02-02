@@ -11,7 +11,9 @@ import {
   type ScrollBarSlots,
 } from './variants'
 
-export interface ScrollAreaProps extends ScrollAreaPrimitive.ScrollAreaProps {
+export interface ScrollAreaProps extends React.ComponentProps<
+  typeof ScrollAreaPrimitive.Root
+> {
   classNames?: SlotsToClasses<ScrollAreaSlots>
   orientation?: 'vertical' | 'horizontal' | 'both'
 }
@@ -20,12 +22,14 @@ export function ScrollArea({
   classNames,
   children,
   orientation = 'vertical',
+  ref,
   ...props
 }: ScrollAreaProps) {
   const slots = scrollAreaVariants()
 
   return (
     <ScrollAreaPrimitive.Root
+      ref={ref}
       data-slot="scroll-area"
       className={swClsx(
         slots.root({
@@ -57,20 +61,23 @@ export function ScrollArea({
   )
 }
 
-export interface ScrollBarProps
-  extends ScrollAreaPrimitive.ScrollAreaScrollbarProps {
+export interface ScrollBarProps extends React.ComponentProps<
+  typeof ScrollAreaPrimitive.ScrollAreaScrollbar
+> {
   classNames?: SlotsToClasses<ScrollBarSlots>
 }
 
 export function ScrollBar({
   orientation,
   classNames,
+  ref,
   ...props
 }: ScrollBarProps) {
   const slots = scrollBarVariants()
 
   return (
     <ScrollAreaPrimitive.ScrollAreaScrollbar
+      ref={ref}
       data-slot="scroll-area-scrollbar"
       data-orientation={orientation}
       orientation={orientation}

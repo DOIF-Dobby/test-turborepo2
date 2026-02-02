@@ -23,7 +23,7 @@ import {
 export type CheckedState = CheckboxPrimitive.CheckedState
 
 type Props = Omit<
-  CheckboxPrimitive.CheckboxProps,
+  React.ComponentProps<typeof CheckboxPrimitive.Checkbox>,
   | keyof CheckboxVariants
   | 'className'
   | 'checked'
@@ -57,6 +57,7 @@ export function Checkbox(props: CheckboxProps) {
     id: idProp,
     name: nameProp,
     value,
+    ref,
     ...otherProps
   } = props
 
@@ -123,7 +124,7 @@ export function Checkbox(props: CheckboxProps) {
       className={swClsx(slots.container({ className: classNames?.container }))}
     >
       <CheckboxPrimitive.Root
-        ref={mergeRefs([innerRef, scope])}
+        ref={mergeRefs([ref, innerRef, scope])}
         suppressHydrationWarning
         id={id}
         disabled={isDisabled}

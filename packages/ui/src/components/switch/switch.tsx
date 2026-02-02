@@ -9,6 +9,7 @@ import { mergeProps, usePress } from 'react-aria'
 import { useUIContext } from '../../providers'
 import type { SlotsToClasses } from '../../types'
 import { swClsx } from '../../utils/clsx'
+import { mergeRefs } from '../../utils/merge-refs'
 import {
   type SwitchSlots,
   switchVariants,
@@ -16,7 +17,7 @@ import {
 } from './variants'
 
 type Props = Omit<
-  SwitchPrimitive.SwitchProps,
+  React.ComponentProps<typeof SwitchPrimitive.Root>,
   | keyof SwitchVariants
   | 'className'
   | 'checked'
@@ -48,6 +49,7 @@ export function Switch(props: SwitchProps) {
     disableAnimation: localDisableAnimation,
     isDisabled,
     id: idProp,
+    ref,
     ...otherProps
   } = props
 
@@ -82,7 +84,7 @@ export function Switch(props: SwitchProps) {
     >
       <SwitchPrimitive.Root
         suppressHydrationWarning
-        ref={innerRef}
+        ref={mergeRefs([ref, innerRef])}
         id={id}
         checked={checked}
         onCheckedChange={setChecked}
