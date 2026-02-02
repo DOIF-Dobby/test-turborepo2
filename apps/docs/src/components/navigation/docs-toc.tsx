@@ -36,6 +36,7 @@ export function DocsToc({ headings }: DocsTocProps) {
                 className={swClsx([
                   `${paddingMap[heading.depth] ?? ''}`,
                   'truncate',
+                  'block',
                   'text-base-600 hover:text-base-700',
                   isActive && 'text-base-700 font-bold',
                 ])}
