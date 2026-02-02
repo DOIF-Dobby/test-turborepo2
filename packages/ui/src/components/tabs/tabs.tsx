@@ -10,7 +10,11 @@ import { type TabsSlots, type TabsVariants, tabsVariatns } from './variants'
 type OmittedType = TabsVariants & {
   defaultValue: TabsPrimitive.TabsProps['defaultValue']
 }
-type Props = Omit<TabsPrimitive.TabsProps, keyof OmittedType> & TabsVariants
+type Props = Omit<
+  React.ComponentProps<typeof TabsPrimitive.Root>,
+  keyof OmittedType
+> &
+  TabsVariants
 
 export interface TabsProps extends Props {
   value: TabsPrimitive.TabsProps['value']
@@ -27,6 +31,7 @@ export function Tabs(props: TabsProps) {
     radius,
     value,
     id,
+    ref,
     ...otherProps
   } = props
 
@@ -48,6 +53,7 @@ export function Tabs(props: TabsProps) {
       }}
     >
       <TabsPrimitive.Root
+        ref={ref}
         className={swClsx(styles)}
         value={value}
         {...otherProps}

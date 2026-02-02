@@ -9,7 +9,7 @@ import {
 } from './variants'
 
 type Props = Omit<
-  SelectPrimitive.SelectItemProps,
+  React.ComponentProps<typeof SelectPrimitive.Item>,
   keyof SelectItemVariants | 'className'
 > &
   SelectItemVariants
@@ -27,6 +27,7 @@ export function SelectItem(props: SelectItemProps) {
     classNames,
     startContent,
     itemIndicatorIcon = <Check className="size-4" />,
+    ref,
     ...otherProps
   } = props
 
@@ -34,6 +35,7 @@ export function SelectItem(props: SelectItemProps) {
 
   return (
     <SelectPrimitive.Item
+      ref={ref}
       value={value}
       className={swClsx(
         slots.item({

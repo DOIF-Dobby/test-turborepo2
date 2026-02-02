@@ -5,12 +5,12 @@ import { swClsx } from '../../utils/clsx'
 import { useTabsContext } from './tabs-context'
 import { tabsVariatns } from './variants'
 
-type Props = TabsPrimitive.TabsListProps
+type Props = React.ComponentProps<typeof TabsPrimitive.List>
 
 export interface TabsListProps extends Props {}
 
 export function TabsList(props: TabsListProps) {
-  const { className, ...otherProps } = props
+  const { className, ref, ...otherProps } = props
   const context = useTabsContext()
 
   const slots = tabsVariatns()
@@ -21,5 +21,11 @@ export function TabsList(props: TabsListProps) {
     radius: context.radius,
   })
 
-  return <TabsPrimitive.TabsList className={swClsx(styles)} {...otherProps} />
+  return (
+    <TabsPrimitive.TabsList
+      ref={ref}
+      className={swClsx(styles)}
+      {...otherProps}
+    />
+  )
 }

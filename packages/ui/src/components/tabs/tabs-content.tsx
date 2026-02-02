@@ -5,12 +5,12 @@ import { swClsx } from '../../utils/clsx'
 import { useTabsContext } from './tabs-context'
 import { tabsVariatns } from './variants'
 
-type Props = TabsPrimitive.TabsContentProps
+type Props = React.ComponentProps<typeof TabsPrimitive.Content>
 
 export interface TabsContentProps extends Props {}
 
 export function TabsContent(props: TabsContentProps) {
-  const { className, ...otherProps } = props
+  const { className, ref, ...otherProps } = props
   const context = useTabsContext()
 
   const slots = tabsVariatns()
@@ -21,6 +21,7 @@ export function TabsContent(props: TabsContentProps) {
 
   return (
     <TabsPrimitive.TabsContent
+      ref={ref}
       className={swClsx(styles)}
       {...otherProps}
       suppressHydrationWarning

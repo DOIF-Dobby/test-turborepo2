@@ -6,12 +6,12 @@ import { swClsx } from '../../utils/clsx'
 import { useTabsContext } from './tabs-context'
 import { tabsVariatns } from './variants'
 
-type Props = TabsPrimitive.TabsTriggerProps
+type Props = React.ComponentProps<typeof TabsPrimitive.Trigger>
 
 export interface TabsTriggerProps extends Props {}
 
 export function TabsTrigger(props: TabsTriggerProps) {
-  const { children, className, value, ...otherProps } = props
+  const { children, className, value, ref, ...otherProps } = props
   const context = useTabsContext()
 
   const slots = tabsVariatns()
@@ -28,6 +28,7 @@ export function TabsTrigger(props: TabsTriggerProps) {
 
   return (
     <TabsPrimitive.TabsTrigger
+      ref={ref}
       className={swClsx(triggerStyles)}
       value={value}
       {...otherProps}
