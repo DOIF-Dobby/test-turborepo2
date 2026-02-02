@@ -1,4 +1,6 @@
+import { motion, type HTMLMotionProps } from 'motion/react'
 import { Dialog as DialogPrimitive, VisuallyHidden } from 'radix-ui'
+import { useUIContext } from '../../providers'
 import type { SlotsToClasses } from '../../types'
 import { swClsx } from '../../utils/clsx'
 import { Frame } from '../frame'
@@ -20,8 +22,16 @@ export interface ModalProps extends Props {
   closeOnOutsideClick?: boolean
   showCloseButton?: boolean
   closeButton?: React.ReactNode
+  disableAnimation?: boolean
+  motionProps?: HTMLMotionProps<'section'>
   onEscapeKeyDown?: DialogPrimitive.DialogContentProps['onEscapeKeyDown']
   onPointerDownOutside?: DialogPrimitive.DialogContentProps['onPointerDownOutside']
+}
+
+// ✨ 애니메이션 상수는 컴포넌트 외부로 분리하여 가독성을 높입니다.
+const DROP_IN_ANIMATION = {
+  initial: { y: 25, opacity: 0 },
+  animate: { y: 0, opacity: 1 },
 }
 
 export function Modal(props: ModalProps) {
@@ -34,11 +44,22 @@ export function Modal(props: ModalProps) {
     closeOnEscape = true,
     closeOnOutsideClick = true,
     showCloseButton = true,
+    disableAnimation = false,
     closeButton = <DefaultModalCloseButton />,
+    motionProps,
     onEscapeKeyDown,
     onPointerDownOutside,
     ...otherProps
   } = props
+
+  const { disableAnimation: globalDisableAnimation } = useUIContext()
+  const shouldDisableAnimation = disableAnimation || globalDisableAnimation
+
+  const finalMotionProps: HTMLMotionProps<'section'> = {
+    ...DROP_IN_ANIMATION,
+    ...(shouldDisableAnimation ? { transition: { duration: 0 } } : {}),
+    ...motionProps,
+  }
 
   const slots = modalVariants({ size })
 
@@ -49,6 +70,7 @@ export function Modal(props: ModalProps) {
           className={swClsx(slots.overlay({ className: classNames?.overlay }))}
         />
         <DialogPrimitive.Content
+          asChild
           onEscapeKeyDown={(event) => {
             onEscapeKeyDown?.(event)
             if (closeOnEscape === false) {
@@ -63,20 +85,22 @@ export function Modal(props: ModalProps) {
           }}
           className={swClsx(slots.content({ className: classNames?.content }))}
         >
-          {showCloseButton && (
-            <DialogPrimitive.Close
-              asChild
-              className={swClsx(
-                slots.closeButton({
-                  className: classNames?.closeButton,
-                }),
-              )}
-            >
-              {closeButton}
-            </DialogPrimitive.Close>
-          )}
-          <ModalHeader title={title} description={description} />
-          {children}
+          <motion.section {...finalMotionProps}>
+            {showCloseButton && (
+              <DialogPrimitive.Close
+                asChild
+                className={swClsx(
+                  slots.closeButton({
+                    className: classNames?.closeButton,
+                  }),
+                )}
+              >
+                {closeButton}
+              </DialogPrimitive.Close>
+            )}
+            <ModalHeader title={title} description={description} />
+            {children}
+          </motion.section>
         </DialogPrimitive.Content>
       </DialogPrimitive.Portal>
     </DialogPrimitive.Root>

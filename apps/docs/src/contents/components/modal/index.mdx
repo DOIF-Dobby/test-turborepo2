@@ -10,6 +10,10 @@ import CloseOnEscape from './close-on-escape'
 import CloseOnEscapeRaw from './close-on-escape?raw'
 import CloseOnOutsideClick from './close-on-outside-click'
 import CloseOnOutsideClickRaw from './close-on-outside-click?raw'
+import DisableAnimation from './disable-animation'
+import DisableAnimationRaw from './disable-animation?raw'
+import MotionProps from './motion-props'
+import MotionPropsRaw from './motion-props?raw'
 
 # Modal
 
@@ -36,3 +40,15 @@ import CloseOnOutsideClickRaw from './close-on-outside-click?raw'
 `closeOnOutsideClick` 속성을 `false`로 설정하면 모달 외부를 클릭해도 모달이 닫히지 않습니다.
 
 <CodeBlock preview={<CloseOnOutsideClick />} code={CloseOnOutsideClickRaw} />
+
+## Disable Animation
+
+`disableAnimation` 속성을 `true`로 설정하면 모달의 애니메이션이 비활성화됩니다.
+
+<CodeBlock preview={<DisableAnimation />} code={DisableAnimationRaw} />
+
+## Motion Props
+
+`motionProps` 속성을 사용하여 모달의 애니메이션을 커스텀할 수 있습니다.
+
+<CodeBlock preview={<MotionProps />} code={MotionPropsRaw} />
