@@ -1,15 +1,22 @@
 import { MotionConfig } from 'motion/react'
+import { Tooltip } from 'radix-ui'
 import { I18nProvider } from 'react-aria'
 import { UIContext, type UIContextType } from './ui-context'
 
 export interface UIProviderProps extends UIContextType {
   children: React.ReactNode
+  delayDuration?: Tooltip.TooltipProviderProps['delayDuration']
+  disableHoverableContent?: Tooltip.TooltipProviderProps['disableHoverableContent']
+  skipDelayDuration?: Tooltip.TooltipProviderProps['skipDelayDuration']
 }
 
 export function UIProvider({
   children,
   disableAnimation = false,
   locale = 'ko-KR',
+  delayDuration = 0,
+  disableHoverableContent = false,
+  skipDelayDuration = 0,
 }: UIProviderProps) {
   return (
     <UIContext
@@ -25,7 +32,15 @@ export function UIProvider({
         //    모션 라이브러리 내부의 불필요한 연산을 방지할 수 있습니다.
         reducedMotion={disableAnimation ? 'always' : 'user'}
       >
-        <I18nProvider locale={locale}>{children}</I18nProvider>
+        <I18nProvider locale={locale}>
+          <Tooltip.Provider
+            delayDuration={delayDuration}
+            disableHoverableContent={disableHoverableContent}
+            skipDelayDuration={skipDelayDuration}
+          >
+            {children}
+          </Tooltip.Provider>
+        </I18nProvider>
       </MotionConfig>
     </UIContext>
   )
