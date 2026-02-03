@@ -5,6 +5,7 @@
   "exports": {
     "./components/*": "./src/components/*/index.tsx",
     "./providers": "./src/providers/index.tsx",
+    "./theme": "./src/theme/index.tsx",
     "./utils/*": "./src/utils/*/index.ts",
     "./styles.css": "./src/styles/switchwon-styles.css"
   },

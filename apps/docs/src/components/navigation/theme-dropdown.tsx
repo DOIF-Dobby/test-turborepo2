@@ -1,6 +1,5 @@
 'use client'
 
-import { type ThemeMode, useThemeStore } from '@/theme/theme-store'
 import { Button } from '@repo/ui/components/button'
 import {
   Dropdown,
@@ -9,11 +8,12 @@ import {
   DropdownRadioItem,
   DropdownTrigger,
 } from '@repo/ui/components/dropdown'
+import { useTheme, type ThemeMode } from '@repo/ui/theme'
 import { capitalize } from '@repo/utils/string'
 import { Laptop, Moon, Sun } from 'lucide-react'
 
 export function ThemeDropdown() {
-  const { mode, setTheme } = useThemeStore()
+  const { mode, setTheme } = useTheme()
 
   return (
     <Dropdown>

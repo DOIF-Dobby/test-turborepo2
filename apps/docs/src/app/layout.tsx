@@ -1,6 +1,5 @@
 import '@/styles/app.css'
-import { ThemeInitializer } from '@/theme/theme-initializer'
-import { ThemeScript } from '@/theme/theme-script'
+import { ThemeProvider, ThemeScript } from '@repo/ui/theme'
 import { swClsx } from '@repo/ui/utils/clsx'
 import type { Metadata, Viewport } from 'next'
 import localFont from 'next/font/local'
@@ -42,8 +41,7 @@ export default function RootLayout({
           'bg-background',
         ])}
       >
-        <ThemeInitializer />
-        {children}
+        <ThemeProvider>{children}</ThemeProvider>
       </body>
     </html>
   )
