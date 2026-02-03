@@ -1,4 +1,6 @@
 import '@/styles/app.css'
+import { ThemeInitializer } from '@/theme/theme-initializer'
+import { ThemeScript } from '@/theme/theme-script'
 import { swClsx } from '@repo/ui/utils/clsx'
 import type { Metadata, Viewport } from 'next'
 import localFont from 'next/font/local'
@@ -29,9 +31,19 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="ko" data-theme="switchui-light">
-      <body className={swClsx(pretendard.className)}>
-        <div className="text-base-content bg-background">{children}</div>
+    <html lang="ko" suppressHydrationWarning>
+      <head>
+        <ThemeScript />
+      </head>
+      <body
+        className={swClsx([
+          pretendard.className,
+          'text-base-content',
+          'bg-background',
+        ])}
+      >
+        <ThemeInitializer />
+        {children}
       </body>
     </html>
   )

@@ -8,7 +8,7 @@ export function ToggleAnimation() {
   const isDisabled = useDocsStore((state) => state.disableAnimation)
 
   return (
-    <Button onPress={toggle} size="sm">
+    <Button onPress={toggle} size="sm" variant="light">
       애니메이션 {isDisabled ? '활성화' : '비활성화'}
     </Button>
   )

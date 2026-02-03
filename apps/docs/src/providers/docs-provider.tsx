@@ -1,4 +1,3 @@
-// providers/docs-provider.tsx
 'use client'
 
 import { type DocsStore, createDocsStore } from '@/stores/docs-store'
@@ -19,13 +18,10 @@ export function DocsProviders({ children }: DocsProvidersProps) {
   const storeRef = useRef<DocsStoreApi>(createDocsStore())
 
   return (
-    <DocsStoreContext.Provider value={storeRef.current}>
-      {children} {/* ← UIProvider를 여기서 제거 */}
-    </DocsStoreContext.Provider>
+    <DocsStoreContext value={storeRef.current}>{children}</DocsStoreContext>
   )
 }
 
-// UIProvider를 별도로 분리
 export function DocsUIProviderWrapper({ children }: { children: ReactNode }) {
   const disableAnimation = useDocsStore((state) => state.disableAnimation)
 

@@ -172,6 +172,7 @@
 }
 
 /* Light 테마 */
+:root,
 [data-theme='switchui-light'] {
   --sw-background: oklch(1 0 0);
   --sw-consistent-white: oklch(1 0 0);
@@ -223,10 +224,6 @@
   --sw-background: oklch(0.23 0.0171 248.59);
   --sw-consistent-white: oklch(1 0 0);
   --sw-focus-ring: oklch(0.75 0.1663 62.59);
-
-  --sw-background: oklch(1 0 0);
-  --sw-consistent-white: oklch(1 0 0);
-  --sw-focus-ring: oklch(0.26 0.0343 264.71);
 
   --sw-status-buy: oklch(0.6747 0.2106 24.78);
   --sw-status-buy-hover: oklch(0.3089 0.0254 18.62);
