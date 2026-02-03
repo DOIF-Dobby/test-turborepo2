@@ -10,6 +10,7 @@ import {
   DropdownTrigger,
 } from '@repo/ui/components/dropdown'
 import { Skeleton } from '@repo/ui/components/skeleton'
+import { Paragraph1 } from '@repo/ui/components/typography'
 import { useTheme, type ThemeMode } from '@repo/ui/theme'
 import { capitalize } from '@repo/utils/string'
 import { Laptop, Moon, Sun } from 'lucide-react'
@@ -30,7 +31,7 @@ export function ThemeDropdown() {
   return (
     <Dropdown>
       <DropdownTrigger>
-        <Button size="sm" variant="light">
+        <Button size="xs" variant="light">
           {mode === 'light' && <Sun className="size-4" />}
           {mode === 'dark' && <Moon className="size-4" />}
           {mode === 'system' && <Laptop className="size-4" />}
@@ -44,13 +45,16 @@ export function ThemeDropdown() {
           onValueChange={(val) => setTheme(val as ThemeMode)}
         >
           <DropdownRadioItem value="light">
-            <Sun className="mr-2 size-4" /> Light
+            <Sun className="mr-2 size-4" />
+            <Paragraph1>Light</Paragraph1>
           </DropdownRadioItem>
           <DropdownRadioItem value="dark">
-            <Moon className="mr-2 size-4" /> Dark
+            <Moon className="mr-2 size-4" />
+            <Paragraph1>Dark</Paragraph1>
           </DropdownRadioItem>
           <DropdownRadioItem value="system">
-            <Laptop className="mr-2 size-4" /> System
+            <Laptop className="mr-2 size-4" />
+            <Paragraph1>System</Paragraph1>
           </DropdownRadioItem>
         </DropdownRadioGroup>
       </DropdownContent>

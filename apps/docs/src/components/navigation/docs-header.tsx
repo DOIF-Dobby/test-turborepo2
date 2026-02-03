@@ -11,7 +11,7 @@ export function DocsHeader() {
           <Image src="/logos/symbol.svg" alt="logo" width={32} height={32} />
           <Heading3>Design System</Heading3>
         </div>
-        <div className="gap-sw-xs flex items-center">
+        <div className="gap-sw-3xs flex items-center">
           <ToggleAnimation />
           <ThemeDropdown />
         </div>
