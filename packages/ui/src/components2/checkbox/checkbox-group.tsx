@@ -11,7 +11,7 @@ import {
 
 type Props = Omit<
   React.ComponentProps<typeof CheckboxGroupPrimitive>,
-  keyof CheckboxGroupVariants
+  keyof CheckboxGroupVariants | 'className'
 > &
   CheckboxGroupVariants
 
@@ -25,10 +25,11 @@ export function CheckboxGroup(props: CheckboxGroupProps) {
   const slots = checkboxGroupVariants({ orientation })
 
   return (
-    <CheckboxGroupPrimitive {...otherProps}>
-      <div className={swClsx(slots.root({ className: classNames?.root }))}>
-        {children}
-      </div>
+    <CheckboxGroupPrimitive
+      className={swClsx(slots.root({ className: classNames?.root }))}
+      {...otherProps}
+    >
+      {children}
     </CheckboxGroupPrimitive>
   )
 }

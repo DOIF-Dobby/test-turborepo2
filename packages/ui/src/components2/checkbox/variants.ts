@@ -3,11 +3,16 @@ import { swTwVariants } from '../../utils/tw-variants'
 
 export const checkboxVariants = swTwVariants({
   slots: {
-    container: ['flex', 'gap-sw-2xs', 'items-center', 'w-fit'],
+    container: [
+      'flex',
+      'gap-sw-2xs',
+      'items-center',
+      'w-fit',
+      'cursor-pointer',
+    ],
     root: [
       'border',
       'border-base-400',
-      'cursor-pointer',
       'focus-visible:outline-none',
       'focus-visible:ring-2',
       'focus-visible:ring-cta1-hover',
@@ -42,7 +47,7 @@ export const checkboxVariants = swTwVariants({
       'size-full',
     ],
     icon: ['size-full'],
-    label: ['select-none', 'cursor-pointer'],
+    label: ['select-none'],
     description: ['text-sm', 'text-base-500'],
   },
   variants: {
@@ -71,8 +76,8 @@ export const checkboxVariants = swTwVariants({
     },
     isDisabled: {
       true: {
-        root: ['cursor-default', 'pointer-events-none'],
-        label: ['cursor-default', 'text-base-400', 'pointer-events-none'],
+        container: ['pointer-events-none'],
+        label: ['text-base-400', 'pointer-events-none'],
       },
     },
     disableAnimation: {

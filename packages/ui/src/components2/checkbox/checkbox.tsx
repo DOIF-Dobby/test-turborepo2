@@ -18,7 +18,7 @@ import {
 
 type Props = Omit<
   React.ComponentProps<typeof CheckboxPrimitive.Root>,
-  keyof CheckboxVariants | 'disabled'
+  keyof CheckboxVariants | 'disabled' | 'className'
 > &
   CheckboxVariants
 
@@ -33,6 +33,7 @@ export function Checkbox(props: CheckboxProps) {
     size,
     disableAnimation,
     isDisabled,
+    isInvalid,
     classNames,
     ...otherProps
   } = props
@@ -54,7 +55,12 @@ export function Checkbox(props: CheckboxProps) {
     disableAnimation: shouldDisableAnimation,
   })
 
-  const slots = checkboxVariants({ size, isDisabled })
+  const slots = checkboxVariants({
+    size,
+    isDisabled,
+    disableAnimation: shouldDisableAnimation,
+    isInvalid,
+  })
 
   return (
     <label
@@ -83,7 +89,7 @@ export function Checkbox(props: CheckboxProps) {
               ) : (
                 <AnimatedCheckIcon
                   checked={state.checked}
-                  disableAnimation={state.disabled}
+                  disableAnimation={shouldDisableAnimation}
                   className={swClsx(
                     slots.icon({ className: classNames?.icon }),
                   )}
