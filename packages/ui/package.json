@@ -18,10 +18,11 @@
     "react-dom": "*"
   },
   "dependencies": {
+    "@repo/date": "workspace:*",
     "@repo/hooks": "workspace:*",
     "@repo/utils": "workspace:*",
-    "@repo/date": "workspace:*",
     "clsx": "^2.1.1",
+    "cmdk": "^1.1.1",
     "lucide-react": "*",
     "motion": "^12.26.2",
     "radix-ui": "^1.4.3",
