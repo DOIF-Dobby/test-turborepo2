@@ -6,7 +6,7 @@ import { useRef } from 'react'
 import { mergeProps, usePress } from 'react-aria'
 import { useScaleAnimation } from '../../animations/use-scale-animation'
 import { AnimatedCheckIcon } from '../../components/checkbox/animated-check-icon'
-import { useUIContext } from '../../providers'
+import { useDisableAnimation } from '../../hooks/use-disable-animation'
 import type { SlotsToClasses } from '../../types'
 import { swClsx } from '../../utils/clsx'
 import { mergeRefs } from '../../utils/merge-refs'
@@ -38,8 +38,7 @@ export function Checkbox(props: CheckboxProps) {
     ...otherProps
   } = props
 
-  const { disableAnimation: globalDisableAnimation } = useUIContext()
-  const shouldDisableAnimation = disableAnimation || globalDisableAnimation
+  const shouldDisableAnimation = useDisableAnimation(disableAnimation)
 
   const rootRef = useRef<HTMLSpanElement>(null)
 

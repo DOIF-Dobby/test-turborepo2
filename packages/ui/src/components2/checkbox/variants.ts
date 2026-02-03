@@ -77,7 +77,7 @@ export const checkboxVariants = swTwVariants({
     isDisabled: {
       true: {
         container: ['pointer-events-none'],
-        label: ['text-base-400', 'pointer-events-none'],
+        label: ['text-base-400'],
       },
     },
     disableAnimation: {
