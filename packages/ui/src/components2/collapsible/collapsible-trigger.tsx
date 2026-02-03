@@ -10,7 +10,7 @@ export function CollapsibleTrigger(props: CollapsibleTriggerProps) {
   const { children, ...otherProps } = props
 
   return (
-    <CollapsiblePrimitive.Trigger {...otherProps}>
+    <CollapsiblePrimitive.Trigger {...otherProps} suppressHydrationWarning>
       {children}
     </CollapsiblePrimitive.Trigger>
   )

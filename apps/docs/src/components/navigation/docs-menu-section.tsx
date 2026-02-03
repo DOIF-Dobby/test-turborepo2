@@ -1,17 +1,12 @@
 'use client'
 
-import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from '@repo/ui/components/collapsible'
 import { Heading4 } from '@repo/ui/components/typography'
+import { Collapsible } from '@repo/ui/components2/collapsible'
 import { swClsx } from '@repo/ui/utils/clsx'
 import { pascalCase } from '@repo/utils/string'
 import { ChevronRight } from 'lucide-react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { useState } from 'react'
 
 interface DocsMenuSectionProps {
   title: React.ReactNode
@@ -20,22 +15,29 @@ interface DocsMenuSectionProps {
 
 export function DocsMenuSection({ title, contentPaths }: DocsMenuSectionProps) {
   const pathname = usePathname()
-  const [open, setOpen] = useState(true)
 
   return (
-    <Collapsible open={open} onOpenChange={setOpen} className="px-sw-sm">
-      <CollapsibleTrigger className="flex w-full cursor-pointer items-center justify-between">
-        <Heading4 className="text-base-600">{title}</Heading4>
-        <ChevronRight
-          size={20}
-          className={swClsx(
-            'stroke-base-600',
-            'transition-transform duration-300 ease-in-out',
-            open ? 'rotate-90' : '',
-          )}
-        />
-      </CollapsibleTrigger>
-      <CollapsibleContent>
+    <Collapsible defaultOpen className="px-sw-sm">
+      <Collapsible.Trigger
+        nativeButton={false}
+        className="flex w-full cursor-pointer items-center justify-between"
+        render={(trigerProps, state) => {
+          return (
+            <div {...trigerProps}>
+              <Heading4 className="text-base-600">{title}</Heading4>
+              <ChevronRight
+                size={20}
+                className={swClsx(
+                  'stroke-base-600',
+                  'transition-transform duration-300 ease-in-out',
+                  state.open ? 'rotate-90' : '',
+                )}
+              />
+            </div>
+          )
+        }}
+      />
+      <Collapsible.Panel>
         <ul className="pt-sw-2xs pb-sw-sm">
           {contentPaths.map((contentPath) => {
             const href = `/docs/${contentPath.join('/')}`
@@ -57,7 +59,7 @@ export function DocsMenuSection({ title, contentPaths }: DocsMenuSectionProps) {
             )
           })}
         </ul>
-      </CollapsibleContent>
+      </Collapsible.Panel>
     </Collapsible>
   )
 }
