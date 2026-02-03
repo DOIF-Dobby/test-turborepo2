@@ -23,8 +23,8 @@ export const dropdownContentVariants = swTwVariants({
   },
 })
 
-export const dropdownRadioGroupVariants = swTwVariants({
-  base: ['flex', 'flex-col', 'gap-sw-2xs'],
+export const dropdownGroupVariants = swTwVariants({
+  base: ['flex', 'flex-col', 'gap-sw-3xs'],
 })
 
 export const dropdownItemVariants = swTwVariants({
@@ -35,8 +35,8 @@ export const dropdownItemVariants = swTwVariants({
     'flex',
     'items-center',
     'gap-sw-2xs',
-    'not-disabled:cursor-pointer',
-    'hover:bg-base-100',
+    'not-data-disabled:cursor-pointer',
+    'not-data-disabled:hover:bg-base-100',
     'aria-checked:bg-base-200',
 
     'focus-visible:outline-none',
@@ -52,6 +52,4 @@ export type DropdownContentSlots = keyof ReturnType<
 
 export type DropdownItemVariants = VariantProps<typeof dropdownItemVariants>
 
-export type DropdownRadioGroupVariants = VariantProps<
-  typeof dropdownRadioGroupVariants
->
+export type DropdownGroupVariants = VariantProps<typeof dropdownGroupVariants>

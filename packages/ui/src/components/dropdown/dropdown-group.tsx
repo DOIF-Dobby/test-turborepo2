@@ -3,14 +3,14 @@ import { swClsx } from '../../utils/clsx'
 import { dropdownGroupVariants, type DropdownGroupVariants } from './variants'
 
 type Props = Omit<
-  React.ComponentProps<typeof DropdownPrimitive.RadioGroup>,
+  React.ComponentProps<typeof DropdownPrimitive.Group>,
   keyof DropdownGroupVariants
 > &
   DropdownGroupVariants
 
-export interface DropdownRadioGroupProps extends Props {}
+export interface DropdownGroupProps extends Props {}
 
-export function DropdownRadioGroup(props: DropdownRadioGroupProps) {
+export function DropdownGroup(props: DropdownGroupProps) {
   const { children, className, ...groupProps } = props
 
   const styles = swClsx(
@@ -20,8 +20,8 @@ export function DropdownRadioGroup(props: DropdownRadioGroupProps) {
   )
 
   return (
-    <DropdownPrimitive.RadioGroup {...groupProps} className={styles}>
+    <DropdownPrimitive.Group {...groupProps} className={styles}>
       {children}
-    </DropdownPrimitive.RadioGroup>
+    </DropdownPrimitive.Group>
   )
 }
