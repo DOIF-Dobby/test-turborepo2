@@ -4,6 +4,7 @@
   "private": true,
   "exports": {
     "./components/*": "./src/components/*/index.tsx",
+    "./components2/*": "./src/components2/*/index.tsx",
     "./providers": "./src/providers/index.tsx",
     "./theme": "./src/theme/index.tsx",
     "./utils/*": "./src/utils/*/index.ts",
@@ -18,6 +19,7 @@
     "react-dom": "*"
   },
   "dependencies": {
+    "@base-ui/react": "^1.1.0",
     "@repo/date": "workspace:*",
     "@repo/hooks": "workspace:*",
     "@repo/utils": "workspace:*",

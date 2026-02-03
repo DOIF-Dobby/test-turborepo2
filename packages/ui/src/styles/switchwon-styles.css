@@ -1,5 +1,6 @@
 @import 'tailwindcss';
 @source '../components/';
+@source '../components2/';
 
 :root {
   --sw-status-good: oklch(0.74 0.1701 153.32);
