@@ -1,5 +1,6 @@
 'use client'
 
+import { useIsFirstRender } from '@repo/hooks/use-is-first-render'
 import { useAnimate } from 'motion/react'
 import { useEffect, useRef } from 'react'
 import { useUIContext } from '../providers'
@@ -20,7 +21,7 @@ export function useCollapsibleAnimation({
   // 1. 초기 렌더링 시의 open 상태를 기억합니다.
   // 이렇게 해야 리렌더링이 되어도 initialStyle이 변하지 않아 애니메이션 충돌이 안 납니다.
   const initialOpen = useRef(isOpen)
-  const isMounted = useRef(false)
+  const isFirstRender = useIsFirstRender()
 
   const { disableAnimation: globalDisable } = useUIContext()
   const isDisabled = globalDisable || localDisable
@@ -28,8 +29,7 @@ export function useCollapsibleAnimation({
 
   useEffect(() => {
     // 마운트 시점에는 애니메이션 실행하지 않음 (initialStyle로 처리)
-    if (!isMounted.current) {
-      isMounted.current = true
+    if (isFirstRender) {
       return
     }
 
@@ -49,7 +49,7 @@ export function useCollapsibleAnimation({
         { duration: activeDuration, ease: [0.4, 0, 0.2, 1] },
       )
     }
-  }, [isOpen, activeDuration, animate, scope])
+  }, [isOpen, activeDuration, animate, scope, isFirstRender])
 
   return {
     scope,

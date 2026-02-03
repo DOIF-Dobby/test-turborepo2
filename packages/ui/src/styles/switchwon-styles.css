@@ -420,6 +420,15 @@
   }
 }
 
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%); /* 왼쪽 밖에서 시작 */
+  }
+  100% {
+    transform: translateX(200%); /* 오른쪽 밖 저 멀리까지 보냄 */
+  }
+}
+
 /* :focus {
   @apply outline-none;
 }

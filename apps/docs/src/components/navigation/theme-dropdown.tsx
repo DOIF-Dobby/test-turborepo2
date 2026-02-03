@@ -1,5 +1,6 @@
 'use client'
 
+import { useMounted } from '@repo/hooks/use-mounted'
 import { Button } from '@repo/ui/components/button'
 import {
   Dropdown,
@@ -8,12 +9,23 @@ import {
   DropdownRadioItem,
   DropdownTrigger,
 } from '@repo/ui/components/dropdown'
+import { Skeleton } from '@repo/ui/components/skeleton'
 import { useTheme, type ThemeMode } from '@repo/ui/theme'
 import { capitalize } from '@repo/utils/string'
 import { Laptop, Moon, Sun } from 'lucide-react'
 
 export function ThemeDropdown() {
   const { mode, setTheme } = useTheme()
+  const mounted = useMounted()
+
+  if (!mounted) {
+    return (
+      <div className="h-sw-btn-sm flex w-28 items-center justify-center gap-2">
+        <Skeleton className="size-5 rounded-full" />
+        <Skeleton className="h-8 w-12 rounded-md" />
+      </div>
+    )
+  }
 
   return (
     <Dropdown>

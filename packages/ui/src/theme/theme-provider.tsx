@@ -75,10 +75,6 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     applyTheme(newMode)
   }
 
-  // 마운트 전에는 렌더링 방지 (선택사항, 깜빡임 방지용)
-  // ThemeScript가 있어서 굳이 null 리턴 안해도 되지만, 안전하게 하려면 아래 코드 유지
-  // if (!mounted) return <>{children}</>
-
   return (
     <ThemeContext value={{ theme, mode, setTheme }}>{children}</ThemeContext>
   )
