@@ -1,6 +1,6 @@
 'use client'
 
-import { ScrollArea } from '@repo/ui/components/scroll-area'
+import { ScrollArea } from '@repo/ui/components2/scroll-area'
 import { useMemo } from 'react'
 import { DocsMenuSection } from './docs-menu-section'
 
