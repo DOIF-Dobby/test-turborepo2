@@ -17,7 +17,7 @@ export const checkboxVariants = swTwVariants({
       'focus-visible:ring-2',
       'focus-visible:ring-cta1-hover',
       'focus-visible:ring-offset-2',
-      'disabled:cursor-default',
+      'cursor-pointer',
 
       'transition-colors',
       'duration-200',

@@ -1,0 +1,56 @@
+import { CodeBlock } from '@/components/code-block'
+
+import Default from './default'
+import DefaultRaw from './default?raw'
+import Sizes from './sizes'
+import SizesRaw from './sizes?raw'
+import Colors from './colors'
+import ColorsRaw from './colors?raw'
+import WithLabel from './with-label'
+import WithLabelRaw from './with-label?raw'
+import Disabled from './disabled'
+import DisabledRaw from './disabled?raw'
+import DefaultChecked from './default-checked'
+import DefaultCheckedRaw from './default-checked?raw'
+import Controlled from './controlled'
+import ControlledRaw from './controlled?raw'
+import DisableAnimation from './disable-animation'
+import DisableAnimationRaw from './disable-animation?raw'
+
+# Switch
+
+## Default
+
+<CodeBlock preview={<Default />} code={DefaultRaw} />
+
+## With Label
+
+<CodeBlock preview={<WithLabel />} code={WithLabelRaw} />
+
+## Sizes
+
+<CodeBlock preview={<Sizes />} code={SizesRaw} />
+
+## Colors
+
+<CodeBlock preview={<Colors />} code={ColorsRaw} />
+
+## Disabled
+
+<CodeBlock preview={<Disabled />} code={DisabledRaw} />
+
+## Default Checked
+
+`defaultChecked` 속성을 사용하면 기본값을 설정할 수 있습니다. 이 방식은 Uncontrolled 방식입니다.
+
+<CodeBlock preview={<DefaultChecked />} code={DefaultCheckedRaw} />
+
+## Controlled
+
+`checked` 속성을 사용하면 기본값을 설정할 수 있습니다. 이 방식은 Controlled 방식입니다.
+
+<CodeBlock preview={<Controlled />} code={ControlledRaw} />
+
+## Disable Animation
+
+<CodeBlock preview={<DisableAnimation />} code={DisableAnimationRaw} />

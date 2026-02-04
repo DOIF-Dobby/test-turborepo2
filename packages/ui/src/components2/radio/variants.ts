@@ -38,12 +38,12 @@ export const radioVariants = swTwVariants({
       'items-center',
       'justify-center',
       'text-cta1',
+      'cursor-pointer',
 
       'focus-visible:outline-none',
       'focus-visible:ring-2',
       'focus-visible:ring-cta1-hover',
       'focus-visible:ring-offset-2',
-      'disabled:cursor-default',
 
       'transition-colors',
       'duration-200',

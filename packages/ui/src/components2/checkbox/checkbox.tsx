@@ -67,10 +67,10 @@ export function Checkbox(props: CheckboxProps) {
     >
       <CheckboxPrimitive.Root
         suppressHydrationWarning
+        {...mergeProps(pressProps, otherProps)}
         ref={mergeRefs([ref, rootRef, scope])}
         disabled={isDisabled}
         className={swClsx(slots.root({ className: classNames?.root }))}
-        {...mergeProps(pressProps, otherProps)}
       >
         <CheckboxPrimitive.Indicator
           keepMounted

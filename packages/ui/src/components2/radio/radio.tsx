@@ -66,9 +66,10 @@ export function Radio(props: RadioProps) {
         ref={mergeRefs([ref, rootRef, scope])}
         className={swClsx(slots.root({ className: classNames?.root }))}
         disabled={isDisabled}
+        nativeButton
         render={(radioProps) => (
           <>
-            <span {...radioProps} />
+            <button {...radioProps} />
           </>
         )}
       >
