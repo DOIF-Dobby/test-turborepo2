@@ -2,7 +2,7 @@ import { Tabs } from '@repo/ui/components2/tabs'
 
 export default function Default() {
   return (
-    <Tabs>
+    <Tabs defaultValue="tab2">
       <Tabs.List>
         <Tabs.Tab value="tab1">Tab 1</Tabs.Tab>
         <Tabs.Tab value="tab2">Tab 2</Tabs.Tab>

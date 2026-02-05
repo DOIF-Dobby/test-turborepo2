@@ -9,7 +9,7 @@ export const tabsVariatns = swTwVariants({
       'data-[orientation=horizontal]:flex-col',
       'data-[orientation=vertical]:flex-row',
     ],
-    list: ['flex', 'gap-sw-2xs', 'w-fit', 'px-sw-3xs'],
+    list: ['relative', 'z-0', 'flex', 'gap-sw-2xs', 'w-fit', 'px-sw-3xs'],
     tab: [
       'relative',
       'z-0',
@@ -17,48 +17,58 @@ export const tabsVariatns = swTwVariants({
       'justify-center',
       'px-sw-xs',
       'py-sw-2xs',
-      'data-[state=active]:text-base-700',
-      'data-[state=active]:font-medium',
-      'data-[state=inactive]:text-base-600',
-      'data-[state=inactive]:hover:text-base-700',
-      'data-[state=inactive]:disabled:text-base-400',
-      'not-disabled:cursor-pointer',
+      'text-base-600',
+      'hover:text-base-700',
+      'disabled:text-base-400',
+      'cursor-pointer',
 
       'focus-visible:outline-none',
       'focus-visible:ring-2',
       'focus-visible:ring-cta1-hover',
       'focus-visible:ring-offset-2',
+
+      'data-active:text-base-700',
+      'data-active:font-medium',
+
+      'data-disabled:pointer-events-none',
+      'data-disabled:text-base-400',
     ],
     panel: ['text-base-content'],
-    cursor: [],
+    indicator: [
+      'absolute',
+      'z-[-1]',
+      'w-(--active-tab-width)',
+      'translate-x-(--active-tab-left)',
+    ],
   },
   variants: {
     variant: {
       solid: {
         list: ['bg-base-100', 'py-sw-3xs'],
-        cursor: ['absolute', 'inset-0', 'z-0', 'bg-background'],
+        indicator: [
+          'inset-0',
+          'bg-background',
+          'top-1/2',
+          'left-0',
+          'h-[85%]',
+          '-translate-y-1/2',
+        ],
       },
       underlined: {
         list: ['bg-transparent', 'border-b', 'border-b-base-200'],
-        cursor: [
-          'absolute',
-          'inset-0',
-          'z-0',
-          'border-b-2',
-          'border-b-base-content',
-        ],
+        indicator: ['bg-base-content', 'bottom-0', 'h-0.5'],
       },
     },
     radius: {
       md: {
         list: ['rounded-md'],
         tab: ['rounded-md'],
-        cursor: ['rounded-md'],
+        indicator: ['rounded-md'],
       },
       none: {
         list: ['rounded-none'],
         tab: ['rounded-none'],
-        cursor: ['rounded-none'],
+        indicator: ['rounded-none'],
       },
     },
   },
@@ -68,7 +78,7 @@ export const tabsVariatns = swTwVariants({
       class: {
         list: ['rounded-none'],
         tab: ['rounded-none'],
-        cursor: ['rounded-none'],
+        indicator: ['rounded-none'],
       },
     },
   ],

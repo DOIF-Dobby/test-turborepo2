@@ -7,6 +7,7 @@ import { useTabsContext } from './tabs-context'
 type Props = React.ComponentProps<typeof TabsPrimitive.Panel>
 
 export interface TabsPanelProps extends Props {
+  value: string
   className?: string
 }
 

@@ -29,6 +29,7 @@ export function RadioGroup(props: RadioGroupProps) {
   return (
     <RadioGroupPrimitive
       {...otherProps}
+      suppressHydrationWarning
       className={swClsx(slots.root({ className: classNames?.root }))}
     >
       {children}

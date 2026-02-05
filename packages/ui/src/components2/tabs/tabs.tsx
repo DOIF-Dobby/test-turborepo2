@@ -16,6 +16,8 @@ type Props = Omit<
 export interface TabsProps extends Props {
   classNames?: SlotsToClasses<TabsSlots>
   clsssName?: string
+  value?: string
+  defaultValue?: string
 }
 
 export function Tabs(props: TabsProps) {
@@ -25,7 +27,6 @@ export function Tabs(props: TabsProps) {
     className,
     variant,
     radius,
-    value,
     id,
     ref,
     ...otherProps
@@ -44,7 +45,7 @@ export function Tabs(props: TabsProps) {
         slots,
         variant,
         radius,
-        value,
+        value: '',
       }}
     >
       <TabsPrimitive.Root
@@ -54,7 +55,6 @@ export function Tabs(props: TabsProps) {
             className: swClsx(classNames?.root, className),
           }),
         )}
-        value={value}
         {...otherProps}
       >
         {children}
