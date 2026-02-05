@@ -1,12 +1,4 @@
-'use client'
-
-import {
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-} from '@repo/ui/components/tabs'
-import { useState } from 'react'
+import { Tabs } from '@repo/ui/components2/tabs'
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
 import { oneDark as style } from 'react-syntax-highlighter/dist/cjs/styles/prism'
 
@@ -16,20 +8,18 @@ interface Props {
 }
 
 export function CodeBlock({ preview, code }: Props) {
-  const [tab, setTab] = useState('preview')
-
   return (
-    <Tabs value={tab} onValueChange={setTab} variant="underlined">
-      <TabsList>
-        <TabsTrigger value="preview">Preview</TabsTrigger>
-        <TabsTrigger value="code">Code</TabsTrigger>
-      </TabsList>
-      <TabsContent value="preview">
+    <Tabs defaultValue="preview" variant="underlined">
+      <Tabs.List>
+        <Tabs.Tab value="preview">Preview</Tabs.Tab>
+        <Tabs.Tab value="code">Code</Tabs.Tab>
+      </Tabs.List>
+      <Tabs.Panel value="preview">
         <div className="border-base-200 not-prose overflow-x-auto rounded-lg border p-4">
           {preview}
         </div>
-      </TabsContent>
-      <TabsContent value="code">
+      </Tabs.Panel>
+      <Tabs.Panel value="code">
         <SyntaxHighlighter
           language="tsx"
           customStyle={{
@@ -39,7 +29,7 @@ export function CodeBlock({ preview, code }: Props) {
         >
           {code}
         </SyntaxHighlighter>
-      </TabsContent>
+      </Tabs.Panel>
     </Tabs>
   )
 }
