@@ -6,6 +6,6 @@ const items = [
   { label: '오렌지', value: 'orange' },
 ]
 
-export default function Default() {
-  return <Select items={items} />
+export default function DefaultValue() {
+  return <Select defaultValue={['apple', 'banana']} multiple items={items} />
 }

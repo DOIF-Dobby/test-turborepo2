@@ -6,13 +6,5 @@ export default function ManyItems() {
     label: `Item ${i + 1} 입니다`,
   }))
 
-  return (
-    <Select>
-      {items.map((item) => (
-        <Select.Item key={item.value} value={item.value}>
-          {item.label}
-        </Select.Item>
-      ))}
-    </Select>
-  )
+  return <Select items={items} />
 }

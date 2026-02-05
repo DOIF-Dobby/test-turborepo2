@@ -1,18 +1,11 @@
 import { Select } from '@repo/ui/components2/select'
 
+const items = [
+  { label: '사과', value: 'apple' },
+  { label: '바나나', value: 'banana' },
+  { label: '오렌지', value: 'orange' },
+]
+
 export default function DefaultValue() {
-  return (
-    <Select
-      defaultValue="value1"
-      items={[
-        { value: 'value1', label: 'value1' },
-        { value: 'value2', label: 'value2' },
-        { value: 'value3', label: 'value3' },
-      ]}
-    >
-      <Select.Item value="value1">value1</Select.Item>
-      <Select.Item value="value2">value2</Select.Item>
-      <Select.Item value="value3">value3</Select.Item>
-    </Select>
-  )
+  return <Select defaultValue="apple" items={items} />
 }

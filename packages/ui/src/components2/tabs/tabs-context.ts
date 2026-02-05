@@ -7,6 +7,7 @@ type TabsContextType = {
   variant?: TabsVariants['variant']
   radius?: TabsVariants['radius']
   value?: string
+  disableAnimation?: boolean
 }
 
 export const TabsContext = createContext<TabsContextType>({

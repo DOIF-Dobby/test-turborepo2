@@ -41,12 +41,19 @@ export const selectVariants = swTwVariants({
       'py-sw-2xs',
       'px-sw-2xs',
       'shadow-popover',
-      'max-h-[300px]',
+      'max-h-(--available-height)',
+      'overflow-hidden',
 
       'data-[side=bottom]:[--y-initial:-8px] data-[side=bottom]:[--x-initial:0px]',
       'data-[side=top]:[--y-initial:8px] data-[side=top]:[--x-initial:0px]',
       'data-[side=right]:[--x-initial:-8px] data-[side=right]:[--y-initial:0px]',
       'data-[side=left]:[--x-initial:8px] data-[side=left]:[--y-initial:0px]',
+    ],
+    contentList: [
+      'relative',
+      'scroll-py-6',
+      'overflow-y-auto',
+      'max-h-[300px]',
     ],
     clearButton: [
       'hover:bg-base-200',
@@ -62,6 +69,12 @@ export const selectVariants = swTwVariants({
       'focus-visible:ring-offset-2',
     ],
     clearIcon: ['size-4'],
+    scrollUpArrow: [
+      'top-0 z-1 flex h-4 w-full cursor-default items-center justify-center rounded-md  text-center text-xs text-base-600',
+    ],
+    scrollDownArrow: [
+      'bottom-0 z-1 flex h-4 w-full cursor-default items-center justify-center rounded-md text-center text-xs text-base-600',
+    ],
   },
   variants: {
     size: {

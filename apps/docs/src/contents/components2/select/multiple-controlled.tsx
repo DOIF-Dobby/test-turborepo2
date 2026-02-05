@@ -9,14 +9,15 @@ const items = [
   { label: '오렌지', value: 'orange' },
 ]
 
-export default function ControlledOpen() {
-  const [open, setOpen] = useState(false)
+export default function Controlled() {
+  const [value, setValue] = useState<string[]>(['apple', 'banana'])
+
   return (
     <div className="gap-sw-md flex">
       <div className="w-1/2">
-        <Select open={open} onOpenChange={setOpen} items={items} />
+        <Select value={value} onValueChange={setValue} items={items} multiple />
       </div>
-      <div>{open ? '열림' : '닫힘'}</div>
+      <p>입력한 값: {value.join(', ')}</p>
     </div>
   )
 }

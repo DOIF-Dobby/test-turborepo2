@@ -1,5 +1,11 @@
 import { Select } from '@repo/ui/components2/select'
 
+const items = [
+  { label: '사과', value: 'apple' },
+  { label: '바나나', value: 'banana' },
+  { label: '오렌지', value: 'orange' },
+]
+
 export default function Clearable() {
   return (
     <div className="gap-sw-2xs flex">
@@ -8,22 +14,18 @@ export default function Clearable() {
         classNames={{
           container: 'w-1/2',
         }}
-      >
-        <Select.Item value="value1">value1</Select.Item>
-        <Select.Item value="value2">value2</Select.Item>
-        <Select.Item value="value3">value3</Select.Item>
-      </Select>
+        defaultValue="apple"
+        items={items}
+      />
 
       <Select
         isClearable={false}
         classNames={{
           container: 'w-1/2',
         }}
-      >
-        <Select.Item value="value1">value1</Select.Item>
-        <Select.Item value="value2">value2</Select.Item>
-        <Select.Item value="value3">value3</Select.Item>
-      </Select>
+        defaultValue="apple"
+        items={items}
+      />
     </div>
   )
 }

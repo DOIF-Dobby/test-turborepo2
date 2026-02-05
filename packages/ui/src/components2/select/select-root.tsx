@@ -5,85 +5,170 @@ import {
   type SelectRootChangeEventDetails,
 } from '@base-ui/react/select'
 import { useControllableState } from '@repo/hooks/use-controllable-state'
-import { ChevronDown, XIcon } from 'lucide-react'
+import {
+  ChevronDown,
+  ChevronDownIcon,
+  ChevronUpIcon,
+  XIcon,
+} from 'lucide-react'
 import { motion, type HTMLMotionProps, type MotionProps } from 'motion/react'
 import { useDisableAnimation } from '../../hooks/use-disable-animation'
 import type { SlotsToClasses } from '../../types'
 import { swClsx } from '../../utils/clsx'
+import { SelectItem } from './select-item'
 import {
   selectVariants,
   type SelectSlots,
   type SelectVariants,
 } from './variants'
 
-type Props = Omit<
-  React.ComponentProps<typeof SelectPrimitive.Root<string>>,
-  keyof SelectVariants | 'className' | 'disabled'
+type BaseSelectProps<T, M extends boolean | undefined> = React.ComponentProps<
+  typeof SelectPrimitive.Root<T, M>
+>
+
+// 기본 아이템 타입
+type DefaultItem = {
+  value: string
+  label: React.ReactNode
+}
+
+type SelectValue<M extends boolean | undefined> = M extends true
+  ? string[]
+  : string | null
+
+type Props<M extends boolean | undefined> = Omit<
+  React.ComponentProps<typeof SelectPrimitive.Root<string, M>>,
+  | keyof SelectVariants
+  | 'className'
+  | 'disabled'
+  | 'items'
+  | 'value'
+  | 'defaultValue'
+  | 'onValueChange'
 > &
   SelectVariants
 
-export interface SelectRootProps extends Props {
+export interface SelectRootProps<
+  T = DefaultItem,
+  M extends boolean | undefined = false,
+> extends Props<M> {
   classNames?: SlotsToClasses<SelectSlots>
   placeholder?: string
   startContent?: React.ReactNode
   isClearable?: boolean
   disableAnimation?: boolean
   errorMessage?: React.ReactNode
+
+  items?: T[]
+
+  value?: SelectValue<M>
+  defaultValue?: SelectValue<M>
+  onValueChange?: (
+    value: SelectValue<M>,
+    eventDetails: SelectRootChangeEventDetails,
+  ) => void
+
   onClear?: () => void
+  getItemValue?: (item: T) => string
+  getItemLabel?: (item: T) => React.ReactNode
 }
 
-export function SelectRoot(props: SelectRootProps) {
+export function SelectRoot<
+  T = DefaultItem,
+  M extends boolean | undefined = false,
+>(props: SelectRootProps<T, M>) {
   const {
     children,
     classNames,
     placeholder = '선택없음',
     size,
-    value: valueProp, // 외부 제어 값 (별칭 사용)
-    defaultValue, // 초기 값
+    value: valueProp,
+    defaultValue,
     isDisabled,
     isInvalid: isInvalidProp,
     disableAnimation,
     startContent,
     isClearable = true,
     errorMessage,
+    items,
     onValueChange,
     onClear,
+    multiple,
+    getItemValue = (item: T) => (item as DefaultItem).value,
+    getItemLabel = (item: T) => (item as DefaultItem).label,
     ...otherProps
   } = props
 
-  const [value, setValue] = useControllableState({
+  // 초기값 설정 (멀티면 빈 배열, 싱글이면 null)
+  const initialDefaultValue = (defaultValue ??
+    (multiple ? [] : null)) as SelectValue<M>
+
+  const [value, setValue] = useControllableState<SelectValue<M>>({
     value: valueProp,
-    defaultValue: defaultValue ?? null,
-    onChange: (value) => {
-      onValueChange?.(value, {} as SelectRootChangeEventDetails)
+    defaultValue: initialDefaultValue,
+    onChange: (val) => {
+      onValueChange?.(val, {} as SelectRootChangeEventDetails)
     },
   })
 
+  const getDisplayLabel = () => {
+    if (!items || value === null || value === undefined) return null
+
+    if (Array.isArray(value)) {
+      if (value.length === 0) return null
+      return value
+        .map((val) => items.find((item) => getItemValue(item) === val))
+        .filter(Boolean)
+        .map((item) => getItemLabel(item!))
+        .join(', ')
+    } else {
+      const selectedItem = items.find((item) => getItemValue(item) === value)
+      return selectedItem ? getItemLabel(selectedItem) : null
+    }
+  }
+
+  const displayLabel = getDisplayLabel()
+
+  // Clear 핸들러
   const handleClear = (e: React.MouseEvent) => {
     e.stopPropagation()
     e.preventDefault()
-
-    setValue(null)
+    // 멀티면 [], 싱글이면 null로 초기화
+    const emptyValue = (multiple ? [] : null) as SelectValue<M>
+    setValue(emptyValue)
     onClear?.()
   }
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter' || e.key === ' ') {
-      e.stopPropagation() // 키보드 이벤트 전파 중단
-      e.preventDefault() // 스크롤 등 브라우저 기본 동작 방지
-      setValue(null)
+      e.stopPropagation()
+      e.preventDefault()
+      const emptyValue = (multiple ? [] : null) as SelectValue<M>
+      setValue(emptyValue)
       onClear?.()
     }
   }
 
-  // 3. Clear 버튼 표시 여부 계산
-  // value가 존재하고 빈 문자열이 아닐 때만 노출
-  const hasValue = value !== undefined && value !== null
-  const showClear = isClearable && hasValue
+  // hasValue 체크 (배열일 땐 길이 체크)
+  const hasValue = Array.isArray(value)
+    ? value.length > 0
+    : value !== undefined && value !== null
 
+  const showClear = isClearable && hasValue && !isDisabled
   const isInvalid = isInvalidProp || errorMessage !== undefined
-
   const shouldDisableAnimation = useDisableAnimation(disableAnimation)
+
+  // 자식 아이템 렌더링
+  const childrenItems = children
+    ? children
+    : items?.map((item) => {
+        const itemValue = getItemValue(item)
+        return (
+          <SelectItem key={itemValue} value={itemValue}>
+            {getItemLabel(item)}
+          </SelectItem>
+        )
+      })
 
   const slots = selectVariants({
     size,
@@ -96,36 +181,32 @@ export function SelectRoot(props: SelectRootProps) {
     <div
       className={swClsx(slots.container({ className: classNames?.container }))}
     >
-      <SelectPrimitive.Root
-        value={value}
+      <SelectPrimitive.Root<string, M>
+        value={value as BaseSelectProps<string, M>['value']}
         onValueChange={setValue}
         disabled={isDisabled}
+        multiple={multiple}
         {...otherProps}
       >
         <SelectPrimitive.Trigger
           suppressHydrationWarning
-          className={swClsx(
-            slots.trigger({
-              className: classNames?.trigger,
-            }),
-          )}
+          className={swClsx(slots.trigger({ className: classNames?.trigger }))}
         >
           <div className="gap-sw-2xs flex flex-1 items-center overflow-hidden">
-            {/* startContent */}
             {startContent && <span className="shrink-0">{startContent}</span>}
 
-            {/* 선택된 값 표시 영역 */}
             <span
               className={swClsx(slots.value({ className: classNames?.value }))}
             >
-              <SelectPrimitive.Value
-                suppressHydrationWarning
-                placeholder={placeholder}
-              />
+              {/* items가 있으면 계산된 displayLabel 사용 */}
+              {items ? (
+                displayLabel || placeholder
+              ) : (
+                <SelectPrimitive.Value placeholder={placeholder} />
+              )}
             </span>
           </div>
 
-          {/* 아이콘 및 Clear 버튼 영역 */}
           <div className="flex items-center gap-1">
             {showClear && (
               <div
@@ -134,9 +215,7 @@ export function SelectRoot(props: SelectRootProps) {
                 onClick={handleClear}
                 onKeyDown={handleKeyDown}
                 className={swClsx(
-                  slots.clearButton({
-                    className: classNames?.clearButton,
-                  }),
+                  slots.clearButton({ className: classNames?.clearButton }),
                 )}
                 tabIndex={0}
                 aria-label="선택 초기화"
@@ -173,46 +252,54 @@ export function SelectRoot(props: SelectRootProps) {
               data-slot="popup"
               suppressHydrationWarning
               className={swClsx(
-                slots.content({
-                  className: classNames?.content,
-                }),
+                slots.content({ className: classNames?.content }),
               )}
               render={(props, state) => {
                 const motionProps: HTMLMotionProps<'div'> = {
                   initial: false,
                   animate: state.open
-                    ? {
-                        opacity: 1,
-                        y: 0,
-                        x: 0,
-                      }
+                    ? { opacity: 1, y: 0, x: 0 }
                     : {
                         opacity: 0,
                         y: 'var(--y-initial, 0px)',
                         x: 'var(--x-initial, 0px)',
                       },
-                  transition: {
-                    duration: shouldDisableAnimation ? 0 : 0.15,
-                  },
+                  transition: { duration: shouldDisableAnimation ? 0 : 0.15 },
                 }
 
                 return (
                   <motion.div {...(props as MotionProps)} {...motionProps}>
                     <SelectPrimitive.ScrollUpArrow
-                      data-slot="scroll-up-arrow"
                       suppressHydrationWarning
-                    />
+                      className={swClsx(
+                        slots.scrollUpArrow({
+                          className: classNames?.scrollUpArrow,
+                        }),
+                      )}
+                    >
+                      <ChevronUpIcon className="size-4" />
+                    </SelectPrimitive.ScrollUpArrow>
                     <SelectPrimitive.List
-                      data-slot="list"
                       suppressHydrationWarning
                       tabIndex={-1}
+                      className={swClsx(
+                        slots.contentList({
+                          className: classNames?.contentList,
+                        }),
+                      )}
                     >
-                      {children}
+                      {childrenItems}
                     </SelectPrimitive.List>
                     <SelectPrimitive.ScrollDownArrow
-                      data-slot="scroll-down-arrow"
                       suppressHydrationWarning
-                    />
+                      className={swClsx(
+                        slots.scrollDownArrow({
+                          className: classNames?.scrollDownArrow,
+                        }),
+                      )}
+                    >
+                      <ChevronDownIcon className="size-4" />
+                    </SelectPrimitive.ScrollDownArrow>
                   </motion.div>
                 )
               }}

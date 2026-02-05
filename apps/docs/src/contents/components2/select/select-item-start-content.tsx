@@ -1,24 +1,30 @@
+'use client'
+
 import { Select } from '@repo/ui/components2/select'
-import { AlarmClock, FuelIcon, MehIcon } from 'lucide-react'
+import { AirplayIcon, AppleIcon, BananaIcon } from 'lucide-react'
+
+const items = [
+  { label: '사과', value: 'apple', icon: <AppleIcon className="size-5" /> },
+  { label: '바나나', value: 'banana', icon: <BananaIcon className="size-5" /> },
+  {
+    label: '오렌지',
+    value: 'orange',
+    icon: <AirplayIcon className="size-5" />,
+  },
+]
 
 export default function SelectItemStartContent() {
   return (
-    <Select>
-      <Select.Item
-        value="value1"
-        startContent={<FuelIcon className="size-5" />}
-      >
-        value1
-      </Select.Item>
-      <Select.Item
-        value="value2"
-        startContent={<AlarmClock className="size-5" />}
-      >
-        value2
-      </Select.Item>
-      <Select.Item value="value3" startContent={<MehIcon className="size-5" />}>
-        value3
-      </Select.Item>
+    <Select items={items} getItemLabel={(item) => item.label}>
+      {items.map((item) => (
+        <Select.Item
+          key={item.value}
+          value={item.value}
+          startContent={item.icon}
+        >
+          {item.label}
+        </Select.Item>
+      ))}
     </Select>
   )
 }
