@@ -47,7 +47,7 @@ export function ScrollArea({
           }),
         )}
       >
-        {children}
+        <ScrollAreaPrimitive.Content>{children}</ScrollAreaPrimitive.Content>
       </ScrollAreaPrimitive.Viewport>
       {orientation === 'vertical' && <ScrollBar orientation="vertical" />}
       {orientation === 'horizontal' && <ScrollBar orientation="horizontal" />}
