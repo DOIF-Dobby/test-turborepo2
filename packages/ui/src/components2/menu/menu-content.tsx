@@ -33,7 +33,7 @@ export function MenuContent(props: MenuContentProps) {
     showArrow = true,
     arrow = <DefaultArrowSvg />,
     side = 'bottom',
-    align = 'start',
+    align = 'center',
     sideOffset = 8,
     zIndex = 50,
     style,

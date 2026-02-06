@@ -1,6 +1,6 @@
 'use client'
 
-import { Slot } from 'radix-ui'
+import { Slot } from '@radix-ui/react-slot'
 import { useCallback, useRef } from 'react'
 import {
   type AriaButtonProps,
@@ -83,7 +83,6 @@ export function Button(props: ButtonProps) {
 
   const { buttonProps, isPressed } = useButton(
     {
-      ...otherProps,
       onClick: onClick,
       isDisabled: isDisabled || isLoading,
       onPress: chain(onPress, handleRipplePress),
@@ -115,7 +114,7 @@ export function Button(props: ButtonProps) {
     startContentProp
   )
 
-  const Comp = asChild ? Slot.Root : 'button'
+  const Comp = asChild ? Slot : 'button'
 
   // asChild가 true면 Ripple을 렌더링하지 않음 (Slot은 단일 자식만 허용)
   const shouldRenderRipple = !disableRipple && !isDisabled && !asChild

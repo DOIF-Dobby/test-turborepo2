@@ -49,11 +49,14 @@ export const menuItemVariants = swTwVariants({
     'flex',
     'items-center',
     'gap-sw-2xs',
-    'not-data-disabled:cursor-pointer',
-    'not-data-disabled:hover:bg-base-100',
+    'cursor-pointer',
+    'hover:bg-base-100',
     'aria-checked:bg-base-200',
 
     'focus-visible:outline-none',
+
+    'data-disabled:pointer-events-none',
+    'data-disabled:text-base-400',
   ],
 })
 
