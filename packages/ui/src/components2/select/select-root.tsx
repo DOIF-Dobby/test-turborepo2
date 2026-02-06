@@ -58,6 +58,7 @@ export interface SelectRootProps<
   isClearable?: boolean
   disableAnimation?: boolean
   errorMessage?: React.ReactNode
+  sideOffset?: number
 
   items?: T[]
 
@@ -81,6 +82,7 @@ export function SelectRoot<
     children,
     classNames,
     placeholder = '선택없음',
+    sideOffset = 6,
     size,
     value: valueProp,
     defaultValue,
@@ -246,7 +248,7 @@ export function SelectRoot<
             suppressHydrationWarning
             alignItemWithTrigger={false}
             align="start"
-            sideOffset={6}
+            sideOffset={sideOffset}
           >
             <SelectPrimitive.Popup
               data-slot="popup"

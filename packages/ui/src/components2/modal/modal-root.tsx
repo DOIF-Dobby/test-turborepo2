@@ -112,6 +112,9 @@ export function ModalRoot<Payload>(props: ModalRootProps<Payload>) {
                           <DialogPrimitive.Close
                             suppressHydrationWarning
                             tabIndex={closeOnEscape ? -1 : 0}
+                            className={slots.closeButton({
+                              className: classNames?.closeButton,
+                            })}
                             render={(props) => {
                               return <Slot {...props}>{closeButton}</Slot>
                             }}
