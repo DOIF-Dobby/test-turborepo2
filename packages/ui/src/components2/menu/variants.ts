@@ -1,13 +1,14 @@
 import type { VariantProps } from 'tailwind-variants'
 import { swTwVariants } from '../../utils/tw-variants'
 
-export const popoverContentVariants = swTwVariants({
+export const menuContentVariants = swTwVariants({
   slots: {
     content: [
-      'rounded-input-md',
       'bg-background',
+      'rounded-input-md',
       'shadow-popover',
-      'py-sw-sm',
+      'py-sw-2xs',
+      'px-sw-2xs',
 
       'outline',
       'outline-1',
@@ -33,20 +34,32 @@ export const popoverContentVariants = swTwVariants({
       'data-[side=top]:bottom-[-9px]',
       'data-[side=top]:rotate-180',
     ],
-    closeButtonWrapper: ['absolute', 'top-1', 'right-1'],
-    closeButton: [
-      'h-6',
-      'min-h-6',
-      'max-w-6',
-      'min-w-6',
-      'rounded-full',
-      'px-0',
-      'py-0',
-    ],
   },
 })
 
-export type PopoverContentVariants = VariantProps<typeof popoverContentVariants>
-export type PopoverContentSlots = keyof ReturnType<
-  typeof popoverContentVariants
->
+export const menuGroupVariants = swTwVariants({
+  base: ['flex', 'flex-col', 'gap-sw-3xs'],
+})
+
+export const menuItemVariants = swTwVariants({
+  base: [
+    'rounded-input-md',
+    'px-sw-2xs',
+    'py-sw-2xs',
+    'flex',
+    'items-center',
+    'gap-sw-2xs',
+    'not-data-disabled:cursor-pointer',
+    'not-data-disabled:hover:bg-base-100',
+    'aria-checked:bg-base-200',
+
+    'focus-visible:outline-none',
+  ],
+})
+
+export type MenuContentVariants = VariantProps<typeof menuContentVariants>
+export type MenuContentSlots = keyof ReturnType<typeof menuContentVariants>
+
+export type MenuItemVariants = VariantProps<typeof menuItemVariants>
+
+export type MenuGroupVariants = VariantProps<typeof menuGroupVariants>
