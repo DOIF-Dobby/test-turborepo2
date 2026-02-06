@@ -1,6 +1,6 @@
 import { Heading3 } from '@repo/ui/components/typography'
 import Image from 'next/image'
-import { ThemeDropdown } from './theme-dropdown'
+import { ThemeMenu } from './theme-menu'
 import { ToggleAnimation } from './toggle-animation'
 
 export function DocsHeader() {
@@ -13,7 +13,7 @@ export function DocsHeader() {
         </div>
         <div className="gap-sw-3xs flex items-center">
           <ToggleAnimation />
-          <ThemeDropdown />
+          <ThemeMenu />
         </div>
       </div>
     </header>

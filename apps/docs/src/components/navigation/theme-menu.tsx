@@ -2,20 +2,15 @@
 
 import { useMounted } from '@repo/hooks/use-mounted'
 import { Button } from '@repo/ui/components/button'
-import {
-  Dropdown,
-  DropdownContent,
-  DropdownRadioGroup,
-  DropdownRadioItem,
-  DropdownTrigger,
-} from '@repo/ui/components/dropdown'
 import { Skeleton } from '@repo/ui/components/skeleton'
 import { Paragraph1 } from '@repo/ui/components/typography'
+import { Menu } from '@repo/ui/components2/menu'
 import { useTheme, type ThemeMode } from '@repo/ui/theme'
 import { capitalize } from '@repo/utils/string'
 import { Laptop, Moon, Sun } from 'lucide-react'
+import { MenuTrigger } from '../../../../../packages/ui/src/components2/menu/menu-trigger'
 
-export function ThemeDropdown() {
+export function ThemeMenu() {
   const { mode, setTheme } = useTheme()
   const mounted = useMounted()
 
@@ -29,35 +24,35 @@ export function ThemeDropdown() {
   }
 
   return (
-    <Dropdown>
-      <DropdownTrigger>
+    <Menu>
+      <MenuTrigger>
         <Button size="xs" variant="light">
           {mode === 'light' && <Sun className="size-4" />}
           {mode === 'dark' && <Moon className="size-4" />}
           {mode === 'system' && <Laptop className="size-4" />}
           {capitalize(mode)}
         </Button>
-      </DropdownTrigger>
+      </MenuTrigger>
 
-      <DropdownContent align="end">
-        <DropdownRadioGroup
+      <Menu.Content align="end">
+        <Menu.RadioGroup
           value={mode}
           onValueChange={(val) => setTheme(val as ThemeMode)}
         >
-          <DropdownRadioItem value="light">
+          <Menu.RadioItem value="light">
             <Sun className="mr-2 size-4" />
             <Paragraph1>Light</Paragraph1>
-          </DropdownRadioItem>
-          <DropdownRadioItem value="dark">
+          </Menu.RadioItem>
+          <Menu.RadioItem value="dark">
             <Moon className="mr-2 size-4" />
             <Paragraph1>Dark</Paragraph1>
-          </DropdownRadioItem>
-          <DropdownRadioItem value="system">
+          </Menu.RadioItem>
+          <Menu.RadioItem value="system">
             <Laptop className="mr-2 size-4" />
             <Paragraph1>System</Paragraph1>
-          </DropdownRadioItem>
-        </DropdownRadioGroup>
-      </DropdownContent>
-    </Dropdown>
+          </Menu.RadioItem>
+        </Menu.RadioGroup>
+      </Menu.Content>
+    </Menu>
   )
 }
