@@ -2,9 +2,10 @@
 
 import type { DateValue } from '@repo/date'
 import { CalendarIcon, ChevronDownIcon } from 'lucide-react'
-import { useRef } from 'react'
+import { useMemo, useRef } from 'react'
 import { useDatePicker, type AriaDatePickerProps } from 'react-aria'
 import { useDatePickerState } from 'react-stately'
+import { Popover } from '../../components2/popover'
 import { useUIContext } from '../../providers'
 import type { SlotsToClasses } from '../../types'
 import { swClsx } from '../../utils/clsx'
@@ -12,7 +13,6 @@ import { Button } from '../button'
 import { Calendar } from '../calendar'
 import { DateField } from '../date-field'
 import { Label } from '../label'
-import { Popover, PopoverAnchor, PopoverContent } from '../popover'
 import {
   datePickerVariants,
   type DatePickerSlots,
@@ -60,6 +60,8 @@ export function DatePicker(props: DatePickerProps) {
 
   const { disableAnimation: globalDisableAnimation } = useUIContext()
 
+  const popoverHandle = useMemo(() => Popover.createHandle(), [])
+
   const slots = datePickerVariants({
     size,
     isDisabled: props.isDisabled,
@@ -90,59 +92,57 @@ export function DatePicker(props: DatePickerProps) {
           {label}
         </Label>
       )}
-      <Popover open={state.isOpen} onOpenChange={state.setOpen}>
-        <PopoverAnchor asChild>
-          <div {...groupProps} ref={ref}>
-            <DateField
-              {...fieldProps}
-              isInvalid={isInvalid}
-              errorMessage={false}
-              size={size}
-              minValue={props.minValue}
-              maxValue={props.maxValue}
-              isDateUnavailable={props.isDateUnavailable}
-              startContent={
-                <CalendarIcon
+      <div {...groupProps} ref={ref}>
+        <DateField
+          {...fieldProps}
+          isInvalid={isInvalid}
+          errorMessage={false}
+          size={size}
+          minValue={props.minValue}
+          maxValue={props.maxValue}
+          isDateUnavailable={props.isDateUnavailable}
+          startContent={
+            <CalendarIcon
+              className={swClsx(
+                slots.startIcon({ className: classNames?.startIcon }),
+              )}
+            />
+          }
+          endContent={
+            <Popover.Trigger handle={popoverHandle}>
+              <Button
+                {...buttonProps}
+                disableAnimation={disableAnimation}
+                onPress={() => state.setOpen(!state.isOpen)}
+                isIconOnly
+                variant="light"
+                className={swClsx(
+                  slots.openButton({ className: classNames?.openButton }),
+                )}
+              >
+                <ChevronDownIcon
                   className={swClsx(
-                    slots.startIcon({ className: classNames?.startIcon }),
+                    slots.endIcon({ className: classNames?.endIcon }),
                   )}
                 />
-              }
-              endContent={
-                <Button
-                  {...buttonProps}
-                  disableAnimation={disableAnimation}
-                  onPress={() => state.setOpen(!state.isOpen)}
-                  isIconOnly
-                  variant="light"
-                  className={swClsx(
-                    slots.openButton({ className: classNames?.openButton }),
-                  )}
-                >
-                  <ChevronDownIcon
-                    className={swClsx(
-                      slots.endIcon({ className: classNames?.endIcon }),
-                    )}
-                  />
-                </Button>
-              }
-            />
-          </div>
-        </PopoverAnchor>
+              </Button>
+            </Popover.Trigger>
+          }
+        />
+      </div>
 
-        <PopoverContent
+      <Popover
+        handle={popoverHandle}
+        open={state.isOpen}
+        onOpenChange={state.setOpen}
+      >
+        <Popover.Content
           {...dialogProps}
+          align="start"
+          side="bottom"
           disableAnimation={disableAnimation}
-          onPointerDownOutside={(event) => {
-            if (ref.current?.contains(event.target as Node)) {
-              event.preventDefault()
-            }
-          }}
-          onFocusOutside={(event) => {
-            if (ref.current?.contains(event.target as Node)) {
-              event.preventDefault()
-            }
-          }}
+          anchor={ref}
+          showArrow={false}
         >
           <Calendar
             {...calendarProps}
@@ -170,7 +170,7 @@ export function DatePicker(props: DatePickerProps) {
               },
             }}
           />
-        </PopoverContent>
+        </Popover.Content>
       </Popover>
 
       {props.errorMessage && (
