@@ -1,5 +1,5 @@
 import { Button } from '@repo/ui/components/button'
-import { Tooltip } from '@repo/ui/components/tooltip'
+import { Tooltip } from '@repo/ui/components2/tooltip'
 
 const sides = ['top', 'bottom', 'left', 'right'] as const
 const aligns = ['start', 'center', 'end'] as const

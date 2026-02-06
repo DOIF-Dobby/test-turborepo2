@@ -2,14 +2,14 @@ import { CodeBlock } from '@/components/code-block'
 
 import Default from './default'
 import DefaultRaw from './default?raw'
-import WithButton from './with-button'
-import WithButtonRaw from './with-button?raw'
+import WithButtonTrigger from './with-button-trigger'
+import WithButtonTriggerRaw from './with-button-trigger?raw'
 import Placement from './placement'
 import PlacementRaw from './placement?raw'
-import DelayDuration from './delay-duration'
-import DelayDurationRaw from './delay-duration?raw'
 import Controlled from './controlled'
 import ControlledRaw from './controlled?raw'
+import Delay from './delay'
+import DelayRaw from './delay?raw'
 
 # Tooltip
 
@@ -17,18 +17,18 @@ import ControlledRaw from './controlled?raw'
 
 <CodeBlock preview={<Default />} code={DefaultRaw} />
 
-## With Button
+## With Button Trigger
 
-<CodeBlock preview={<WithButton />} code={WithButtonRaw} />
+<CodeBlock preview={<WithButtonTrigger />} code={WithButtonTriggerRaw} />
 
 ## Placement
 
 <CodeBlock preview={<Placement />} code={PlacementRaw} />
 
-## Delay Duration
-
-<CodeBlock preview={<DelayDuration />} code={DelayDurationRaw} />
-
 ## Controlled
 
 <CodeBlock preview={<Controlled />} code={ControlledRaw} />
+
+## Delay
+
+<CodeBlock preview={<Delay />} code={DelayRaw} />

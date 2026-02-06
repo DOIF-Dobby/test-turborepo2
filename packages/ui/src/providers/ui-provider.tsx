@@ -1,22 +1,22 @@
+import { Tooltip, type TooltipProviderProps } from '@base-ui/react/tooltip'
 import { MotionConfig } from 'motion/react'
-import { Tooltip } from 'radix-ui'
 import { I18nProvider } from 'react-aria'
 import { UIContext, type UIContextType } from './ui-context'
 
 export interface UIProviderProps extends UIContextType {
   children: React.ReactNode
-  delayDuration?: Tooltip.TooltipProviderProps['delayDuration']
-  disableHoverableContent?: Tooltip.TooltipProviderProps['disableHoverableContent']
-  skipDelayDuration?: Tooltip.TooltipProviderProps['skipDelayDuration']
+  delayDuration?: TooltipProviderProps['delay']
+  closeDelay?: TooltipProviderProps['closeDelay']
+  timeout?: TooltipProviderProps['timeout']
 }
 
 export function UIProvider({
   children,
   disableAnimation = false,
   locale = 'ko-KR',
-  delayDuration = 0,
-  disableHoverableContent = false,
-  skipDelayDuration = 0,
+  delayDuration = 200,
+  closeDelay = 300,
+  timeout = 400,
 }: UIProviderProps) {
   return (
     <UIContext
@@ -34,9 +34,9 @@ export function UIProvider({
       >
         <I18nProvider locale={locale}>
           <Tooltip.Provider
-            delayDuration={delayDuration}
-            disableHoverableContent={disableHoverableContent}
-            skipDelayDuration={skipDelayDuration}
+            delay={delayDuration}
+            closeDelay={closeDelay}
+            timeout={timeout}
           >
             {children}
           </Tooltip.Provider>
