@@ -20,6 +20,7 @@
   },
   "dependencies": {
     "@base-ui/react": "^1.1.0",
+    "@radix-ui/react-slot": "^1.2.4",
     "@repo/date": "workspace:*",
     "@repo/hooks": "workspace:*",
     "@repo/utils": "workspace:*",
