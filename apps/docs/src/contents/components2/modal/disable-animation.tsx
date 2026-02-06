@@ -2,9 +2,10 @@ import { Button } from '@repo/ui/components/button'
 import { Frame } from '@repo/ui/components/frame'
 import { Modal } from '@repo/ui/components2/modal'
 
-export default function WithButtonTrigger() {
+export default function DisableAnimation() {
   return (
     <Modal
+      disableAnimation
       trigger={
         <Modal.Trigger>
           <Button>Open Modal</Button>

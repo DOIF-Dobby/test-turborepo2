@@ -3,6 +3,8 @@
 import { Dialog as DialogPrimitive } from '@base-ui/react/dialog'
 import { Slot } from '@radix-ui/react-slot'
 import { useControllableState } from '@repo/hooks/use-controllable-state'
+import { motion, type MotionProps } from 'motion/react'
+import { useDisableAnimation } from '../../hooks/use-disable-animation'
 import type { SlotsToClasses } from '../../types'
 import { swClsx } from '../../utils/clsx'
 import { DefaultModalCloseButton } from './default-modal-close-button'
@@ -21,6 +23,7 @@ export interface ModalRootProps<Payload> extends Props<Payload> {
   showCloseButton?: boolean
   closeOnEscape?: boolean
   closeOnOutsideClick?: boolean
+  disableAnimation?: boolean
 }
 
 export function ModalRoot<Payload>(props: ModalRootProps<Payload>) {
@@ -36,6 +39,7 @@ export function ModalRoot<Payload>(props: ModalRootProps<Payload>) {
     showCloseButton = true,
     closeOnEscape = true,
     closeOnOutsideClick = true,
+    disableAnimation = false,
     ...otherProps
   } = props
 
@@ -46,6 +50,8 @@ export function ModalRoot<Payload>(props: ModalRootProps<Payload>) {
       onOpenChange?.(open, {} as DialogPrimitive.Root.ChangeEventDetails)
     },
   })
+
+  const shouldDisableAnimation = useDisableAnimation(disableAnimation)
 
   const slots = modalVariants({ size })
 
@@ -79,29 +85,43 @@ export function ModalRoot<Payload>(props: ModalRootProps<Payload>) {
                 className={swClsx(
                   slots.content({ className: classNames?.content }),
                 )}
-              >
-                {typeof children === 'function'
-                  ? children({ payload })
-                  : children}
-
-                {showCloseButton && (
-                  <div
-                    className={swClsx(
-                      slots.closeButtonWrapper({
-                        className: classNames?.closeButtonWrapper,
-                      }),
-                    )}
-                  >
-                    <DialogPrimitive.Close
-                      suppressHydrationWarning
-                      tabIndex={closeOnEscape ? -1 : 0}
-                      render={(props) => {
-                        return <Slot {...props}>{closeButton}</Slot>
+                render={(props) => {
+                  return (
+                    <motion.div
+                      {...(props as MotionProps)}
+                      initial={{ y: 25, opacity: 0 }}
+                      animate={{ y: 0, opacity: 1 }}
+                      transition={{
+                        type: 'spring',
+                        bounce: 0.5,
+                        duration: shouldDisableAnimation ? 0 : 0.5,
                       }}
-                    />
-                  </div>
-                )}
-              </DialogPrimitive.Popup>
+                    >
+                      {typeof children === 'function'
+                        ? children({ payload })
+                        : children}
+
+                      {showCloseButton && (
+                        <div
+                          className={swClsx(
+                            slots.closeButtonWrapper({
+                              className: classNames?.closeButtonWrapper,
+                            }),
+                          )}
+                        >
+                          <DialogPrimitive.Close
+                            suppressHydrationWarning
+                            tabIndex={closeOnEscape ? -1 : 0}
+                            render={(props) => {
+                              return <Slot {...props}>{closeButton}</Slot>
+                            }}
+                          />
+                        </div>
+                      )}
+                    </motion.div>
+                  )
+                }}
+              />
             </DialogPrimitive.Viewport>
           </DialogPrimitive.Portal>
         </>
