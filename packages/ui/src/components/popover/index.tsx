@@ -1,4 +1,10 @@
-export { Popover, PopoverAnchor, PopoverArrow, PopoverClose } from './popover'
+import { Popover as PopoverPrimitive } from '@base-ui/react/popover'
+import { PopoverContent } from './popover-content'
+import { PopoverRoot } from './popover-root'
+import { PopoverTrigger } from './popover-trigger'
 
-export { PopoverContent } from './popover-content'
-export { PopoverTrigger } from './popover-trigger'
+export const Popover = Object.assign(PopoverRoot, {
+  Trigger: PopoverTrigger,
+  Content: PopoverContent,
+  createHandle: PopoverPrimitive.createHandle,
+})

@@ -1,25 +1,22 @@
-'use client'
-
 import { Button } from '@repo/ui/components/button'
 import { Frame } from '@repo/ui/components/frame'
 import { Modal } from '@repo/ui/components/modal'
-import { useState } from 'react'
 
 export default function CloseOnEscape() {
-  const [open, setOpen] = useState(false)
-
   return (
-    <>
-      <Button onPress={() => setOpen(true)}>Open</Button>
-      <Modal
-        open={open}
-        onOpenChange={setOpen}
-        title="Modal Title"
-        description="Modal Description"
-        closeOnEscape={false}
-      >
-        <Frame>Modal Content</Frame>
-      </Modal>
-    </>
+    <Modal
+      closeOnEscape={false}
+      trigger={
+        <Modal.Trigger>
+          <Button>Open Modal</Button>
+        </Modal.Trigger>
+      }
+    >
+      <Frame>
+        <Modal.Title>Title</Modal.Title>
+        <Modal.Description>Description</Modal.Description>
+      </Frame>
+      <Frame>This is modal content</Frame>
+    </Modal>
   )
 }

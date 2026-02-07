@@ -1,125 +1,122 @@
 'use client'
 
-import { motion, type HTMLMotionProps } from 'motion/react'
-import { Popover as PopoverPrimitive } from 'radix-ui'
-import { useUIContext } from '../../providers'
+import { Popover as PopoverPrimitive } from '@base-ui/react/popover'
+import { Slot } from '@radix-ui/react-slot'
+import { motion, type MotionProps } from 'motion/react'
+import { useDisableAnimation } from '../../hooks/use-disable-animation'
 import type { SlotsToClasses } from '../../types'
 import { swClsx } from '../../utils/clsx'
+import { DefaultArrowSvg } from './default-arrow'
+import { DefaultPopoverCloseButton } from './default-popover-close-button'
 import {
   popoverContentVariants,
   type PopoverContentSlots,
   type PopoverContentVariants,
 } from './variants'
 
-type ContentProps = Omit<
-  React.ComponentProps<typeof PopoverPrimitive.Content>,
+type Props = Omit<
+  React.ComponentProps<typeof PopoverPrimitive.Positioner>,
   keyof PopoverContentVariants | 'className'
 > &
-  PopoverContentVariants &
-  PopoverPrimitive.PopoverPortalProps
+  PopoverContentVariants
 
-export interface PopoverContentProps extends ContentProps {
-  showArrow?: boolean
+export interface PopoverContentProps extends Props {
   classNames?: SlotsToClasses<PopoverContentSlots>
+  showCloseButton?: boolean
+  closeButton?: React.ReactNode
+  showArrow?: boolean
+  arrow?: React.ReactNode
   zIndex?: number
-  closeOnEscape?: boolean
-  closeOnOutsideClick?: boolean
   disableAnimation?: boolean
 }
 
 export function PopoverContent(props: PopoverContentProps) {
   const {
     children,
-    container,
-    forceMount,
-    showArrow = false,
-    sideOffset = 5,
-    side = 'bottom',
-    align = 'start',
-    zIndex = 50,
     classNames,
-    closeOnEscape = true,
-    closeOnOutsideClick = true,
-    disableAnimation = false,
+    showCloseButton = false,
+    closeButton = <DefaultPopoverCloseButton />,
+    showArrow = true,
+    arrow = <DefaultArrowSvg />,
+    side = 'bottom',
+    align = 'center',
+    sideOffset = 8,
+    zIndex = 50,
     style,
-    ref,
-    onEscapeKeyDown,
-    onPointerDownOutside,
-    onFocusOutside,
-    ...contentProps
+    disableAnimation = false,
+    ...otherProps
   } = props
 
-  const { disableAnimation: globalDisableAnimation } = useUIContext()
-  const shouldDisableAnimation = disableAnimation || globalDisableAnimation
-
-  const finalMotionProps: HTMLMotionProps<'section'> = {
-    initial: {
-      opacity: 0,
-      y: 'var(--y-initial, 0px)',
-      x: 'var(--x-initial, 0px)',
-    },
-    animate: {
-      opacity: 1,
-      y: 0,
-      x: 0,
-    },
-    ...{ transition: { duration: 0.15 } },
-    ...(shouldDisableAnimation ? { transition: { duration: 0 } } : {}),
-  }
+  const shouldDisableAnimation = useDisableAnimation(disableAnimation)
 
   const slots = popoverContentVariants({})
 
   return (
-    <PopoverPrimitive.Portal container={container} forceMount={forceMount}>
-      <PopoverPrimitive.Content
-        asChild
-        {...contentProps}
-        ref={ref}
-        sideOffset={sideOffset}
+    <PopoverPrimitive.Portal>
+      <PopoverPrimitive.Positioner
+        {...otherProps}
         side={side}
         align={align}
+        sideOffset={sideOffset}
         style={{
           zIndex,
           ...style,
         }}
-        className={swClsx(
-          slots.content({
-            className: classNames?.content,
-          }),
-        )}
-        onEscapeKeyDown={(event) => {
-          onEscapeKeyDown?.(event)
-          if (closeOnEscape === false) {
-            event.preventDefault()
-          }
-        }}
-        onPointerDownOutside={(event) => {
-          onPointerDownOutside?.(event)
-          if (closeOnOutsideClick === false) {
-            event.preventDefault()
-          }
-        }}
-        onFocusOutside={(event) => {
-          onFocusOutside?.(event)
-          if (closeOnOutsideClick === false) {
-            event.preventDefault()
-          }
-        }}
       >
-        <motion.section {...finalMotionProps}>
-          {children}
+        <PopoverPrimitive.Popup
+          suppressHydrationWarning
+          className={swClsx(slots.content({ className: classNames?.content }))}
+          render={(props) => {
+            return (
+              <motion.div
+                {...(props as MotionProps)}
+                initial={{
+                  opacity: 0,
+                  y: 'var(--y-initial, 0px)',
+                  x: 'var(--x-initial, 0px)',
+                }}
+                animate={{ y: 0, x: 0, opacity: 1 }}
+                transition={{
+                  type: 'spring',
+                  bounce: 0.5,
+                  duration: shouldDisableAnimation ? 0 : 0.5,
+                }}
+              >
+                {showArrow && (
+                  <PopoverPrimitive.Arrow
+                    className={swClsx(
+                      slots.arrow({ className: classNames?.arrow }),
+                    )}
+                  >
+                    {arrow}
+                  </PopoverPrimitive.Arrow>
+                )}
+                {children}
 
-          {showArrow && (
-            <PopoverPrimitive.Arrow
-              className={swClsx(
-                slots.arrow({
-                  className: classNames?.arrow,
-                }),
-              )}
-            />
-          )}
-        </motion.section>
-      </PopoverPrimitive.Content>
+                {showCloseButton && (
+                  <div
+                    className={swClsx(
+                      slots.closeButtonWrapper({
+                        className: classNames?.closeButtonWrapper,
+                      }),
+                    )}
+                  >
+                    <PopoverPrimitive.Close
+                      suppressHydrationWarning
+                      className={slots.closeButton({
+                        className: classNames?.closeButton,
+                      })}
+                      render={(props) => {
+                        return <Slot {...props}>{closeButton}</Slot>
+                      }}
+                    />
+                  </div>
+                )}
+              </motion.div>
+            )
+          }}
+        />
+      </PopoverPrimitive.Positioner>
     </PopoverPrimitive.Portal>
   )
 }

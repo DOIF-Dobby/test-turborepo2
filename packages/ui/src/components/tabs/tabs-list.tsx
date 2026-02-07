@@ -1,31 +1,44 @@
 'use client'
 
-import { Tabs as TabsPrimitive } from 'radix-ui'
+import { Tabs as TabsPrimitive } from '@base-ui/react/tabs'
+import { motion, type MotionProps } from 'motion/react'
 import { swClsx } from '../../utils/clsx'
 import { useTabsContext } from './tabs-context'
-import { tabsVariatns } from './variants'
 
 type Props = React.ComponentProps<typeof TabsPrimitive.List>
 
-export interface TabsListProps extends Props {}
+export interface TabsListProps extends Props {
+  className?: string
+}
 
 export function TabsList(props: TabsListProps) {
-  const { className, ref, ...otherProps } = props
+  const { children, className, ref, ...otherProps } = props
   const context = useTabsContext()
 
-  const slots = tabsVariatns()
-
-  const styles = slots.tabList({
-    className: swClsx(context.classNames?.tabList, className),
-    variant: context.variant,
-    radius: context.radius,
-  })
-
   return (
-    <TabsPrimitive.TabsList
+    <TabsPrimitive.List
       ref={ref}
-      className={swClsx(styles)}
+      className={swClsx(context.slots?.list({ className }))}
       {...otherProps}
-    />
+    >
+      {children}
+      <TabsPrimitive.Indicator
+        render={(props) => {
+          return (
+            <motion.span
+              {...(props as MotionProps)}
+              className={swClsx(context.slots?.indicator({}))}
+              layoutId={`indicator-${context.tabsId}`}
+              transition={{
+                type: 'spring',
+                stiffness: 500,
+                damping: 30,
+                duration: context.disableAnimation ? 0 : undefined,
+              }}
+            />
+          )
+        }}
+      />
+    </TabsPrimitive.List>
   )
 }

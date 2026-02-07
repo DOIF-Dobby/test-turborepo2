@@ -14,10 +14,14 @@ export const selectVariants = swTwVariants({
       'items-center',
       'outline-none',
       'cursor-pointer',
-      'data-[state=open]:border-cta1-hover',
-      'data-[state=open]:border-2',
+
+      'data-popup-open:border-cta1-hover',
+      'data-popup-open:border-2',
+      'data-popup-open:pointer-events-none',
+
       'focus-visible:border-cta1-hover',
       'focus-visible:border-2',
+
       'hover:border-cta1-hover',
       'text-base-800',
       'data-placeholder:text-base-500',
@@ -26,9 +30,10 @@ export const selectVariants = swTwVariants({
     labelIndicator: [],
     errorMessage: ['text-destructive'],
     value: ['truncate'],
-    icon: ['group-data-[state=open]:rotate-180', 'text-base-700'],
+    iconWrapper: ['data-popup-open:rotate-180'],
+    icon: ['text-base-700'],
     content: [
-      'w-(--radix-select-trigger-width)',
+      'w-(--anchor-width)',
       'bg-background',
       'border',
       'border-base-200',
@@ -36,12 +41,19 @@ export const selectVariants = swTwVariants({
       'py-sw-2xs',
       'px-sw-2xs',
       'shadow-popover',
-      'max-h-[300px]',
+      'max-h-(--available-height)',
+      'overflow-hidden',
 
       'data-[side=bottom]:[--y-initial:-8px] data-[side=bottom]:[--x-initial:0px]',
       'data-[side=top]:[--y-initial:8px] data-[side=top]:[--x-initial:0px]',
       'data-[side=right]:[--x-initial:-8px] data-[side=right]:[--y-initial:0px]',
       'data-[side=left]:[--x-initial:8px] data-[side=left]:[--y-initial:0px]',
+    ],
+    contentList: [
+      'relative',
+      'scroll-py-6',
+      'overflow-y-auto',
+      'max-h-[300px]',
     ],
     clearButton: [
       'hover:bg-base-200',
@@ -57,6 +69,12 @@ export const selectVariants = swTwVariants({
       'focus-visible:ring-offset-2',
     ],
     clearIcon: ['size-4'],
+    scrollUpArrow: [
+      'top-0 z-1 flex h-4 w-full cursor-default items-center justify-center rounded-md  text-center text-xs text-base-600',
+    ],
+    scrollDownArrow: [
+      'bottom-0 z-1 flex h-4 w-full cursor-default items-center justify-center rounded-md text-center text-xs text-base-600',
+    ],
   },
   variants: {
     size: {
@@ -100,16 +118,16 @@ export const selectVariants = swTwVariants({
           'focus-within:border-destructive',
           'hover:border-destructive',
           'focus-within:border-destructive',
-          'data-[state=open]:border-destructive',
+          'data-open:border-destructive',
         ],
       },
     },
     disableAnimation: {
       true: {
-        icon: ['transition-none'],
+        iconWrapper: ['transition-none'],
       },
       false: {
-        icon: ['transition-transform', 'duration-200'],
+        iconWrapper: ['transition-transform', 'duration-200'],
       },
     },
   },
@@ -118,7 +136,6 @@ export const selectVariants = swTwVariants({
   },
 })
 
-// select-item variants
 export const selectItemVariants = swTwVariants({
   slots: {
     item: [
@@ -142,8 +159,6 @@ export const selectItemVariants = swTwVariants({
     ],
     itemIndicator: ['text-base-700'],
   },
-  variants: {},
-  defaultVariants: {},
 })
 
 export type SelectVariants = VariantProps<typeof selectVariants>

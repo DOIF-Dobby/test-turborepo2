@@ -3,10 +3,15 @@ import { swTwVariants } from '../../utils/tw-variants'
 
 export const switchVariants = swTwVariants({
   slots: {
-    container: ['group', 'flex', 'items-center', 'gap-sw-2xs'],
+    container: [
+      'group',
+      'flex',
+      'items-center',
+      'gap-sw-2xs',
+      'cursor-pointer',
+      'w-fit',
+    ],
     root: [
-      'peer',
-      // group/switch 등 active 관련 클래스 제거
       'inline-flex',
       'shrink-0',
       'cursor-pointer',
@@ -17,17 +22,15 @@ export const switchVariants = swTwVariants({
       'outline-none',
       'box-border',
 
-      'data-[state=unchecked]:justify-start',
-      'data-[state=checked]:justify-end',
+      'data-unchecked:justify-start',
+      'data-checked:justify-end',
 
       'focus-visible:ring-2',
       'focus-visible:ring-offset-2',
       'focus-visible:ring-offset-background',
 
-      'disabled:cursor-default',
-
-      'not-disabled:data-[state=unchecked]:bg-base-500',
-      'disabled:data-[state=unchecked]:bg-base-300',
+      'data-unchecked:bg-base-500',
+      'data-disabled:data-unchecked:bg-base-300',
     ],
     thumb: [
       'pointer-events-none',
@@ -37,12 +40,7 @@ export const switchVariants = swTwVariants({
       'shadow-lg',
       'ring-0',
     ],
-    label: [
-      'select-none',
-      'cursor-pointer',
-      'peer-disabled:cursor-default',
-      'peer-disabled:text-base-500',
-    ],
+    label: ['select-none'],
   },
   variants: {
     size: {
@@ -74,26 +72,32 @@ export const switchVariants = swTwVariants({
         thumb: [], // 아래 compoundVariants에서 정의
       },
     },
+    isDisabled: {
+      true: {
+        container: ['pointer-events-none'],
+        label: ['text-base-500'],
+      },
+    },
     color: {
       cta1: {
         root: [
-          'not-disabled:data-[state=checked]:bg-cta1',
-          'not-disabled:focus-visible:ring-cta1-hover',
-          'disabled:data-[state=checked]:bg-cta1-disabled',
+          'data-checked:bg-cta1',
+          'focus-visible:ring-cta1-hover',
+          'data-disabled:data-checked:bg-cta1-disabled',
         ],
       },
       cta2: {
         root: [
-          'not-disabled:data-[state=checked]:bg-cta2',
-          'not-disabled:focus-visible:ring-cta2-hover',
-          'disabled:data-[state=checked]:bg-cta2-disabled',
+          'data-checked:bg-cta2',
+          'focus-visible:ring-cta2-hover',
+          'data-disabled:data-checked:bg-cta2-disabled',
         ],
       },
       destructive: {
         root: [
-          'not-disabled:data-[state=checked]:bg-destructive',
-          'not-disabled:focus-visible:ring-destructive',
-          'disabled:data-[state=checked]:bg-destructive-disabled',
+          'data-checked:bg-destructive',
+          'focus-visible:ring-destructive',
+          'data-disabled:data-checked:bg-destructive-disabled',
         ],
       },
     },

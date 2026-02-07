@@ -2,8 +2,8 @@ import { CodeBlock } from '@/components/code-block'
 
 import Default from './default'
 import DefaultRaw from './default?raw'
-import WithButton from './with-button'
-import WithButtonRaw from './with-button?raw'
+import WithButtonTrigger from './with-button-trigger'
+import WithButtonTriggerRaw from './with-button-trigger?raw'
 import Placement from './placement'
 import PlacementRaw from './placement?raw'
 import DefaultOpen from './default-open'
@@ -14,8 +14,12 @@ import CloseOnEscape from './close-on-escape'
 import CloseOnEscapeRaw from './close-on-escape?raw'
 import CloseOnOutsideClick from './close-on-outside-click'
 import CloseOnOutsideClickRaw from './close-on-outside-click?raw'
-import DisableAnimation from './disable-animation'
-import DisableAnimationRaw from './disable-animation?raw'
+import CloseOnBoth from './close-on-both'
+import CloseOnBothRaw from './close-on-both?raw'
+import DisableAnimation from './diable-animation'
+import DisableAnimationRaw from './diable-animation?raw'
+import Handle from './handle'
+import HandleRaw from './handle?raw'
 
 # Popover
 
@@ -23,9 +27,13 @@ import DisableAnimationRaw from './disable-animation?raw'
 
 <CodeBlock preview={<Default />} code={DefaultRaw} />
 
-## With Button
+## With Button Trigger
 
-<CodeBlock preview={<WithButton />} code={WithButtonRaw} />
+<CodeBlock preview={<WithButtonTrigger />} code={WithButtonTriggerRaw} />
+
+## Handle
+
+<CodeBlock preview={<Handle />} code={HandleRaw} />
 
 ## Placement
 
@@ -39,18 +47,26 @@ import DisableAnimationRaw from './disable-animation?raw'
 
 <CodeBlock preview={<Controlled />} code={ControlledRaw} />
 
-## Close on Escape
+## Close On Escape
 
-`closeOnEscape` 속성을 false로 설정하면 ESC 키를 눌러도 팝오버가 닫히지 않습니다.
+`closeOnEscape` prop을 `false`로 설정하면 escape 키로 팝오버가 닫히지 않습니다.
 
 <CodeBlock preview={<CloseOnEscape />} code={CloseOnEscapeRaw} />
 
-## Close on Outside Click
+## Close On Outside Click
 
-`closeOnOutsideClick` 속성을 false로 설정하면 팝오버 외부를 클릭해도 팝오버가 닫히지 않습니다.
+`closeOnOutsideClick` prop을 `false`로 설정하면 외부 클릭으로 팝오버가 닫히지 않습니다.
 
 <CodeBlock preview={<CloseOnOutsideClick />} code={CloseOnOutsideClickRaw} />
 
+## Close On Both
+
+`closeOnEscape` prop과 `closeOnOutsideClick` prop을 모두 `false`로 설정하면 escape 키와 외부 클릭으로 팝오버가 닫히지 않습니다.
+
+<CodeBlock preview={<CloseOnBoth />} code={CloseOnBothRaw} />
+
 ## Disable Animation
+
+`disableAnimation` prop을 `true`로 설정하면 팝오버의 애니메이션이 비활성화됩니다.
 
 <CodeBlock preview={<DisableAnimation />} code={DisableAnimationRaw} />

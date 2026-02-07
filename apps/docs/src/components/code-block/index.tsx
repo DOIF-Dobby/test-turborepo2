@@ -1,4 +1,4 @@
-import { Tabs } from '@repo/ui/components2/tabs'
+import { Tabs } from '@repo/ui/components/tabs'
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
 import { oneDark as style } from 'react-syntax-highlighter/dist/cjs/styles/prism'
 

@@ -1,167 +1,111 @@
 'use client'
 
-import { useControllableState } from '@repo/hooks/use-controllable-state'
-import { useFallbackId } from '@repo/hooks/use-fallback-id'
-import { Minus } from 'lucide-react'
-import { Checkbox as CheckboxPrimitive } from 'radix-ui'
+import { Checkbox as CheckboxPrimitive } from '@base-ui/react/checkbox'
+import { CheckIcon, Minus } from 'lucide-react'
 import { useRef } from 'react'
 import { mergeProps, usePress } from 'react-aria'
 import { useScaleAnimation } from '../../animations/use-scale-animation'
-import { useUIContext } from '../../providers'
+import { useDisableAnimation } from '../../hooks/use-disable-animation'
 import type { SlotsToClasses } from '../../types'
 import { swClsx } from '../../utils/clsx'
 import { mergeRefs } from '../../utils/merge-refs'
 import { AnimatedCheckIcon } from './animated-check-icon'
-import { useCheckboxGroupContext } from './checkbox-group-context'
 import {
   type CheckboxSlots,
   checkboxVariants,
   type CheckboxVariants,
 } from './variants'
 
-// Radix의 CheckedState는 boolean | 'indeterminate' 입니다.
-export type CheckedState = CheckboxPrimitive.CheckedState
-
 type Props = Omit<
-  React.ComponentProps<typeof CheckboxPrimitive.Checkbox>,
-  | keyof CheckboxVariants
-  | 'className'
-  | 'checked'
-  | 'defaultChecked'
-  | 'onCheckedChange'
+  React.ComponentProps<typeof CheckboxPrimitive.Root>,
+  keyof CheckboxVariants | 'disabled' | 'className'
 > &
   CheckboxVariants
 
 export interface CheckboxProps extends Props {
-  checked?: CheckedState
-  defaultChecked?: CheckedState
-  onCheckedChange?: (checked: CheckedState) => void
-  children?: React.ReactNode
   classNames?: SlotsToClasses<CheckboxSlots>
-  isInvalid?: boolean
-  isDisabled?: boolean
-  value?: string
 }
 
 export function Checkbox(props: CheckboxProps) {
   const {
-    checked: checkedProp,
-    defaultChecked,
-    onCheckedChange,
-    children,
-    classNames,
-    size: sizeProp,
-    isInvalid: isInvalidProp,
-    isDisabled: isDisabledProp,
-    disableAnimation: localDisableAnimation,
-    id: idProp,
-    name: nameProp,
-    value,
     ref,
+    children,
+    size,
+    disableAnimation,
+    isDisabled,
+    isInvalid,
+    classNames,
     ...otherProps
   } = props
 
-  // 1. ID 생성
-  const id = useFallbackId(idProp)
+  const shouldDisableAnimation = useDisableAnimation(disableAnimation)
 
-  const groupContext = useCheckboxGroupContext()
-  const isInGroup = !!groupContext
-
-  const isCheckedInGroup =
-    isInGroup && value ? groupContext.value.includes(value) : undefined
-
-  const { disableAnimation: globalDisableAnimation } = useUIContext()
-  const shouldDisableAnimation = localDisableAnimation || globalDisableAnimation
-
-  const isDisabled = groupContext?.isDisabled || isDisabledProp
-  const isInvalid = groupContext?.isInvalid || isInvalidProp
-  const name = groupContext?.name || nameProp
-  const size = groupContext?.size || sizeProp
-
-  // 2. 상태 관리
-  const [checked, setChecked] = useControllableState<CheckedState>({
-    // 그룹 모드면 계산된 값(isCheckedInGroup) 사용
-    value: isInGroup ? isCheckedInGroup : checkedProp,
-    defaultValue: defaultChecked ?? false,
-    onChange: (checkedState) => {
-      const isChecked = checkedState === true
-
-      if (isInGroup && value) {
-        // 그룹 모드일 땐 Context 핸들러 실행
-        groupContext.onCheckedChange(value, isChecked)
-      }
-
-      // 항상 외부 핸들러도 실행
-      onCheckedChange?.(checkedState)
-    },
-  })
-
-  const innerRef = useRef<HTMLButtonElement>(null)
+  const rootRef = useRef<HTMLSpanElement>(null)
 
   const { pressProps, isPressed } = usePress({
     isDisabled,
-    ref: innerRef,
-    onPress: () => setChecked((prev) => !prev),
+    ref: rootRef,
   })
 
   const { scope } = useScaleAnimation({
     isPressed,
     duration: 0.2,
     scale: 0.92,
-    disableAnimation: localDisableAnimation,
-  })
-
-  // 3. 스타일 슬롯
-  const slots = checkboxVariants({
-    size,
-    isInvalid,
-    isDisabled,
     disableAnimation: shouldDisableAnimation,
   })
 
+  const slots = checkboxVariants({
+    size,
+    isDisabled,
+    disableAnimation: shouldDisableAnimation,
+    isInvalid,
+  })
+
   return (
-    <div
+    <label
       className={swClsx(slots.container({ className: classNames?.container }))}
     >
       <CheckboxPrimitive.Root
-        ref={mergeRefs([ref, innerRef, scope])}
         suppressHydrationWarning
-        id={id}
-        disabled={isDisabled}
-        checked={checked}
-        onCheckedChange={setChecked}
-        className={swClsx(slots.root({ className: classNames?.root }))}
-        name={name}
         {...mergeProps(pressProps, otherProps)}
+        ref={mergeRefs([ref, rootRef, scope])}
+        disabled={isDisabled}
+        className={swClsx(slots.root({ className: classNames?.root }))}
       >
-        <div
+        <CheckboxPrimitive.Indicator
+          keepMounted
           className={swClsx(
             slots.indicator({ className: classNames?.indicator }),
           )}
-        >
-          {checked === 'indeterminate' ? (
-            <Minus
-              className={swClsx(slots.icon({ className: classNames?.icon }))}
-            />
-          ) : (
-            <AnimatedCheckIcon
-              checked={checked === true}
-              disableAnimation={shouldDisableAnimation}
-              className={swClsx(slots.icon({ className: classNames?.icon }))}
-            />
+          render={(props, state) => (
+            <span {...props}>
+              {state.indeterminate ? (
+                <Minus
+                  className={swClsx(
+                    slots.icon({ className: classNames?.icon }),
+                  )}
+                />
+              ) : (
+                <AnimatedCheckIcon
+                  checked={state.checked}
+                  disableAnimation={shouldDisableAnimation}
+                  className={swClsx(
+                    slots.icon({ className: classNames?.icon }),
+                  )}
+                />
+              )}
+            </span>
           )}
-        </div>
+        >
+          <CheckIcon
+            className={swClsx(slots.icon({ className: classNames?.icon }))}
+          />
+        </CheckboxPrimitive.Indicator>
       </CheckboxPrimitive.Root>
 
-      {children && (
-        <label
-          suppressHydrationWarning
-          htmlFor={id}
-          className={swClsx(slots.label({ className: classNames?.label }))}
-        >
-          {children}
-        </label>
-      )}
-    </div>
+      <span className={swClsx(slots.label({ className: classNames?.label }))}>
+        {children}
+      </span>
+    </label>
   )
 }

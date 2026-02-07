@@ -2,18 +2,30 @@ import { CodeBlock } from '@/components/code-block'
 
 import Default from './default'
 import DefaultRaw from './default?raw'
+import DefaultValue from './default-value'
+import DefaultValueRaw from './default-value?raw'
 import Variants from './variants'
 import VariantsRaw from './variants?raw'
 import Disabled from './disabled'
 import DisabledRaw from './disabled?raw'
-import CustomStyle from './custom-style'
-import CustomStyleRaw from './custom-style?raw'
+import Controlled from './controlled'
+import ControlledRaw from './controlled?raw'
+import DisableAnimation from './disable-animation'
+import DisableAnimationRaw from './disable-animation?raw'
 
 # Tabs
 
 ## Default
 
 <CodeBlock preview={<Default />} code={DefaultRaw} />
+
+## Default Value
+
+<CodeBlock preview={<DefaultValue />} code={DefaultValueRaw} />
+
+## Controlled
+
+<CodeBlock preview={<Controlled />} code={ControlledRaw} />
 
 ## Variants
 
@@ -23,6 +35,6 @@ import CustomStyleRaw from './custom-style?raw'
 
 <CodeBlock preview={<Disabled />} code={DisabledRaw} />
 
-## Custom Style
+## Disable Animation
 
-<CodeBlock preview={<CustomStyle />} code={CustomStyleRaw} />
+<CodeBlock preview={<DisableAnimation />} code={DisableAnimationRaw} />

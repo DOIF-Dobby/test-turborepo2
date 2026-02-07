@@ -2,18 +2,18 @@
 
 import { Button } from '@repo/ui/components/button'
 import { Frame } from '@repo/ui/components/frame'
-import { Modal, type ModalProps } from '@repo/ui/components/modal'
+import { Modal } from '@repo/ui/components/modal'
 import { useState } from 'react'
 
-const sizes: ModalProps['size'][] = ['sm', 'md', 'lg']
+const sizes = ['sm', 'md', 'lg'] as const
 
 export default function Sizes() {
   const [open, setOpen] = useState(false)
-  const [size, setSize] = useState<ModalProps['size']>('md')
+  const [size, setSize] = useState<(typeof sizes)[number]>('md')
 
   return (
     <>
-      <div className="gap-sw-sm flex">
+      <div className="gap-sw-md flex">
         {sizes.map((size) => (
           <Button
             key={size}
@@ -22,19 +22,17 @@ export default function Sizes() {
               setOpen(true)
             }}
           >
-            {size}
+            Open {size}
           </Button>
         ))}
       </div>
 
-      <Modal
-        size={size}
-        open={open}
-        onOpenChange={setOpen}
-        title="Modal Title"
-        description="Modal Description"
-      >
-        <Frame>Modal Content</Frame>
+      <Modal open={open} onOpenChange={setOpen} size={size}>
+        <Frame>
+          <Modal.Title>Title</Modal.Title>
+          <Modal.Description>Description</Modal.Description>
+        </Frame>
+        <Frame>This is modal content</Frame>
       </Modal>
     </>
   )

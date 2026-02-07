@@ -1,13 +1,13 @@
 import { createContext, use } from 'react'
-import type { SlotsToClasses } from '../../types'
-import type { TabsSlots, TabsVariants } from './variants'
+import type { TabsVariants, tabsVariatns } from './variants'
 
 type TabsContextType = {
   tabsId: string
-  classNames?: SlotsToClasses<TabsSlots>
+  slots?: ReturnType<typeof tabsVariatns>
   variant?: TabsVariants['variant']
   radius?: TabsVariants['radius']
   value?: string
+  disableAnimation?: boolean
 }
 
 export const TabsContext = createContext<TabsContextType>({

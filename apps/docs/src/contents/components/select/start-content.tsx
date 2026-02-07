@@ -1,12 +1,12 @@
-import { Select, SelectItem } from '@repo/ui/components/select'
+import { Select } from '@repo/ui/components/select'
 import { FuelIcon } from 'lucide-react'
 
+const items = [
+  { label: '사과', value: 'apple' },
+  { label: '바나나', value: 'banana' },
+  { label: '오렌지', value: 'orange' },
+]
+
 export default function StartContent() {
-  return (
-    <Select label="Select" startContent={<FuelIcon />}>
-      <SelectItem value="value1">value1</SelectItem>
-      <SelectItem value="value2">value2</SelectItem>
-      <SelectItem value="value3">value3</SelectItem>
-    </Select>
-  )
+  return <Select startContent={<FuelIcon />} items={items} />
 }

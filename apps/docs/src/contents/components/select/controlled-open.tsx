@@ -1,18 +1,22 @@
 'use client'
 
-import { Select, SelectItem } from '@repo/ui/components/select'
+import { Select } from '@repo/ui/components/select'
 import { useState } from 'react'
+
+const items = [
+  { label: '사과', value: 'apple' },
+  { label: '바나나', value: 'banana' },
+  { label: '오렌지', value: 'orange' },
+]
 
 export default function ControlledOpen() {
   const [open, setOpen] = useState(false)
   return (
-    <div>
+    <div className="gap-sw-md flex">
+      <div className="w-1/2">
+        <Select open={open} onOpenChange={setOpen} items={items} />
+      </div>
       <div>{open ? '열림' : '닫힘'}</div>
-      <Select label="Select" open={open} onOpenChange={setOpen}>
-        <SelectItem value="value1">value1</SelectItem>
-        <SelectItem value="value2">value2</SelectItem>
-        <SelectItem value="value3">value3</SelectItem>
-      </Select>
     </div>
   )
 }

@@ -1,22 +1,16 @@
 import { Button } from '@repo/ui/components/button'
 import { Frame } from '@repo/ui/components/frame'
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from '@repo/ui/components/popover'
+import { Popover } from '@repo/ui/components/popover'
 
 export default function CloseOnEscape() {
   return (
-    <Popover>
-      <PopoverTrigger>
-        <Button>Trigger</Button>
-      </PopoverTrigger>
-      <PopoverContent closeOnEscape={false}>
+    <Popover closeOnEscape={false}>
+      <Popover.Trigger>
+        <Button>Open</Button>
+      </Popover.Trigger>
+      <Popover.Content>
         <Frame>Content</Frame>
-        <Frame>Content</Frame>
-        <Frame>Content</Frame>
-      </PopoverContent>
+      </Popover.Content>
     </Popover>
   )
 }

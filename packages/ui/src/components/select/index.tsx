@@ -1,2 +1,6 @@
-export { Select, type SelectProps } from './select'
-export { SelectItem, type SelectItemProps } from './select-item'
+import { SelectItem } from './select-item'
+import { SelectRoot } from './select-root'
+
+export const Select = Object.assign(SelectRoot, {
+  Item: SelectItem,
+})

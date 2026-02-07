@@ -1,7 +1,6 @@
 'use client'
 
-import { ScrollArea as ScrollAreaPrimitive } from 'radix-ui'
-
+import { ScrollArea as ScrollAreaPrimitive } from '@base-ui/react/scroll-area'
 import type { SlotsToClasses } from '../../types'
 import { swClsx } from '../../utils/clsx'
 import {
@@ -30,6 +29,7 @@ export function ScrollArea({
   return (
     <ScrollAreaPrimitive.Root
       ref={ref}
+      suppressHydrationWarning
       data-slot="scroll-area"
       className={swClsx(
         slots.root({
@@ -40,13 +40,14 @@ export function ScrollArea({
     >
       <ScrollAreaPrimitive.Viewport
         data-slot="scroll-area-viewport"
+        suppressHydrationWarning
         className={swClsx(
           slots.viewport({
             className: classNames?.viewport,
           }),
         )}
       >
-        {children}
+        <ScrollAreaPrimitive.Content>{children}</ScrollAreaPrimitive.Content>
       </ScrollAreaPrimitive.Viewport>
       {orientation === 'vertical' && <ScrollBar orientation="vertical" />}
       {orientation === 'horizontal' && <ScrollBar orientation="horizontal" />}
@@ -62,7 +63,7 @@ export function ScrollArea({
 }
 
 export interface ScrollBarProps extends React.ComponentProps<
-  typeof ScrollAreaPrimitive.ScrollAreaScrollbar
+  typeof ScrollAreaPrimitive.Scrollbar
 > {
   classNames?: SlotsToClasses<ScrollBarSlots>
 }
@@ -76,7 +77,8 @@ export function ScrollBar({
   const slots = scrollBarVariants()
 
   return (
-    <ScrollAreaPrimitive.ScrollAreaScrollbar
+    <ScrollAreaPrimitive.Scrollbar
+      suppressHydrationWarning
       ref={ref}
       data-slot="scroll-area-scrollbar"
       data-orientation={orientation}
@@ -88,7 +90,7 @@ export function ScrollBar({
       )}
       {...props}
     >
-      <ScrollAreaPrimitive.ScrollAreaThumb
+      <ScrollAreaPrimitive.Thumb
         data-slot="scroll-area-thumb"
         className={swClsx(
           slots.thumb({
@@ -96,6 +98,6 @@ export function ScrollBar({
           }),
         )}
       />
-    </ScrollAreaPrimitive.ScrollAreaScrollbar>
+    </ScrollAreaPrimitive.Scrollbar>
   )
 }

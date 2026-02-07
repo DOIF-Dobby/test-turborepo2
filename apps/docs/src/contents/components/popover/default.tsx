@@ -1,19 +1,13 @@
 import { Frame } from '@repo/ui/components/frame'
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from '@repo/ui/components/popover'
+import { Popover } from '@repo/ui/components/popover'
 
 export default function Default() {
   return (
     <Popover>
-      <PopoverTrigger>Trigger</PopoverTrigger>
-      <PopoverContent>
+      <Popover.Trigger>Open</Popover.Trigger>
+      <Popover.Content>
         <Frame>Content</Frame>
-        <Frame>Content</Frame>
-        <Frame>Content</Frame>
-      </PopoverContent>
+      </Popover.Content>
     </Popover>
   )
 }

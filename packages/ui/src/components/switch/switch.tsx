@@ -1,39 +1,31 @@
 'use client'
 
+import { mergeProps } from '@base-ui/react'
+import { Switch as SwitchPrimitive } from '@base-ui/react/switch'
 import { useControllableState } from '@repo/hooks/use-controllable-state'
-import { useFallbackId } from '@repo/hooks/use-fallback-id'
-import { domMax, LazyMotion, m } from 'motion/react'
-import { Switch as SwitchPrimitive } from 'radix-ui'
+import { domMax, LazyMotion, motion, type MotionProps } from 'motion/react'
 import { useRef } from 'react'
-import { mergeProps, usePress } from 'react-aria'
-import { useUIContext } from '../../providers'
+import { usePress } from 'react-aria'
+import { useDisableAnimation } from '../../hooks/use-disable-animation'
 import type { SlotsToClasses } from '../../types'
 import { swClsx } from '../../utils/clsx'
 import { mergeRefs } from '../../utils/merge-refs'
 import {
-  type SwitchSlots,
   switchVariants,
+  type SwitchSlots,
   type SwitchVariants,
 } from './variants'
 
 type Props = Omit<
   React.ComponentProps<typeof SwitchPrimitive.Root>,
-  | keyof SwitchVariants
-  | 'className'
-  | 'checked'
-  | 'defaultChecked'
-  | 'onCheckedChange'
-  | 'asChild'
+  keyof SwitchVariants | 'className'
 > &
   SwitchVariants
 
 export interface SwitchProps extends Props {
-  checked?: boolean
-  defaultChecked?: boolean
   onCheckedChange?: (checked: boolean) => void
   children?: React.ReactNode
   classNames?: SlotsToClasses<SwitchSlots>
-  isDisabled?: boolean
   disableAnimation?: boolean
 }
 
@@ -41,30 +33,20 @@ export function Switch(props: SwitchProps) {
   const {
     checked: checkedProp,
     defaultChecked,
-    onCheckedChange,
     children,
     classNames,
     size,
     color,
-    disableAnimation: localDisableAnimation,
+    disableAnimation,
     isDisabled,
-    id: idProp,
     ref,
+    onCheckedChange,
     ...otherProps
   } = props
 
-  const id = useFallbackId(idProp)
+  const shouldDisableAnimation = useDisableAnimation(disableAnimation)
 
-  const { disableAnimation: globalDisableAnimation } = useUIContext()
-  const shouldDisableAnimation = localDisableAnimation || globalDisableAnimation
-
-  const innerRef = useRef<HTMLButtonElement>(null)
-
-  const { pressProps, isPressed } = usePress({
-    isDisabled,
-    ref: innerRef,
-    onPress: () => setChecked((prev) => !prev),
-  })
+  const rootRef = useRef<HTMLButtonElement>(null)
 
   const [checked, setChecked] = useControllableState<boolean>({
     value: checkedProp,
@@ -72,51 +54,69 @@ export function Switch(props: SwitchProps) {
     onChange: onCheckedChange,
   })
 
+  const { pressProps, isPressed } = usePress({
+    isDisabled,
+    ref: rootRef,
+    onPress: () => setChecked((prev) => !prev),
+  })
+
   const slots = switchVariants({
     size,
     color,
+    isDisabled,
     isPressed: shouldDisableAnimation ? false : isPressed,
   })
 
   return (
-    <div
+    <label
       className={swClsx(slots.container({ className: classNames?.container }))}
     >
       <SwitchPrimitive.Root
         suppressHydrationWarning
-        ref={mergeRefs([ref, innerRef])}
-        id={id}
+        {...mergeProps(pressProps, otherProps)}
+        ref={mergeRefs([ref, rootRef])}
         checked={checked}
         onCheckedChange={setChecked}
         disabled={isDisabled}
         className={swClsx(slots.root({ className: classNames?.root }))}
-        {...mergeProps(pressProps, otherProps)}
+        nativeButton
+        render={(props) => {
+          const { children, ...rest } = props
+          return <button {...rest}>{children}</button>
+        }}
       >
-        <LazyMotion features={domMax}>
-          <SwitchPrimitive.Thumb asChild>
-            <m.span
-              className={swClsx(slots.thumb({ className: classNames?.thumb }))}
-              layout={!shouldDisableAnimation}
-              transition={{
-                type: 'spring',
-                stiffness: 600,
-                damping: 30,
-                duration: shouldDisableAnimation ? 0 : undefined,
-              }}
-            />
-          </SwitchPrimitive.Thumb>
-        </LazyMotion>
+        <SwitchPrimitive.Thumb
+          render={(props) => {
+            return (
+              <LazyMotion features={domMax}>
+                <motion.span
+                  {...(props as MotionProps)}
+                  suppressHydrationWarning
+                  className={swClsx(
+                    slots.thumb({ className: classNames?.thumb }),
+                  )}
+                  layout={!shouldDisableAnimation}
+                  transition={{
+                    type: 'spring',
+                    stiffness: 600,
+                    damping: 30,
+                    duration: shouldDisableAnimation ? 0 : undefined,
+                  }}
+                />
+              </LazyMotion>
+            )
+          }}
+        />
       </SwitchPrimitive.Root>
 
       {children && (
-        <label
+        <span
           suppressHydrationWarning
-          htmlFor={id}
           className={swClsx(slots.label({ className: classNames?.label }))}
         >
           {children}
-        </label>
+        </span>
       )}
-    </div>
+    </label>
   )
 }

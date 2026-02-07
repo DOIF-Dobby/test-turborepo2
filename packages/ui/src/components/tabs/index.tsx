@@ -1,4 +1,10 @@
-export { Tabs, type TabsProps } from './tabs'
-export { TabsContent, type TabsContentProps } from './tabs-content'
-export { TabsList, type TabsListProps } from './tabs-list'
-export { TabsTrigger, type TabsTriggerProps } from './tabs-trigger'
+import { Tabs as TabsRoot } from './tabs'
+import { TabsList } from './tabs-list'
+import { TabsPanel } from './tabs-panel'
+import { TabsTab } from './tabs-tab'
+
+export const Tabs = Object.assign(TabsRoot, {
+  List: TabsList,
+  Tab: TabsTab,
+  Panel: TabsPanel,
+})

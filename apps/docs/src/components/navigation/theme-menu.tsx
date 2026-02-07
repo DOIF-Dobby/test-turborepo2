@@ -2,13 +2,12 @@
 
 import { useMounted } from '@repo/hooks/use-mounted'
 import { Button } from '@repo/ui/components/button'
+import { Menu } from '@repo/ui/components/menu'
 import { Skeleton } from '@repo/ui/components/skeleton'
 import { Paragraph1 } from '@repo/ui/components/typography'
-import { Menu } from '@repo/ui/components2/menu'
 import { useTheme, type ThemeMode } from '@repo/ui/theme'
 import { capitalize } from '@repo/utils/string'
 import { Laptop, Moon, Sun } from 'lucide-react'
-import { MenuTrigger } from '../../../../../packages/ui/src/components2/menu/menu-trigger'
 
 export function ThemeMenu() {
   const { mode, setTheme } = useTheme()
@@ -25,14 +24,14 @@ export function ThemeMenu() {
 
   return (
     <Menu>
-      <MenuTrigger>
+      <Menu.Trigger>
         <Button size="xs" variant="light">
           {mode === 'light' && <Sun className="size-4" />}
           {mode === 'dark' && <Moon className="size-4" />}
           {mode === 'system' && <Laptop className="size-4" />}
           {capitalize(mode)}
         </Button>
-      </MenuTrigger>
+      </Menu.Trigger>
 
       <Menu.Content align="end">
         <Menu.RadioGroup

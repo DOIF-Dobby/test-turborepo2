@@ -1,31 +1,31 @@
-import { Select, SelectItem } from '@repo/ui/components/select'
+import { Select } from '@repo/ui/components/select'
+
+const items = [
+  { label: '사과', value: 'apple' },
+  { label: '바나나', value: 'banana' },
+  { label: '오렌지', value: 'orange' },
+]
 
 export default function Clearable() {
   return (
     <div className="gap-sw-2xs flex">
       <Select
-        label="Clearable"
         isClearable
         classNames={{
           container: 'w-1/2',
         }}
-      >
-        <SelectItem value="value1">value1</SelectItem>
-        <SelectItem value="value2">value2</SelectItem>
-        <SelectItem value="value3">value3</SelectItem>
-      </Select>
+        defaultValue="apple"
+        items={items}
+      />
 
       <Select
-        label="Clearable False"
         isClearable={false}
         classNames={{
           container: 'w-1/2',
         }}
-      >
-        <SelectItem value="value1">value1</SelectItem>
-        <SelectItem value="value2">value2</SelectItem>
-        <SelectItem value="value3">value3</SelectItem>
-      </Select>
+        defaultValue="apple"
+        items={items}
+      />
     </div>
   )
 }

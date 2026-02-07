@@ -5,7 +5,6 @@ import { CalendarIcon, ChevronDownIcon } from 'lucide-react'
 import { useMemo, useRef } from 'react'
 import { useDatePicker, type AriaDatePickerProps } from 'react-aria'
 import { useDatePickerState } from 'react-stately'
-import { Popover } from '../../components2/popover'
 import { useUIContext } from '../../providers'
 import type { SlotsToClasses } from '../../types'
 import { swClsx } from '../../utils/clsx'
@@ -13,6 +12,7 @@ import { Button } from '../button'
 import { Calendar } from '../calendar'
 import { DateField } from '../date-field'
 import { Label } from '../label'
+import { Popover } from '../popover'
 import {
   datePickerVariants,
   type DatePickerSlots,

@@ -4,16 +4,17 @@ import { Checkbox, CheckboxGroup } from '@repo/ui/components/checkbox'
 import { useState } from 'react'
 
 export default function Controlled() {
-  const [value, setValue] = useState<string[]>(['value-1', 'value-2'])
+  const [value, setValue] = useState<string[]>(['apple', 'banana'])
 
   return (
     <div className="gap-sw-md flex flex-col">
       <CheckboxGroup value={value} onValueChange={setValue}>
-        <Checkbox value="value-1">Option 1</Checkbox>
-        <Checkbox value="value-2">Option 2</Checkbox>
-        <Checkbox value="value-3">Option 3</Checkbox>
+        <Checkbox value="apple">Apple</Checkbox>
+        <Checkbox value="banana">Banana</Checkbox>
+        <Checkbox value="orange">Orange</Checkbox>
       </CheckboxGroup>
-      <div>{value.join(', ')}</div>
+
+      <div>Selected: {value.join(', ')}</div>
     </div>
   )
 }

@@ -1,26 +1,16 @@
-'use client'
-
-import {
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-} from '@repo/ui/components/tabs'
-import { useState } from 'react'
+import { Tabs } from '@repo/ui/components/tabs'
 
 export default function Default() {
-  const [tab, setTab] = useState('tab1')
-
   return (
-    <Tabs value={tab} onValueChange={setTab}>
-      <TabsList>
-        <TabsTrigger value="tab1">Tab 1</TabsTrigger>
-        <TabsTrigger value="tab2">Tab 2</TabsTrigger>
-        <TabsTrigger value="tab3">Tab 3</TabsTrigger>
-      </TabsList>
-      <TabsContent value="tab1">탭1</TabsContent>
-      <TabsContent value="tab2">탭2</TabsContent>
-      <TabsContent value="tab3">탭3</TabsContent>
+    <Tabs>
+      <Tabs.List>
+        <Tabs.Tab value="tab1">Tab 1</Tabs.Tab>
+        <Tabs.Tab value="tab2">Tab 2</Tabs.Tab>
+        <Tabs.Tab value="tab3">Tab 3</Tabs.Tab>
+      </Tabs.List>
+      <Tabs.Panel value="tab1">탭1</Tabs.Panel>
+      <Tabs.Panel value="tab2">탭2</Tabs.Panel>
+      <Tabs.Panel value="tab3">탭3</Tabs.Panel>
     </Tabs>
   )
 }

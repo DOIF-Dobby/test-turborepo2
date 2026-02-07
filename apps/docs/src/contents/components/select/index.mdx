@@ -2,26 +2,30 @@ import { CodeBlock } from '@/components/code-block'
 
 import Default from './default'
 import DefaultRaw from './default?raw'
-import Required from './required'
-import RequiredRaw from './required?raw'
 import Sizes from './sizes'
 import SizesRaw from './sizes?raw'
+import ControlledOpen from './controlled-open'
+import ControlledOpenRaw from './controlled-open?raw'
 import Controlled from './controlled'
 import ControlledRaw from './controlled?raw'
+import DefaultValue from './default-value'
+import DefaultValueRaw from './default-value?raw'
 import Disabled from './disabled'
 import DisabledRaw from './disabled?raw'
 import Clearable from './clearable'
 import ClearableRaw from './clearable?raw'
-import ErrorMessage from './error-message'
-import ErrorMessageRaw from './error-message?raw'
 import StartContent from './start-content'
 import StartContentRaw from './start-content?raw'
 import SelectItemStartContent from './select-item-start-content'
 import SelectItemStartContentRaw from './select-item-start-content?raw'
 import ManyItems from './many-items'
 import ManyItemsRaw from './many-items?raw'
-import ControlledOpen from './controlled-open'
-import ControlledOpenRaw from './controlled-open?raw'
+import Multiple from './multiple'
+import MultipleRaw from './multiple?raw'
+import MultipleDefaultValue from './multiple-default-value'
+import MultipleDefaultValueRaw from './multiple-default-value?raw'
+import MultipleControlled from './multiple-controlled'
+import MultipleControlledRaw from './multiple-controlled?raw'
 import DisableAnimation from './disable-animation'
 import DisableAnimationRaw from './disable-animation?raw'
 
@@ -35,45 +39,53 @@ import DisableAnimationRaw from './disable-animation?raw'
 
 <CodeBlock preview={<Sizes />} code={SizesRaw} />
 
-## Required
+## Disabled
 
-<CodeBlock preview={<Required />} code={RequiredRaw} />
+<CodeBlock preview={<Disabled />} code={DisabledRaw} />
 
-## Controlled open
+## Default Value
 
-<CodeBlock preview={<ControlledOpen />} code={ControlledOpenRaw} />
+<CodeBlock preview={<DefaultValue />} code={DefaultValueRaw} />
 
 ## Controlled
 
 <CodeBlock preview={<Controlled />} code={ControlledRaw} />
 
-## Disabled
+## Controlled Open
 
-<CodeBlock preview={<Disabled />} code={DisabledRaw} />
+<CodeBlock preview={<ControlledOpen />} code={ControlledOpenRaw} />
 
 ## Clearable
 
 <CodeBlock preview={<Clearable />} code={ClearableRaw} />
 
-## Start content
+## Start Content
 
 <CodeBlock preview={<StartContent />} code={StartContentRaw} />
 
-## Error Message
-
-<CodeBlock preview={<ErrorMessage />} code={ErrorMessageRaw} />
-
-## SelectItem start content
+## Select Item Start Content
 
 <CodeBlock
   preview={<SelectItemStartContent />}
   code={SelectItemStartContentRaw}
 />
 
-## Many items
+## Many Items
 
 <CodeBlock preview={<ManyItems />} code={ManyItemsRaw} />
 
-## Disable animation
+## Multiple
+
+<CodeBlock preview={<Multiple />} code={MultipleRaw} />
+
+## Multiple Default Value
+
+<CodeBlock preview={<MultipleDefaultValue />} code={MultipleDefaultValueRaw} />
+
+## Multiple Controlled
+
+<CodeBlock preview={<MultipleControlled />} code={MultipleControlledRaw} />
+
+## Disable Animation
 
 <CodeBlock preview={<DisableAnimation />} code={DisableAnimationRaw} />

@@ -1,7 +1,7 @@
 'use client'
 
+import { Collapsible } from '@repo/ui/components/collapsible'
 import { Heading4 } from '@repo/ui/components/typography'
-import { Collapsible } from '@repo/ui/components2/collapsible'
 import { swClsx } from '@repo/ui/utils/clsx'
 import { pascalCase } from '@repo/utils/string'
 import { ChevronRight } from 'lucide-react'

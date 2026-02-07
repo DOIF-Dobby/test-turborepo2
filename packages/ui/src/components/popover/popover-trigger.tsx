@@ -1,14 +1,28 @@
-import { Popover as PopoverPrimitive } from 'radix-ui'
-import { isValidElement } from 'react'
+'use client'
 
-export function PopoverTrigger(props: PopoverPrimitive.PopoverTriggerProps) {
-  const { children, asChild, ...triggerProps } = props
+import { Popover as PopoverPrimitive } from '@base-ui/react/popover'
+import { Slot } from '@radix-ui/react-slot'
 
-  const isChildElement = asChild || isValidElement(children)
+export function PopoverTrigger<Payload>(
+  props: React.ComponentProps<typeof PopoverPrimitive.Trigger<Payload>>,
+) {
+  const { children, render, ...otherProps } = props
 
   return (
-    <PopoverPrimitive.Trigger {...triggerProps} asChild={isChildElement}>
-      {children}
-    </PopoverPrimitive.Trigger>
+    <PopoverPrimitive.Trigger
+      {...otherProps}
+      suppressHydrationWarning
+      render={
+        render
+          ? render
+          : (props) => {
+              if (typeof children === 'string') {
+                return <button {...props}>{children}</button>
+              }
+
+              return <Slot {...props}>{children}</Slot>
+            }
+      }
+    />
   )
 }

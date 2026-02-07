@@ -1,10 +1,10 @@
-import { Check } from 'lucide-react'
-import { Select as SelectPrimitive } from 'radix-ui'
+import { Select as SelectPrimitive } from '@base-ui/react/select'
+import { CheckIcon } from 'lucide-react'
 import type { SlotsToClasses } from '../../types'
 import { swClsx } from '../../utils/clsx'
 import {
-  type SelectItemSlots,
   selectItemVariants,
+  type SelectItemSlots,
   type SelectItemVariants,
 } from './variants'
 
@@ -14,10 +14,11 @@ type Props = Omit<
 > &
   SelectItemVariants
 
-export interface SelectItemProps extends Props {
+interface SelectItemProps extends Props {
+  value: string
+  classNames?: SlotsToClasses<SelectItemSlots>
   itemIndicatorIcon?: React.ReactNode
   startContent?: React.ReactNode
-  classNames?: SlotsToClasses<SelectItemSlots>
 }
 
 export function SelectItem(props: SelectItemProps) {
@@ -25,8 +26,8 @@ export function SelectItem(props: SelectItemProps) {
     value,
     children,
     classNames,
+    itemIndicatorIcon = <CheckIcon className="size-4" />,
     startContent,
-    itemIndicatorIcon = <Check className="size-4" />,
     ref,
     ...otherProps
   } = props
@@ -35,6 +36,7 @@ export function SelectItem(props: SelectItemProps) {
 
   return (
     <SelectPrimitive.Item
+      {...otherProps}
       ref={ref}
       value={value}
       className={swClsx(
@@ -42,7 +44,6 @@ export function SelectItem(props: SelectItemProps) {
           className: classNames?.item,
         }),
       )}
-      {...otherProps}
     >
       <div className="gap-sw-2xs flex min-w-0 flex-1 items-center">
         {startContent && <span className="shrink-0">{startContent}</span>}
@@ -57,17 +58,15 @@ export function SelectItem(props: SelectItemProps) {
           <SelectPrimitive.ItemText>{children}</SelectPrimitive.ItemText>
         </span>
       </div>
-      <span
+      <SelectPrimitive.ItemIndicator
         className={swClsx(
           slots.itemIndicator({
             className: classNames?.itemIndicator,
           }),
         )}
       >
-        <SelectPrimitive.ItemIndicator>
-          {itemIndicatorIcon}
-        </SelectPrimitive.ItemIndicator>
-      </span>
+        {itemIndicatorIcon}
+      </SelectPrimitive.ItemIndicator>
     </SelectPrimitive.Item>
   )
 }

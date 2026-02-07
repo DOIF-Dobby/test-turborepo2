@@ -1,10 +1,10 @@
 'use client'
 
-import { Checkbox, type CheckedState } from '@repo/ui/components/checkbox'
+import { Checkbox } from '@repo/ui/components/checkbox'
 import { useState } from 'react'
 
 export default function Controlled() {
-  const [checked, setChecked] = useState<CheckedState>(true)
+  const [checked, setChecked] = useState(true)
 
   return (
     <>

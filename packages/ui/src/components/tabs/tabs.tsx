@@ -1,61 +1,66 @@
 'use client'
 
+import { Tabs as TabsPrimitive } from '@base-ui/react/tabs'
 import { useFallbackId } from '@repo/hooks/use-fallback-id'
-import { Tabs as TabsPrimitive } from 'radix-ui'
+import { useDisableAnimation } from '../../hooks/use-disable-animation'
 import type { SlotsToClasses } from '../../types'
 import { swClsx } from '../../utils/clsx'
 import { TabsContext } from './tabs-context'
 import { type TabsSlots, type TabsVariants, tabsVariatns } from './variants'
 
-type OmittedType = TabsVariants & {
-  defaultValue: TabsPrimitive.TabsProps['defaultValue']
-}
 type Props = Omit<
   React.ComponentProps<typeof TabsPrimitive.Root>,
-  keyof OmittedType
+  keyof TabsVariants
 > &
   TabsVariants
 
 export interface TabsProps extends Props {
-  value: TabsPrimitive.TabsProps['value']
-  onValueChange: TabsPrimitive.TabsProps['onValueChange']
   classNames?: SlotsToClasses<TabsSlots>
+  clsssName?: string
+  value?: string
+  defaultValue?: string
+  disableAnimation?: boolean
 }
 
 export function Tabs(props: TabsProps) {
   const {
     children,
-    className,
     classNames,
+    className,
     variant,
     radius,
-    value,
     id,
+    disableAnimation,
     ref,
     ...otherProps
   } = props
 
   const tabsId = useFallbackId(id)
-  const slots = tabsVariatns()
+  const shouldDisableAnimation = useDisableAnimation(disableAnimation)
 
-  const styles = slots.tabsRoot({
-    className: swClsx(classNames?.tabsRoot, className),
+  const slots = tabsVariatns({
+    radius,
+    variant,
   })
 
   return (
     <TabsContext
       value={{
         tabsId,
-        classNames,
+        slots,
         variant,
         radius,
-        value,
+        value: '',
+        disableAnimation: shouldDisableAnimation,
       }}
     >
       <TabsPrimitive.Root
         ref={ref}
-        className={swClsx(styles)}
-        value={value}
+        className={swClsx(
+          slots.root({
+            className: swClsx(classNames?.root, className),
+          }),
+        )}
         {...otherProps}
       >
         {children}

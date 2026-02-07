@@ -3,42 +3,51 @@ import { swTwVariants } from '../../utils/tw-variants'
 
 export const checkboxVariants = swTwVariants({
   slots: {
-    container: ['flex', 'gap-sw-2xs', 'items-center'],
+    container: [
+      'flex',
+      'gap-sw-2xs',
+      'items-center',
+      'w-fit',
+      'cursor-pointer',
+    ],
     root: [
-      'peer',
-      'shrink-0',
       'border',
       'border-base-400',
-      'cursor-pointer',
       'focus-visible:outline-none',
       'focus-visible:ring-2',
       'focus-visible:ring-cta1-hover',
       'focus-visible:ring-offset-2',
-      'disabled:cursor-default',
+      'cursor-pointer',
 
       'transition-colors',
       'duration-200',
       'ease-in-out',
       'text-cta1-content',
 
-      'not-disabled:hover:border-cta1-hover',
+      'hover:border-cta1-hover',
 
       // Checked & Indeterminate 상태 (배경색 채우기)
-      'data-[state=checked]:bg-cta1',
-      'data-[state=checked]:border-cta1',
+      'data-checked:bg-cta1',
+      'data-checked:border-cta1',
 
-      'data-[state=indeterminate]:bg-cta1',
-      'data-[state=indeterminate]:border-cta1',
+      'data-indeterminate:bg-cta1',
+      'data-indeterminate:border-cta1',
 
-      'disabled:data-[state=checked]:bg-base-400',
-      'disabled:data-[state=checked]:border-base-400',
+      'data-disabled:data-checked:bg-base-400',
+      'data-disabled:data-checked:border-base-400',
 
       'will-change-transform',
       'transform-gpu',
     ],
-    indicator: ['flex', 'items-center', 'justify-center', 'text-current'],
+    indicator: [
+      'flex',
+      'items-center',
+      'justify-center',
+      'text-current',
+      'size-full',
+    ],
     icon: ['size-full'],
-    label: ['select-none', 'cursor-pointer', 'peer-disabled:text-base-400'],
+    label: ['select-none'],
     description: ['text-sm', 'text-base-500'],
   },
   variants: {
@@ -58,8 +67,8 @@ export const checkboxVariants = swTwVariants({
       true: {
         root: [
           'border-destructive',
-          'data-[state=checked]:bg-destructive',
-          'data-[state=checked]:border-destructive',
+          'data-checked:bg-destructive',
+          'data-checked:border-destructive',
           'not-disabled:hover:border-destructive-hover',
         ],
         label: ['text-destructive'],
@@ -67,8 +76,8 @@ export const checkboxVariants = swTwVariants({
     },
     isDisabled: {
       true: {
-        root: ['cursor-default'],
-        label: ['cursor-default'],
+        container: ['pointer-events-none'],
+        label: ['text-base-400'],
       },
     },
     disableAnimation: {

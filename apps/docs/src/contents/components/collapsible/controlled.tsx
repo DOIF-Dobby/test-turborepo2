@@ -1,23 +1,19 @@
 'use client'
 
-import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from '@repo/ui/components/collapsible'
+import { Collapsible } from '@repo/ui/components/collapsible'
 import { useState } from 'react'
 
 export default function Controlled() {
-  const [open, setOpen] = useState(true)
+  const [open, setOpen] = useState(false)
 
   return (
-    <>
-      <span>state: {String(open)}</span>
-
+    <div className="gap-sw-sm flex">
       <Collapsible open={open} onOpenChange={setOpen}>
-        <CollapsibleTrigger>Trigger</CollapsibleTrigger>
-        <CollapsibleContent>Content</CollapsibleContent>
+        <Collapsible.Trigger>Trigger</Collapsible.Trigger>
+        <Collapsible.Panel>Panel</Collapsible.Panel>
       </Collapsible>
-    </>
+
+      <div>{open ? '열림' : '닫힘'}</div>
+    </div>
   )
 }

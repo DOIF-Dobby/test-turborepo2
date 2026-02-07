@@ -1,10 +1,6 @@
 import { Button } from '@repo/ui/components/button'
 import { Frame } from '@repo/ui/components/frame'
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from '@repo/ui/components/popover'
+import { Popover } from '@repo/ui/components/popover'
 
 const sides = ['top', 'bottom', 'left', 'right'] as const
 const aligns = ['start', 'center', 'end'] as const
@@ -16,14 +12,14 @@ export default function Placement() {
         <div key={align} className="gap-sw-xl flex flex-col">
           {sides.map((side) => (
             <Popover key={side}>
-              <PopoverTrigger>
+              <Popover.Trigger>
                 <Button>{`${side}-${align}`}</Button>
-              </PopoverTrigger>
-              <PopoverContent side={side} align={align}>
+              </Popover.Trigger>
+              <Popover.Content side={side} align={align}>
                 <Frame>
                   Content {side}-{align}
                 </Frame>
-              </PopoverContent>
+              </Popover.Content>
             </Popover>
           ))}
         </div>

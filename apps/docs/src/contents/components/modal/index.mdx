@@ -2,18 +2,26 @@ import { CodeBlock } from '@/components/code-block'
 
 import Default from './default'
 import DefaultRaw from './default?raw'
-import WithTitleDescription from './with-title-description'
-import WithTitleDescriptionRaw from './with-title-description?raw'
+import Handle from './handle'
+import HandleRaw from './handle?raw'
+import WithButtonTrigger from './with-button-trigger'
+import WithButtonTriggerRaw from './with-button-trigger?raw'
+import Controlled from './controlled'
+import ControlledRaw from './controlled?raw'
 import Sizes from './sizes'
 import SizesRaw from './sizes?raw'
-import CloseOnEscape from './close-on-escape'
-import CloseOnEscapeRaw from './close-on-escape?raw'
+import HideCloseButton from './hide-close-button'
+import HideCloseButtonRaw from './hide-close-button?raw'
 import CloseOnOutsideClick from './close-on-outside-click'
 import CloseOnOutsideClickRaw from './close-on-outside-click?raw'
+import CloseOnEscape from './close-on-escape'
+import CloseOnEscapeRaw from './close-on-escape?raw'
+import CloseOnBoth from './close-on-both'
+import CloseOnBothRaw from './close-on-both?raw'
+import LongContent from './long-content'
+import LongContentRaw from './long-content?raw'
 import DisableAnimation from './disable-animation'
 import DisableAnimationRaw from './disable-animation?raw'
-import MotionProps from './motion-props'
-import MotionPropsRaw from './motion-props?raw'
 
 # Modal
 
@@ -21,17 +29,29 @@ import MotionPropsRaw from './motion-props?raw'
 
 <CodeBlock preview={<Default />} code={DefaultRaw} />
 
-## With Title Description
+## With Button Trigger
 
-<CodeBlock preview={<WithTitleDescription />} code={WithTitleDescriptionRaw} />
+<CodeBlock preview={<WithButtonTrigger />} code={WithButtonTriggerRaw} />
+
+## Controlled
+
+<CodeBlock preview={<Controlled />} code={ControlledRaw} />
 
 ## Sizes
 
 <CodeBlock preview={<Sizes />} code={SizesRaw} />
 
+## Handle
+
+<CodeBlock preview={<Handle />} code={HandleRaw} />
+
+## Hide Close Button
+
+<CodeBlock preview={<HideCloseButton />} code={HideCloseButtonRaw} />
+
 ## Close On Escape
 
-`closeOnEscape` 속성을 `false`로 설정하면 ESC 키를 눌러도 모달이 닫히지 않습니다.
+`closeOnEscape` 속성을 `false`로 설정하면 `ESC` 키를 눌러도 모달이 닫히지 않습니다.
 
 <CodeBlock preview={<CloseOnEscape />} code={CloseOnEscapeRaw} />
 
@@ -41,14 +61,16 @@ import MotionPropsRaw from './motion-props?raw'
 
 <CodeBlock preview={<CloseOnOutsideClick />} code={CloseOnOutsideClickRaw} />
 
+## Close On Both
+
+`closeOnEscape`와 `closeOnOutsideClick` 속성을 모두 `false`로 설정하면 모달이 닫히지 않습니다.
+
+<CodeBlock preview={<CloseOnBoth />} code={CloseOnBothRaw} />
+
+## Long Content
+
+<CodeBlock preview={<LongContent />} code={LongContentRaw} />
+
 ## Disable Animation
 
-`disableAnimation` 속성을 `true`로 설정하면 모달의 애니메이션이 비활성화됩니다.
-
 <CodeBlock preview={<DisableAnimation />} code={DisableAnimationRaw} />
-
-## Motion Props
-
-`motionProps` 속성을 사용하여 모달의 애니메이션을 커스텀할 수 있습니다.
-
-<CodeBlock preview={<MotionProps />} code={MotionPropsRaw} />

@@ -1,4 +1,4 @@
-import { Select, SelectItem } from '@repo/ui/components/select'
+import { Select } from '@repo/ui/components/select'
 
 export default function ManyItems() {
   const items = Array.from({ length: 100 }, (_, i) => ({
@@ -6,13 +6,5 @@ export default function ManyItems() {
     label: `Item ${i + 1} 입니다`,
   }))
 
-  return (
-    <Select label="Select">
-      {items.map((item) => (
-        <SelectItem key={item.value} value={item.value}>
-          {item.label}
-        </SelectItem>
-      ))}
-    </Select>
-  )
+  return <Select items={items} />
 }
