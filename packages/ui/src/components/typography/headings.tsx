@@ -1,4 +1,4 @@
-import { Slot } from 'radix-ui' // 또는 '@radix-ui/react-slot'
+import { Slot } from '@radix-ui/react-slot'
 import type { ComponentProps } from 'react'
 import type { AsChild } from '../../types'
 import { swClsx } from '../../utils/clsx'
@@ -35,7 +35,7 @@ function createHeading(level: 0 | 1 | 2 | 3 | 4 | 5 | 6) {
     ...props
   }: HeadingProps) => {
     // asChild가 true면 Slot, 아니면 위에서 정한 defaultTag 사용
-    const Comp = asChild ? Slot.Root : defaultTag
+    const Comp = asChild ? Slot : defaultTag
 
     return (
       <Comp

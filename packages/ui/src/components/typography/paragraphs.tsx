@@ -1,4 +1,4 @@
-import { Slot } from 'radix-ui' // 또는 '@radix-ui/react-slot'
+import { Slot } from '@radix-ui/react-slot'
 import type { ComponentProps } from 'react'
 import type { AsChild } from '../../types'
 import { swClsx } from '../../utils/clsx'
@@ -28,7 +28,7 @@ function createParagraph(level: 1 | 2 | 3 | 4 | 5 | 6) {
     ...props
   }: ParagraphProps) => {
     // asChild가 true면 Slot, 아니면 기본 p 태그 사용
-    const Comp = asChild ? Slot.Root : 'p'
+    const Comp = asChild ? Slot : 'p'
 
     return (
       <Comp
