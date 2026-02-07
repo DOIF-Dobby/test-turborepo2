@@ -92,7 +92,7 @@ export function DatePicker(props: DatePickerProps) {
           {label}
         </Label>
       )}
-      <div {...groupProps} ref={ref}>
+      <div suppressHydrationWarning {...groupProps} ref={ref}>
         <DateField
           {...fieldProps}
           isInvalid={isInvalid}

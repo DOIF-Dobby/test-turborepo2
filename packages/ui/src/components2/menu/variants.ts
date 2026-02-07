@@ -60,9 +60,28 @@ export const menuItemVariants = swTwVariants({
   ],
 })
 
+export const menuSeparatorVariants = swTwVariants({
+  base: ['h-px', 'bg-base-200', 'my-sw-2xs'],
+})
+
+export const menuGroupLabelVariants = swTwVariants({
+  base: [
+    'text-paragraph-2',
+    'font-paragraph-2',
+    'leading-paragraph-2',
+    'text-base-600',
+    'px-sw-2xs',
+    'py-sw-3xs',
+  ],
+})
+
 export type MenuContentVariants = VariantProps<typeof menuContentVariants>
 export type MenuContentSlots = keyof ReturnType<typeof menuContentVariants>
 
 export type MenuItemVariants = VariantProps<typeof menuItemVariants>
 
 export type MenuGroupVariants = VariantProps<typeof menuGroupVariants>
+
+export type MenuSeparatorVariants = VariantProps<typeof menuSeparatorVariants>
+
+export type MenuGroupLabelVariants = VariantProps<typeof menuGroupLabelVariants>

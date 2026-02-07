@@ -9,9 +9,7 @@ export default function SubMenu() {
       </Menu.Trigger>
       <Menu.Content>
         <Menu.Sub>
-          <Menu.SubTrigger className="hover:bg-base-100 cursor-pointer rounded-md p-2 outline-none">
-            Sub Menu
-          </Menu.SubTrigger>
+          <Menu.SubTrigger>Sub Menu</Menu.SubTrigger>
           <Menu.Content
             align="start"
             side="right"
