@@ -20,7 +20,12 @@ import { type ButtonVariants, buttonVariants } from './variants'
 
 type Props = Omit<
   React.ComponentProps<'button'>,
-  keyof ButtonVariants | 'onClick' | 'onDrag' | 'onDragStart' | 'onDragEnd'
+  | keyof ButtonVariants
+  | 'onClick'
+  | 'onDrag'
+  | 'onDragStart'
+  | 'onDragEnd'
+  | 'disabled'
 > &
   ButtonVariants &
   Omit<AriaButtonProps, 'onClick'> &

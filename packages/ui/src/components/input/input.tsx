@@ -1,10 +1,16 @@
+import { Input as InputPrimitive } from '@base-ui/react/input'
 import { swClsx } from '../../utils/clsx/clxs'
 import { type InputVariants, inputVariants } from './variants'
 
-type Props = Omit<React.ComponentProps<'input'>, keyof InputVariants> &
+type Props = Omit<
+  React.ComponentProps<typeof InputPrimitive>,
+  keyof InputVariants
+> &
   InputVariants
 
-export interface InputProps extends Props {}
+export interface InputProps extends Props {
+  className?: string
+}
 
 export function Input(props: InputProps) {
   const { size, className, ...otherProps } = props
@@ -14,5 +20,11 @@ export function Input(props: InputProps) {
     className,
   })
 
-  return <input className={swClsx(styles)} {...otherProps} />
+  return (
+    <InputPrimitive
+      suppressHydrationWarning
+      className={swClsx(styles)}
+      {...otherProps}
+    />
+  )
 }
