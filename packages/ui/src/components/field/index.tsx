@@ -1,3 +1,4 @@
+import { FieldControl } from './field-control'
 import { FieldDescription } from './field-description'
 import { FieldError } from './field-error'
 import { FieldItem } from './field-item'
@@ -9,4 +10,5 @@ export const Field = Object.assign(FieldRoot, {
   Description: FieldDescription,
   Error: FieldError,
   Item: FieldItem,
+  Control: FieldControl,
 })

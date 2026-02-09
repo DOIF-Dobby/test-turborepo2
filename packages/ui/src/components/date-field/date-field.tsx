@@ -7,7 +7,7 @@ import { useDateField, useLocale, type AriaDateFieldProps } from 'react-aria'
 import { useDateFieldState } from 'react-stately'
 import type { SlotsToClasses } from '../../types'
 import { swClsx } from '../../utils/clsx'
-import { Label } from '../label'
+import { Field } from '../field'
 import { DateSegment } from './date-segment'
 import {
   dateFieldVariants,
@@ -34,6 +34,8 @@ export function DateField(props: DateFieldProps) {
     label,
     errorMessage,
     size,
+    name,
+    description,
     value: valueProps,
     defaultValue,
     minValue,
@@ -41,7 +43,6 @@ export function DateField(props: DateFieldProps) {
     isRequired,
     isDisabled,
     isReadOnly,
-    isInvalid: isInvalidProps,
     shouldForceLeadingZeros = true,
     startContent,
     endContent,
@@ -50,10 +51,12 @@ export function DateField(props: DateFieldProps) {
     ...otherProps
   } = props
 
+  const ref = useRef(null)
+  const hiddenRef = useRef<HTMLInputElement>(null)
+
   const { locale } = useLocale()
 
   const ariaLabelledby = otherProps['aria-labelledby'] ?? 'date-field'
-  const isInvalid = !!errorMessage || isInvalidProps
 
   const minDate = minValue ?? new CalendarDate(1, 1, 1)
   const maxDate = maxValue ?? new CalendarDate(9999, 12, 31)
@@ -83,10 +86,30 @@ export function DateField(props: DateFieldProps) {
     }
 
     setDate(targetDate)
+
+    if (hiddenRef.current) {
+      const input = hiddenRef.current
+      input.setCustomValidity('')
+
+      // 2. [핵심] React를 속여서 값을 변경합니다.
+      // (단순 input.value = '' 하면 React가 이벤트를 씹어먹습니다)
+      const nativeInputValueSetter = Object.getOwnPropertyDescriptor(
+        window.HTMLInputElement.prototype,
+        'value',
+      )?.set
+
+      // 값을 "2026-01-01" 처럼 유효한 값으로 강제 변경
+      // (빈 문자열 ''로 바꾸면 required 조건 때문에 다시 invalid 될 수 있음)
+      nativeInputValueSetter?.call(input, '2026-01-01')
+
+      // 3. [필수] "사용자가 입력했다"고 이벤트를 뻥 쳐서 보냄
+      input.dispatchEvent(new Event('input', { bubbles: true }))
+    }
   }
 
   const state = useDateFieldState({
     ...otherProps,
+    description,
     label: ariaLabelledby,
     shouldForceLeadingZeros,
     errorMessage,
@@ -96,45 +119,48 @@ export function DateField(props: DateFieldProps) {
     isRequired,
     isDisabled,
     isReadOnly,
-    isInvalid,
     locale,
     onChange: handleDateChange,
     createCalendar,
   })
 
-  const ref = useRef(null)
+  const { labelProps, fieldProps, errorMessageProps, inputProps } =
+    useDateField(
+      {
+        ...otherProps,
+        label: ariaLabelledby,
+        name,
+        inputRef: hiddenRef,
+      },
+      state,
+      ref,
+    )
 
-  const { labelProps, fieldProps, errorMessageProps } = useDateField(
-    {
-      ...otherProps,
-      label: ariaLabelledby,
-    },
-    state,
-    ref,
-  )
-
-  const slots = dateFieldVariants({ size, isDisabled, isInvalid })
+  const slots = dateFieldVariants({ size, isDisabled })
 
   return (
-    <div
+    <Field
+      name={name}
       className={swClsx(slots.container({ className: classNames?.container }))}
     >
       {label && (
-        <Label
-          requiredIndicator={isRequired}
+        <Field.Label
+          {...labelProps}
+          isRequired={isRequired}
           suppressHydrationWarning
           size={size}
-          {...labelProps}
-          classNames={{
-            label: slots.label({ className: classNames?.label }),
-            indicator: slots.labelIndicator({
-              className: classNames?.labelIndicator,
-            }),
-          }}
+          className={slots.label({ className: classNames?.label })}
         >
           {label}
-        </Label>
+        </Field.Label>
       )}
+
+      <Field.Control
+        ref={hiddenRef}
+        className="peer sr-only"
+        {...inputProps}
+        type="text"
+      />
       <div
         suppressHydrationWarning
         {...fieldProps}
@@ -165,19 +191,27 @@ export function DateField(props: DateFieldProps) {
         {endContent}
       </div>
 
-      {/* 에러 메시지 */}
-      {errorMessage && (
-        <div
+      {description && (
+        <Field.Description
           {...errorMessageProps}
+          size={size}
           className={swClsx(
-            slots.errorMessage({
-              className: classNames?.errorMessage,
+            slots.description({
+              className: classNames?.description,
             }),
           )}
         >
-          {errorMessage}
-        </div>
+          {description}
+        </Field.Description>
       )}
-    </div>
+
+      <Field.Error
+        className={swClsx(
+          slots.errorMessage({
+            className: classNames?.errorMessage,
+          }),
+        )}
+      />
+    </Field>
   )
 }

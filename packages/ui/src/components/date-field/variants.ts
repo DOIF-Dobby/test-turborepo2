@@ -16,6 +16,11 @@ export const dateFieldVariants = swTwVariants({
       'has-[:focus-visible:not(button)]:border-cta1-hover',
       'has-[:focus-visible:not(button)]:border-2',
       'hover:border-cta1-hover',
+
+      'peer-data-invalid:border-destructive',
+      'peer-data-invalid:border-2',
+      'peer-data-invalid:hover:border-destructive',
+      'peer-data-invalid:has-[:focus-visible:not(button)]:border-destructive',
     ],
     segmentWrapper: ['w-full'],
     segment: [
@@ -29,6 +34,7 @@ export const dateFieldVariants = swTwVariants({
       'data-[literal=true]:text-base-600',
       'data-[placeholder=true]:text-base-500',
     ],
+    description: [],
   },
   variants: {
     size: {
@@ -87,16 +93,6 @@ export const dateFieldVariants = swTwVariants({
       true: {
         fieldWrapper: ['bg-base-100', 'pointer-events-none'],
         segment: ['text-base-500'],
-      },
-    },
-    isInvalid: {
-      true: {
-        fieldWrapper: [
-          'border-destructive',
-          'border-2',
-          'hover:border-destructive',
-          'has-[:focus-visible:not(button)]:border-destructive',
-        ],
       },
     },
   },
