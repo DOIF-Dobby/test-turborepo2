@@ -1,6 +1,7 @@
 import { Tooltip, type TooltipProviderProps } from '@base-ui/react/tooltip'
 import { MotionConfig } from 'motion/react'
 import { I18nProvider } from 'react-aria'
+import { ToastProvider } from '../components/toast'
 import { UIContext, type UIContextType } from './ui-context'
 
 export interface UIProviderProps extends UIContextType {
@@ -38,7 +39,7 @@ export function UIProvider({
             closeDelay={closeDelay}
             timeout={timeout}
           >
-            {children}
+            <ToastProvider>{children}</ToastProvider>
           </Tooltip.Provider>
         </I18nProvider>
       </MotionConfig>
