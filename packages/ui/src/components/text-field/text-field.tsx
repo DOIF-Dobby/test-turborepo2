@@ -17,8 +17,8 @@ import {
 } from './variants'
 
 type Props = Omit<
-  React.ComponentProps<'input'>,
-  keyof TextFieldVariants | 'className' | 'disabled' | 'readOnly'
+  React.ComponentProps<typeof Input>,
+  keyof TextFieldVariants | 'className' | 'disabled' | 'readOnly' | 'onChange'
 > &
   TextFieldVariants
 
@@ -31,7 +31,6 @@ export interface TextFieldProps extends Props {
   isDisabled?: boolean
   isReadOnly?: boolean
   onClear?: () => void
-  onValueChange?: (value: string) => void
 
   startContent?: React.ReactNode
   endContent?: React.ReactNode
@@ -51,7 +50,6 @@ export function TextField(props: TextFieldProps) {
     isReadOnly = false,
     description,
     onClear,
-    onChange,
     onValueChange,
     value: valueProp,
     defaultValue,
@@ -67,7 +65,6 @@ export function TextField(props: TextFieldProps) {
   const [value, setValue] = useControllableState({
     value: valueProp !== undefined ? String(valueProp) : undefined,
     defaultValue: defaultValue !== undefined ? String(defaultValue) : '',
-    onChange: onValueChange,
   })
 
   // 3. Clear 아이콘 표시 여부 (value는 항상 string이므로 안전하게 체크)
@@ -78,14 +75,6 @@ export function TextField(props: TextFieldProps) {
     value !== undefined &&
     value.length > 0
 
-  // 4. 입력 핸들러
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    // 훅의 상태 업데이트 (onValueChange 실행됨)
-    setValue(e.target.value)
-    // 부모의 onChange 실행
-    onChange?.(e)
-  }
-
   // 5. Clear 핸들러
   const handleClear = (e: PressEvent) => {
     // 상태 비우기
@@ -95,16 +84,16 @@ export function TextField(props: TextFieldProps) {
     // 포커스 유지
     inputRef.current?.focus()
 
-    // 부모가 onChange(Native Event)를 사용하는 경우를 위한 합성 이벤트 발송
-    // (react-hook-form 등과의 호환성 보장)
-    if (onChange && inputRef.current) {
-      const event = {
-        ...e,
-        target: { ...inputRef.current, value: '' },
-        currentTarget: { ...inputRef.current, value: '' },
-        type: 'change',
-      } as unknown as React.ChangeEvent<HTMLInputElement>
-      onChange(event)
+    if (onValueChange) {
+      onValueChange('', {
+        reason: 'none',
+        trigger: e.target,
+        event: new Event('change'),
+        allowPropagation: () => {},
+        cancel: () => {},
+        isCanceled: false,
+        isPropagationAllowed: true,
+      })
     }
   }
 
@@ -153,9 +142,11 @@ export function TextField(props: TextFieldProps) {
             }),
           )}
           size={size}
-          // 훅에서 관리되는 string 값을 주입 (제어 컴포넌트로 동작)
           value={value}
-          onChange={handleChange}
+          onValueChange={(value, eventDeatils) => {
+            onValueChange?.(value, eventDeatils)
+            setValue(value)
+          }}
           {...otherProps}
         />
 

@@ -108,9 +108,6 @@ export function SelectRoot<
   const [value, setValue] = useControllableState<SelectValue<M>>({
     value: valueProp,
     defaultValue: initialDefaultValue,
-    onChange: (val) => {
-      onValueChange?.(val, {} as SelectRootChangeEventDetails)
-    },
   })
 
   const getDisplayLabel = () => {
@@ -185,7 +182,10 @@ export function SelectRoot<
     >
       <SelectPrimitive.Root<string, M>
         value={value as BaseSelectProps<string, M>['value']}
-        onValueChange={setValue}
+        onValueChange={(val, eventDetails) => {
+          onValueChange?.(val, eventDetails)
+          setValue(val)
+        }}
         disabled={isDisabled}
         multiple={multiple}
         {...otherProps}

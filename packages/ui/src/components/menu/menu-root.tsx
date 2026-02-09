@@ -24,9 +24,6 @@ export function MenuRoot<Payload>(props: MenuRootProps<Payload>) {
   const [open, setOpen] = useControllableState({
     value: openProp,
     defaultValue: defaultOpen ?? false,
-    onChange: (open) => {
-      onOpenChange?.(open, {} as MenuPrimitive.Root.ChangeEventDetails)
-    },
   })
 
   return (
@@ -46,6 +43,8 @@ export function MenuRoot<Payload>(props: MenuRootProps<Payload>) {
         ) {
           return
         }
+
+        onOpenChange?.(open, eventDeatils)
 
         setOpen(open)
       }}

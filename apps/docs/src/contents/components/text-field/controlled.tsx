@@ -8,18 +8,11 @@ export default function Controlled() {
 
   return (
     <div className="gap-sw-md flex flex-col">
-      <div className="gap-sw-md flex">
-        <TextField
-          label="onChange 방식"
-          value={value}
-          onChange={(e) => setValue(e.target.value)}
-        />
-        <TextField
-          label="onValueChange 방식"
-          value={value}
-          onValueChange={(value) => setValue(value)}
-        />
-      </div>
+      <TextField
+        label="Controoled"
+        value={value}
+        onValueChange={(value) => setValue(value)}
+      />
       <p>입력한 값: {value}</p>
     </div>
   )

@@ -23,7 +23,6 @@ type Props = Omit<
   SwitchVariants
 
 export interface SwitchProps extends Props {
-  onCheckedChange?: (checked: boolean) => void
   children?: React.ReactNode
   classNames?: SlotsToClasses<SwitchSlots>
   disableAnimation?: boolean
@@ -51,7 +50,6 @@ export function Switch(props: SwitchProps) {
   const [checked, setChecked] = useControllableState<boolean>({
     value: checkedProp,
     defaultValue: defaultChecked ?? false,
-    onChange: onCheckedChange,
   })
 
   const { pressProps, isPressed } = usePress({
@@ -76,7 +74,10 @@ export function Switch(props: SwitchProps) {
         {...mergeProps(pressProps, otherProps)}
         ref={mergeRefs([ref, rootRef])}
         checked={checked}
-        onCheckedChange={setChecked}
+        onCheckedChange={(checked, eventDetails) => {
+          onCheckedChange?.(checked, eventDetails)
+          setChecked(checked)
+        }}
         disabled={isDisabled}
         className={swClsx(slots.root({ className: classNames?.root }))}
         nativeButton

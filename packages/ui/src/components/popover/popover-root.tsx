@@ -24,9 +24,6 @@ export function PopoverRoot<Payload>(props: PopoverRootProps<Payload>) {
   const [open, setOpen] = useControllableState({
     value: openProp,
     defaultValue: defaultOpen ?? false,
-    onChange: (open) => {
-      onOpenChange?.(open, {} as PopoverPrimitive.Root.ChangeEventDetails)
-    },
   })
 
   return (
@@ -46,6 +43,8 @@ export function PopoverRoot<Payload>(props: PopoverRootProps<Payload>) {
         ) {
           return
         }
+
+        onOpenChange?.(open, eventDeatils)
 
         setOpen(open)
       }}

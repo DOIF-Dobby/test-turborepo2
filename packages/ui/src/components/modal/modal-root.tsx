@@ -46,9 +46,6 @@ export function ModalRoot<Payload>(props: ModalRootProps<Payload>) {
   const [open, setOpen] = useControllableState({
     value: openProp,
     defaultValue: defaultOpen ?? false,
-    onChange: (open) => {
-      onOpenChange?.(open, {} as DialogPrimitive.Root.ChangeEventDetails)
-    },
   })
 
   const shouldDisableAnimation = useDisableAnimation(disableAnimation)
@@ -63,6 +60,8 @@ export function ModalRoot<Payload>(props: ModalRootProps<Payload>) {
         if (!open && !closeOnEscape && eventDeatils.reason === 'escape-key') {
           return
         }
+
+        onOpenChange?.(open, eventDeatils)
 
         setOpen(open)
       }}
