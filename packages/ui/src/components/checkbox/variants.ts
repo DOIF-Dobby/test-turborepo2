@@ -11,6 +11,7 @@ export const checkboxVariants = swTwVariants({
       'cursor-pointer',
     ],
     root: [
+      'peer',
       'border',
       'border-base-400',
       'focus-visible:outline-none',
@@ -36,6 +37,11 @@ export const checkboxVariants = swTwVariants({
       'data-disabled:data-checked:bg-base-400',
       'data-disabled:data-checked:border-base-400',
 
+      'data-invalid:border-destructive',
+      'data-invalid:data-checked:bg-destructive',
+      'data-invalid:data-checked:border-destructive',
+      'data-invalid:not-disabled:hover:border-destructive-hover',
+
       'will-change-transform',
       'transform-gpu',
     ],
@@ -47,7 +53,7 @@ export const checkboxVariants = swTwVariants({
       'size-full',
     ],
     icon: ['size-full'],
-    label: ['select-none'],
+    label: ['select-none', 'peer-data-invalid:text-destructive'],
     description: ['text-sm', 'text-base-500'],
   },
   variants: {
@@ -61,17 +67,6 @@ export const checkboxVariants = swTwVariants({
         root: ['size-5', 'rounded-md'],
         icon: ['size-3.5'],
         label: ['text-heading-6', 'font-heading-6', 'leading-heading-6'],
-      },
-    },
-    isInvalid: {
-      true: {
-        root: [
-          'border-destructive',
-          'data-checked:bg-destructive',
-          'data-checked:border-destructive',
-          'not-disabled:hover:border-destructive-hover',
-        ],
-        label: ['text-destructive'],
       },
     },
     isDisabled: {

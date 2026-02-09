@@ -169,16 +169,18 @@ export function TextField(props: TextFieldProps) {
         {endContent}
       </div>
 
-      <Field.Description
-        size={size}
-        className={swClsx(
-          slots.description({
-            className: classNames?.description,
-          }),
-        )}
-      >
-        {description}
-      </Field.Description>
+      {description && (
+        <Field.Description
+          size={size}
+          className={swClsx(
+            slots.description({
+              className: classNames?.description,
+            }),
+          )}
+        >
+          {description}
+        </Field.Description>
+      )}
 
       <Field.Error
         className={swClsx(

@@ -33,7 +33,6 @@ export function Checkbox(props: CheckboxProps) {
     size,
     disableAnimation,
     isDisabled,
-    isInvalid,
     classNames,
     ...otherProps
   } = props
@@ -58,7 +57,6 @@ export function Checkbox(props: CheckboxProps) {
     size,
     isDisabled,
     disableAnimation: shouldDisableAnimation,
-    isInvalid,
   })
 
   return (

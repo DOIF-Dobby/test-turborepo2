@@ -30,6 +30,7 @@ export const radioVariants = swTwVariants({
       'cursor-pointer',
     ],
     root: [
+      'peer',
       'aspect-square',
       'rounded-full',
       'border',
@@ -56,11 +57,16 @@ export const radioVariants = swTwVariants({
       'data-checked:border-2',
       'data-disabled:opacity-50',
 
+      'data-invalid:border-destructive',
+      'data-invalid:data-checked:border-destructive',
+      'data-invalid:not-disabled:hover:border-destructive-hover',
+      'data-invalid:text-destructive',
+
       'will-change-transform',
       'transform-gpu',
     ],
     indicator: ['flex', 'items-center', 'justify-center', 'text-current'],
-    label: ['select-none'],
+    label: ['select-none', 'peer-data-invalid:text-destructive'],
   },
   variants: {
     size: {
@@ -84,17 +90,6 @@ export const radioVariants = swTwVariants({
       true: {
         container: ['pointer-events-none'],
         label: ['text-base-400'],
-      },
-    },
-    isInvalid: {
-      true: {
-        root: [
-          'border-destructive',
-          'data-checked:border-destructive',
-          'not-disabled:hover:border-destructive-hover',
-          'text-destructive',
-        ],
-        label: ['text-destructive'],
       },
     },
     disableAnimation: {

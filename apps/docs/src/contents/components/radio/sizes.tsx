@@ -7,8 +7,7 @@ export default function Sizes() {
     <div className="gap-sw-md flex flex-col">
       {sizes.map((size) => (
         <div key={size}>
-          <div>{size}</div>
-          <RadioGroup>
+          <RadioGroup label={size}>
             <Radio value="1" size={size}>
               Option 1
             </Radio>

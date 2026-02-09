@@ -29,7 +29,6 @@ export function Radio(props: RadioProps) {
     disableAnimation,
     classNames,
     isDisabled,
-    isInvalid,
     ...otherProps
   } = props
 
@@ -52,7 +51,6 @@ export function Radio(props: RadioProps) {
   const slots = radioVariants({
     size,
     isDisabled,
-    isInvalid,
     disableAnimation: shouldDisableAnimation,
   })
 
