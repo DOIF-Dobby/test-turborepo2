@@ -27,7 +27,6 @@
     "cmdk": "^1.1.1",
     "lucide-react": "*",
     "motion": "^12.26.2",
-    "radix-ui": "^1.4.3",
     "react-aria": "^3.45.0",
     "react-stately": "^3.43.0",
     "tailwind-merge": "^3.4.0",
