@@ -15,6 +15,7 @@ import { motion, type HTMLMotionProps, type MotionProps } from 'motion/react'
 import { useDisableAnimation } from '../../hooks/use-disable-animation'
 import type { SlotsToClasses } from '../../types'
 import { swClsx } from '../../utils/clsx'
+import { Field } from '../field'
 import { SelectItem } from './select-item'
 import {
   selectVariants,
@@ -57,8 +58,10 @@ export interface SelectRootProps<
   startContent?: React.ReactNode
   isClearable?: boolean
   disableAnimation?: boolean
-  errorMessage?: React.ReactNode
   sideOffset?: number
+  label?: React.ReactNode
+  isRequired?: boolean
+  description?: React.ReactNode
 
   items?: T[]
 
@@ -81,17 +84,19 @@ export function SelectRoot<
   const {
     children,
     classNames,
+    label,
+    name,
+    description,
+    isRequired = false,
     placeholder = '선택없음',
     sideOffset = 6,
     size,
     value: valueProp,
     defaultValue,
     isDisabled,
-    isInvalid: isInvalidProp,
     disableAnimation,
     startContent,
     isClearable = true,
-    errorMessage,
     items,
     onValueChange,
     onClear,
@@ -154,7 +159,6 @@ export function SelectRoot<
     : value !== undefined && value !== null
 
   const showClear = isClearable && hasValue && !isDisabled
-  const isInvalid = isInvalidProp || errorMessage !== undefined
   const shouldDisableAnimation = useDisableAnimation(disableAnimation)
 
   // 자식 아이템 렌더링
@@ -172,15 +176,28 @@ export function SelectRoot<
   const slots = selectVariants({
     size,
     isDisabled,
-    isInvalid,
     disableAnimation: shouldDisableAnimation,
   })
 
   return (
-    <div
+    <Field
+      name={name}
       className={swClsx(slots.container({ className: classNames?.container }))}
     >
+      {label && (
+        <Field.Label
+          className={slots.label({
+            className: classNames?.label,
+          })}
+          size={size}
+          isRequired={isRequired}
+        >
+          {label}
+        </Field.Label>
+      )}
+
       <SelectPrimitive.Root<string, M>
+        name={name}
         value={value as BaseSelectProps<string, M>['value']}
         onValueChange={(val, eventDetails) => {
           onValueChange?.(val, eventDetails)
@@ -309,6 +326,18 @@ export function SelectRoot<
           </SelectPrimitive.Positioner>
         </SelectPrimitive.Portal>
       </SelectPrimitive.Root>
-    </div>
+
+      {description && (
+        <Field.Description
+          className={slots.description({
+            className: classNames?.description,
+          })}
+        >
+          {description}
+        </Field.Description>
+      )}
+
+      <Field.Error />
+    </Field>
   )
 }

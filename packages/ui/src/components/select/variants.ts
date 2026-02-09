@@ -25,9 +25,17 @@ export const selectVariants = swTwVariants({
       'hover:border-cta1-hover',
       'text-base-800',
       'data-placeholder:text-base-500',
+
+      'data-invalid:border-destructive',
+      'data-invalid:border-2',
+      'data-invalid:hover:border-destructive',
+      'data-invalid:focus-within:border-destructive',
+      'data-invalid:hover:border-destructive',
+      'data-invalid:focus-within:border-destructive',
+      'data-invalid:data-open:border-destructive',
     ],
     label: [],
-    labelIndicator: [],
+    description: [],
     errorMessage: ['text-destructive'],
     value: ['truncate'],
     iconWrapper: ['data-popup-open:rotate-180'],
@@ -107,19 +115,6 @@ export const selectVariants = swTwVariants({
         value: ['text-base-500'],
         label: ['text-base-500'],
         icon: ['text-base-500'],
-      },
-    },
-    isInvalid: {
-      true: {
-        trigger: [
-          'border-destructive',
-          'border-2',
-          'hover:border-destructive',
-          'focus-within:border-destructive',
-          'hover:border-destructive',
-          'focus-within:border-destructive',
-          'data-open:border-destructive',
-        ],
       },
     },
     disableAnimation: {
