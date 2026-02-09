@@ -2,11 +2,11 @@
 
 import { getToday, parseDate } from '@repo/date'
 import { Button } from '@repo/ui/components/button'
-import { DateField } from '@repo/ui/components/date-field'
+import { DatePicker } from '@repo/ui/components/date-picker'
 import { Form } from '@repo/ui/components/form'
 import { useState } from 'react'
 
-export default function WithDateField() {
+export default function WithDatePicker() {
   const [errors, setErrors] = useState({})
   const [loading, setLoading] = useState(false)
 
@@ -29,7 +29,7 @@ export default function WithDateField() {
         setLoading(false)
       }}
     >
-      <DateField
+      <DatePicker
         label="Date"
         name="date"
         isRequired

@@ -2,7 +2,7 @@ import { DateField } from '@repo/ui/components/date-field'
 
 const sizes = ['md', 'sm', 'xs'] as const
 
-export default function ErrorMessage() {
+export default function Description() {
   return (
     <div className="gap-sw-sm flex">
       {sizes.map((size) => (
@@ -10,7 +10,7 @@ export default function ErrorMessage() {
           key={size}
           size={size}
           label="Error field"
-          errorMessage="This is an error message"
+          description="This is description"
           classNames={{ container: 'w-full' }}
         />
       ))}

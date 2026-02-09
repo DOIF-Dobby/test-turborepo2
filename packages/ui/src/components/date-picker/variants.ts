@@ -5,7 +5,7 @@ export const datePickerVariants = swTwVariants({
   slots: {
     container: ['flex', 'flex-col'],
     label: [],
-    labelIndicator: [],
+    description: [],
     errorMessage: ['text-destructive'],
     startIcon: [],
     openButton: ['group'],

@@ -7,6 +7,7 @@ import { useDateField, useLocale, type AriaDateFieldProps } from 'react-aria'
 import { useDateFieldState } from 'react-stately'
 import type { SlotsToClasses } from '../../types'
 import { swClsx } from '../../utils/clsx'
+import { triggerChange } from '../date-picker/trigger-change'
 import { Field } from '../field'
 import { DateSegment } from './date-segment'
 import {
@@ -23,16 +24,15 @@ type Props = Omit<
 
 export interface DateFieldProps extends Props {
   classNames?: SlotsToClasses<DateFieldSlots>
-  errorMessage?: React.ReactNode
   startContent?: React.ReactNode
   endContent?: React.ReactNode
+  inputRef?: React.RefObject<HTMLInputElement | null>
 }
 
 export function DateField(props: DateFieldProps) {
   const {
     classNames,
     label,
-    errorMessage,
     size,
     name,
     description,
@@ -46,13 +46,15 @@ export function DateField(props: DateFieldProps) {
     shouldForceLeadingZeros = true,
     startContent,
     endContent,
+    inputRef: inputRefProp,
     onChange,
     isDateUnavailable,
     ...otherProps
   } = props
 
   const ref = useRef(null)
-  const hiddenRef = useRef<HTMLInputElement>(null)
+  const internalHiddenRef = useRef<HTMLInputElement>(null)
+  const hiddenRef = inputRefProp || internalHiddenRef
 
   const { locale } = useLocale()
 
@@ -88,22 +90,8 @@ export function DateField(props: DateFieldProps) {
     setDate(targetDate)
 
     if (hiddenRef.current) {
-      const input = hiddenRef.current
-      input.setCustomValidity('')
-
-      // 2. [핵심] React를 속여서 값을 변경합니다.
-      // (단순 input.value = '' 하면 React가 이벤트를 씹어먹습니다)
-      const nativeInputValueSetter = Object.getOwnPropertyDescriptor(
-        window.HTMLInputElement.prototype,
-        'value',
-      )?.set
-
-      // 값을 "2026-01-01" 처럼 유효한 값으로 강제 변경
-      // (빈 문자열 ''로 바꾸면 required 조건 때문에 다시 invalid 될 수 있음)
-      nativeInputValueSetter?.call(input, '2026-01-01')
-
-      // 3. [필수] "사용자가 입력했다"고 이벤트를 뻥 쳐서 보냄
-      input.dispatchEvent(new Event('input', { bubbles: true }))
+      const newValue = targetDate ? targetDate.toString() : ''
+      triggerChange(hiddenRef.current, newValue)
     }
   }
 
@@ -112,7 +100,6 @@ export function DateField(props: DateFieldProps) {
     description,
     label: ariaLabelledby,
     shouldForceLeadingZeros,
-    errorMessage,
     value: date ?? null,
     minValue: minDate,
     maxValue: maxDate,

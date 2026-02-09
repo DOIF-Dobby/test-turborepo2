@@ -7,5 +7,9 @@ export interface FormProps extends Props {}
 export function Form(props: FormProps) {
   const { children, ...otherProps } = props
 
-  return <FormPrimitive {...otherProps}>{children}</FormPrimitive>
+  return (
+    <FormPrimitive suppressHydrationWarning {...otherProps}>
+      {children}
+    </FormPrimitive>
+  )
 }

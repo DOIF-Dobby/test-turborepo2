@@ -5,14 +5,15 @@ import { CalendarIcon, ChevronDownIcon } from 'lucide-react'
 import { useMemo, useRef } from 'react'
 import { useDatePicker, type AriaDatePickerProps } from 'react-aria'
 import { useDatePickerState } from 'react-stately'
-import { useUIContext } from '../../providers'
+import { useDisableAnimation } from '../../hooks/use-disable-animation'
 import type { SlotsToClasses } from '../../types'
 import { swClsx } from '../../utils/clsx'
 import { Button } from '../button'
 import { Calendar } from '../calendar'
 import { DateField } from '../date-field'
-import { Label } from '../label'
+import { Field } from '../field'
 import { Popover } from '../popover'
+import { triggerChange } from './trigger-change'
 import {
   datePickerVariants,
   type DatePickerSlots,
@@ -33,10 +34,20 @@ export function DatePicker(props: DatePickerProps) {
 
   const isInvalid = !!props.errorMessage || props.isInvalid
 
+  const hiddenInputRef = useRef<HTMLInputElement>(null)
+
   const state = useDatePickerState({
     label,
     isInvalid,
     ...otherProps,
+    onChange: (newDate) => {
+      props.onChange?.(newDate)
+
+      if (hiddenInputRef.current) {
+        const newValue = newDate ? newDate.toString() : ''
+        triggerChange(hiddenInputRef.current, newValue)
+      }
+    },
   })
   const ref = useRef<HTMLDivElement>(null)
 
@@ -58,18 +69,19 @@ export function DatePicker(props: DatePickerProps) {
     ref,
   )
 
-  const { disableAnimation: globalDisableAnimation } = useUIContext()
+  const shouldDisableAnimation = useDisableAnimation(disableAnimation)
 
   const popoverHandle = useMemo(() => Popover.createHandle(), [])
 
   const slots = datePickerVariants({
     size,
     isDisabled: props.isDisabled,
-    disableAnimation: disableAnimation || globalDisableAnimation,
+    disableAnimation: shouldDisableAnimation,
   })
 
   return (
-    <div
+    <Field
+      name={props.name}
       className={swClsx(
         slots.container({
           className: classNames?.container,
@@ -77,24 +89,21 @@ export function DatePicker(props: DatePickerProps) {
       )}
     >
       {label && (
-        <Label
+        <Field.Label
           {...labelProps}
-          requiredIndicator={props.isRequired}
+          isRequired={props.isRequired}
           suppressHydrationWarning
           size={size}
-          classNames={{
-            label: slots.label({ className: classNames?.label }),
-            indicator: slots.labelIndicator({
-              className: classNames?.labelIndicator,
-            }),
-          }}
+          className={slots.label({ className: classNames?.label })}
         >
           {label}
-        </Label>
+        </Field.Label>
       )}
       <div suppressHydrationWarning {...groupProps} ref={ref}>
         <DateField
           {...fieldProps}
+          name={props.name}
+          inputRef={hiddenInputRef}
           isInvalid={isInvalid}
           errorMessage={false}
           size={size}
@@ -130,6 +139,20 @@ export function DatePicker(props: DatePickerProps) {
           }
         />
       </div>
+
+      {props.description && (
+        <Field.Description
+          {...errorMessageProps}
+          size={size}
+          className={swClsx(
+            slots.description({
+              className: classNames?.description,
+            }),
+          )}
+        >
+          {props.description}
+        </Field.Description>
+      )}
 
       <Popover
         handle={popoverHandle}
@@ -172,19 +195,6 @@ export function DatePicker(props: DatePickerProps) {
           />
         </Popover.Content>
       </Popover>
-
-      {props.errorMessage && (
-        <div
-          {...errorMessageProps}
-          className={swClsx(
-            slots.errorMessage({
-              className: classNames?.errorMessage,
-            }),
-          )}
-        >
-          {props.errorMessage}
-        </div>
-      )}
-    </div>
+    </Field>
   )
 }

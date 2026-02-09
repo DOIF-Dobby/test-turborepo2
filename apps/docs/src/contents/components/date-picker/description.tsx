@@ -2,7 +2,7 @@ import { DatePicker } from '@repo/ui/components/date-picker'
 
 const sizes = ['md', 'sm', 'xs'] as const
 
-export default function Sizes() {
+export default function Description() {
   return (
     <div className="gap-sw-sm flex">
       {sizes.map((size) => (
@@ -10,7 +10,7 @@ export default function Sizes() {
           <DatePicker
             size={size}
             label="error field"
-            errorMessage="This is an error message"
+            description="This is an date picker"
           />
         </div>
       ))}
