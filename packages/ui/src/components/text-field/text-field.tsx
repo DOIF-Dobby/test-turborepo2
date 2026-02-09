@@ -7,8 +7,8 @@ import type { SlotsToClasses } from '../../types'
 import { swClsx } from '../../utils/clsx'
 import { mergeRefs } from '../../utils/merge-refs'
 import { Button } from '../button'
+import { Field } from '../field'
 import { Input } from '../input'
-import { Label } from '../label'
 import { ClearIcon } from './clear-icon'
 import {
   type TextFieldSlots,
@@ -35,7 +35,7 @@ export interface TextFieldProps extends Props {
 
   startContent?: React.ReactNode
   endContent?: React.ReactNode
-  errorMessage?: React.ReactNode
+  description?: React.ReactNode
 }
 
 export function TextField(props: TextFieldProps) {
@@ -49,6 +49,7 @@ export function TextField(props: TextFieldProps) {
     clearIcon = <ClearIcon />,
     isDisabled = false,
     isReadOnly = false,
+    description,
     onClear,
     onChange,
     onValueChange,
@@ -56,13 +57,12 @@ export function TextField(props: TextFieldProps) {
     defaultValue,
     startContent,
     endContent,
-    errorMessage,
+    name,
     ...otherProps
   } = props
 
   const inputRef = useRef<HTMLInputElement>(null)
   const mergedInputRef = mergeRefs([ref, inputRef])
-  const isInvalid = errorMessage !== undefined
 
   const [value, setValue] = useControllableState({
     value: valueProp !== undefined ? String(valueProp) : undefined,
@@ -108,10 +108,11 @@ export function TextField(props: TextFieldProps) {
     }
   }
 
-  const slots = textFieldVariants({ size, isDisabled, isInvalid })
+  const slots = textFieldVariants({ size, isDisabled })
 
   return (
-    <div
+    <Field
+      name={name}
       className={swClsx(
         slots.container({
           className: classNames?.container,
@@ -120,20 +121,15 @@ export function TextField(props: TextFieldProps) {
     >
       {/* 라벨 영역 */}
       {label && (
-        <Label
-          classNames={{
-            label: slots.label({
-              className: classNames?.label,
-            }),
-            indicator: slots.labelIndicator({
-              className: classNames?.labelIndicator,
-            }),
-          }}
+        <Field.Label
+          className={slots.label({
+            className: classNames?.label,
+          })}
           size={size}
-          requiredIndicator={isRequired}
+          isRequired={isRequired}
         >
           {label}
-        </Label>
+        </Field.Label>
       )}
 
       {/* 인풋 래퍼 */}
@@ -147,6 +143,7 @@ export function TextField(props: TextFieldProps) {
         {startContent}
 
         <Input
+          name={name}
           ref={mergedInputRef}
           disabled={isDisabled}
           readOnly={isReadOnly}
@@ -181,18 +178,24 @@ export function TextField(props: TextFieldProps) {
         {endContent}
       </div>
 
-      {/* 에러 메시지 */}
-      {errorMessage && (
-        <div
-          className={swClsx(
-            slots.errorMessage({
-              className: classNames?.errorMessage,
-            }),
-          )}
-        >
-          {errorMessage}
-        </div>
-      )}
-    </div>
+      <Field.Description
+        size={size}
+        className={swClsx(
+          slots.description({
+            className: classNames?.description,
+          }),
+        )}
+      >
+        {description}
+      </Field.Description>
+
+      <Field.Error
+        className={swClsx(
+          slots.errorMessage({
+            className: classNames?.errorMessage,
+          }),
+        )}
+      />
+    </Field>
   )
 }

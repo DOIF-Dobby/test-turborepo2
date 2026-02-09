@@ -53,7 +53,12 @@ export const fieldErrorVariants = swTwVariants({
   },
 })
 
+export const fieldItemVariants = swTwVariants({
+  base: [],
+})
+
 export type FieldRootVariants = VariantProps<typeof fieldRootVariants>
+export type FieldItemVariants = VariantProps<typeof fieldItemVariants>
 export type FieldLabelVariants = VariantProps<typeof fieldLabelVariants>
 export type FieldDescriptionVariants = VariantProps<
   typeof fieldDescriptionVariants

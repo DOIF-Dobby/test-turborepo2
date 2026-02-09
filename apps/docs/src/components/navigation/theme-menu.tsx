@@ -33,7 +33,7 @@ export function ThemeMenu() {
         </Button>
       </Menu.Trigger>
 
-      <Menu.Content align="end">
+      <Menu.Content align="end" showArrow={false}>
         <Menu.RadioGroup
           value={mode}
           onValueChange={(val) => setTheme(val as ThemeMode)}

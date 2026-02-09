@@ -3,7 +3,7 @@ import { swTwVariants } from '../../utils/tw-variants'
 
 export const textFieldVariants = swTwVariants({
   slots: {
-    container: ['flex', 'flex-col'],
+    container: ['group', 'flex', 'flex-col'],
     inputWrapper: [
       'border',
       'border-base-400',
@@ -13,6 +13,11 @@ export const textFieldVariants = swTwVariants({
       'focus-within:border-cta1-hover',
       'focus-within:border-2',
       'hover:border-cta1-hover',
+
+      'group-data-invalid:border-destructive',
+      'group-data-invalid:border-2',
+      'group-data-invalid:hover:border-destructive',
+      'group-data-invalid:focus-within:border-destructive',
     ],
     input: [],
     label: [],
@@ -28,6 +33,7 @@ export const textFieldVariants = swTwVariants({
       'data-[pressed=true]:bg-base-700',
     ],
     errorMessage: ['text-destructive'],
+    description: [],
   },
   variants: {
     size: {
@@ -75,16 +81,6 @@ export const textFieldVariants = swTwVariants({
       true: {
         inputWrapper: ['bg-base-100', 'pointer-events-none'],
         label: ['text-base-500'],
-      },
-    },
-    isInvalid: {
-      true: {
-        inputWrapper: [
-          'border-destructive',
-          'border-2',
-          'hover:border-destructive',
-          'focus-within:border-destructive',
-        ],
       },
     },
   },

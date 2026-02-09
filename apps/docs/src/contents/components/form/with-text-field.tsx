@@ -1,13 +1,11 @@
 'use client'
 
 import { Button } from '@repo/ui/components/button'
-import { Field } from '@repo/ui/components/field'
 import { Form } from '@repo/ui/components/form'
-import { Input } from '@repo/ui/components/input'
-import { swClsx } from '@repo/ui/utils/clsx'
+import { TextField } from '@repo/ui/components/text-field'
 import { useState } from 'react'
 
-export default function Default() {
+export default function WithTextField() {
   const [errors, setErrors] = useState({})
   const [loading, setLoading] = useState(false)
 
@@ -30,30 +28,15 @@ export default function Default() {
         setLoading(false)
       }}
     >
-      <Field name="url">
-        <Field.Label>URL</Field.Label>
-        <Input
-          defaultValue="https://example.com"
-          placeholder="https://example.com"
-          pattern="https?://.*"
-          className={swClsx(
-            'h-10',
-            'w-full',
-            'rounded-md',
-            'border',
-            'border-gray-200',
-            'pl-3.5',
-            'text-base',
-            'text-gray-900',
-            'data-focused:outline-none',
-            'data-focused:ring-2',
-            'data-focused:ring-cta1-hover',
-            'data-focused:ring-offset-2',
-            'data-invalid:border-destructive',
-          )}
-        />
-        <Field.Error />
-      </Field>
+      <TextField
+        label="URL"
+        name="url"
+        isRequired
+        defaultValue="https://example.com"
+        placeholder="https://example.com"
+        pattern="https?://.*"
+      />
+
       <div className="flex justify-end">
         <Button type="submit" isLoading={loading}>
           Submit

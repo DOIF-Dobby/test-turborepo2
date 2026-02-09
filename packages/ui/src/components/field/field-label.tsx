@@ -10,10 +10,19 @@ type Props = Omit<
 
 export interface FieldLabelProps extends Props {
   className?: string
+  isRequired?: boolean
+  requiredIndicator?: React.ReactNode
 }
 
 export function FieldLabel(props: FieldLabelProps) {
-  const { children, className, size, ...otherProps } = props
+  const {
+    children,
+    className,
+    size,
+    isRequired,
+    requiredIndicator = <span className="text-destructive">*</span>,
+    ...otherProps
+  } = props
 
   const styles = fieldLabelVariants({ size, className })
 
@@ -24,6 +33,7 @@ export function FieldLabel(props: FieldLabelProps) {
       className={swClsx(styles)}
     >
       {children}
+      {isRequired && requiredIndicator}
     </FieldPrimitive.Label>
   )
 }
