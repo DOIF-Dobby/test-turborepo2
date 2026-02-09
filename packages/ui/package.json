@@ -24,7 +24,6 @@
     "@repo/hooks": "workspace:*",
     "@repo/utils": "workspace:*",
     "clsx": "^2.1.1",
-    "cmdk": "^1.1.1",
     "lucide-react": "*",
     "motion": "^12.26.2",
     "react-aria": "^3.45.0",
