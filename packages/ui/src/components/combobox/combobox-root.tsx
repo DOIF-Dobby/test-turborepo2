@@ -23,17 +23,19 @@ type DefaultItem = {
   label: React.ReactNode
 }
 
-type Props<M extends boolean | undefined> = Omit<
-  React.ComponentProps<typeof ComboboxPrimitive.Root<string, M>>,
+type Props<Multiple extends boolean | undefined> = Omit<
+  React.ComponentProps<typeof ComboboxPrimitive.Root<string, Multiple>>,
   keyof ComboboxVariants | 'className' | 'disabled' | 'items'
 > &
   ComboboxVariants
 
 export interface ComboboxRootProps<
-  T extends DefaultItem = DefaultItem,
-  M extends boolean | undefined = false,
-> extends Props<M> {
-  items: T[]
+  Item extends DefaultItem = DefaultItem,
+  Multiple extends boolean | undefined = false,
+> extends Props<Multiple> {
+  items: Item[]
+  multiple?: Multiple
+
   classNames?: SlotsToClasses<ComboboxSlots>
   label?: React.ReactNode
   isRequired?: boolean
@@ -41,15 +43,10 @@ export interface ComboboxRootProps<
   zIndex?: number
 }
 
-type ValueProps<
-  T extends DefaultItem,
-  M extends boolean | undefined,
-> = ComboboxRootProps<T, M>['value']
-
 export function ComboboxRoot<
-  T extends DefaultItem = DefaultItem,
-  M extends boolean | undefined = false,
->(props: ComboboxRootProps<T, M>) {
+  Item extends DefaultItem = DefaultItem,
+  Multiple extends boolean | undefined = false,
+>(props: ComboboxRootProps<Item, Multiple>) {
   const {
     items,
     defaultValue,
@@ -70,9 +67,11 @@ export function ComboboxRoot<
   } = props
 
   const initialDefaultValue = (defaultValue ??
-    (multiple ? [] : null)) as ValueProps<T, M>
+    (multiple ? [] : null)) as ComboboxRootProps<Item, Multiple>['value']
 
-  const [value, setValue] = useControllableState<ValueProps<T, M>>({
+  const [value, setValue] = useControllableState<
+    ComboboxRootProps<Item, Multiple>['value']
+  >({
     value: valueProp,
     defaultValue: initialDefaultValue,
   })

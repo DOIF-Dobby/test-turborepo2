@@ -103,6 +103,8 @@ export const comboboxVariants = swTwVariants({
       'px-sw-3xs',
       'py-sw-4xs',
       'outline-none',
+      'border-base-300',
+      'border',
     ],
     chipRemove: [
       'rounded-md',
@@ -111,7 +113,7 @@ export const comboboxVariants = swTwVariants({
       'hover:bg-base-200',
       'cursor-pointer',
     ],
-    chipRemoveIcon: ['size-4'],
+    chipRemoveIcon: ['size-3'],
   },
   variants: {
     size: {

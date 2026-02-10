@@ -1,5 +1,3 @@
-'use client'
-
 import { Combobox } from '@repo/ui/components/combobox'
 
 type Fruit = {
@@ -36,12 +34,5 @@ const items: Fruit[] = [
 ]
 
 export default function Default() {
-  return (
-    <Combobox
-      items={items}
-      label="과일"
-      multiple
-      // defaultValue={['apple', 'banana']}
-    />
-  )
+  return <Combobox items={items} label="과일" />
 }
