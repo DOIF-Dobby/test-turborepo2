@@ -36,6 +36,7 @@ export interface ComboboxRootProps<
   items: Item[]
   multiple?: Multiple
 
+  sideOffset?: number
   classNames?: SlotsToClasses<ComboboxSlots>
   label?: React.ReactNode
   description?: React.ReactNode
@@ -59,6 +60,7 @@ export function ComboboxRoot<
     onValueChange,
     multiple,
 
+    sideOffset = 6,
     placeholder = '선택없음',
     classNames,
     name,
@@ -244,7 +246,7 @@ export function ComboboxRoot<
         <ComboboxPrimitive.Portal suppressHydrationWarning>
           <ComboboxPrimitive.Positioner
             suppressHydrationWarning
-            sideOffset={4}
+            sideOffset={sideOffset}
             anchor={fieldRef}
             style={{
               zIndex,
