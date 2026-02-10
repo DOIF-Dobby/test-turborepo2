@@ -4,7 +4,9 @@ import { Combobox as ComboboxPrimitive } from '@base-ui/react/combobox'
 import { useControllableState } from '@repo/hooks/use-controllable-state'
 import { getChoseong } from 'es-hangul'
 import { ChevronDownIcon, XIcon } from 'lucide-react'
+import { motion, type MotionProps } from 'motion/react'
 import { useMemo, useRef } from 'react'
+import { useDisableAnimation } from '../../hooks/use-disable-animation'
 import type { SlotsToClasses } from '../../types'
 import { swClsx } from '../../utils/clsx'
 import { Field } from '../field'
@@ -36,7 +38,13 @@ export interface ComboboxRootProps<
   label?: React.ReactNode
   isRequired?: boolean
   placeholder?: string
+  zIndex?: number
 }
+
+type ValueProps<
+  T extends DefaultItem,
+  M extends boolean | undefined,
+> = ComboboxRootProps<T, M>['value']
 
 export function ComboboxRoot<
   T extends DefaultItem = DefaultItem,
@@ -56,15 +64,15 @@ export function ComboboxRoot<
     isDisabled,
     size,
     isRequired,
+    disableAnimation,
+    zIndex = 50,
     ...otherProps
   } = props
 
   const initialDefaultValue = (defaultValue ??
-    (multiple ? [] : null)) as ComboboxRootProps<T, M>['value']
+    (multiple ? [] : null)) as ValueProps<T, M>
 
-  const [value, setValue] = useControllableState<
-    ComboboxRootProps<T, M>['value']
-  >({
+  const [value, setValue] = useControllableState<ValueProps<T, M>>({
     value: valueProp,
     defaultValue: initialDefaultValue,
   })
@@ -81,9 +89,12 @@ export function ComboboxRoot<
 
   const positionerRef = useRef<HTMLDivElement>(null)
 
+  const shouldDisableAnimation = useDisableAnimation(disableAnimation)
+
   const slots = comboboxVariants({
     size,
     isDisabled,
+    multiple,
   })
 
   return (
@@ -135,28 +146,47 @@ export function ComboboxRoot<
           ref={positionerRef}
         >
           {multiple ? (
-            <ComboboxPrimitive.Chips className="flex w-64 flex-wrap items-center gap-0.5 rounded-md border border-gray-200 px-1.5 py-1 focus-within:outline focus-within:outline-2 focus-within:-outline-offset-1 focus-within:outline-blue-800 min-[500px]:w-[22rem]">
+            <ComboboxPrimitive.Chips
+              className={swClsx(slots.chips({ className: classNames?.chips }))}
+            >
               <ComboboxPrimitive.Value>
                 {(values: string[]) => (
                   <>
                     {values.map((value) => (
                       <ComboboxPrimitive.Chip
+                        suppressHydrationWarning
                         key={value}
-                        className="flex cursor-default items-center gap-1 rounded-md bg-gray-100 px-1.5 py-[0.2rem] text-sm text-gray-900 outline-none focus-within:bg-blue-800 focus-within:text-gray-50 [@media(hover:hover)]:[&[data-highlighted]]:bg-blue-800 [@media(hover:hover)]:[&[data-highlighted]]:text-gray-50"
+                        className={swClsx(
+                          slots.chip({ className: classNames?.chip }),
+                        )}
                         aria-label={value}
                       >
                         {itemsMap.get(value)?.label ?? value}
                         <ComboboxPrimitive.ChipRemove
-                          className="rounded-md p-1 text-inherit hover:bg-gray-200"
+                          suppressHydrationWarning
+                          className={swClsx(
+                            slots.chipRemove({
+                              className: classNames?.chipRemove,
+                            }),
+                          )}
                           aria-label="Remove"
                         >
-                          <XIcon />
+                          <XIcon
+                            className={swClsx(
+                              slots.chipRemoveIcon({
+                                className: classNames?.chipRemoveIcon,
+                              }),
+                            )}
+                          />
                         </ComboboxPrimitive.ChipRemove>
                       </ComboboxPrimitive.Chip>
                     ))}
                     <ComboboxPrimitive.Input
-                      placeholder={values.length > 0 ? '' : 'e.g. TypeScript'}
-                      className="h-8 min-w-12 flex-1 rounded-md border-0 bg-transparent pl-2 text-base text-gray-900 outline-none"
+                      suppressHydrationWarning
+                      placeholder={values.length > 0 ? '' : placeholder}
+                      className={swClsx(
+                        slots.input({ className: classNames?.input }),
+                      )}
                     />
                   </>
                 )}
@@ -165,12 +195,14 @@ export function ComboboxRoot<
           ) : (
             <>
               <ComboboxPrimitive.Input
+                suppressHydrationWarning
                 placeholder={placeholder}
                 className={swClsx(
                   slots.input({ className: classNames?.input }),
                 )}
               />
               <ComboboxPrimitive.Clear
+                suppressHydrationWarning
                 className={swClsx(
                   slots.clear({ className: classNames?.clear }),
                 )}
@@ -183,6 +215,7 @@ export function ComboboxRoot<
                 />
               </ComboboxPrimitive.Clear>
               <ComboboxPrimitive.Trigger
+                suppressHydrationWarning
                 className={swClsx(
                   slots.trigger({ className: classNames?.trigger }),
                 )}
@@ -203,41 +236,62 @@ export function ComboboxRoot<
             suppressHydrationWarning
             sideOffset={4}
             anchor={positionerRef}
+            style={{
+              zIndex,
+            }}
           >
             <ComboboxPrimitive.Popup
               suppressHydrationWarning
               className={swClsx(
                 slots.content({ className: classNames?.content }),
               )}
-            >
-              <ComboboxPrimitive.Empty
-                suppressHydrationWarning
-                className={swClsx(
-                  slots.empty({ className: classNames?.empty }),
-                )}
-              >
-                No fruits found.
-              </ComboboxPrimitive.Empty>
-              <ScrollArea>
-                <ComboboxPrimitive.List
-                  suppressHydrationWarning
-                  className={swClsx(
-                    slots.list({ className: classNames?.list }),
-                  )}
-                >
-                  {(itemValue: string) => {
-                    const item = itemsMap.get(itemValue)
-                    if (!item) return null
+              render={(props) => {
+                return (
+                  <motion.div
+                    {...(props as MotionProps)}
+                    initial={{
+                      opacity: 0,
+                      y: 'var(--y-initial, 0px)',
+                      x: 'var(--x-initial, 0px)',
+                    }}
+                    animate={{ y: 0, x: 0, opacity: 1 }}
+                    transition={{
+                      type: 'spring',
+                      bounce: 0.5,
+                      duration: shouldDisableAnimation ? 0 : 0.15,
+                    }}
+                  >
+                    <ComboboxPrimitive.Empty
+                      suppressHydrationWarning
+                      className={swClsx(
+                        slots.empty({ className: classNames?.empty }),
+                      )}
+                    >
+                      No fruits found.
+                    </ComboboxPrimitive.Empty>
+                    <ScrollArea>
+                      <ComboboxPrimitive.List
+                        suppressHydrationWarning
+                        className={swClsx(
+                          slots.list({ className: classNames?.list }),
+                        )}
+                      >
+                        {(itemValue: string) => {
+                          const item = itemsMap.get(itemValue)
+                          if (!item) return null
 
-                    return (
-                      <ComboboxItem key={item.value} value={itemValue}>
-                        {item.label}
-                      </ComboboxItem>
-                    )
-                  }}
-                </ComboboxPrimitive.List>
-              </ScrollArea>
-            </ComboboxPrimitive.Popup>
+                          return (
+                            <ComboboxItem key={item.value} value={itemValue}>
+                              {item.label}
+                            </ComboboxItem>
+                          )
+                        }}
+                      </ComboboxPrimitive.List>
+                    </ScrollArea>
+                  </motion.div>
+                )
+              }}
+            />
           </ComboboxPrimitive.Positioner>
         </ComboboxPrimitive.Portal>
       </ComboboxPrimitive.Root>

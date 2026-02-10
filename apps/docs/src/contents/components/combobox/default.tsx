@@ -40,7 +40,7 @@ export default function Default() {
     <Combobox
       items={items}
       label="과일"
-      // multiple
+      multiple
       // defaultValue={['apple', 'banana']}
     />
   )

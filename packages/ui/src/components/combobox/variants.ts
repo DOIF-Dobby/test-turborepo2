@@ -69,6 +69,15 @@ export const comboboxVariants = swTwVariants({
       'px-sw-2xs',
       'shadow-popover',
       'overflow-hidden',
+
+      'data-[side=bottom]:[--y-initial:-8px]',
+      'data-[side=bottom]:[--x-initial:0px]',
+      'data-[side=top]:[--y-initial:8px]',
+      'data-[side=top]:[--x-initial:0px]',
+      'data-[side=right]:[--x-initial:-8px]',
+      'data-[side=right]:[--y-initial:0px]',
+      'data-[side=left]:[--x-initial:8px]',
+      'data-[side=left]:[--y-initial:0px]',
     ],
     list: ['max-h-[min(300px,var(--available-height))]'],
     empty: [
@@ -80,6 +89,29 @@ export const comboboxVariants = swTwVariants({
       'text-paragraph-2',
       'leading-paragraph-2',
     ],
+    chips: ['flex', 'flex-wrap', 'items-center', 'gap-0.5', 'w-full'],
+    chip: [
+      'flex',
+      'cursor-default',
+      'text-paragraph-2',
+      'font-paragraph-2',
+      'leading-paragraph-2',
+      'items-center',
+      'gap-0.5',
+      'rounded-lg',
+      'bg-base-100',
+      'px-sw-3xs',
+      'py-sw-4xs',
+      'outline-none',
+    ],
+    chipRemove: [
+      'rounded-md',
+      'p-0.5',
+      'text-base-700',
+      'hover:bg-base-200',
+      'cursor-pointer',
+    ],
+    chipRemoveIcon: ['size-4'],
   },
   variants: {
     size: {
@@ -101,6 +133,11 @@ export const comboboxVariants = swTwVariants({
       },
       false: {
         trigger: ['transition-transform', 'duration-200'],
+      },
+    },
+    multiple: {
+      true: {
+        input: ['flex-1'],
       },
     },
   },
