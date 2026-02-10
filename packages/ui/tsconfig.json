@@ -3,6 +3,9 @@
   "compilerOptions": {
     "outDir": "dist"
   },
-  "include": ["src"],
+  "include": [
+    "src",
+    "../../apps/docs/src/contents/components/toast/programmatically-close.tsx"
+  ],
   "exclude": ["node_modules", "dist"]
 }

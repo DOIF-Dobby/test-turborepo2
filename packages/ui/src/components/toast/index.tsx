@@ -1,4 +1,4 @@
 export { ToastProvider, useToast } from './toast-provider'
 export { Toaster } from './toaster'
 
-export type { ToastPlacement } from './toast-type'
+export type { ToastItemType, ToastPlacement } from './toast-type'

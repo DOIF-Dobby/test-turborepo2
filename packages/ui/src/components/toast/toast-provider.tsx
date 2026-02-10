@@ -1,14 +1,13 @@
 'use client'
 
 import { Toast } from '@base-ui/react/toast'
-import {
-  createContext,
-  useContext,
-  useEffect,
-  useRef,
-  type ReactNode,
-} from 'react'
-import type { ToastInput, ToastPlacement } from './toast-type'
+import { createContext, use, useEffect, useRef, type ReactNode } from 'react'
+import type {
+  ToastAddOptions,
+  ToastCloseOptions,
+  ToastPlacement,
+  ToastUpdateOptions,
+} from './toast-type'
 import { Toaster } from './toaster'
 
 type ToastManagerRef = ReturnType<typeof Toast.useToastManager>
@@ -81,7 +80,7 @@ export function ToastProvider({ children }: ToastProviderProps) {
   }
 
   return (
-    <ToastManagerContext.Provider value={{ managers: managersRef }}>
+    <ToastManagerContext value={{ managers: managersRef }}>
       {children}
       {PLACEMENTS.map((placement) => (
         <PlacementProvider
@@ -90,23 +89,37 @@ export function ToastProvider({ children }: ToastProviderProps) {
           onManagerReady={handleManagerReady}
         />
       ))}
-    </ToastManagerContext.Provider>
+    </ToastManagerContext>
   )
 }
 
 // useToast 훅
 export function useToast() {
-  const context = useContext(ToastManagerContext)
+  const context = use(ToastManagerContext)
   if (!context) {
     throw new Error('useToast must be used within ToastProvider')
   }
 
   return {
-    add: (options: ToastInput) => {
+    add: (options: ToastAddOptions) => {
       const placement = options.placement || 'bottom-right'
       const manager = context.managers.current[placement]
       if (manager) {
-        manager.add(options)
+        return manager.add(options)
+      }
+    },
+    update: (id: string, options: ToastUpdateOptions) => {
+      const placement = options.placement || 'bottom-right'
+      const manager = context.managers.current[placement]
+      if (manager) {
+        return manager.update(id, options)
+      }
+    },
+    close: (id: string, options?: ToastCloseOptions) => {
+      const placement = options?.placement || 'bottom-right'
+      const manager = context.managers.current[placement]
+      if (manager) {
+        return manager.close(id)
       }
     },
   }

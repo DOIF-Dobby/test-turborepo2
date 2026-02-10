@@ -1,3 +1,4 @@
+import type { VariantProps } from 'tailwind-variants'
 import { swTwVariants } from '../../utils/tw-variants'
 
 export const toastItemVariants = swTwVariants({
@@ -44,6 +45,7 @@ export const toastItemVariants = swTwVariants({
       'gap-sw-xs',
       'w-full',
       'items-start',
+      'text-background',
       'overflow-hidden',
       'transition-opacity',
       'duration-250',
@@ -169,3 +171,6 @@ export const toasterVariants = swTwVariants({
     placement: 'bottom-right',
   },
 })
+
+export type ToastItemVariants = VariantProps<typeof toastItemVariants>
+export type ToastItemSlots = keyof ReturnType<typeof toastItemVariants>

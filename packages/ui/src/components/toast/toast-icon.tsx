@@ -1,5 +1,17 @@
 import { CheckIcon } from 'lucide-react'
 import { swClsx } from '../../utils/clsx'
+import type { ToastItemType } from './toast-type'
+
+export function ToastIcon({ type }: { type: ToastItemType }) {
+  switch (type) {
+    case 'info':
+      return <ToastInfoIcon />
+    case 'success':
+      return <ToastSuccessIcon />
+    case 'error':
+      return <ToastErrorIcon />
+  }
+}
 
 export function ToastSuccessIcon() {
   return (

@@ -3,7 +3,7 @@
 import { Toast } from '@base-ui/react/toast'
 import { XIcon } from 'lucide-react'
 import { swClsx } from '../../utils/clsx'
-import { ToastInfoIcon } from './toast-icon'
+import { ToastIcon } from './toast-icon'
 import type { ToastPayload } from './toast-type'
 import { toastItemVariants } from './variants'
 
@@ -15,23 +15,49 @@ interface ToastItemProps {
 export function ToastItem({ toast, vertical }: ToastItemProps) {
   const slots = toastItemVariants({ vertical })
 
+  const { children, showCloseButton = true, itemType, classNames } = toast
+
   return (
-    <Toast.Root toast={toast} className={swClsx(slots.root())}>
-      <Toast.Content className={swClsx(slots.content())}>
-        {toast.children ? (
-          toast.children
+    <Toast.Root
+      toast={toast}
+      className={swClsx(slots.root({ className: classNames?.root }))}
+    >
+      <Toast.Content
+        className={swClsx(slots.content({ className: classNames?.content }))}
+      >
+        {children ? (
+          children
         ) : (
           <>
-            <ToastInfoIcon />
+            {itemType && <ToastIcon type={itemType} />}
             <div className="gap-sw-2xs flex flex-col">
-              <Toast.Title className={swClsx(slots.title())} />
-              <Toast.Description className={swClsx(slots.description())} />
+              <Toast.Title
+                className={swClsx(
+                  slots.title({ className: classNames?.title }),
+                )}
+              />
+              <Toast.Description
+                className={swClsx(
+                  slots.description({ className: classNames?.description }),
+                )}
+              />
             </div>
           </>
         )}
-        <Toast.Close className={swClsx(slots.closeButton())} aria-label="Close">
-          <XIcon className={swClsx(slots.closeIcon())} />
-        </Toast.Close>
+        {showCloseButton && (
+          <Toast.Close
+            className={swClsx(
+              slots.closeButton({ className: classNames?.closeButton }),
+            )}
+            aria-label="Close"
+          >
+            <XIcon
+              className={swClsx(
+                slots.closeIcon({ className: classNames?.closeIcon }),
+              )}
+            />
+          </Toast.Close>
+        )}
       </Toast.Content>
     </Toast.Root>
   )
