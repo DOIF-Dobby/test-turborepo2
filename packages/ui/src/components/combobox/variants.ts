@@ -5,6 +5,7 @@ export const comboboxVariants = swTwVariants({
   slots: {
     container: ['flex', 'flex-col'],
     label: [],
+    description: [],
     field: [
       'group',
       'border',
@@ -70,13 +71,13 @@ export const comboboxVariants = swTwVariants({
       'shadow-popover',
       'overflow-hidden',
 
-      'data-[side=bottom]:[--y-initial:-8px]',
+      'data-[side=bottom]:[--y-initial:-16px]',
       'data-[side=bottom]:[--x-initial:0px]',
-      'data-[side=top]:[--y-initial:8px]',
+      'data-[side=top]:[--y-initial:16px]',
       'data-[side=top]:[--x-initial:0px]',
-      'data-[side=right]:[--x-initial:-8px]',
+      'data-[side=right]:[--x-initial:-16px]',
       'data-[side=right]:[--y-initial:0px]',
-      'data-[side=left]:[--x-initial:8px]',
+      'data-[side=left]:[--x-initial:16px]',
       'data-[side=left]:[--y-initial:0px]',
     ],
     list: ['max-h-[min(300px,var(--available-height))]'],
@@ -120,14 +121,19 @@ export const comboboxVariants = swTwVariants({
       md: {
         container: ['gap-sw-2xs'],
         field: ['min-h-sw-btn-md', 'py-sw-2xs px-sw-sm', 'rounded-input-md'],
+        input: ['text-heading-5', 'font-heading-5', 'leading-heading-5'],
       },
       sm: {
         container: ['gap-sw-3xs'],
         field: ['min-h-sw-btn-sm', 'py-sw-3xs px-sw-sm', 'rounded-input-sm'],
+        input: ['text-paragraph-1', 'font-paragraph-1', 'leading-paragraph-1'],
       },
     },
     isDisabled: {
-      true: {},
+      true: {
+        field: ['bg-base-100', 'pointer-events-none'],
+        trigger: ['text-base-500'],
+      },
     },
     disableAnimation: {
       true: {

@@ -28,6 +28,6 @@ const items = [
   { label: '패션프루트', value: 'passionfruit' },
 ]
 
-export default function Default() {
-  return <Combobox items={items} />
+export default function MultipleDefaultValue() {
+  return <Combobox items={items} multiple defaultValue={['apple', 'banana']} />
 }

@@ -1,4 +1,7 @@
+'use client'
+
 import { Combobox } from '@repo/ui/components/combobox'
+import { useState } from 'react'
 
 const items = [
   { label: '사과', value: 'apple' },
@@ -28,6 +31,18 @@ const items = [
   { label: '패션프루트', value: 'passionfruit' },
 ]
 
-export default function Default() {
-  return <Combobox items={items} />
+export default function MultipleControlled() {
+  const [value, setValue] = useState<string[]>(['apple', 'banana'])
+  return (
+    <div className="gap-sw-md flex">
+      <Combobox
+        items={items}
+        multiple
+        value={value}
+        onValueChange={setValue}
+        classNames={{ container: 'w-1/2' }}
+      />
+      <p>value: {value.join(', ')}</p>
+    </div>
+  )
 }

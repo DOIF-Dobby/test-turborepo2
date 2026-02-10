@@ -1,4 +1,5 @@
 import { Combobox } from '@repo/ui/components/combobox'
+import { FuelIcon } from 'lucide-react'
 
 const items = [
   { label: '사과', value: 'apple' },
@@ -28,6 +29,6 @@ const items = [
   { label: '패션프루트', value: 'passionfruit' },
 ]
 
-export default function Default() {
-  return <Combobox items={items} />
+export default function StartContent() {
+  return <Combobox items={items} startContent={<FuelIcon />} />
 }

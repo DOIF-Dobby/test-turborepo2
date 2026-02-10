@@ -28,6 +28,8 @@ const items = [
   { label: '패션프루트', value: 'passionfruit' },
 ]
 
-export default function Default() {
-  return <Combobox items={items} />
+export default function LabelDescription() {
+  return (
+    <Combobox items={items} label="과일" description="과일을 선택해주세요." />
+  )
 }

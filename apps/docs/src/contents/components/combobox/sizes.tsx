@@ -28,6 +28,22 @@ const items = [
   { label: '패션프루트', value: 'passionfruit' },
 ]
 
-export default function Default() {
-  return <Combobox items={items} />
+const sizes = ['md', 'sm'] as const
+
+export default function Sizes() {
+  return (
+    <div className="gap-sw-md flex">
+      {sizes.map((size) => (
+        <Combobox
+          key={size}
+          items={items}
+          label={`Size: ${size}`}
+          size={size}
+          classNames={{
+            container: 'w-1/2',
+          }}
+        />
+      ))}
+    </div>
+  )
 }

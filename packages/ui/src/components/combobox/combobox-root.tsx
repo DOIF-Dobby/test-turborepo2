@@ -25,7 +25,7 @@ type DefaultItem = {
 
 type Props<Multiple extends boolean | undefined> = Omit<
   React.ComponentProps<typeof ComboboxPrimitive.Root<string, Multiple>>,
-  keyof ComboboxVariants | 'className' | 'disabled' | 'items'
+  keyof ComboboxVariants | 'className' | 'disabled' | 'items' | 'children'
 > &
   ComboboxVariants
 
@@ -38,9 +38,13 @@ export interface ComboboxRootProps<
 
   classNames?: SlotsToClasses<ComboboxSlots>
   label?: React.ReactNode
+  description?: React.ReactNode
   isRequired?: boolean
   placeholder?: string
   zIndex?: number
+
+  startContent?: React.ReactNode
+  children?: (item: Item) => React.ReactNode
 }
 
 export function ComboboxRoot<
@@ -49,6 +53,7 @@ export function ComboboxRoot<
 >(props: ComboboxRootProps<Item, Multiple>) {
   const {
     items,
+    children,
     defaultValue,
     value: valueProp,
     onValueChange,
@@ -58,11 +63,14 @@ export function ComboboxRoot<
     classNames,
     name,
     label,
+    description,
     isDisabled,
     size,
     isRequired,
     disableAnimation,
     zIndex = 50,
+
+    startContent,
     ...otherProps
   } = props
 
@@ -86,7 +94,7 @@ export function ComboboxRoot<
     [items],
   )
 
-  const positionerRef = useRef<HTMLDivElement>(null)
+  const fieldRef = useRef<HTMLDivElement>(null)
 
   const shouldDisableAnimation = useDisableAnimation(disableAnimation)
 
@@ -94,6 +102,7 @@ export function ComboboxRoot<
     size,
     isDisabled,
     multiple,
+    disableAnimation: shouldDisableAnimation,
   })
 
   return (
@@ -142,8 +151,10 @@ export function ComboboxRoot<
       >
         <div
           className={swClsx(slots.field({ className: classNames?.field }))}
-          ref={positionerRef}
+          ref={fieldRef}
         >
+          {startContent}
+
           {multiple ? (
             <ComboboxPrimitive.Chips
               className={swClsx(slots.chips({ className: classNames?.chips }))}
@@ -234,7 +245,7 @@ export function ComboboxRoot<
           <ComboboxPrimitive.Positioner
             suppressHydrationWarning
             sideOffset={4}
-            anchor={positionerRef}
+            anchor={fieldRef}
             style={{
               zIndex,
             }}
@@ -257,7 +268,7 @@ export function ComboboxRoot<
                     transition={{
                       type: 'spring',
                       bounce: 0.5,
-                      duration: shouldDisableAnimation ? 0 : 0.15,
+                      duration: shouldDisableAnimation ? 0 : 0.5,
                     }}
                   >
                     <ComboboxPrimitive.Empty
@@ -279,6 +290,10 @@ export function ComboboxRoot<
                           const item = itemsMap.get(itemValue)
                           if (!item) return null
 
+                          if (children) {
+                            return children(item)
+                          }
+
                           return (
                             <ComboboxItem key={item.value} value={itemValue}>
                               {item.label}
@@ -294,6 +309,18 @@ export function ComboboxRoot<
           </ComboboxPrimitive.Positioner>
         </ComboboxPrimitive.Portal>
       </ComboboxPrimitive.Root>
+
+      {description && (
+        <Field.Description
+          className={slots.description({
+            className: classNames?.description,
+          })}
+        >
+          {description}
+        </Field.Description>
+      )}
+
+      <Field.Error />
     </Field>
   )
 }
