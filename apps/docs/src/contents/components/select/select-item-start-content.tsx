@@ -15,8 +15,8 @@ const items = [
 
 export default function SelectItemStartContent() {
   return (
-    <Select items={items} getItemLabel={(item) => item.label}>
-      {items.map((item) => (
+    <Select items={items}>
+      {(item) => (
         <Select.Item
           key={item.value}
           value={item.value}
@@ -24,7 +24,7 @@ export default function SelectItemStartContent() {
         >
           {item.label}
         </Select.Item>
-      ))}
+      )}
     </Select>
   )
 }

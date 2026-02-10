@@ -1,9 +1,6 @@
 'use client'
 
-import {
-  Select as SelectPrimitive,
-  type SelectRootChangeEventDetails,
-} from '@base-ui/react/select'
+import { Select as SelectPrimitive } from '@base-ui/react/select'
 import { useControllableState } from '@repo/hooks/use-controllable-state'
 import {
   ChevronDown,
@@ -11,7 +8,8 @@ import {
   ChevronUpIcon,
   XIcon,
 } from 'lucide-react'
-import { motion, type HTMLMotionProps, type MotionProps } from 'motion/react'
+import { motion, type MotionProps } from 'motion/react'
+import { useMemo } from 'react'
 import { useDisableAnimation } from '../../hooks/use-disable-animation'
 import type { SlotsToClasses } from '../../types'
 import { swClsx } from '../../utils/clsx'
@@ -23,36 +21,26 @@ import {
   type SelectVariants,
 } from './variants'
 
-type BaseSelectProps<T, M extends boolean | undefined> = React.ComponentProps<
-  typeof SelectPrimitive.Root<T, M>
->
-
 // 기본 아이템 타입
 type DefaultItem = {
   value: string
   label: React.ReactNode
 }
 
-type SelectValue<M extends boolean | undefined> = M extends true
-  ? string[]
-  : string | null
-
-type Props<M extends boolean | undefined> = Omit<
-  React.ComponentProps<typeof SelectPrimitive.Root<string, M>>,
-  | keyof SelectVariants
-  | 'className'
-  | 'disabled'
-  | 'items'
-  | 'value'
-  | 'defaultValue'
-  | 'onValueChange'
+type Props<Multiple extends boolean | undefined> = Omit<
+  React.ComponentProps<typeof SelectPrimitive.Root<string, Multiple>>,
+  keyof SelectVariants | 'className' | 'disabled' | 'items' | 'children'
 > &
   SelectVariants
 
 export interface SelectRootProps<
-  T = DefaultItem,
-  M extends boolean | undefined = false,
-> extends Props<M> {
+  Item extends DefaultItem = DefaultItem,
+  Multiple extends boolean | undefined = false,
+> extends Props<Multiple> {
+  items: Item[]
+  multiple?: Multiple
+  children?: (item: Item) => React.ReactNode
+
   classNames?: SlotsToClasses<SelectSlots>
   placeholder?: string
   startContent?: React.ReactNode
@@ -63,24 +51,13 @@ export interface SelectRootProps<
   isRequired?: boolean
   description?: React.ReactNode
 
-  items?: T[]
-
-  value?: SelectValue<M>
-  defaultValue?: SelectValue<M>
-  onValueChange?: (
-    value: SelectValue<M>,
-    eventDetails: SelectRootChangeEventDetails,
-  ) => void
-
   onClear?: () => void
-  getItemValue?: (item: T) => string
-  getItemLabel?: (item: T) => React.ReactNode
 }
 
 export function SelectRoot<
-  T = DefaultItem,
-  M extends boolean | undefined = false,
->(props: SelectRootProps<T, M>) {
+  Item extends DefaultItem = DefaultItem,
+  Multiple extends boolean | undefined = false,
+>(props: SelectRootProps<Item, Multiple>) {
   const {
     children,
     classNames,
@@ -101,44 +78,34 @@ export function SelectRoot<
     onValueChange,
     onClear,
     multiple,
-    getItemValue = (item: T) => (item as DefaultItem).value,
-    getItemLabel = (item: T) => (item as DefaultItem).label,
     ...otherProps
   } = props
 
   // 초기값 설정 (멀티면 빈 배열, 싱글이면 null)
   const initialDefaultValue = (defaultValue ??
-    (multiple ? [] : null)) as SelectValue<M>
+    (multiple ? [] : null)) as SelectRootProps<Item, Multiple>['value']
 
-  const [value, setValue] = useControllableState<SelectValue<M>>({
+  const [value, setValue] = useControllableState<
+    SelectRootProps<Item, Multiple>['value']
+  >({
     value: valueProp,
     defaultValue: initialDefaultValue,
   })
 
-  const getDisplayLabel = () => {
-    if (!items || value === null || value === undefined) return null
-
-    if (Array.isArray(value)) {
-      if (value.length === 0) return null
-      return value
-        .map((val) => items.find((item) => getItemValue(item) === val))
-        .filter(Boolean)
-        .map((item) => getItemLabel(item!))
-        .join(', ')
-    } else {
-      const selectedItem = items.find((item) => getItemValue(item) === value)
-      return selectedItem ? getItemLabel(selectedItem) : null
-    }
-  }
-
-  const displayLabel = getDisplayLabel()
+  const itemsMap = useMemo(
+    () => new Map(items?.map((item) => [item.value, item])),
+    [items],
+  )
 
   // Clear 핸들러
   const handleClear = (e: React.MouseEvent) => {
     e.stopPropagation()
     e.preventDefault()
     // 멀티면 [], 싱글이면 null로 초기화
-    const emptyValue = (multiple ? [] : null) as SelectValue<M>
+    const emptyValue = (multiple ? [] : null) as SelectRootProps<
+      Item,
+      Multiple
+    >['value']
     setValue(emptyValue)
     onClear?.()
   }
@@ -147,7 +114,10 @@ export function SelectRoot<
     if (e.key === 'Enter' || e.key === ' ') {
       e.stopPropagation()
       e.preventDefault()
-      const emptyValue = (multiple ? [] : null) as SelectValue<M>
+      const emptyValue = (multiple ? [] : null) as SelectRootProps<
+        Item,
+        Multiple
+      >['value']
       setValue(emptyValue)
       onClear?.()
     }
@@ -160,18 +130,6 @@ export function SelectRoot<
 
   const showClear = isClearable && hasValue && !isDisabled
   const shouldDisableAnimation = useDisableAnimation(disableAnimation)
-
-  // 자식 아이템 렌더링
-  const childrenItems = children
-    ? children
-    : items?.map((item) => {
-        const itemValue = getItemValue(item)
-        return (
-          <SelectItem key={itemValue} value={itemValue}>
-            {getItemLabel(item)}
-          </SelectItem>
-        )
-      })
 
   const slots = selectVariants({
     size,
@@ -196,15 +154,21 @@ export function SelectRoot<
         </Field.Label>
       )}
 
-      <SelectPrimitive.Root<string, M>
+      <SelectPrimitive.Root
+        items={items}
         name={name}
-        value={value as BaseSelectProps<string, M>['value']}
+        value={value}
         onValueChange={(val, eventDetails) => {
           onValueChange?.(val, eventDetails)
           setValue(val)
         }}
         disabled={isDisabled}
         multiple={multiple}
+        itemToStringValue={(itemValue) => itemValue}
+        itemToStringLabel={(itemValue) => {
+          const item = itemsMap.get(itemValue)
+          return item ? String(item.label) : itemValue
+        }}
         {...otherProps}
       >
         <SelectPrimitive.Trigger
@@ -217,12 +181,7 @@ export function SelectRoot<
             <span
               className={swClsx(slots.value({ className: classNames?.value }))}
             >
-              {/* items가 있으면 계산된 displayLabel 사용 */}
-              {items ? (
-                displayLabel || placeholder
-              ) : (
-                <SelectPrimitive.Value placeholder={placeholder} />
-              )}
+              <SelectPrimitive.Value placeholder={placeholder} />
             </span>
           </div>
 
@@ -274,20 +233,29 @@ export function SelectRoot<
                 slots.content({ className: classNames?.content }),
               )}
               render={(props, state) => {
-                const motionProps: HTMLMotionProps<'div'> = {
-                  initial: false,
-                  animate: state.open
-                    ? { opacity: 1, y: 0, x: 0 }
-                    : {
-                        opacity: 0,
-                        y: 'var(--y-initial, 0px)',
-                        x: 'var(--x-initial, 0px)',
-                      },
-                  transition: { duration: shouldDisableAnimation ? 0 : 0.15 },
-                }
-
                 return (
-                  <motion.div {...(props as MotionProps)} {...motionProps}>
+                  <motion.div
+                    {...(props as MotionProps)}
+                    initial={{
+                      opacity: 0,
+                      y: 'var(--y-initial, 0px)',
+                      x: 'var(--x-initial, 0px)',
+                    }}
+                    animate={
+                      state.open
+                        ? { y: 0, x: 0, opacity: 1 }
+                        : {
+                            opacity: 0,
+                            y: 'var(--y-initial, 0px)',
+                            x: 'var(--x-initial, 0px)',
+                          }
+                    }
+                    transition={{
+                      type: 'spring',
+                      bounce: 0.5,
+                      duration: shouldDisableAnimation ? 0 : 0.5,
+                    }}
+                  >
                     <SelectPrimitive.ScrollUpArrow
                       suppressHydrationWarning
                       className={swClsx(
@@ -307,7 +275,16 @@ export function SelectRoot<
                         }),
                       )}
                     >
-                      {childrenItems}
+                      {items.map((item) => {
+                        if (children) {
+                          return children(item)
+                        }
+                        return (
+                          <SelectItem key={item.value} value={item.value}>
+                            {item.label}
+                          </SelectItem>
+                        )
+                      })}
                     </SelectPrimitive.List>
                     <SelectPrimitive.ScrollDownArrow
                       suppressHydrationWarning
