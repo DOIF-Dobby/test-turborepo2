@@ -52,10 +52,14 @@ export const selectVariants = swTwVariants({
       'max-h-(--available-height)',
       'overflow-hidden',
 
-      'data-[side=bottom]:[--y-initial:-8px] data-[side=bottom]:[--x-initial:0px]',
-      'data-[side=top]:[--y-initial:8px] data-[side=top]:[--x-initial:0px]',
-      'data-[side=right]:[--x-initial:-8px] data-[side=right]:[--y-initial:0px]',
-      'data-[side=left]:[--x-initial:8px] data-[side=left]:[--y-initial:0px]',
+      'data-[side=bottom]:[--y-initial:-8px]',
+      'data-[side=bottom]:[--x-initial:0px]',
+      'data-[side=top]:[--y-initial:8px]',
+      'data-[side=top]:[--x-initial:0px]',
+      'data-[side=right]:[--x-initial:-8px]',
+      'data-[side=right]:[--y-initial:0px]',
+      'data-[side=left]:[--x-initial:8px]',
+      'data-[side=left]:[--y-initial:0px]',
     ],
     contentList: [
       'relative',
