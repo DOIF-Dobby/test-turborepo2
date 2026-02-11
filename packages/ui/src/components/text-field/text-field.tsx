@@ -8,6 +8,7 @@ import { swClsx } from '../../utils/clsx'
 import { mergeRefs } from '../../utils/merge-refs'
 import { Button } from '../button'
 import { Field } from '../field'
+import type { FieldState } from '../field/field-type'
 import { Input } from '../input'
 import { ClearIcon } from './clear-icon'
 import {
@@ -20,7 +21,8 @@ type Props = Omit<
   React.ComponentProps<typeof Input>,
   keyof TextFieldVariants | 'className' | 'disabled' | 'readOnly' | 'onChange'
 > &
-  TextFieldVariants
+  TextFieldVariants &
+  FieldState
 
 export interface TextFieldProps extends Props {
   label?: React.ReactNode
@@ -35,6 +37,8 @@ export interface TextFieldProps extends Props {
   startContent?: React.ReactNode
   endContent?: React.ReactNode
   description?: React.ReactNode
+
+  errorMessage?: React.ReactNode
 }
 
 export function TextField(props: TextFieldProps) {
@@ -48,7 +52,11 @@ export function TextField(props: TextFieldProps) {
     clearIcon = <ClearIcon />,
     isDisabled = false,
     isReadOnly = false,
+    isDirty,
+    isTouched,
+    isInvalid,
     description,
+    errorMessage,
     onClear,
     onValueChange,
     value: valueProp,
@@ -102,6 +110,9 @@ export function TextField(props: TextFieldProps) {
   return (
     <Field
       name={name}
+      dirty={isDirty}
+      touched={isTouched}
+      invalid={isInvalid}
       className={swClsx(
         slots.container({
           className: classNames?.container,
@@ -183,11 +194,14 @@ export function TextField(props: TextFieldProps) {
       )}
 
       <Field.Error
+        size={size}
+        match={isInvalid}
         className={swClsx(
           slots.errorMessage({
             className: classNames?.errorMessage,
           }),
         )}
+        errorMessage={errorMessage}
       />
     </Field>
   )

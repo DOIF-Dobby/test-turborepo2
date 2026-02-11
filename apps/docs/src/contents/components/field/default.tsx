@@ -1,3 +1,5 @@
+'use client'
+
 import { Field } from '@repo/ui/components/field'
 import { Input } from '@repo/ui/components/input'
 import { swClsx } from '@repo/ui/utils/clsx'

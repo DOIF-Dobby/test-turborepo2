@@ -10,10 +10,11 @@ type Props = Omit<
 
 export interface FieldErrorProps extends Props {
   className?: string
+  errorMessage?: React.ReactNode
 }
 
 export function FieldError(props: FieldErrorProps) {
-  const { className, size, ...otherProps } = props
+  const { className, size, render, errorMessage, ...otherProps } = props
 
   const styles = fieldErrorVariants({ size, className })
 
@@ -22,6 +23,15 @@ export function FieldError(props: FieldErrorProps) {
       {...otherProps}
       suppressHydrationWarning
       className={swClsx(styles)}
+      render={
+        render
+          ? render
+          : (errorProps) => {
+              const { children, ...otherProps } = errorProps
+              const renderedChildren = errorMessage ?? children
+              return <div {...otherProps}>{renderedChildren}</div>
+            }
+      }
     />
   )
 }
