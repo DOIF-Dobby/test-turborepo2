@@ -1,5 +1,7 @@
+'use client'
+
 import { TextField } from '@repo/ui/components/text-field'
-import { useFieldContext } from './context'
+import { useFieldContext } from '../form-context'
 
 export function FormTextField(props: React.ComponentProps<typeof TextField>) {
   const { name, ...otherProps } = props

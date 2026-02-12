@@ -43,7 +43,8 @@
       "lucide-react": "0.562.0",
       "typescript": "5.9.2",
       "prettier": "3.7.4",
-      "@types/node": "22.15.3"
+      "@types/node": "22.15.3",
+      "@tanstack/react-form": "1.28.0"
     }
   }
 }
