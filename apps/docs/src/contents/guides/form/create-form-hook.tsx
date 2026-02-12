@@ -3,13 +3,16 @@
 import { createFormHook } from '@tanstack/react-form'
 import * as v from 'valibot'
 import { fieldContext, formContext } from './context'
+import { FormButton } from './form-button'
 import { FormTextField } from './form-text-field'
 
 const { useAppForm } = createFormHook({
   fieldComponents: {
     TextField: FormTextField,
   },
-  formComponents: {},
+  formComponents: {
+    SubmitButton: FormButton,
+  },
   fieldContext,
   formContext,
 })
@@ -28,6 +31,7 @@ export default function CreateFormHook() {
     },
     onSubmit: async ({ value }) => {
       console.log(value)
+      await new Promise((resolve) => setTimeout(resolve, 200))
     },
   })
 
@@ -45,7 +49,9 @@ export default function CreateFormHook() {
           }}
         </form.AppField>
 
-        <button type="submit">Submit</button>
+        <form.AppForm>
+          <form.SubmitButton>Submit</form.SubmitButton>
+        </form.AppForm>
       </form>
     </div>
   )
