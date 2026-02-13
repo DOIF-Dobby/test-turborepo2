@@ -10,7 +10,7 @@ const items = [
 ]
 
 export default function Controlled() {
-  const [value, setValue] = useState<string | null>('apple')
+  const [value, setValue] = useState('apple')
 
   return (
     <div className="gap-sw-md flex">

@@ -3,6 +3,7 @@ import { swTwVariants } from '../../utils/tw-variants'
 
 export const radioGroupVariants = swTwVariants({
   slots: {
+    container: [],
     root: ['flex', 'gap-sw-sm'],
   },
   variants: {

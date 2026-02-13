@@ -4,6 +4,7 @@ import { RadioGroup as RadioGroupPrimitive } from '@base-ui/react/radio-group'
 import type { SlotsToClasses } from '../../types'
 import { swClsx } from '../../utils/clsx'
 import { Field } from '../field'
+import type { FieldState } from '../field/field-type'
 import {
   type RadioGroupSlots,
   radioGroupVariants,
@@ -14,12 +15,14 @@ type Props = Omit<
   React.ComponentProps<typeof RadioGroupPrimitive>,
   keyof RadioGroupVariants | 'className'
 > &
-  RadioGroupVariants
+  RadioGroupVariants &
+  FieldState
 
 export interface RadioGroupProps extends Props {
   classNames?: SlotsToClasses<RadioGroupSlots>
   description?: React.ReactNode
   label?: React.ReactNode
+  errorMessage?: React.ReactNode
 }
 
 export function RadioGroup(props: RadioGroupProps) {
@@ -30,6 +33,10 @@ export function RadioGroup(props: RadioGroupProps) {
     name,
     description,
     label,
+    isDirty,
+    isTouched,
+    isInvalid,
+    errorMessage,
     ...otherProps
   } = props
 
@@ -38,7 +45,13 @@ export function RadioGroup(props: RadioGroupProps) {
   })
 
   return (
-    <Field name={name}>
+    <Field
+      name={name}
+      dirty={isDirty}
+      touched={isTouched}
+      invalid={isInvalid}
+      className={swClsx(slots.container({ className: classNames?.container }))}
+    >
       {label && <Field.Label>{label}</Field.Label>}
       <RadioGroupPrimitive
         {...otherProps}
@@ -50,7 +63,8 @@ export function RadioGroup(props: RadioGroupProps) {
       </RadioGroupPrimitive>
 
       {description && <Field.Description>{description}</Field.Description>}
-      <Field.Error />
+
+      <Field.Error match={isInvalid} errorMessage={errorMessage} />
     </Field>
   )
 }

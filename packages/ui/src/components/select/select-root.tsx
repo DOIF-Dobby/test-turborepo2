@@ -1,6 +1,9 @@
 'use client'
 
-import { Select as SelectPrimitive } from '@base-ui/react/select'
+import {
+  Select as SelectPrimitive,
+  type SelectRootChangeEventDetails,
+} from '@base-ui/react/select'
 import { useControllableState } from '@repo/hooks/use-controllable-state'
 import {
   ChevronDown,
@@ -14,6 +17,7 @@ import { useDisableAnimation } from '../../hooks/use-disable-animation'
 import type { SlotsToClasses } from '../../types'
 import { swClsx } from '../../utils/clsx'
 import { Field } from '../field'
+import type { FieldState } from '../field/field-type'
 import { SelectItem } from './select-item'
 import {
   selectVariants,
@@ -21,20 +25,31 @@ import {
   type SelectVariants,
 } from './variants'
 
-// 기본 아이템 타입
-type DefaultItem = {
+export type DefaultSelectItem = {
   value: string
   label: React.ReactNode
 }
 
+type SelectValue<Multiple extends boolean | undefined> = Multiple extends true
+  ? string[]
+  : string
+
 type Props<Multiple extends boolean | undefined> = Omit<
   React.ComponentProps<typeof SelectPrimitive.Root<string, Multiple>>,
-  keyof SelectVariants | 'className' | 'disabled' | 'items' | 'children'
+  | keyof SelectVariants
+  | 'className'
+  | 'disabled'
+  | 'items'
+  | 'children'
+  | 'value'
+  | 'defaultValue'
+  | 'onValueChange'
 > &
-  SelectVariants
+  SelectVariants &
+  FieldState
 
 export interface SelectRootProps<
-  Item extends DefaultItem = DefaultItem,
+  Item extends DefaultSelectItem = DefaultSelectItem,
   Multiple extends boolean | undefined = false,
 > extends Props<Multiple> {
   items: Item[]
@@ -50,12 +65,20 @@ export interface SelectRootProps<
   label?: React.ReactNode
   isRequired?: boolean
   description?: React.ReactNode
+  errorMessage?: React.ReactNode
+
+  value?: SelectValue<Multiple>
+  defaultValue?: SelectValue<Multiple>
+  onValueChange?: (
+    value: SelectValue<Multiple>,
+    eventDetails: SelectRootChangeEventDetails,
+  ) => void
 
   onClear?: () => void
 }
 
 export function SelectRoot<
-  Item extends DefaultItem = DefaultItem,
+  Item extends DefaultSelectItem = DefaultSelectItem,
   Multiple extends boolean | undefined = false,
 >(props: SelectRootProps<Item, Multiple>) {
   const {
@@ -71,23 +94,25 @@ export function SelectRoot<
     value: valueProp,
     defaultValue,
     isDisabled,
+    isDirty,
+    isTouched,
+    isInvalid,
     disableAnimation,
     startContent,
     isClearable = true,
     items,
+    multiple,
+    errorMessage,
     onValueChange,
     onClear,
-    multiple,
     ...otherProps
   } = props
 
-  // 초기값 설정 (멀티면 빈 배열, 싱글이면 null)
+  // 초기값 설정 (멀티면 빈 배열, 싱글이면 ')
   const initialDefaultValue = (defaultValue ??
-    (multiple ? [] : null)) as SelectRootProps<Item, Multiple>['value']
+    (multiple ? [] : '')) as SelectValue<Multiple>
 
-  const [value, setValue] = useControllableState<
-    SelectRootProps<Item, Multiple>['value']
-  >({
+  const [value, setValue] = useControllableState<SelectValue<Multiple>>({
     value: valueProp,
     defaultValue: initialDefaultValue,
   })
@@ -101,24 +126,21 @@ export function SelectRoot<
   const handleClear = (e: React.MouseEvent) => {
     e.stopPropagation()
     e.preventDefault()
-    // 멀티면 [], 싱글이면 null로 초기화
-    const emptyValue = (multiple ? [] : null) as SelectRootProps<
-      Item,
-      Multiple
-    >['value']
+    const emptyValue = (multiple ? [] : '') as SelectValue<Multiple>
+
     setValue(emptyValue)
+    onValueChange?.(emptyValue, {} as SelectRootChangeEventDetails)
     onClear?.()
   }
 
-  const handleKeyDown = (e: React.KeyboardEvent) => {
+  // Clear 버튼 키 이벤트
+  const handleClearKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter' || e.key === ' ') {
       e.stopPropagation()
       e.preventDefault()
-      const emptyValue = (multiple ? [] : null) as SelectRootProps<
-        Item,
-        Multiple
-      >['value']
+      const emptyValue = (multiple ? [] : '') as SelectValue<Multiple>
       setValue(emptyValue)
+      onValueChange?.(emptyValue, {} as SelectRootChangeEventDetails)
       onClear?.()
     }
   }
@@ -126,7 +148,7 @@ export function SelectRoot<
   // hasValue 체크 (배열일 땐 길이 체크)
   const hasValue = Array.isArray(value)
     ? value.length > 0
-    : value !== undefined && value !== null
+    : value !== undefined && value !== null && value !== ''
 
   const showClear = isClearable && hasValue && !isDisabled
   const shouldDisableAnimation = useDisableAnimation(disableAnimation)
@@ -140,6 +162,9 @@ export function SelectRoot<
   return (
     <Field
       name={name}
+      dirty={isDirty}
+      touched={isTouched}
+      invalid={isInvalid}
       className={swClsx(slots.container({ className: classNames?.container }))}
     >
       {label && (
@@ -159,8 +184,10 @@ export function SelectRoot<
         name={name}
         value={value}
         onValueChange={(val, eventDetails) => {
-          onValueChange?.(val, eventDetails)
-          setValue(val)
+          if (val != null) {
+            onValueChange?.(val, eventDetails)
+            setValue(val)
+          }
         }}
         disabled={isDisabled}
         multiple={multiple}
@@ -191,7 +218,7 @@ export function SelectRoot<
                 role="button"
                 onMouseDown={(e) => e.stopPropagation()}
                 onClick={handleClear}
-                onKeyDown={handleKeyDown}
+                onKeyDown={handleClearKeyDown}
                 className={swClsx(
                   slots.clearButton({ className: classNames?.clearButton }),
                 )}
@@ -314,7 +341,16 @@ export function SelectRoot<
         </Field.Description>
       )}
 
-      <Field.Error />
+      <Field.Error
+        size={size}
+        match={isInvalid}
+        className={swClsx(
+          slots.errorMessage({
+            className: classNames?.errorMessage,
+          }),
+        )}
+        errorMessage={errorMessage}
+      />
     </Field>
   )
 }

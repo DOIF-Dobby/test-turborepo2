@@ -1,5 +1,7 @@
 import { createFormHook, revalidateLogic } from '@tanstack/react-form'
 import { FormButton } from './fields/form-button'
+import { FormRadioGroup } from './fields/form-radio-group'
+import { FormSelect } from './fields/form-select'
 import { FormTextField } from './fields/form-text-field'
 import { fieldContext, formContext } from './form-context'
 
@@ -11,6 +13,8 @@ export const {
 } = createFormHook({
   fieldComponents: {
     TextField: FormTextField,
+    RadioGroup: FormRadioGroup,
+    Select: FormSelect,
   },
   formComponents: {
     SubmitButton: FormButton,
