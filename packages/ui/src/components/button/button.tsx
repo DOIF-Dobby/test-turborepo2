@@ -1,7 +1,7 @@
 'use client'
 
 import { Slot } from '@radix-ui/react-slot'
-import { useCallback, useRef } from 'react'
+import { useCallback, useEffect, useRef } from 'react'
 import {
   type AriaButtonProps,
   chain,
@@ -71,11 +71,22 @@ export function Button(props: ButtonProps) {
 
   const innerRef = useRef<HTMLButtonElement>(null)
 
-  const { ripples, onClear, onPress: onRipplePressHandler } = useRipple()
+  const {
+    ripples,
+    onClear,
+    onPress: onRipplePressHandler,
+    clearAllRipples,
+  } = useRipple()
+
+  useEffect(() => {
+    if (disableRipple || isDisabled) {
+      clearAllRipples()
+    }
+  }, [disableRipple, isDisabled, clearAllRipples])
 
   const handleRipplePress = useCallback(
     (e: PressEvent) => {
-      if (isDisabled) {
+      if (isDisabled || disableRipple) {
         return
       }
 
@@ -83,7 +94,7 @@ export function Button(props: ButtonProps) {
         onRipplePressHandler(e)
       }
     },
-    [isDisabled, onRipplePressHandler],
+    [isDisabled, disableRipple, onRipplePressHandler],
   )
 
   const { buttonProps, isPressed } = useButton(

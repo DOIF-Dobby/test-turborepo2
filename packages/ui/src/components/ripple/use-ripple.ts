@@ -39,7 +39,11 @@ export function useRipple(props: UseRippleProps = {}) {
     setRipples((prevState) => prevState.filter((ripple) => ripple.key !== key))
   }, [])
 
-  return { ripples, onClear, onPress, ...props }
+  const clearAllRipples = useCallback(() => {
+    setRipples([])
+  }, [])
+
+  return { ripples, onClear, onPress, clearAllRipples, ...props }
 }
 
 export type UseRippleReturn = ReturnType<typeof useRipple>

@@ -13,7 +13,7 @@ export function FormButton(props: React.ComponentPropsWithRef<typeof Button>) {
       selector={(state) => {
         return {
           isSubmitting: state.isSubmitting,
-          isDisabled: !state.isValid,
+          disableRipple: !state.isValid,
         }
       }}
     >
@@ -21,7 +21,7 @@ export function FormButton(props: React.ComponentPropsWithRef<typeof Button>) {
         <Button
           type="submit"
           isLoading={state.isSubmitting}
-          isDisabled={state.isDisabled}
+          disableRipple={state.disableRipple}
           {...otherProps}
         >
           {children}
