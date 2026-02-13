@@ -3,36 +3,22 @@
 import { AppForm, useAppForm } from '@repo/forms'
 import { Checkbox } from '@repo/ui/components/checkbox'
 import { Radio } from '@repo/ui/components/radio'
+import { vRequired, vRequiredMultiple } from '@repo/validators'
 import * as v from 'valibot'
 
 const Schema = v.object({
   firstName: v.pipe(v.string(), v.minLength(3, '3글자 이상 입력하세요.')),
-  radioFruit: v.pipe(v.string(), v.nonEmpty('과일을 하나 선택해주세요.')),
-  checkboxFruit: v.pipe(
-    v.array(v.string()),
-    v.minLength(2, '2개 이상 선택해주세요.'),
-  ),
-  selectFruit: v.pipe(
-    v.nullable(v.string()),
-    v.custom((val) => !!val, '과일을 하나 선택해주세요.'),
-  ),
-  selectMultipleFruit: v.pipe(
-    v.array(v.string()),
-    v.minLength(2, '2개 이상 선택해주세요.'),
-  ),
-  comboboxFruit: v.pipe(
-    v.nullable(v.string()),
-    v.custom((val) => !!val, '과일을 하나 선택해주세요.'),
-  ),
-  comboboxMultipleFruit: v.pipe(
-    v.array(v.string()),
-    v.minLength(2, '2개 이상 선택해주세요.'),
-  ),
+  radioFruit: vRequired('과일을 하나 선택해주세요.'),
+  checkboxFruit: vRequiredMultiple('2개 이상 선택해주세요.', 2),
+  selectFruit: vRequired('과일을 하나 선택해주세요.'),
+  selectMultipleFruit: vRequiredMultiple('2개 이상 선택해주세요.', 2),
+  comboboxFruit: vRequired('과일을 하나 선택해주세요.'),
+  comboboxMultipleFruit: vRequiredMultiple('2개 이상 선택해주세요.', 2),
 })
 
 const formDefaultValues: v.InferInput<typeof Schema> = {
   firstName: '',
-  radioFruit: '',
+  radioFruit: null,
   checkboxFruit: [],
   selectFruit: null,
   selectMultipleFruit: [],

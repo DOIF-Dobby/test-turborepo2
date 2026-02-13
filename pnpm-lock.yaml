@@ -24,6 +24,7 @@ overrides:
   prettier: 3.7.4
   '@types/node': 22.15.3
   '@tanstack/react-form': 1.28.0
+  valibot: 1.2.0
 
 importers:
 
@@ -65,6 +66,9 @@ importers:
       '@repo/utils':
         specifier: workspace:*
         version: link:../../packages/utils
+      '@repo/validators':
+        specifier: workspace:*
+        version: link:../../packages/validators
       '@tanstack/react-form':
         specifier: 1.28.0
         version: 1.28.0(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
@@ -117,7 +121,7 @@ importers:
         specifier: ^5.0.0
         version: 5.0.0
       valibot:
-        specifier: ^1.2.0
+        specifier: 1.2.0
         version: 1.2.0(typescript@5.9.2)
       zustand:
         specifier: ^5.0.10
@@ -430,6 +434,36 @@ importers:
       typescript:
         specifier: 5.9.2
         version: 5.9.2
+
+  packages/validators:
+    devDependencies:
+      '@repo/config-eslint':
+        specifier: workspace:*
+        version: link:../config/eslint
+      '@repo/config-prettier':
+        specifier: workspace:*
+        version: link:../config/prettier
+      '@repo/config-typescript':
+        specifier: workspace:*
+        version: link:../config/typescript
+      '@types/node':
+        specifier: 22.15.3
+        version: 22.15.3
+      '@types/react':
+        specifier: 19.2.3
+        version: 19.2.3
+      '@types/react-dom':
+        specifier: 19.2.3
+        version: 19.2.3(@types/react@19.2.3)
+      eslint:
+        specifier: 9.39.1
+        version: 9.39.1(jiti@2.6.1)
+      typescript:
+        specifier: 5.9.2
+        version: 5.9.2
+      valibot:
+        specifier: 1.2.0
+        version: 1.2.0(typescript@5.9.2)
 
 packages:
 

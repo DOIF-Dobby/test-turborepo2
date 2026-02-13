@@ -19,6 +19,7 @@
     "@repo/hooks": "workspace:*",
     "@repo/ui": "workspace:*",
     "@repo/utils": "workspace:*",
+    "@repo/validators": "workspace:*",
     "@tanstack/react-form": "*",
     "estree-util-value-to-estree": "^3.5.0",
     "lucide-react": "*",
@@ -36,7 +37,7 @@
     "shiki": "^3.21.0",
     "unist-util-mdx-define": "^1.1.2",
     "unist-util-visit": "^5.0.0",
-    "valibot": "^1.2.0",
+    "valibot": "*",
     "zustand": "^5.0.10"
   },
   "devDependencies": {
