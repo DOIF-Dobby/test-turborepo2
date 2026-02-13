@@ -10,14 +10,14 @@ const items = [
 ]
 
 export default function Controlled() {
-  const [value, setValue] = useState('apple')
+  const [value, setValue] = useState<string | null>('')
 
   return (
     <div className="gap-sw-md flex">
       <div className="w-1/2">
         <Select value={value} onValueChange={setValue} items={items} />
       </div>
-      <p>입력한 값: {value}</p>
+      <p>입력한 값: {value === null ? 'null' : value}</p>
     </div>
   )
 }

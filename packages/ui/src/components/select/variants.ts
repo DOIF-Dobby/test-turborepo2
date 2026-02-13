@@ -15,14 +15,14 @@ export const selectVariants = swTwVariants({
       'outline-none',
       'cursor-pointer',
 
-      'data-popup-open:border-cta1-hover',
-      'data-popup-open:border-2',
-      'data-popup-open:pointer-events-none',
+      'data-popup-open:not-data-invalid:border-cta1-hover',
+      'data-popup-open:not-data-invalid:border-2',
+      'data-popup-open:not-data-invalid:pointer-events-none',
 
-      'focus-visible:border-cta1-hover',
-      'focus-visible:border-2',
+      'focus-visible:not-data-invalid:border-cta1-hover',
+      'focus-visible:not-data-invalid:border-2',
 
-      'hover:border-cta1-hover',
+      'hover:not-data-invalid:border-cta1-hover',
       'text-base-800',
       'data-placeholder:text-base-500',
 

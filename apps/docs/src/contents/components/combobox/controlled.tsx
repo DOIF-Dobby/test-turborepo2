@@ -32,7 +32,7 @@ const items = [
 ]
 
 export default function Controlled() {
-  const [value, setValue] = useState<string | null>(null)
+  const [value, setValue] = useState<string | null>('')
   return (
     <div className="gap-sw-md flex">
       <Combobox
@@ -41,7 +41,7 @@ export default function Controlled() {
         onValueChange={setValue}
         classNames={{ container: 'w-1/2' }}
       />
-      <p>value: {value}</p>
+      <p>value: {value === null ? 'null' : value}</p>
     </div>
   )
 }

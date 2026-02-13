@@ -10,6 +10,7 @@ import { useDisableAnimation } from '../../hooks/use-disable-animation'
 import type { SlotsToClasses } from '../../types'
 import { swClsx } from '../../utils/clsx'
 import { Field } from '../field'
+import type { FieldState } from '../field/field-type'
 import { ScrollArea } from '../scroll-area'
 import { ComboboxItem } from './combobox-item'
 import {
@@ -18,7 +19,7 @@ import {
   type ComboboxVariants,
 } from './variants'
 
-type DefaultItem = {
+export type DefaultComboboxItem = {
   value: string
   label: React.ReactNode
 }
@@ -27,10 +28,11 @@ type Props<Multiple extends boolean | undefined> = Omit<
   React.ComponentProps<typeof ComboboxPrimitive.Root<string, Multiple>>,
   keyof ComboboxVariants | 'className' | 'disabled' | 'items' | 'children'
 > &
-  ComboboxVariants
+  ComboboxVariants &
+  FieldState
 
 export interface ComboboxRootProps<
-  Item extends DefaultItem = DefaultItem,
+  Item extends DefaultComboboxItem = DefaultComboboxItem,
   Multiple extends boolean | undefined = false,
 > extends Props<Multiple> {
   items: Item[]
@@ -44,12 +46,25 @@ export interface ComboboxRootProps<
   placeholder?: string
   zIndex?: number
 
+  errorMessage?: React.ReactNode
   startContent?: React.ReactNode
+  emptyContent?: React.ReactNode
   children?: (item: Item) => React.ReactNode
 }
 
+type ComboboxValue<Multiple extends boolean | undefined> = ComboboxRootProps<
+  DefaultComboboxItem,
+  Multiple
+>['value']
+
+function getEmptyValue<Multiple extends boolean | undefined>(
+  multiple?: Multiple,
+): ComboboxValue<Multiple> {
+  return (multiple === true ? [] : null) as ComboboxValue<Multiple>
+}
+
 export function ComboboxRoot<
-  Item extends DefaultItem = DefaultItem,
+  Item extends DefaultComboboxItem = DefaultComboboxItem,
   Multiple extends boolean | undefined = false,
 >(props: ComboboxRootProps<Item, Multiple>) {
   const {
@@ -67,23 +82,24 @@ export function ComboboxRoot<
     label,
     description,
     isDisabled,
+    isDirty,
+    isTouched,
+    isInvalid,
     size,
     isRequired,
     disableAnimation,
     zIndex = 50,
-
+    errorMessage,
     startContent,
+    emptyContent = 'No data',
     ...otherProps
   } = props
 
-  const initialDefaultValue = (defaultValue ??
-    (multiple ? [] : null)) as ComboboxRootProps<Item, Multiple>['value']
+  const emptyValue = useMemo(() => getEmptyValue(multiple), [multiple])
 
-  const [value, setValue] = useControllableState<
-    ComboboxRootProps<Item, Multiple>['value']
-  >({
+  const [value, setValue] = useControllableState<ComboboxValue<Multiple>>({
     value: valueProp,
-    defaultValue: initialDefaultValue,
+    defaultValue: defaultValue ?? emptyValue,
   })
 
   const stringItems = useMemo(
@@ -110,6 +126,9 @@ export function ComboboxRoot<
   return (
     <Field
       name={name}
+      dirty={isDirty}
+      touched={isTouched}
+      invalid={isInvalid}
       className={swClsx(slots.container({ className: classNames?.container }))}
     >
       {label && (
@@ -279,7 +298,7 @@ export function ComboboxRoot<
                         slots.empty({ className: classNames?.empty }),
                       )}
                     >
-                      No fruits found.
+                      {emptyContent}
                     </ComboboxPrimitive.Empty>
                     <ScrollArea>
                       <ComboboxPrimitive.List
@@ -322,7 +341,16 @@ export function ComboboxRoot<
         </Field.Description>
       )}
 
-      <Field.Error />
+      <Field.Error
+        size={size}
+        match={isInvalid}
+        className={swClsx(
+          slots.errorMessage({
+            className: classNames?.errorMessage,
+          }),
+        )}
+        errorMessage={errorMessage}
+      />
     </Field>
   )
 }

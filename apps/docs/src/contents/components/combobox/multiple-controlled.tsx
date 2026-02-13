@@ -32,7 +32,7 @@ const items = [
 ]
 
 export default function MultipleControlled() {
-  const [value, setValue] = useState<string[]>(['apple', 'banana'])
+  const [value, setValue] = useState(['apple', 'banana'])
   return (
     <div className="gap-sw-md flex">
       <Combobox

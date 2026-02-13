@@ -115,6 +115,7 @@ export const comboboxVariants = swTwVariants({
       'cursor-pointer',
     ],
     chipRemoveIcon: ['size-3'],
+    errorMessage: [],
   },
   variants: {
     size: {

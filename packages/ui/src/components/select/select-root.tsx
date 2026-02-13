@@ -12,7 +12,7 @@ import {
   XIcon,
 } from 'lucide-react'
 import { motion, type MotionProps } from 'motion/react'
-import { useMemo } from 'react'
+import { useEffect, useMemo } from 'react'
 import { useDisableAnimation } from '../../hooks/use-disable-animation'
 import type { SlotsToClasses } from '../../types'
 import { swClsx } from '../../utils/clsx'
@@ -30,20 +30,9 @@ export type DefaultSelectItem = {
   label: React.ReactNode
 }
 
-type SelectValue<Multiple extends boolean | undefined> = Multiple extends true
-  ? string[]
-  : string
-
 type Props<Multiple extends boolean | undefined> = Omit<
   React.ComponentProps<typeof SelectPrimitive.Root<string, Multiple>>,
-  | keyof SelectVariants
-  | 'className'
-  | 'disabled'
-  | 'items'
-  | 'children'
-  | 'value'
-  | 'defaultValue'
-  | 'onValueChange'
+  keyof SelectVariants | 'className' | 'disabled' | 'items' | 'children'
 > &
   SelectVariants &
   FieldState
@@ -67,14 +56,18 @@ export interface SelectRootProps<
   description?: React.ReactNode
   errorMessage?: React.ReactNode
 
-  value?: SelectValue<Multiple>
-  defaultValue?: SelectValue<Multiple>
-  onValueChange?: (
-    value: SelectValue<Multiple>,
-    eventDetails: SelectRootChangeEventDetails,
-  ) => void
-
   onClear?: () => void
+}
+
+type SelectValue<Multiple extends boolean | undefined> = SelectRootProps<
+  DefaultSelectItem,
+  Multiple
+>['value']
+
+function getEmptyValue<Multiple extends boolean | undefined>(
+  multiple?: Multiple,
+): SelectValue<Multiple> {
+  return (multiple === true ? [] : null) as SelectValue<Multiple>
 }
 
 export function SelectRoot<
@@ -108,14 +101,21 @@ export function SelectRoot<
     ...otherProps
   } = props
 
-  // 초기값 설정 (멀티면 빈 배열, 싱글이면 ')
-  const initialDefaultValue = (defaultValue ??
-    (multiple ? [] : '')) as SelectValue<Multiple>
+  const emptyValue = useMemo(() => getEmptyValue(multiple), [multiple])
 
   const [value, setValue] = useControllableState<SelectValue<Multiple>>({
     value: valueProp,
-    defaultValue: initialDefaultValue,
+    defaultValue: defaultValue ?? emptyValue,
   })
+
+  useEffect(() => {
+    if (!multiple && valueProp === '') {
+      onValueChange?.(
+        null as Parameters<NonNullable<typeof onValueChange>>[0],
+        {} as SelectRootChangeEventDetails,
+      )
+    }
+  }, [valueProp, onValueChange, multiple])
 
   const itemsMap = useMemo(
     () => new Map(items?.map((item) => [item.value, item])),
@@ -126,10 +126,12 @@ export function SelectRoot<
   const handleClear = (e: React.MouseEvent) => {
     e.stopPropagation()
     e.preventDefault()
-    const emptyValue = (multiple ? [] : '') as SelectValue<Multiple>
 
     setValue(emptyValue)
-    onValueChange?.(emptyValue, {} as SelectRootChangeEventDetails)
+    onValueChange?.(
+      emptyValue as Parameters<NonNullable<typeof onValueChange>>[0],
+      {} as SelectRootChangeEventDetails,
+    )
     onClear?.()
   }
 
@@ -138,9 +140,12 @@ export function SelectRoot<
     if (e.key === 'Enter' || e.key === ' ') {
       e.stopPropagation()
       e.preventDefault()
-      const emptyValue = (multiple ? [] : '') as SelectValue<Multiple>
+
       setValue(emptyValue)
-      onValueChange?.(emptyValue, {} as SelectRootChangeEventDetails)
+      onValueChange?.(
+        emptyValue as Parameters<NonNullable<typeof onValueChange>>[0],
+        {} as SelectRootChangeEventDetails,
+      )
       onClear?.()
     }
   }
@@ -184,10 +189,8 @@ export function SelectRoot<
         name={name}
         value={value}
         onValueChange={(val, eventDetails) => {
-          if (val != null) {
-            onValueChange?.(val, eventDetails)
-            setValue(val)
-          }
+          onValueChange?.(val, eventDetails)
+          setValue(val)
         }}
         disabled={isDisabled}
         multiple={multiple}
