@@ -15,6 +15,12 @@ export function DocsMenus({ contentPathArrays }: DocsMenusProps) {
     )
   }, [contentPathArrays])
 
+  const handbook = useMemo(() => {
+    return contentPathArrays.filter(
+      (contentPath) => contentPath[0] === 'handbook',
+    )
+  }, [contentPathArrays])
+
   const components = useMemo(() => {
     return contentPathArrays.filter(
       (contentPath) => contentPath[0] === 'components',
@@ -26,6 +32,7 @@ export function DocsMenus({ contentPathArrays }: DocsMenusProps) {
       <ScrollArea className="h-full">
         <div className="gap-sw-xs flex flex-col">
           <DocsMenuSection title="Guides" contentPaths={guides} />
+          <DocsMenuSection title="Handbook" contentPaths={handbook} />
           <DocsMenuSection title="Components" contentPaths={components} />
         </div>
       </ScrollArea>

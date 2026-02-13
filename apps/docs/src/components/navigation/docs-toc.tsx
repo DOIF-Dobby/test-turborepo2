@@ -26,26 +26,28 @@ export function DocsToc({ headings }: DocsTocProps) {
   return (
     <nav>
       <div className="sticky top-24 mx-6 my-6 xl:mx-2 xl:my-0 xl:mt-32 xl:w-[130px]">
-        {headings.map((heading) => {
-          const isActive = activeId === heading.id
+        <div className="gap-sw-4xs flex flex-col">
+          {headings.map((heading) => {
+            const isActive = activeId === heading.id
 
-          return (
-            <div key={heading.id}>
-              <a
-                href={`#${heading.id}`}
-                className={swClsx([
-                  `${paddingMap[heading.depth] ?? ''}`,
-                  'truncate',
-                  'block',
-                  'text-base-600 hover:text-base-700',
-                  isActive && 'text-base-700 font-bold',
-                ])}
-              >
-                {heading.text}
-              </a>
-            </div>
-          )
-        })}
+            return (
+              <div key={heading.id}>
+                <a
+                  href={`#${heading.id}`}
+                  className={swClsx([
+                    `${paddingMap[heading.depth] ?? ''}`,
+                    // 'truncate',
+                    'block',
+                    'text-base-600 hover:text-base-700',
+                    isActive && 'text-cta2',
+                  ])}
+                >
+                  {heading.text}
+                </a>
+              </div>
+            )
+          })}
+        </div>
       </div>
     </nav>
   )

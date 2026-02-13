@@ -1,0 +1,61 @@
+import { CodeBlock } from '@/components/code-block'
+
+import AppForm from './app-form'
+import AppFormRaw from './app-form?raw'
+import TanstackFormBasic from './tanstack-form-basic'
+import TanstackFormBasicRaw from './tanstack-form-basic?raw'
+import TanstackFormValibot from './tanstack-form-valibot'
+import TanstackFormValibotRaw from './tanstack-form-valibot?raw'
+import TanstackFormSubmitValidation from './tanstack-form-submit-validation'
+import TanstackFormSubmitValidationRaw from './tanstack-form-submit-validation?raw'
+import TanstackFormValidationLogic from './tanstack-form-validation-logic'
+import TanstackFormValidationLogicRaw from './tanstack-form-validation-logic?raw'
+
+# Forms
+
+## Overview
+
+> [@tanstack/react-form](https://tanstack.com/form/latest) 기반으로 폼을 구현합니다.
+>
+> [valibot](https://valibot.dev/) 기반으로 폼의 유효성을 검사합니다.
+
+## Tanstack Form Basic
+
+`@tanstack/react-form`을 이용한 기본적인 폼 구현 예제입니다.
+
+<CodeBlock preview={<TanstackFormBasic />} code={TanstackFormBasicRaw} />
+
+## Tanstack Form Valibot
+
+`@tanstack/react-form`과 [valibot](https://valibot.dev/)을 이용한 폼 구현 예제입니다. `valibot`을 이용하면 `form.Field`에 validator를 설정하지 않고, form에 설정합니다.
+
+<CodeBlock preview={<TanstackFormValibot />} code={TanstackFormValibotRaw} />
+
+## Tanstack Form Submit Validation
+
+`validator` 속성에 `onSubmit`을 설정하면 폼 제출 시에만 유효성 검사를 수행합니다.
+
+<CodeBlock
+  preview={<TanstackFormSubmitValidation />}
+  code={TanstackFormSubmitValidationRaw}
+/>
+
+## Tanstack Form Validation Logic
+
+`validator`를 `onDynamic`으로 설정하고 `validationLogic` 속성에 `revalidateLogic`을 설정하면 동적으로 유효성 검사 로직을 변경할 수 있습니다.
+자세한 내용은 [Dynamic Validation](https://tanstack.com/form/latest/docs/framework/react/guides/dynamic-validation)을 참고하세요.
+
+<CodeBlock
+  preview={<TanstackFormValidationLogic />}
+  code={TanstackFormValidationLogicRaw}
+/>
+
+## App Form
+
+`@tanstack/react-form`을 그대로 사용하는 것은 번거롭습니다. `@repo/forms` 패키지에 정의된 `useAppForm`을 사용하면 번거로움을 줄일 수 있습니다.
+
+- `<field.TextField>` 처럼 `@repo/ui`에 있는 컴포넌트를 미리 등록하였습니다.
+- `<form.Subscribe>` 대신 `<form.SubmitButton>`을 사용합니다.
+- `validationLogic` 속성을 기본적으로 등록했습니다. `mode: 'submit'`, `modeAfterSubmission: 'change'` 입니다.
+
+<CodeBlock preview={<AppForm />} code={AppFormRaw} />

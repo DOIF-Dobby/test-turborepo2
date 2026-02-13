@@ -12,17 +12,15 @@ export function FormTextField(props: React.ComponentProps<typeof TextField>) {
     .join(', ')
 
   return (
-    <div>
-      <TextField
-        name={name}
-        isDirty={field.state.meta.isDirty}
-        isTouched={field.state.meta.isTouched}
-        isInvalid={!field.state.meta.isValid}
-        value={field.state.value}
-        onValueChange={field.handleChange}
-        errorMessage={errorMessage}
-        {...otherProps}
-      />
-    </div>
+    <TextField
+      name={name}
+      isDirty={field.state.meta.isDirty}
+      isTouched={field.state.meta.isTouched}
+      isInvalid={!field.state.meta.isValid}
+      value={field.state.value}
+      onValueChange={field.handleChange}
+      errorMessage={errorMessage}
+      {...otherProps}
+    />
   )
 }
