@@ -88,6 +88,7 @@ export const checkboxVariants = swTwVariants({
 
 export const checkboxGroupVariants = swTwVariants({
   slots: {
+    container: [],
     root: ['flex', 'gap-sw-sm'],
   },
   variants: {
