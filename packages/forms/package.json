@@ -16,6 +16,7 @@
   "dependencies": {
     "@repo/ui": "workspace:*",
     "@repo/utils": "workspace:*",
+    "@repo/date": "workspace:*",
     "@tanstack/react-form": "*"
   },
   "devDependencies": {

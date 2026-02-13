@@ -9,6 +9,7 @@ import type { SlotsToClasses } from '../../types'
 import { swClsx } from '../../utils/clsx'
 import { triggerChange } from '../date-picker/trigger-change'
 import { Field } from '../field'
+import type { FieldState } from '../field/field-type'
 import { DateSegment } from './date-segment'
 import {
   dateFieldVariants,
@@ -20,13 +21,16 @@ type Props = Omit<
   AriaDateFieldProps<DateValue>,
   keyof DateFieldVariants | 'className'
 > &
-  DateFieldVariants
+  DateFieldVariants &
+  FieldState
 
 export interface DateFieldProps extends Props {
   classNames?: SlotsToClasses<DateFieldSlots>
   startContent?: React.ReactNode
   endContent?: React.ReactNode
   inputRef?: React.RefObject<HTMLInputElement | null>
+  errorMessage?: React.ReactNode
+  withPicker?: boolean
 }
 
 export function DateField(props: DateFieldProps) {
@@ -43,9 +47,14 @@ export function DateField(props: DateFieldProps) {
     isRequired,
     isDisabled,
     isReadOnly,
+    isDirty,
+    isTouched,
+    isInvalid,
+    errorMessage,
     shouldForceLeadingZeros = true,
     startContent,
     endContent,
+    withPicker = false,
     inputRef: inputRefProp,
     onChange,
     isDateUnavailable,
@@ -128,6 +137,9 @@ export function DateField(props: DateFieldProps) {
   return (
     <Field
       name={name}
+      dirty={isDirty}
+      touched={isTouched}
+      invalid={isInvalid}
       className={swClsx(slots.container({ className: classNames?.container }))}
     >
       {label && (
@@ -178,7 +190,7 @@ export function DateField(props: DateFieldProps) {
         {endContent}
       </div>
 
-      {description && (
+      {!withPicker && description && (
         <Field.Description
           {...errorMessageProps}
           size={size}
@@ -192,13 +204,18 @@ export function DateField(props: DateFieldProps) {
         </Field.Description>
       )}
 
-      <Field.Error
-        className={swClsx(
-          slots.errorMessage({
-            className: classNames?.errorMessage,
-          }),
-        )}
-      />
+      {!withPicker && (
+        <Field.Error
+          size={size}
+          match={isInvalid}
+          className={swClsx(
+            slots.errorMessage({
+              className: classNames?.errorMessage,
+            }),
+          )}
+          errorMessage={errorMessage}
+        />
+      )}
     </Field>
   )
 }

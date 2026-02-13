@@ -12,6 +12,7 @@ import { Button } from '../button'
 import { Calendar } from '../calendar'
 import { DateField } from '../date-field'
 import { Field } from '../field'
+import type { FieldState } from '../field/field-type'
 import { Popover } from '../popover'
 import { triggerChange } from './trigger-change'
 import {
@@ -21,7 +22,8 @@ import {
 } from './variants'
 
 type Props = Omit<AriaDatePickerProps<DateValue>, keyof DatePickerVariants> &
-  DatePickerVariants
+  DatePickerVariants &
+  FieldState
 
 export interface DatePickerProps extends Props {
   classNames?: SlotsToClasses<DatePickerSlots>
@@ -30,9 +32,17 @@ export interface DatePickerProps extends Props {
 }
 
 export function DatePicker(props: DatePickerProps) {
-  const { label, size, classNames, disableAnimation, ...otherProps } = props
-
-  const isInvalid = !!props.errorMessage || props.isInvalid
+  const {
+    label,
+    size,
+    classNames,
+    disableAnimation,
+    isDirty,
+    isTouched,
+    isInvalid,
+    errorMessage,
+    ...otherProps
+  } = props
 
   const hiddenInputRef = useRef<HTMLInputElement>(null)
 
@@ -58,7 +68,6 @@ export function DatePicker(props: DatePickerProps) {
     buttonProps,
     dialogProps,
     calendarProps,
-    errorMessageProps,
   } = useDatePicker(
     {
       label,
@@ -82,6 +91,9 @@ export function DatePicker(props: DatePickerProps) {
   return (
     <Field
       name={props.name}
+      dirty={isDirty}
+      touched={isTouched}
+      invalid={isInvalid}
       className={swClsx(
         slots.container({
           className: classNames?.container,
@@ -102,6 +114,7 @@ export function DatePicker(props: DatePickerProps) {
       <div suppressHydrationWarning {...groupProps} ref={ref}>
         <DateField
           {...fieldProps}
+          withPicker
           name={props.name}
           inputRef={hiddenInputRef}
           isInvalid={isInvalid}
@@ -142,7 +155,6 @@ export function DatePicker(props: DatePickerProps) {
 
       {props.description && (
         <Field.Description
-          {...errorMessageProps}
           size={size}
           className={swClsx(
             slots.description({
@@ -153,6 +165,17 @@ export function DatePicker(props: DatePickerProps) {
           {props.description}
         </Field.Description>
       )}
+
+      <Field.Error
+        size={size}
+        match={isInvalid}
+        className={swClsx(
+          slots.errorMessage({
+            className: classNames?.errorMessage,
+          }),
+        )}
+        errorMessage={errorMessage}
+      />
 
       <Popover
         handle={popoverHandle}

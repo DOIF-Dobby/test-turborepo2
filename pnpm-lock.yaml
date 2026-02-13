@@ -253,6 +253,9 @@ importers:
 
   packages/forms:
     dependencies:
+      '@repo/date':
+        specifier: workspace:*
+        version: link:../date
       '@repo/ui':
         specifier: workspace:*
         version: link:../ui
@@ -436,6 +439,10 @@ importers:
         version: 5.9.2
 
   packages/validators:
+    dependencies:
+      '@repo/date':
+        specifier: workspace:*
+        version: link:../date
     devDependencies:
       '@repo/config-eslint':
         specifier: workspace:*

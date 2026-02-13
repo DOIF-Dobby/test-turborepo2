@@ -2,6 +2,8 @@ import { createFormHook, revalidateLogic } from '@tanstack/react-form'
 import { FormButton } from './fields/form-button'
 import { FormCheckboxGroup } from './fields/form-checkbox-group'
 import { FormCombobox } from './fields/form-combobox'
+import { FormDateField } from './fields/form-date-field'
+import { FormDatePicker } from './fields/form-date-picker'
 import { FormRadioGroup } from './fields/form-radio-group'
 import { FormSelect } from './fields/form-select'
 import { FormTextField } from './fields/form-text-field'
@@ -19,6 +21,8 @@ export const {
     Select: FormSelect,
     CheckboxGroup: FormCheckboxGroup,
     Combobox: FormCombobox,
+    DateField: FormDateField,
+    DatePicker: FormDatePicker,
   },
   formComponents: {
     SubmitButton: FormButton,

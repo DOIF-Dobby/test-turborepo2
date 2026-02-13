@@ -3,7 +3,7 @@
 import { AppForm, useAppForm } from '@repo/forms'
 import { Checkbox } from '@repo/ui/components/checkbox'
 import { Radio } from '@repo/ui/components/radio'
-import { vRequired, vRequiredMultiple } from '@repo/validators'
+import { vRequired, vRequiredDate, vRequiredMultiple } from '@repo/validators'
 import * as v from 'valibot'
 
 const Schema = v.object({
@@ -14,6 +14,8 @@ const Schema = v.object({
   selectMultipleFruit: vRequiredMultiple('2개 이상 선택해주세요.', 2),
   comboboxFruit: vRequired('과일을 하나 선택해주세요.'),
   comboboxMultipleFruit: vRequiredMultiple('2개 이상 선택해주세요.', 2),
+  dateField: vRequiredDate('날짜를 입력해주세요.'),
+  datePicker: vRequiredDate('날짜를 입력해주세요.'),
 })
 
 const formDefaultValues: v.InferInput<typeof Schema> = {
@@ -24,6 +26,8 @@ const formDefaultValues: v.InferInput<typeof Schema> = {
   selectMultipleFruit: [],
   comboboxFruit: null,
   comboboxMultipleFruit: [],
+  dateField: null,
+  datePicker: null,
 }
 
 export default function AppFormExample() {
@@ -116,6 +120,14 @@ export default function AppFormExample() {
             ]}
           />
         )}
+      </form.AppField>
+
+      <form.AppField name="dateField">
+        {(field) => <field.DateField label="Date Field" />}
+      </form.AppField>
+
+      <form.AppField name="datePicker">
+        {(field) => <field.DatePicker label="Date Picker" />}
       </form.AppField>
 
       <form.SubmitButton>Submit</form.SubmitButton>

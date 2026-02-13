@@ -408,6 +408,17 @@
   --leading-paragraph-6: var(--sw-paragraph-6-line-height);
 }
 
+@layer base {
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus,
+  input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 9999px var(--sw-background) inset !important;
+    -webkit-text-fill-color: var(--sw-gray-700) !important;
+    caret-color: var(--sw-gray-700) !important;
+  }
+}
+
 @keyframes uib-dot-pulse {
   0%,
   100% {
