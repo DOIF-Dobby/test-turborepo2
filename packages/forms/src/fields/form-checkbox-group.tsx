@@ -1,6 +1,7 @@
 'use client'
 
 import { CheckboxGroup } from '@repo/ui/components/checkbox'
+import { useMemo } from 'react'
 import { useFieldContext } from '../form-context'
 
 export function FormCheckboxGroup(
@@ -8,10 +9,19 @@ export function FormCheckboxGroup(
 ) {
   const { name, ...otherProps } = props
   const field = useFieldContext<string[]>()
+  const errors = field.state.meta.errors
 
-  const errorMessage = field.state.meta.errors
-    .map((error) => error.message)
-    .join(', ')
+  const errorMessage = useMemo(() => {
+    if (errors.length === 0) {
+      return undefined
+    }
+
+    if (typeof errors[0] === 'string') {
+      return errors.join(', ')
+    }
+
+    return errors.map((error) => error.message).join(', ')
+  }, [errors])
 
   return (
     <CheckboxGroup
