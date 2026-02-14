@@ -24,6 +24,10 @@ export const comboboxVariants = swTwVariants({
       'has-focus-visible:border-cta1-hover',
       'has-focus-visible:border-2',
 
+      'has-data-invalid:data-focus-visible:ring-cta1-hover',
+      'has-data-invalid:data-focus-visible:ring-2',
+      'has-data-invalid:data-focus-visible:ring-offset-2',
+
       'hover:border-cta1-hover',
       'text-base-800',
       'data-placeholder:text-base-500',

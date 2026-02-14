@@ -262,6 +262,7 @@ export function SelectRoot<
               className={swClsx(
                 slots.content({ className: classNames?.content }),
               )}
+              tabIndex={-1}
               render={(props, state) => {
                 return (
                   <motion.div

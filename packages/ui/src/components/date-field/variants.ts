@@ -17,6 +17,10 @@ export const dateFieldVariants = swTwVariants({
       'has-[:focus-visible:not(button)]:border-2',
       'hover:border-cta1-hover',
 
+      'peer-data-invalid:data-focus-visible:ring-cta1-hover',
+      'peer-data-invalid:data-focus-visible:ring-2',
+      'peer-data-invalid:data-focus-visible:ring-offset-2',
+
       'peer-data-invalid:border-destructive',
       'peer-data-invalid:border-2',
       'peer-data-invalid:hover:border-destructive',

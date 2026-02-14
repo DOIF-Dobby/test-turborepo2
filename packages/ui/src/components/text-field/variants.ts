@@ -14,6 +14,10 @@ export const textFieldVariants = swTwVariants({
       'focus-within:border-2',
       'hover:border-cta1-hover',
 
+      'group-data-invalid:data-focus-visible:ring-cta1-hover',
+      'group-data-invalid:data-focus-visible:ring-2',
+      'group-data-invalid:data-focus-visible:ring-offset-2',
+
       'group-data-invalid:border-destructive',
       'group-data-invalid:border-2',
       'group-data-invalid:hover:border-destructive',

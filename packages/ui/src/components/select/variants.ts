@@ -22,6 +22,10 @@ export const selectVariants = swTwVariants({
       'focus-visible:not-data-invalid:border-cta1-hover',
       'focus-visible:not-data-invalid:border-2',
 
+      'data-invalid:focus-visible:ring-cta1-hover',
+      'data-invalid:focus-visible:ring-2',
+      'data-invalid:focus-visible:ring-offset-2',
+
       'hover:not-data-invalid:border-cta1-hover',
       'text-base-800',
       'data-placeholder:text-base-500',

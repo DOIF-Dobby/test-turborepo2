@@ -6,6 +6,7 @@ import { getChoseong } from 'es-hangul'
 import { ChevronDownIcon, XIcon } from 'lucide-react'
 import { motion, type MotionProps } from 'motion/react'
 import { useMemo, useRef } from 'react'
+import { useFocusRing } from 'react-aria'
 import { useDisableAnimation } from '../../hooks/use-disable-animation'
 import type { SlotsToClasses } from '../../types'
 import { swClsx } from '../../utils/clsx'
@@ -116,6 +117,10 @@ export function ComboboxRoot<
 
   const shouldDisableAnimation = useDisableAnimation(disableAnimation)
 
+  const { isFocusVisible, focusProps } = useFocusRing({
+    isTextInput: true,
+  })
+
   const slots = comboboxVariants({
     size,
     isDisabled,
@@ -173,6 +178,7 @@ export function ComboboxRoot<
         <div
           className={swClsx(slots.field({ className: classNames?.field }))}
           ref={fieldRef}
+          data-focus-visible={isFocusVisible ? 'true' : undefined}
         >
           {startContent}
 
@@ -218,6 +224,7 @@ export function ComboboxRoot<
                       className={swClsx(
                         slots.input({ className: classNames?.input }),
                       )}
+                      {...focusProps}
                     />
                   </>
                 )}
@@ -231,6 +238,7 @@ export function ComboboxRoot<
                 className={swClsx(
                   slots.input({ className: classNames?.input }),
                 )}
+                {...focusProps}
               />
               <ComboboxPrimitive.Clear
                 suppressHydrationWarning

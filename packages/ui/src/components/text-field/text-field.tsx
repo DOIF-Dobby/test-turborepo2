@@ -2,7 +2,7 @@
 
 import { useControllableState } from '@repo/hooks/use-controllable-state'
 import { useRef } from 'react'
-import type { PressEvent } from 'react-aria'
+import { mergeProps, useFocusRing, type PressEvent } from 'react-aria'
 import type { SlotsToClasses } from '../../types'
 import { swClsx } from '../../utils/clsx'
 import { mergeRefs } from '../../utils/merge-refs'
@@ -12,8 +12,8 @@ import type { FieldState } from '../field/field-type'
 import { Input } from '../input'
 import { ClearIcon } from './clear-icon'
 import {
-  type TextFieldSlots,
   textFieldVariants,
+  type TextFieldSlots,
   type TextFieldVariants,
 } from './variants'
 
@@ -105,6 +105,10 @@ export function TextField(props: TextFieldProps) {
     }
   }
 
+  const { isFocusVisible, focusProps } = useFocusRing({
+    isTextInput: true,
+  })
+
   const slots = textFieldVariants({ size, isDisabled })
 
   return (
@@ -139,6 +143,7 @@ export function TextField(props: TextFieldProps) {
             className: classNames?.inputWrapper,
           }),
         )}
+        data-focus-visible={isFocusVisible ? 'true' : undefined}
       >
         {startContent}
 
@@ -158,7 +163,7 @@ export function TextField(props: TextFieldProps) {
             onValueChange?.(value, eventDeatils)
             setValue(value)
           }}
-          {...otherProps}
+          {...mergeProps(otherProps, focusProps)}
         />
 
         {/* Clear 버튼 */}

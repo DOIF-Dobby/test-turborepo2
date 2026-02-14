@@ -3,7 +3,12 @@
 import { CalendarDate, createCalendar, type DateValue } from '@repo/date'
 import { useControllableState } from '@repo/hooks/use-controllable-state'
 import { useRef } from 'react'
-import { useDateField, useLocale, type AriaDateFieldProps } from 'react-aria'
+import {
+  useDateField,
+  useFocusRing,
+  useLocale,
+  type AriaDateFieldProps,
+} from 'react-aria'
 import { useDateFieldState } from 'react-stately'
 import type { SlotsToClasses } from '../../types'
 import { swClsx } from '../../utils/clsx'
@@ -132,6 +137,10 @@ export function DateField(props: DateFieldProps) {
       ref,
     )
 
+  const { isFocusVisible, focusProps } = useFocusRing({
+    within: true,
+  })
+
   const slots = dateFieldVariants({ size, isDisabled })
 
   return (
@@ -169,12 +178,14 @@ export function DateField(props: DateFieldProps) {
             className: classNames?.fieldWrapper,
           }),
         )}
+        data-focus-visible={isFocusVisible ? 'true' : undefined}
       >
         {startContent}
         <div
           className={slots.segmentWrapper({
             className: classNames?.segmentWrapper,
           })}
+          {...focusProps}
         >
           {state.segments.map((segment, i) => (
             <DateSegment
