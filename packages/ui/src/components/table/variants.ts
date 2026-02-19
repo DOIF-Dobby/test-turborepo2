@@ -30,10 +30,10 @@ export const tableVariants = swTwVariants({
       },
       div: {
         container: ['flex', 'flex-col'],
-        headerGroup: ['flex', 'flex-col'],
+        headerGroup: ['flex', 'flex-col', 'px-6'],
         head: ['flex', 'items-center'],
         cell: ['flex', 'items-center'],
-        tbody: [],
+        tbody: ['px-6'],
       },
     },
   },
