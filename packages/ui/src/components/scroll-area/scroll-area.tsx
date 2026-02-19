@@ -49,6 +49,10 @@ export function ScrollArea({
             className: classNames?.viewport,
           }),
         )}
+        style={{
+          overflowX: orientation === 'vertical' ? 'hidden' : 'auto',
+          overflowY: orientation === 'horizontal' ? 'hidden' : 'auto',
+        }}
       >
         <ScrollAreaPrimitive.Content>{children}</ScrollAreaPrimitive.Content>
       </ScrollAreaPrimitive.Viewport>
