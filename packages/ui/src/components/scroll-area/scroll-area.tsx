@@ -15,6 +15,7 @@ export interface ScrollAreaProps extends React.ComponentProps<
 > {
   classNames?: SlotsToClasses<ScrollAreaSlots>
   orientation?: 'vertical' | 'horizontal' | 'both'
+  viewportRef?: React.Ref<HTMLDivElement | null>
 }
 
 export function ScrollArea({
@@ -22,6 +23,7 @@ export function ScrollArea({
   children,
   orientation = 'vertical',
   ref,
+  viewportRef,
   ...props
 }: ScrollAreaProps) {
   const slots = scrollAreaVariants()
@@ -39,6 +41,7 @@ export function ScrollArea({
       {...props}
     >
       <ScrollAreaPrimitive.Viewport
+        ref={viewportRef}
         data-slot="scroll-area-viewport"
         suppressHydrationWarning
         className={swClsx(
@@ -49,6 +52,7 @@ export function ScrollArea({
       >
         <ScrollAreaPrimitive.Content>{children}</ScrollAreaPrimitive.Content>
       </ScrollAreaPrimitive.Viewport>
+
       {orientation === 'vertical' && <ScrollBar orientation="vertical" />}
       {orientation === 'horizontal' && <ScrollBar orientation="horizontal" />}
       {orientation === 'both' && (

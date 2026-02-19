@@ -13,9 +13,9 @@ export function TableHead(props: React.ComponentProps<'th'>) {
     <Component
       {...otherProps}
       role={renderAs === 'div' ? 'columnheader' : undefined}
-      className={swClsx(slots?.thead({ className }))}
+      className={swClsx(slots?.head({ className }))}
     >
-      <span className={swClsx(slots?.theadText())}>{children}</span>
+      <span className={swClsx(slots?.headText())}>{children}</span>
     </Component>
   )
 }

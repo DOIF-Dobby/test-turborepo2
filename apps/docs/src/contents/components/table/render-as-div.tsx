@@ -3,8 +3,8 @@ import { Table } from '@repo/ui/components/table'
 export default function RenderAsDiv() {
   return (
     <Table renderAs="div">
-      <Table.Header>
-        <Table.Row>
+      <Table.HeaderGroup>
+        <Table.HeaderRow>
           <Table.Head>주문번호</Table.Head>
           <Table.Head>체결일</Table.Head>
           <Table.Head>체결시간</Table.Head>
@@ -18,8 +18,8 @@ export default function RenderAsDiv() {
           <Table.Head>상대금액</Table.Head>
           <Table.Head>사용자명</Table.Head>
           <Table.Head>거래방식</Table.Head>
-        </Table.Row>
-      </Table.Header>
+        </Table.HeaderRow>
+      </Table.HeaderGroup>
       <Table.Body>
         <Table.Row>
           <Table.Cell>10001</Table.Cell>

@@ -4,9 +4,9 @@ import { swTwVariants } from '../../utils/tw-variants'
 export const tableVariants = swTwVariants({
   slots: {
     container: ['bg-background', 'rounded-xl', 'outline', 'outline-base-200'],
-    theader: ['bg-base-0', 'h-12'],
-    thead: ['text-left'],
-    theadText: [
+    headerGroup: ['bg-base-0', 'border-b', 'border-base-100'],
+    headerRow: ['h-12'],
+    headText: [
       'font-paragraph-1',
       'text-paragraph-1',
       'leading-paragraph-1',
@@ -15,8 +15,13 @@ export const tableVariants = swTwVariants({
     tbody: [],
     tfoot: [],
     tr: [],
-    th: [],
-    td: [],
+    head: [],
+    cell: [
+      'font-paragraph-2',
+      'text-paragraph-2',
+      'leading-paragraph-2',
+      'text-base-700',
+    ],
   },
   variants: {
     renderAs: {
@@ -25,8 +30,10 @@ export const tableVariants = swTwVariants({
       },
       div: {
         container: ['flex', 'flex-col'],
-        theader: ['flex', 'flex-col'],
-        tr: ['flex'],
+        headerGroup: ['flex', 'flex-col', 'px-6'],
+        head: ['flex', 'items-center'],
+        cell: ['flex', 'items-center'],
+        tbody: ['px-6'],
       },
     },
   },

@@ -1,0 +1,11 @@
+{
+  "extends": "@repo/config-typescript/react-library.json",
+  "compilerOptions": {
+    "outDir": "dist"
+  },
+  "include": [
+    "src",
+    "../../apps/docs/src/contents/components/toast/programmatically-close.tsx"
+  ],
+  "exclude": ["node_modules", "dist"]
+}

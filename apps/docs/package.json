@@ -17,10 +17,12 @@
     "@repo/date": "workspace:*",
     "@repo/forms": "workspace:*",
     "@repo/hooks": "workspace:*",
+    "@repo/table": "workspace:*",
     "@repo/ui": "workspace:*",
     "@repo/utils": "workspace:*",
     "@repo/validators": "workspace:*",
     "@tanstack/react-form": "*",
+    "@tanstack/react-table": "*",
     "estree-util-value-to-estree": "^3.5.0",
     "lucide-react": "*",
     "mdast-util-to-string": "^4.0.0",
@@ -41,6 +43,7 @@
     "zustand": "^5.0.10"
   },
   "devDependencies": {
+    "@faker-js/faker": "^10.3.0",
     "@repo/config-eslint": "workspace:*",
     "@repo/config-prettier": "workspace:*",
     "@repo/config-typescript": "workspace:*",
