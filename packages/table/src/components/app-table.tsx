@@ -1,6 +1,7 @@
 'use client'
 
 import { ScrollArea } from '@repo/ui/components/scroll-area'
+import { Spinner } from '@repo/ui/components/spinner'
 import { Table as TableComponent } from '@repo/ui/components/table'
 import { flexRender, type RowData, type Table } from '@tanstack/react-table'
 import { useVirtualizer } from '@tanstack/react-virtual'
@@ -12,10 +13,18 @@ interface AppTableProps<TData extends RowData> extends Props {
   table: Table<TData>
   rowHeight?: number
   showFooter?: boolean
+  isLoading?: boolean // 🎯 로딩 상태 Prop 추가
 }
 
 export function AppTable<TData extends RowData>(props: AppTableProps<TData>) {
-  const { table, rowHeight = 52, showFooter = false, ...otherProps } = props
+  // isLoading 기본값을 false로 뺍니다.
+  const {
+    table,
+    rowHeight = 52,
+    showFooter = false,
+    isLoading = false,
+    ...otherProps
+  } = props
 
   const scrollRef = useRef<HTMLDivElement>(null)
   const headerRef = useRef<HTMLTableSectionElement>(null)
@@ -85,58 +94,70 @@ export function AppTable<TData extends RowData>(props: AppTableProps<TData>) {
         </TableComponent.HeaderGroup>
 
         {/* body */}
-        <ScrollArea
-          viewportRef={scrollRef}
-          orientation="vertical"
-          style={{
-            height: '300px',
-          }}
-        >
-          <TableComponent.Body
+        <div style={{ position: 'relative' }}>
+          <ScrollArea
+            viewportRef={scrollRef}
+            orientation="vertical"
             style={{
-              height: rowVirtualizer.getTotalSize(),
-              width: table.getTotalSize(),
-              position: 'relative',
+              height: '300px',
             }}
           >
-            {rowVirtualizer.getVirtualItems().map((virtualRow) => {
-              const row = rows[virtualRow.index]
+            <TableComponent.Body
+              style={{
+                height: rowVirtualizer.getTotalSize(),
+                width: table.getTotalSize(),
+                position: 'relative',
+              }}
+            >
+              {rowVirtualizer.getVirtualItems().map((virtualRow) => {
+                const row = rows[virtualRow.index]
 
-              if (!row) {
-                return null
-              }
+                if (!row) {
+                  return null
+                }
 
-              return (
-                <TableComponent.Row
-                  key={row.id}
-                  style={{
-                    position: 'absolute',
-                    width: '100%',
-                    height: `${virtualRow.size}px`,
-                    transform: `translateY(${virtualRow.start}px)`,
-                  }}
-                >
-                  {row.getVisibleCells().map((cell) => (
-                    <TableComponent.Cell
-                      key={cell.id}
-                      style={{
-                        position: 'absolute',
-                        width: cell.column.getSize(),
-                        left: cell.column.getStart(),
-                        height: '100%',
-                      }}
-                    >
-                      {flexRender(
-                        cell.column.columnDef.cell,
-                        cell.getContext(),
-                      )}
-                    </TableComponent.Cell>
-                  ))}
-                </TableComponent.Row>
-              )
-            })}
-          </TableComponent.Body>
-        </ScrollArea>
+                return (
+                  <TableComponent.Row
+                    key={row.id}
+                    style={{
+                      position: 'absolute',
+                      width: '100%',
+                      height: `${virtualRow.size}px`,
+                      transform: `translateY(${virtualRow.start}px)`,
+                    }}
+                  >
+                    {row.getVisibleCells().map((cell) => (
+                      <TableComponent.Cell
+                        key={cell.id}
+                        style={{
+                          position: 'absolute',
+                          width: cell.column.getSize(),
+                          left: cell.column.getStart(),
+                          height: '100%',
+                        }}
+                      >
+                        {flexRender(
+                          cell.column.columnDef.cell,
+                          cell.getContext(),
+                        )}
+                      </TableComponent.Cell>
+                    ))}
+                  </TableComponent.Row>
+                )
+              })}
+            </TableComponent.Body>
+          </ScrollArea>
+
+          {/* 로딩 오버레이 & 스피너 */}
+          {isLoading && (
+            <div
+              className="absolute inset-0 z-50 flex items-center justify-center bg-transparent backdrop-blur-[1px]"
+              style={{ pointerEvents: 'all' }}
+            >
+              <Spinner />
+            </div>
+          )}
+        </div>
 
         {/* footer */}
         {showFooter && (

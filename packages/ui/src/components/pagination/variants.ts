@@ -6,9 +6,11 @@ export const paginationVariants = swTwVariants({
     container: [],
     content: ['flex', 'gap-sw-4xs', 'items-center'],
     item: ['flex', 'items-center'],
-    link: [],
+    link: ['font-normal'],
     previous: [],
     next: [],
+    first: [],
+    last: [],
     icon: [],
   },
   variants: {
@@ -29,6 +31,15 @@ export const paginationVariants = swTwVariants({
         icon: ['size-7'],
       },
     },
+    isActive: {
+      true: {
+        link: ['font-semibold', 'text-cta2'],
+      },
+    },
+  },
+  defaultVariants: {
+    size: 'md',
+    isActive: false,
   },
 })
 

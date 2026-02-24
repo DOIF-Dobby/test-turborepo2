@@ -4,20 +4,27 @@ import { swClsx } from '../../utils/clsx'
 import { Button } from '../button'
 import { usePaginationContext } from './pagination-context'
 
+export interface PaginationLinkProps extends React.ComponentProps<
+  typeof Button
+> {
+  isActive?: boolean
+}
+
 export function PaginationLink({
   className,
   ref,
   children,
   isIconOnly = true,
   variant = 'light',
+  isActive = false,
   ...props
-}: React.ComponentProps<typeof Button>) {
+}: PaginationLinkProps) {
   const { slots, size } = usePaginationContext()
 
   return (
     <Button
       ref={ref}
-      className={swClsx(slots?.link({ className }))}
+      className={swClsx(slots?.link({ className, isActive }))}
       variant={variant}
       size={size}
       isIconOnly={isIconOnly}

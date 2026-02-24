@@ -1,11 +1,7 @@
 'use client'
 
-import { AppTable } from '@repo/table'
-import {
-  createColumnHelper,
-  getCoreRowModel,
-  useReactTable,
-} from '@tanstack/react-table'
+import { AppTable, useAppTable } from '@repo/table'
+import { createColumnHelper } from '@tanstack/react-table'
 import { useMemo } from 'react'
 
 type Person = {
@@ -79,10 +75,9 @@ const columns = [
 export default function WithTableComponent() {
   const data = useMemo(() => [...defaultData], [])
 
-  const table = useReactTable({
+  const table = useAppTable({
     data,
     columns,
-    getCoreRowModel: getCoreRowModel(),
   })
 
   return <AppTable table={table} />

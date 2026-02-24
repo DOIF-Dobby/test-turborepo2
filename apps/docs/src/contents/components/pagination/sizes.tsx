@@ -19,7 +19,7 @@ export default function Sizes() {
                 <Pagination.Link>1</Pagination.Link>
               </Pagination.Item>
               <Pagination.Item>
-                <Pagination.Link>2</Pagination.Link>
+                <Pagination.Link isActive>2</Pagination.Link>
               </Pagination.Item>
               <Pagination.Item>
                 <Pagination.Link>3</Pagination.Link>

@@ -23,6 +23,7 @@
     "@repo/validators": "workspace:*",
     "@tanstack/react-form": "*",
     "@tanstack/react-table": "*",
+    "@tanstack/react-query": "*",
     "estree-util-value-to-estree": "^3.5.0",
     "lucide-react": "*",
     "mdast-util-to-string": "^4.0.0",

@@ -1,6 +1,6 @@
 'use client'
 
-import { AppTable, useAppTable } from '@repo/table'
+import { AppTable, AppTablePagination, useAppTable } from '@repo/table'
 import type { ColumnDef } from '@tanstack/react-table'
 import { useMemo } from 'react'
 import { makeData } from './make-data'
@@ -14,7 +14,7 @@ type Person = {
   progress: number
 }
 
-export default function WithTableComponent() {
+export default function Pagination() {
   const columns = useMemo<ColumnDef<Person>[]>(
     () => [
       {
@@ -35,12 +35,12 @@ export default function WithTableComponent() {
       {
         accessorKey: 'age',
         header: () => 'Age',
-        size: 150,
+        size: 60,
       },
       {
         accessorKey: 'visits',
         header: () => <span>Visits</span>,
-        size: 150,
+        size: 60,
       },
       {
         accessorKey: 'status',
@@ -49,24 +49,30 @@ export default function WithTableComponent() {
       {
         accessorKey: 'progress',
         header: 'Profile Progress',
-        size: 180,
+        size: 120,
       },
       {
         accessorKey: 'createdAt',
         header: 'Created At',
         cell: (info) => info.getValue<Date>().toLocaleString(),
-        size: 250,
+        size: 180,
       },
     ],
     [],
   )
 
-  const data = useMemo(() => makeData(5_000), [])
+  const data = useMemo(() => makeData(100), [])
 
   const table = useAppTable({
     data,
     columns,
+    isPagination: true,
   })
 
-  return <AppTable table={table} />
+  return (
+    <div className="gap-sw-2xs flex flex-col items-center">
+      <AppTable table={table} />
+      <AppTablePagination table={table} />
+    </div>
+  )
 }
