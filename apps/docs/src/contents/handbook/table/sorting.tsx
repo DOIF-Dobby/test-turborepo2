@@ -15,7 +15,7 @@ type Person = {
   createdAt: Date
 }
 
-export default function WithTableComponent() {
+export default function Sorting() {
   const columns = useMemo<ColumnDef<Person>[]>(
     () => [
       {
@@ -36,12 +36,12 @@ export default function WithTableComponent() {
       {
         accessorKey: 'age',
         header: () => 'Age',
-        size: 150,
+        size: 60,
       },
       {
         accessorKey: 'visits',
         header: () => <span>Visits</span>,
-        size: 150,
+        size: 60,
       },
       {
         accessorKey: 'status',
@@ -50,23 +50,24 @@ export default function WithTableComponent() {
       {
         accessorKey: 'progress',
         header: 'Profile Progress',
-        size: 180,
+        size: 120,
       },
       {
         accessorKey: 'createdAt',
         header: 'Created At',
         cell: (info) => info.getValue<Date>().toLocaleString(),
-        size: 250,
+        size: 180,
       },
     ],
     [],
   )
 
-  const data = useMemo(() => makeData(5_000), [])
+  const data = useMemo(() => makeData(100), [])
 
   const table = useAppTable({
     data,
     columns,
+    enableSorting: true,
   })
 
   return <AppTable table={table} />

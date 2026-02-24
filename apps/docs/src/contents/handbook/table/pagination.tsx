@@ -12,6 +12,7 @@ type Person = {
   visits: number
   status: string
   progress: number
+  createdAt: Date
 }
 
 export default function Pagination() {
@@ -66,7 +67,7 @@ export default function Pagination() {
   const table = useAppTable({
     data,
     columns,
-    isPagination: true,
+    enablePagination: true,
   })
 
   return (

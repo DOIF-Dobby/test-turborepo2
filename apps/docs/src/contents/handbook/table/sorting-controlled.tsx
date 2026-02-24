@@ -1,27 +1,18 @@
 'use client'
 
-import { AppTable, AppTablePaginationBar, useAppTable } from '@repo/table'
+import { AppTable, useAppTable } from '@repo/table'
 import {
   keepPreviousData,
   QueryClient,
   QueryClientProvider,
   useQuery,
 } from '@tanstack/react-query'
-import type { ColumnDef, PaginationState } from '@tanstack/react-table'
+import type { ColumnDef, SortingState } from '@tanstack/react-table'
 import { useMemo, useState } from 'react'
-import { fetchData } from './fetch-data'
+import { fetchSortedData } from './fetch-sorted-data'
+import type { Person } from './make-data'
 
-type Person = {
-  firstName: string
-  lastName: string
-  age: number
-  visits: number
-  status: string
-  progress: number
-  createdAt: Date
-}
-
-function PaginationControlledAppTable() {
+export function SortingControlledAppTable() {
   const columns = useMemo<ColumnDef<Person>[]>(
     () => [
       {
@@ -68,45 +59,38 @@ function PaginationControlledAppTable() {
     [],
   )
 
-  const [pagination, setPagination] = useState<PaginationState>({
-    pageIndex: 0,
-    pageSize: 10,
-  })
+  const [sorting, setSorting] = useState<SortingState>([])
 
   const dataQuery = useQuery({
-    queryKey: ['data', pagination],
-    queryFn: () => fetchData(pagination),
+    queryKey: ['data', sorting],
+    queryFn: () => fetchSortedData(sorting),
     placeholderData: keepPreviousData,
   })
 
   const table = useAppTable({
-    data: dataQuery.data?.rows,
+    data: dataQuery.data,
     columns,
-    manualPagination: true,
-    rowCount: dataQuery.data?.rowCount,
-    onPaginationChange: setPagination,
+    manualSorting: true,
     state: {
-      pagination,
+      sorting,
     },
+    onSortingChange: setSorting,
   })
 
   return (
-    <>
-      <pre>{JSON.stringify(pagination, null, 2)}</pre>
-      <div className="gap-sw-2xs flex flex-col">
-        <AppTable table={table} isLoading={dataQuery.isFetching} />
-        <AppTablePaginationBar table={table} />
-      </div>
-    </>
+    <div>
+      <pre>{JSON.stringify(sorting, null, 2)}</pre>
+      <AppTable table={table} isLoading={dataQuery.isFetching} />
+    </div>
   )
 }
 
 const queryClient = new QueryClient()
 
-export default function PaginationControlled() {
+export default function SortingControlled() {
   return (
     <QueryClientProvider client={queryClient}>
-      <PaginationControlledAppTable />
+      <SortingControlledAppTable />
     </QueryClientProvider>
   )
 }

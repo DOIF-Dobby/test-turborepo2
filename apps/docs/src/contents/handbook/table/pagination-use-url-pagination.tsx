@@ -19,6 +19,7 @@ type Person = {
   visits: number
   status: string
   progress: number
+  createdAt: Date
 }
 
 function PaginationUseUrlPaginationTable() {

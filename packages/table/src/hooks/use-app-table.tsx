@@ -3,6 +3,7 @@ import {
   type TableOptions,
   getCoreRowModel as defaultGetCoreRowModel,
   getPaginationRowModel as defaultGetPaginationRowModel,
+  getSortedRowModel as defaultGetSortedRowModel,
   useReactTable,
 } from '@tanstack/react-table'
 import { useMemo } from 'react'
@@ -15,7 +16,7 @@ type Props<TData extends RowData> = Omit<
 interface UseAppTableProps<TData extends RowData> extends Props<TData> {
   data?: TData[]
   getCoreRowModel?: TableOptions<TData>['getCoreRowModel']
-  isPagination?: boolean
+  enablePagination?: boolean
 }
 
 export function useAppTable<TData extends RowData>(
@@ -25,7 +26,10 @@ export function useAppTable<TData extends RowData>(
     data,
     getCoreRowModel = defaultGetCoreRowModel(),
     getPaginationRowModel = defaultGetPaginationRowModel(),
-    isPagination = false,
+    getSortedRowModel = defaultGetSortedRowModel(),
+    enablePagination = false,
+    enableSorting = false,
+    manualSorting = false,
     ...otherProps
   } = props
 
@@ -34,7 +38,11 @@ export function useAppTable<TData extends RowData>(
   const table = useReactTable<TData>({
     data: data ?? defaultData,
     getCoreRowModel,
-    getPaginationRowModel: isPagination ? getPaginationRowModel : undefined,
+    getPaginationRowModel: enablePagination ? getPaginationRowModel : undefined,
+    getSortedRowModel:
+      enableSorting && !manualSorting ? getSortedRowModel : undefined,
+    enableSorting: enableSorting || manualSorting,
+    manualSorting,
     ...otherProps,
   })
 

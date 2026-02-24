@@ -3,9 +3,11 @@
 import { ScrollArea } from '@repo/ui/components/scroll-area'
 import { Spinner } from '@repo/ui/components/spinner'
 import { Table as TableComponent } from '@repo/ui/components/table'
+import { swClsx } from '@repo/ui/utils/clsx'
 import { flexRender, type RowData, type Table } from '@tanstack/react-table'
 import { useVirtualizer } from '@tanstack/react-virtual'
 import { useRef } from 'react'
+import SortingIcon from './sorting-icon'
 
 type Props = Omit<React.ComponentProps<typeof TableComponent>, 'renderAs'>
 
@@ -17,7 +19,6 @@ interface AppTableProps<TData extends RowData> extends Props {
 }
 
 export function AppTable<TData extends RowData>(props: AppTableProps<TData>) {
-  // isLoading 기본값을 false로 뺍니다.
   const {
     table,
     rowHeight = 52,
@@ -69,26 +70,37 @@ export function AppTable<TData extends RowData>(props: AppTableProps<TData>) {
                 position: 'relative',
               }}
             >
-              {headerGroup.headers.map((header) => (
-                <TableComponent.Head
-                  key={header.id}
-                  style={{
-                    position: 'absolute',
-                    left: header.getStart(),
-                    width: header.getSize(),
-                    minWidth: header.column.columnDef.minSize,
-                    maxWidth: header.column.columnDef.maxSize,
-                    height: '100%',
-                  }}
-                >
-                  {header.isPlaceholder
-                    ? null
-                    : flexRender(
-                        header.column.columnDef.header,
-                        header.getContext(),
-                      )}
-                </TableComponent.Head>
-              ))}
+              {headerGroup.headers.map((header) => {
+                const canSort = header.column.getCanSort()
+                const isSorted = header.column.getIsSorted()
+                const sortIcon = canSort ? (
+                  <SortingIcon isSorted={isSorted} />
+                ) : null
+
+                return (
+                  <TableComponent.Head
+                    key={header.id}
+                    className={swClsx(canSort ? 'cursor-pointer' : '')}
+                    style={{
+                      position: 'absolute',
+                      left: header.getStart(),
+                      width: header.getSize(),
+                      minWidth: header.column.columnDef.minSize,
+                      maxWidth: header.column.columnDef.maxSize,
+                      height: '100%',
+                    }}
+                    onClick={header.column.getToggleSortingHandler()}
+                  >
+                    {header.isPlaceholder
+                      ? null
+                      : flexRender(
+                          header.column.columnDef.header,
+                          header.getContext(),
+                        )}
+                    {sortIcon}
+                  </TableComponent.Head>
+                )
+              })}
             </TableComponent.HeaderRow>
           ))}
         </TableComponent.HeaderGroup>

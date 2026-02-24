@@ -1,7 +1,7 @@
 'use client'
 
-import { AppTable, AppTablePaginationBar, useAppTable } from '@repo/table'
-import type { ColumnDef } from '@tanstack/react-table'
+import { AppTable, useAppTable } from '@repo/table'
+import type { ColumnDef, SortingState } from '@tanstack/react-table'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { Suspense, useMemo } from 'react'
 import { makeData } from './make-data'
@@ -16,7 +16,7 @@ type Person = {
   createdAt: Date
 }
 
-export function PaginationWithRouterTable() {
+export function SortingWithRouterTable() {
   const columns = useMemo<ColumnDef<Person>[]>(
     () => [
       {
@@ -63,53 +63,58 @@ export function PaginationWithRouterTable() {
     [],
   )
 
-  const data = useMemo(() => makeData(10000), [])
+  const data = useMemo(() => makeData(100), [])
 
   const router = useRouter()
   const pathname = usePathname()
   const searchParams = useSearchParams()
 
-  const pagination = useMemo(() => {
-    const pageParam = searchParams.get('page')
-    const pageSizeParam = searchParams.get('pageSize')
+  const sorting = useMemo<SortingState>(() => {
+    const sortParam = searchParams.get('sort')
+    const sortDescParam = searchParams.get('desc')
 
-    return {
-      pageIndex: pageParam ? Number(pageParam) - 1 : 0,
-      pageSize: pageSizeParam ? Number(pageSizeParam) : 10,
-    }
+    if (!sortParam) return []
+
+    return [
+      {
+        id: sortParam,
+        desc: sortDescParam === 'true',
+      },
+    ]
   }, [searchParams])
 
   const table = useAppTable({
     data,
     columns,
-    enablePagination: true,
+    enableSorting: true,
     state: {
-      pagination,
+      sorting,
     },
-    onPaginationChange: (updater) => {
-      const newPagination =
-        typeof updater === 'function' ? updater(pagination) : updater
+    onSortingChange: (updater) => {
+      const newSorting =
+        typeof updater === 'function' ? updater(sorting) : updater
 
       const params = new URLSearchParams(searchParams.toString())
-      params.set('page', String(newPagination.pageIndex + 1))
-      params.set('pageSize', String(newPagination.pageSize))
+
+      if (!newSorting || newSorting.length === 0) {
+        params.delete('sort')
+        params.delete('desc')
+      } else {
+        params.set('sort', String(newSorting[0]?.id))
+        params.set('desc', String(newSorting[0]?.desc))
+      }
 
       router.push(`${pathname}?${params.toString()}`, { scroll: false })
     },
   })
 
-  return (
-    <div className="gap-sw-2xs flex flex-col items-center">
-      <AppTable table={table} />
-      <AppTablePaginationBar table={table} />
-    </div>
-  )
+  return <AppTable table={table} />
 }
 
-export default function PaginationWithRouter() {
+export default function SortingWithRouter() {
   return (
     <Suspense>
-      <PaginationWithRouterTable />
+      <SortingWithRouterTable />
     </Suspense>
   )
 }

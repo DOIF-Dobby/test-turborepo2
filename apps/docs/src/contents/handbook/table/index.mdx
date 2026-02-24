@@ -1,4 +1,5 @@
 import { CodeBlock } from '@/components/code-block'
+
 import TanstackTableBasic from './tanstack-table-basic'
 import TanstackTableBasicRaw from './tanstack-table-basic?raw'
 import WithTableComponent from './with-table-component'
@@ -17,6 +18,12 @@ import PaginationWithRouterServer from './pagination-with-router-server'
 import PaginationWithRouterServerRaw from './pagination-with-router-server?raw'
 import PaginationUseUrlPagination from './pagination-use-url-pagination'
 import PaginationUseUrlPaginationRaw from './pagination-use-url-pagination?raw'
+import Sorting from './sorting'
+import SortingRaw from './sorting?raw'
+import SortingControlled from './sorting-controlled'
+import SortingControlledRaw from './sorting-controlled?raw'
+import SortingWithRouter from './sorting-with-router'
+import SortingWithRouterRaw from './sorting-with-router?raw'
 
 # Table
 
@@ -50,7 +57,7 @@ import PaginationUseUrlPaginationRaw from './pagination-use-url-pagination?raw'
 
 ## Pagination
 
-`isPagination` 속성을 `true`로 설정하면 페이징을 사용할 수 있습니다. `AppTablePagination` 컴포넌트를 이용하여 페이징을 구현할 수 있습니다. 이건 Client Side Pagination 입니다.
+`enablePagination` 속성을 `true`로 설정하면 페이징을 사용할 수 있습니다. `AppTablePagination` 컴포넌트를 이용하여 페이징을 구현할 수 있습니다. 이건 Client Side Pagination 입니다.
 
 <CodeBlock preview={<Pagination />} code={PaginationRaw} />
 
@@ -83,3 +90,21 @@ router 방식을 계속 구현하기에는 중복되는 코드가 많으므로 `
   preview={<PaginationUseUrlPagination />}
   code={PaginationUseUrlPaginationRaw}
 />
+
+## Sorting
+
+`enablePagination` 속성을 `true`로 설정하면 정렬 기능을 사용할 수 있습니다. 이건 Client Side Sorting 입니다.
+
+<CodeBlock preview={<Sorting />} code={SortingRaw} />
+
+## Sorting Controlled
+
+정렬을 외부에서 관리하고 싶을 때 사용합니다. 예를 들어 Server Side Sorting을 구현할 때 사용합니다.
+
+<CodeBlock preview={<SortingControlled />} code={SortingControlledRaw} />
+
+## Sorting with Router
+
+정렬을 URL의 쿼리 파라미터로 관리하는 예제입니다.
+
+<CodeBlock preview={<SortingWithRouter />} code={SortingWithRouterRaw} />
