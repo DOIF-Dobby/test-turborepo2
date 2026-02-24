@@ -15,6 +15,8 @@ import PaginationWithRouter from './pagination-with-router'
 import PaginationWithRouterRaw from './pagination-with-router?raw'
 import PaginationWithRouterServer from './pagination-with-router-server'
 import PaginationWithRouterServerRaw from './pagination-with-router-server?raw'
+import PaginationUseUrlPagination from './pagination-use-url-pagination'
+import PaginationUseUrlPaginationRaw from './pagination-use-url-pagination?raw'
 
 # Table
 
@@ -71,4 +73,13 @@ pangination을 URL의 쿼리 파라미터로 관리하는 예제입니다. 서�
 <CodeBlock
   preview={<PaginationWithRouterServer />}
   code={PaginationWithRouterServerRaw}
+/>
+
+## Pagination Use Url Pagination
+
+router 방식을 계속 구현하기에는 중복되는 코드가 많으므로 `@repo/next-utils`에 있는 `useUrlPagination`을 통해 쉽게 구현할 수 있습니다.
+
+<CodeBlock
+  preview={<PaginationUseUrlPagination />}
+  code={PaginationUseUrlPaginationRaw}
 />
