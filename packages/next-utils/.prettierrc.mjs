@@ -5,6 +5,6 @@ import repoConfig from '@repo/config-prettier/config.mjs'
  */
 const config = {
   ...repoConfig,
-} 
+}
 
 export default config
