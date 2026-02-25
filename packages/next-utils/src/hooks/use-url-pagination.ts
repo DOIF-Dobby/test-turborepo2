@@ -1,12 +1,11 @@
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { useCallback, useMemo } from 'react'
+import type { Updater } from './types'
 
 interface PaginationState {
   pageIndex: number
   pageSize: number
 }
-
-export type Updater<T> = T | ((old: T) => T)
 
 export interface UseUrlPaginationProps {
   prefix?: string

@@ -24,6 +24,10 @@ import SortingControlled from './sorting-controlled'
 import SortingControlledRaw from './sorting-controlled?raw'
 import SortingWithRouter from './sorting-with-router'
 import SortingWithRouterRaw from './sorting-with-router?raw'
+import SortingWithRouterServer from './sorting-with-router-server'
+import SortingWithRouterServerRaw from './sorting-with-router-server?raw'
+import SortingWithUrlSorting from './sorting-use-url-sorting'
+import SortingWithUrlSortingRaw from './sorting-use-url-sorting?raw'
 
 # Table
 
@@ -108,3 +112,21 @@ router 방식을 계속 구현하기에는 중복되는 코드가 많으므로 `
 정렬을 URL의 쿼리 파라미터로 관리하는 예제입니다.
 
 <CodeBlock preview={<SortingWithRouter />} code={SortingWithRouterRaw} />
+
+## Sorting with Router Server
+
+정렬을 URL의 쿼리 파라미터로 관리하는 예제입니다. 서버 사이드 정렬을 할 때도 동일합니다.
+
+<CodeBlock
+  preview={<SortingWithRouterServer />}
+  code={SortingWithRouterServerRaw}
+/>
+
+## Sorting Use Url Sorting
+
+router 방식을 계속 구현하기에는 중복되는 코드가 많으므로 `@repo/next-utils`에 있는 `useUrlSorting`을 통해 쉽게 구현할 수 있습니다.
+
+<CodeBlock
+  preview={<SortingWithUrlSorting />}
+  code={SortingWithUrlSortingRaw}
+/>

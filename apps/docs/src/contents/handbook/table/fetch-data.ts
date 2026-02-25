@@ -6,7 +6,7 @@ export async function fetchData(options: {
   pageIndex: number
   pageSize: number
 }) {
-  await new Promise((r) => setTimeout(r, 500))
+  await new Promise((r) => setTimeout(r, 200))
 
   return {
     rows: data.slice(
