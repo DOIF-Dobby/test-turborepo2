@@ -110,8 +110,8 @@ export function SortingWithRouterServerAppTable() {
 
   return (
     <div>
-      <pre>{JSON.stringify(sorting, null, 2)}</pre>
       <AppTable table={table} isLoading={dataQuery.isFetching} />
+      <pre>{JSON.stringify(sorting, null, 2)}</pre>
     </div>
   )
 }

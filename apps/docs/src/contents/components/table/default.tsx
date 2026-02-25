@@ -5,19 +5,45 @@ export default function Default() {
     <Table>
       <Table.HeaderGroup>
         <Table.HeaderRow>
-          <Table.Head>주문번호</Table.Head>
-          <Table.Head>체결일</Table.Head>
-          <Table.Head>체결시간</Table.Head>
-          <Table.Head>체결상태</Table.Head>
-          <Table.Head>상품종류</Table.Head>
-          <Table.Head>체결구분</Table.Head>
-          <Table.Head>거래통화</Table.Head>
-          <Table.Head>거래방향</Table.Head>
-          <Table.Head>체결금액</Table.Head>
-          <Table.Head>체결환율</Table.Head>
-          <Table.Head>상대금액</Table.Head>
-          <Table.Head>사용자명</Table.Head>
-          <Table.Head>거래방식</Table.Head>
+          <Table.Head>
+            <Table.HeadText>주문번호</Table.HeadText>
+          </Table.Head>
+          <Table.Head>
+            <Table.HeadText>체결일</Table.HeadText>
+          </Table.Head>
+          <Table.Head>
+            <Table.HeadText>체결시간</Table.HeadText>
+          </Table.Head>
+          <Table.Head>
+            <Table.HeadText>체결상태</Table.HeadText>
+          </Table.Head>
+          <Table.Head>
+            <Table.HeadText>상품종류</Table.HeadText>
+          </Table.Head>
+          <Table.Head>
+            <Table.HeadText>체결구분</Table.HeadText>
+          </Table.Head>
+          <Table.Head>
+            <Table.HeadText>거래통화</Table.HeadText>
+          </Table.Head>
+          <Table.Head>
+            <Table.HeadText>거래방향</Table.HeadText>
+          </Table.Head>
+          <Table.Head>
+            <Table.HeadText>체결금액</Table.HeadText>
+          </Table.Head>
+          <Table.Head>
+            <Table.HeadText>체결환율</Table.HeadText>
+          </Table.Head>
+          <Table.Head>
+            <Table.HeadText>상대금액</Table.HeadText>
+          </Table.Head>
+          <Table.Head>
+            <Table.HeadText>사용자명</Table.HeadText>
+          </Table.Head>
+          <Table.Head>
+            <Table.HeadText>거래방식</Table.HeadText>
+          </Table.Head>
         </Table.HeaderRow>
       </Table.HeaderGroup>
       <Table.Body>

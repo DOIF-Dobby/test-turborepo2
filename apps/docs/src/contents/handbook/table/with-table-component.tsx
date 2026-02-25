@@ -93,12 +93,14 @@ export default function WithTableComponent() {
           <Table.Row key={headerGroup.id}>
             {headerGroup.headers.map((header) => (
               <Table.Head key={header.id}>
-                {header.isPlaceholder
-                  ? null
-                  : flexRender(
-                      header.column.columnDef.header,
-                      header.getContext(),
-                    )}
+                <Table.HeadText>
+                  {header.isPlaceholder
+                    ? null
+                    : flexRender(
+                        header.column.columnDef.header,
+                        header.getContext(),
+                      )}
+                </Table.HeadText>
               </Table.Head>
             ))}
           </Table.Row>

@@ -2,6 +2,10 @@ import {
   type RowData,
   type TableOptions,
   getCoreRowModel as defaultGetCoreRowModel,
+  getFacetedMinMaxValues as defaultGetFacetedMinMaxValues,
+  getFacetedRowModel as defaultGetFacetedRowModel,
+  getFacetedUniqueValues as defaultGetFacetedUniqueValues,
+  getFilteredRowModel as defaultGetFilteredRowModel,
   getPaginationRowModel as defaultGetPaginationRowModel,
   getSortedRowModel as defaultGetSortedRowModel,
   useReactTable,
@@ -27,9 +31,14 @@ export function useAppTable<TData extends RowData>(
     getCoreRowModel = defaultGetCoreRowModel(),
     getPaginationRowModel = defaultGetPaginationRowModel(),
     getSortedRowModel = defaultGetSortedRowModel(),
+    getFilteredRowModel = defaultGetFilteredRowModel(),
+    getFacetedRowModel = defaultGetFacetedRowModel(),
+    getFacetedUniqueValues = defaultGetFacetedUniqueValues(),
+    getFacetedMinMaxValues = defaultGetFacetedMinMaxValues(),
     enablePagination = false,
     enableSorting = false,
     manualSorting = false,
+    enableFilters = false,
     ...otherProps
   } = props
 
@@ -41,7 +50,12 @@ export function useAppTable<TData extends RowData>(
     getPaginationRowModel: enablePagination ? getPaginationRowModel : undefined,
     getSortedRowModel:
       enableSorting && !manualSorting ? getSortedRowModel : undefined,
+    getFilteredRowModel: enableFilters ? getFilteredRowModel : undefined,
+    getFacetedRowModel: enableFilters ? getFacetedRowModel : undefined,
+    getFacetedUniqueValues: enableFilters ? getFacetedUniqueValues : undefined,
+    getFacetedMinMaxValues: enableFilters ? getFacetedMinMaxValues : undefined,
     enableSorting: enableSorting || manualSorting,
+    enableFilters,
     manualSorting,
     ...otherProps,
   })

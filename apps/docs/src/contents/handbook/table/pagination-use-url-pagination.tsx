@@ -93,11 +93,11 @@ function PaginationUseUrlPaginationTable() {
 
   return (
     <>
-      <pre>{JSON.stringify(userPagination, null, 2)}</pre>
       <div className="gap-sw-2xs flex flex-col">
         <AppTable table={table} isLoading={dataQuery.isFetching} />
         <AppTablePaginationBar table={table} />
       </div>
+      <pre>{JSON.stringify(userPagination, null, 2)}</pre>
     </>
   )
 }

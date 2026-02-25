@@ -1,3 +1,5 @@
+import type {} from './tanstack-table'
+
 export * from './components/app-table'
 export * from './components/app-table-page-size-select'
 export * from './components/app-table-pagination'

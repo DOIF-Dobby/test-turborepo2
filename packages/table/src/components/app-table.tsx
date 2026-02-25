@@ -3,11 +3,11 @@
 import { ScrollArea } from '@repo/ui/components/scroll-area'
 import { Spinner } from '@repo/ui/components/spinner'
 import { Table as TableComponent } from '@repo/ui/components/table'
-import { swClsx } from '@repo/ui/utils/clsx'
 import { flexRender, type RowData, type Table } from '@tanstack/react-table'
 import { useVirtualizer } from '@tanstack/react-virtual'
 import { useRef } from 'react'
-import SortingIcon from './sorting-icon'
+import { FilterPopover } from './filter/filter-popover'
+import SortingButton from './sort/sorting-button'
 
 type Props = Omit<React.ComponentProps<typeof TableComponent>, 'renderAs'>
 
@@ -15,7 +15,7 @@ interface AppTableProps<TData extends RowData> extends Props {
   table: Table<TData>
   rowHeight?: number
   showFooter?: boolean
-  isLoading?: boolean // 🎯 로딩 상태 Prop 추가
+  isLoading?: boolean
 }
 
 export function AppTable<TData extends RowData>(props: AppTableProps<TData>) {
@@ -73,14 +73,20 @@ export function AppTable<TData extends RowData>(props: AppTableProps<TData>) {
               {headerGroup.headers.map((header) => {
                 const canSort = header.column.getCanSort()
                 const isSorted = header.column.getIsSorted()
-                const sortIcon = canSort ? (
-                  <SortingIcon isSorted={isSorted} />
-                ) : null
+
+                const canFilter = header.column.getCanFilter()
+                const isFiltered = header.column.getIsFiltered()
+
+                const showActionButtons = canFilter || canSort
+
+                const headerText = flexRender(
+                  header.column.columnDef.header,
+                  header.getContext(),
+                )
 
                 return (
                   <TableComponent.Head
                     key={header.id}
-                    className={swClsx(canSort ? 'cursor-pointer' : '')}
                     style={{
                       position: 'absolute',
                       left: header.getStart(),
@@ -89,15 +95,26 @@ export function AppTable<TData extends RowData>(props: AppTableProps<TData>) {
                       maxWidth: header.column.columnDef.maxSize,
                       height: '100%',
                     }}
-                    onClick={header.column.getToggleSortingHandler()}
                   >
-                    {header.isPlaceholder
-                      ? null
-                      : flexRender(
-                          header.column.columnDef.header,
-                          header.getContext(),
+                    <TableComponent.HeadText>
+                      {header.isPlaceholder ? null : headerText}
+                    </TableComponent.HeadText>
+                    {showActionButtons && (
+                      <div className="flex items-center">
+                        {canFilter && (
+                          <FilterPopover
+                            isFiltered={isFiltered}
+                            column={header.column}
+                          />
                         )}
-                    {sortIcon}
+                        {canSort && (
+                          <SortingButton
+                            isSorted={isSorted}
+                            onPress={header.column.getToggleSortingHandler()}
+                          />
+                        )}
+                      </div>
+                    )}
                   </TableComponent.Head>
                 )
               })}

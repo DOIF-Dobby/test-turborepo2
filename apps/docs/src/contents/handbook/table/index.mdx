@@ -28,6 +28,8 @@ import SortingWithRouterServer from './sorting-with-router-server'
 import SortingWithRouterServerRaw from './sorting-with-router-server?raw'
 import SortingWithUrlSorting from './sorting-use-url-sorting'
 import SortingWithUrlSortingRaw from './sorting-use-url-sorting?raw'
+import Filter from './filter'
+import FilterRaw from './filter?raw'
 
 # Table
 
@@ -130,3 +132,9 @@ router 방식을 계속 구현하기에는 중복되는 코드가 많으므로 `
   preview={<SortingWithUrlSorting />}
   code={SortingWithUrlSortingRaw}
 />
+
+## Filter
+
+`enableFilters` 속성을 `true`로 설정하면 필터 기능을 사용할 수 있습니다. 이건 Client Side Filtering 입니다.
+
+<CodeBlock preview={<Filter />} code={FilterRaw} />
