@@ -16,7 +16,10 @@ export const tableVariants = swTwVariants({
     ],
     tbody: [],
     tfoot: [],
-    tr: [],
+    tr: [
+      'data-[canselect=true]:cursor-pointer',
+      'data-[selected=true]:bg-cta2-secondary-pressed',
+    ],
     cell: [
       'font-paragraph-2',
       'text-paragraph-2',

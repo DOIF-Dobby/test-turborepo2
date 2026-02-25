@@ -39,6 +39,9 @@ export function useAppTable<TData extends RowData>(
     enableSorting = false,
     manualSorting = false,
     enableFilters = false,
+    enableRowSelection = false,
+    enableMultiRowSelection = false,
+    enableSubRowSelection = false,
     ...otherProps
   } = props
 
@@ -57,6 +60,9 @@ export function useAppTable<TData extends RowData>(
     enableSorting: enableSorting || manualSorting,
     enableFilters,
     manualSorting,
+    enableRowSelection,
+    enableMultiRowSelection,
+    enableSubRowSelection,
     ...otherProps,
   })
 

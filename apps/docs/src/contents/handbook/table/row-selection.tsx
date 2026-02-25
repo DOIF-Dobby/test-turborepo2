@@ -15,13 +15,13 @@ type Person = {
   createdAt: Date
 }
 
-export default function WithTableComponent() {
+export default function RowSelection() {
   const columns = useMemo<ColumnDef<Person>[]>(
     () => [
       {
         accessorKey: 'id',
         header: 'ID',
-        size: 70,
+        size: 80,
       },
       {
         accessorKey: 'firstName',
@@ -34,17 +34,19 @@ export default function WithTableComponent() {
       {
         accessorKey: 'age',
         header: '나이',
-        size: 80,
+        size: 100,
       },
       {
         accessorKey: 'visits',
         header: '방문 횟수',
-        size: 90,
+        size: 100,
       },
       {
         accessorKey: 'status',
         header: '상태',
-        size: 120,
+        meta: {
+          filterVariant: 'combobox',
+        },
       },
       {
         accessorKey: 'progress',
@@ -61,12 +63,24 @@ export default function WithTableComponent() {
     [],
   )
 
-  const data = useMemo(() => makeData(5_000), [])
+  const data = useMemo(() => makeData(100), [])
 
   const table = useAppTable({
     data,
     columns,
+    enableRowSelection: true,
   })
 
-  return <AppTable table={table} />
+  return (
+    <>
+      <AppTable table={table} />
+      <pre>
+        {JSON.stringify(
+          table.getSelectedRowModel().rows.map((row) => row.original),
+          null,
+          2,
+        )}
+      </pre>
+    </>
+  )
 }

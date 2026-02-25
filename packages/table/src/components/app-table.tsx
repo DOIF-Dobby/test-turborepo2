@@ -148,6 +148,9 @@ export function AppTable<TData extends RowData>(props: AppTableProps<TData>) {
                 return (
                   <TableComponent.Row
                     key={row.id}
+                    data-selected={row.getIsSelected()}
+                    data-canSelect={row.getCanSelect()}
+                    onClick={row.getToggleSelectedHandler()}
                     style={{
                       position: 'absolute',
                       width: '100%',
