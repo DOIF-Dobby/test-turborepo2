@@ -8,7 +8,8 @@
   "tailwindCSS.classFunctions": ["swTwVariants"],
   "tailwindCSS.experimental.configFile": {
     "packages/ui/src/styles/switchwon-styles.css": "packages/ui/src/**",
-    "apps/docs/src/styles/app.css": "apps/docs/src/**"
+    "apps/docs/src/styles/app.css": "apps/docs/src/**",
+    "apps/admin/src/styles/app.css": "apps/admin/src/**"
   },
   "editor.codeActionsOnSave": {
     // 저장할 때 ESLint 규칙에 걸리는 것들을 자동으로 고침

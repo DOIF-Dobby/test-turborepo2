@@ -10,6 +10,9 @@
     "dev:docs": "turbo dev --filter=docs",
     "build:docs": "turbo build --filter=docs",
     "start:docs": "turbo start --filter=docs",
+    "dev:admin": "turbo dev --filter=admin",
+    "build:admin": "turbo build --filter=admin",
+    "start:admin": "turbo start --filter=admin",
     "check-types": "turbo run check-types"
   },
   "devDependencies": {
@@ -48,7 +51,8 @@
       "@tanstack/react-table": "8.21.3",
       "@tanstack/react-virtual": "3.13.18",
       "@tanstack/react-query": "5.90.21",
-      "valibot": "1.2.0"
+      "valibot": "1.2.0",
+      "zustand": "5.0.10"
     }
   }
 }
