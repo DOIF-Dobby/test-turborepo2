@@ -1,3 +1,4 @@
+import { AppProvider } from '@/providers/app-provider'
 import '@/styles/app.css'
 import { swClsx } from '@repo/ui/utils/clsx'
 import type { Metadata, Viewport } from 'next'
@@ -41,7 +42,7 @@ export default function RootLayout({
           'bg-background',
         ])}
       >
-        {children}
+        <AppProvider>{children}</AppProvider>
       </body>
     </html>
   )

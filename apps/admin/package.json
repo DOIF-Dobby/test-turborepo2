@@ -19,6 +19,7 @@
     "@repo/utils": "workspace:*",
     "@repo/next-utils": "workspace:*",
     "@repo/validators": "workspace:*",
+    "@repo/query-utils": "workspace:*",
     "@tanstack/react-form": "*",
     "@tanstack/react-table": "*",
     "@tanstack/react-query": "*",

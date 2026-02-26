@@ -58,6 +58,9 @@ importers:
       '@repo/next-utils':
         specifier: workspace:*
         version: link:../../packages/next-utils
+      '@repo/query-utils':
+        specifier: workspace:*
+        version: link:../../packages/query-utils
       '@repo/table':
         specifier: workspace:*
         version: link:../../packages/table
@@ -458,6 +461,40 @@ importers:
       next:
         specifier: 16.1.6
         version: 16.1.6(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
+      react:
+        specifier: 19.2.3
+        version: 19.2.3
+      typescript:
+        specifier: 5.9.2
+        version: 5.9.2
+
+  packages/query-utils:
+    dependencies:
+      '@repo/utils':
+        specifier: workspace:*
+        version: link:../utils
+    devDependencies:
+      '@repo/config-eslint':
+        specifier: workspace:*
+        version: link:../config/eslint
+      '@repo/config-prettier':
+        specifier: workspace:*
+        version: link:../config/prettier
+      '@repo/config-typescript':
+        specifier: workspace:*
+        version: link:../config/typescript
+      '@tanstack/react-query':
+        specifier: 5.90.21
+        version: 5.90.21(react@19.2.3)
+      '@types/node':
+        specifier: 22.15.3
+        version: 22.15.3
+      '@types/react':
+        specifier: 19.2.3
+        version: 19.2.3
+      eslint:
+        specifier: 9.39.1
+        version: 9.39.1(jiti@2.6.1)
       react:
         specifier: 19.2.3
         version: 19.2.3
