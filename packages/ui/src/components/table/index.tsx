@@ -1,5 +1,6 @@
 import { TableBody } from './table-body'
 import { TableCell } from './table-cell'
+import { TableCellText } from './table-cell-text'
 import { TableFooter } from './table-footer'
 import { TableHead } from './table-head'
 import { TableHeadText } from './table-head-text'
@@ -16,5 +17,6 @@ export const Table = Object.assign(TableRoot, {
   Body: TableBody,
   Row: TableRow,
   Cell: TableCell,
+  CellText: TableCellText,
   Footer: TableFooter,
 })

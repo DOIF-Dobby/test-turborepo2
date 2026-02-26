@@ -2,18 +2,21 @@
 
 import { formatDateTime } from '@repo/date'
 import { AppTable, useAppTable } from '@repo/table'
-import {
-  keepPreviousData,
-  QueryClient,
-  QueryClientProvider,
-  useQuery,
-} from '@tanstack/react-query'
-import type { ColumnDef, SortingState } from '@tanstack/react-table'
-import { useMemo, useState } from 'react'
-import { fetchSortedData } from './fetch-sorted-data'
-import type { Person } from './make-data'
+import type { ColumnDef } from '@tanstack/react-table'
+import { useMemo } from 'react'
+import { makeData } from './make-data'
 
-export function SortingControlledAppTable() {
+type Person = {
+  firstName: string
+  lastName: string
+  age: number
+  visits: number
+  status: string
+  progress: number
+  createdAt: Date
+}
+
+export default function OnClickRow() {
   const columns = useMemo<ColumnDef<Person>[]>(
     () => [
       {
@@ -59,38 +62,21 @@ export function SortingControlledAppTable() {
     [],
   )
 
-  const [sorting, setSorting] = useState<SortingState>([])
-
-  const dataQuery = useQuery({
-    queryKey: ['data', sorting],
-    queryFn: () => fetchSortedData(sorting),
-    placeholderData: keepPreviousData,
-  })
+  const data = useMemo(() => makeData(100), [])
 
   const table = useAppTable({
-    data: dataQuery.data,
+    data,
     columns,
-    manualSorting: true,
-    state: {
-      sorting,
+    meta: {
+      onClickRow: (row) => {
+        console.log(row)
+      },
     },
-    onSortingChange: setSorting,
   })
 
   return (
-    <div>
-      <AppTable table={table} isLoading={dataQuery.isFetching} />
-      <pre>{JSON.stringify(sorting, null, 2)}</pre>
-    </div>
-  )
-}
-
-const queryClient = new QueryClient()
-
-export default function SortingControlled() {
-  return (
-    <QueryClientProvider client={queryClient}>
-      <SortingControlledAppTable />
-    </QueryClientProvider>
+    <>
+      <AppTable table={table} />
+    </>
   )
 }

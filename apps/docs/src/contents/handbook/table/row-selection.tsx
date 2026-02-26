@@ -1,5 +1,6 @@
 'use client'
 
+import { formatDateTime } from '@repo/date'
 import { AppTable, useAppTable } from '@repo/table'
 import type { ColumnDef } from '@tanstack/react-table'
 import { useMemo } from 'react'
@@ -26,6 +27,7 @@ export default function RowSelection() {
       {
         accessorKey: 'firstName',
         header: '이름',
+        size: 170,
       },
       {
         accessorKey: 'lastName',
@@ -34,7 +36,7 @@ export default function RowSelection() {
       {
         accessorKey: 'age',
         header: '나이',
-        size: 100,
+        size: 80,
       },
       {
         accessorKey: 'visits',
@@ -44,19 +46,16 @@ export default function RowSelection() {
       {
         accessorKey: 'status',
         header: '상태',
-        meta: {
-          filterVariant: 'combobox',
-        },
       },
       {
         accessorKey: 'progress',
         header: '진행률',
-        size: 100,
+        size: 80,
       },
       {
         accessorKey: 'createdAt',
         header: '생성일',
-        cell: (info) => info.getValue<Date>().toLocaleString(),
+        cell: (info) => formatDateTime(info.getValue<Date>()),
         size: 180,
       },
     ],

@@ -3,6 +3,7 @@
 import { ScrollArea } from '@repo/ui/components/scroll-area'
 import { Spinner } from '@repo/ui/components/spinner'
 import { Table as TableComponent } from '@repo/ui/components/table'
+import { swClsx } from '@repo/ui/utils/clsx'
 import { flexRender, type RowData, type Table } from '@tanstack/react-table'
 import { useVirtualizer } from '@tanstack/react-virtual'
 import { useRef } from 'react'
@@ -40,6 +41,8 @@ export function AppTable<TData extends RowData>(props: AppTableProps<TData>) {
     overscan: 15,
   })
 
+  const { onClickRow } = table.options.meta ?? {}
+
   return (
     <TableComponent
       {...otherProps}
@@ -71,28 +74,33 @@ export function AppTable<TData extends RowData>(props: AppTableProps<TData>) {
               }}
             >
               {headerGroup.headers.map((header) => {
-                const canSort = header.column.getCanSort()
-                const isSorted = header.column.getIsSorted()
+                const { column } = header
 
-                const canFilter = header.column.getCanFilter()
-                const isFiltered = header.column.getIsFiltered()
+                const canSort = column.getCanSort()
+                const isSorted = column.getIsSorted()
+
+                const canFilter = column.getCanFilter()
+                const isFiltered = column.getIsFiltered()
 
                 const showActionButtons = canFilter || canSort
 
                 const headerText = flexRender(
-                  header.column.columnDef.header,
+                  column.columnDef.header,
                   header.getContext(),
                 )
+
+                const { headerAlign } = column.columnDef.meta ?? {}
 
                 return (
                   <TableComponent.Head
                     key={header.id}
+                    headerAlign={headerAlign}
                     style={{
                       position: 'absolute',
                       left: header.getStart(),
                       width: header.getSize(),
-                      minWidth: header.column.columnDef.minSize,
-                      maxWidth: header.column.columnDef.maxSize,
+                      minWidth: column.columnDef.minSize,
+                      maxWidth: column.columnDef.maxSize,
                       height: '100%',
                     }}
                   >
@@ -104,13 +112,13 @@ export function AppTable<TData extends RowData>(props: AppTableProps<TData>) {
                         {canFilter && (
                           <FilterPopover
                             isFiltered={isFiltered}
-                            column={header.column}
+                            column={column}
                           />
                         )}
                         {canSort && (
                           <SortingButton
                             isSorted={isSorted}
-                            onPress={header.column.getToggleSortingHandler()}
+                            onPress={column.getToggleSortingHandler()}
                           />
                         )}
                       </div>
@@ -149,8 +157,14 @@ export function AppTable<TData extends RowData>(props: AppTableProps<TData>) {
                   <TableComponent.Row
                     key={row.id}
                     data-selected={row.getIsSelected()}
-                    data-canSelect={row.getCanSelect()}
-                    onClick={row.getToggleSelectedHandler()}
+                    data-canselect={row.getCanSelect()}
+                    onClick={() => {
+                      row.toggleSelected()
+                      onClickRow?.(row)
+                    }}
+                    className={swClsx(
+                      (row.getCanSelect() || onClickRow) && 'cursor-pointer',
+                    )}
                     style={{
                       position: 'absolute',
                       width: '100%',
@@ -158,22 +172,29 @@ export function AppTable<TData extends RowData>(props: AppTableProps<TData>) {
                       transform: `translateY(${virtualRow.start}px)`,
                     }}
                   >
-                    {row.getVisibleCells().map((cell) => (
-                      <TableComponent.Cell
-                        key={cell.id}
-                        style={{
-                          position: 'absolute',
-                          width: cell.column.getSize(),
-                          left: cell.column.getStart(),
-                          height: '100%',
-                        }}
-                      >
-                        {flexRender(
-                          cell.column.columnDef.cell,
-                          cell.getContext(),
-                        )}
-                      </TableComponent.Cell>
-                    ))}
+                    {row.getVisibleCells().map((cell) => {
+                      const { cellAlign } = cell.column.columnDef.meta ?? {}
+
+                      return (
+                        <TableComponent.Cell
+                          key={cell.id}
+                          cellAlign={cellAlign}
+                          style={{
+                            position: 'absolute',
+                            width: cell.column.getSize(),
+                            left: cell.column.getStart(),
+                            height: '100%',
+                          }}
+                        >
+                          <TableComponent.CellText>
+                            {flexRender(
+                              cell.column.columnDef.cell,
+                              cell.getContext(),
+                            )}
+                          </TableComponent.CellText>
+                        </TableComponent.Cell>
+                      )
+                    })}
                   </TableComponent.Row>
                 )
               })}

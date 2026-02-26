@@ -8,6 +8,10 @@ import WithAppTable from './with-app-table'
 import WithAppTableRaw from './with-app-table?raw'
 import RowSelection from './row-selection'
 import RowSelectionRaw from './row-selection?raw'
+import RowSelectionConditional from './row-selection-conditional'
+import RowSelectionConditionalRaw from './row-selection-conditional?raw'
+import MultiRowSelection from './multi-row-selection'
+import MultiRowSelectionRaw from './multi-row-selection?raw'
 import VirtualizedRows from './virtualized-rows'
 import VirtualizedRowsRaw from './virtualized-rows?raw'
 import Pagination from './pagination'
@@ -32,6 +36,10 @@ import SortingWithUrlSorting from './sorting-use-url-sorting'
 import SortingWithUrlSortingRaw from './sorting-use-url-sorting?raw'
 import Filter from './filter'
 import FilterRaw from './filter?raw'
+import OnClickRow from './on-click-row'
+import OnClickRowRaw from './on-click-row?raw'
+import AlignSizeCell from './align-size-cell'
+import AlignSizeCellRaw from './align-size-cell?raw'
 
 # Table
 
@@ -51,9 +59,38 @@ import FilterRaw from './filter?raw'
 
 <CodeBlock preview={<WithAppTable />} code={WithAppTableRaw} />
 
+## Align Size Cell
+
+Columns 설정 시 align, size, cell 속성으로 테이블을 제어할 수 있습니다.
+
+<CodeBlock preview={<AlignSizeCell />} code={AlignSizeCellRaw} />
+
 ## Row Selection
 
+`enableRowSelection` 속성을 `true`로 설정하면 행 선택 기능을 사용할 수 있습니다.
+
 <CodeBlock preview={<RowSelection />} code={RowSelectionRaw} />
+
+## Row Selection Conditional
+
+`enableRowSelection` 속성에 함수를 전달하여 특정 행만 선택할 수 있도록 제어할 수 있습니다.
+
+<CodeBlock
+  preview={<RowSelectionConditional />}
+  code={RowSelectionConditionalRaw}
+/>
+
+## Multi Row Selection
+
+`enableMultiRowSelection` 속성을 `true`로 설정하면 다중 행 선택 기능을 사용할 수 있습니다.
+
+<CodeBlock preview={<MultiRowSelection />} code={MultiRowSelectionRaw} />
+
+## Row Click Handler
+
+`meta` 속성에 `onClickRow`를 전달하여 행 클릭 이벤트를 처리할 수 있습니다.
+
+<CodeBlock preview={<OnClickRow />} code={OnClickRowRaw} />
 
 ## Virtualized Rows
 

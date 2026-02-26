@@ -2,9 +2,14 @@
 
 import { swClsx } from '../../utils/clsx'
 import { useTableContext } from './table-context'
+import type { TableVariants } from './variants'
 
-export function TableHead(props: React.ComponentProps<'th'>) {
-  const { className, children, ...otherProps } = props
+export interface TableHeadProps extends React.ComponentProps<'th'> {
+  headerAlign?: TableVariants['headerAlign']
+}
+
+export function TableHead(props: TableHeadProps) {
+  const { className, children, headerAlign, ...otherProps } = props
   const { slots, renderAs } = useTableContext()
 
   const Component = renderAs === 'table' ? 'th' : 'div'
@@ -13,7 +18,7 @@ export function TableHead(props: React.ComponentProps<'th'>) {
     <Component
       {...otherProps}
       role={renderAs === 'div' ? 'columnheader' : undefined}
-      className={swClsx(slots?.head({ className }))}
+      className={swClsx(slots?.head({ className, headerAlign }))}
     >
       {children}
     </Component>

@@ -1,7 +1,7 @@
 'use client'
 
 import { formatDateTime } from '@repo/date'
-import { AppTable, useAppTable } from '@repo/table'
+import { AppTable, getCheckboxColumn, useAppTable } from '@repo/table'
 import type { ColumnDef } from '@tanstack/react-table'
 import { useMemo } from 'react'
 import { makeData } from './make-data'
@@ -16,22 +16,24 @@ type Person = {
   createdAt: Date
 }
 
-export default function Sorting() {
+export default function MultiRowSelection() {
   const columns = useMemo<ColumnDef<Person>[]>(
     () => [
+      getCheckboxColumn<Person>(),
       {
         accessorKey: 'id',
         header: 'ID',
-        size: 80,
+        size: 60,
       },
       {
         accessorKey: 'firstName',
         header: '이름',
-        size: 170,
+        size: 120,
       },
       {
         accessorKey: 'lastName',
         header: '성',
+        size: 120,
       },
       {
         accessorKey: 'age',
@@ -50,7 +52,7 @@ export default function Sorting() {
       {
         accessorKey: 'progress',
         header: '진행률',
-        size: 80,
+        size: 100,
       },
       {
         accessorKey: 'createdAt',
@@ -67,8 +69,20 @@ export default function Sorting() {
   const table = useAppTable({
     data,
     columns,
-    enableSorting: true,
+    enableRowSelection: true,
+    enableMultiRowSelection: true,
   })
 
-  return <AppTable table={table} />
+  return (
+    <>
+      <AppTable table={table} />
+      <pre>
+        {JSON.stringify(
+          table.getSelectedRowModel().rows.map((row) => row.original),
+          null,
+          2,
+        )}
+      </pre>
+    </>
+  )
 }

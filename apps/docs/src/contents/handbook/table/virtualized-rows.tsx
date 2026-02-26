@@ -1,5 +1,6 @@
 'use client'
 
+import { formatDateTime } from '@repo/date'
 import { AppTable, useAppTable } from '@repo/table'
 import type { ColumnDef } from '@tanstack/react-table'
 import { useMemo } from 'react'
@@ -21,11 +22,12 @@ export default function WithTableComponent() {
       {
         accessorKey: 'id',
         header: 'ID',
-        size: 70,
+        size: 80,
       },
       {
         accessorKey: 'firstName',
         header: '이름',
+        size: 170,
       },
       {
         accessorKey: 'lastName',
@@ -39,22 +41,21 @@ export default function WithTableComponent() {
       {
         accessorKey: 'visits',
         header: '방문 횟수',
-        size: 90,
+        size: 100,
       },
       {
         accessorKey: 'status',
         header: '상태',
-        size: 120,
       },
       {
         accessorKey: 'progress',
         header: '진행률',
-        size: 100,
+        size: 80,
       },
       {
         accessorKey: 'createdAt',
         header: '생성일',
-        cell: (info) => info.getValue<Date>().toLocaleString(),
+        cell: (info) => formatDateTime(info.getValue<Date>()),
         size: 180,
       },
     ],

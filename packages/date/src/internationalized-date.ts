@@ -1,4 +1,18 @@
-import { getDayOfWeek, type DateValue } from '@internationalized/date'
+import {
+  getDayOfWeek,
+  getLocalTimeZone,
+  today,
+  type DateValue,
+} from '@internationalized/date'
+
+/**
+ * @description 로컬 타임존을 기준으로 오늘 날짜를 반환합니다.
+ * @param timeZone - 타임존
+ * @returns 오늘 날짜
+ */
+export function getToday(timeZone: string = getLocalTimeZone()) {
+  return today(timeZone)
+}
 
 /**
  * 주어진 날짜가 주말(토, 일)인지 확인합니다.

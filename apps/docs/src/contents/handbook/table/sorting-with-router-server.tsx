@@ -1,5 +1,6 @@
 'use client'
 
+import { formatDateTime } from '@repo/date'
 import { AppTable, useAppTable } from '@repo/table'
 import {
   keepPreviousData,
@@ -19,41 +20,40 @@ export function SortingWithRouterServerAppTable() {
       {
         accessorKey: 'id',
         header: 'ID',
-        size: 60,
+        size: 80,
       },
       {
         accessorKey: 'firstName',
-        cell: (info) => info.getValue(),
+        header: '이름',
+        size: 170,
       },
       {
-        accessorFn: (row) => row.lastName,
-        id: 'lastName',
-        cell: (info) => info.getValue(),
-        header: () => <span>Last Name</span>,
+        accessorKey: 'lastName',
+        header: '성',
       },
       {
         accessorKey: 'age',
-        header: () => 'Age',
-        size: 60,
+        header: '나이',
+        size: 80,
       },
       {
         accessorKey: 'visits',
-        header: () => <span>Visits</span>,
-        size: 60,
+        header: '방문 횟수',
+        size: 100,
       },
       {
         accessorKey: 'status',
-        header: 'Status',
+        header: '상태',
       },
       {
         accessorKey: 'progress',
-        header: 'Profile Progress',
-        size: 120,
+        header: '진행률',
+        size: 80,
       },
       {
         accessorKey: 'createdAt',
-        header: 'Created At',
-        cell: (info) => info.getValue<Date>().toLocaleString(),
+        header: '생성일',
+        cell: (info) => formatDateTime(info.getValue<Date>()),
         size: 180,
       },
     ],
