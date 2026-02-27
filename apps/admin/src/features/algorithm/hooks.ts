@@ -1,6 +1,6 @@
 import { strictQueryOptions } from '@repo/query-utils'
 import { useQuery } from '@tanstack/react-query'
-import { getAlgorithmParameterRules, getAlgorithms } from './api'
+import { getAlgorithmParameterRules, getAlgorithms } from './fetchers'
 
 /**
  * 알고리즘 쿼리

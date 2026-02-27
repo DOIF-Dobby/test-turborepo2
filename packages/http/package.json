@@ -1,0 +1,26 @@
+{
+  "name": "@repo/http",
+  "version": "0.0.0",
+  "private": true,
+  "sideEffects": false,
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "lint": "eslint . --max-warnings 0",
+    "check-types": "tsc --noEmit"
+  },
+  "peerDependencies": {
+    "ky": "*"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@repo/config-eslint": "workspace:*",
+    "@repo/config-prettier": "workspace:*",
+    "@repo/config-typescript": "workspace:*",
+    "@types/node": "*",
+    "eslint": "*",
+    "typescript": "*",
+    "ky": "*"
+  }
+}

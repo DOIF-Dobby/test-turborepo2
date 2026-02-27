@@ -20,6 +20,7 @@
     "@repo/next-utils": "workspace:*",
     "@repo/validators": "workspace:*",
     "@repo/query-utils": "workspace:*",
+    "@repo/http": "workspace:*",
     "@tanstack/react-form": "*",
     "@tanstack/react-table": "*",
     "@tanstack/react-query": "*",
@@ -28,7 +29,8 @@
     "react": "*",
     "react-dom": "*",
     "valibot": "*",
-    "zustand": "*"
+    "zustand": "*",
+    "ky": "*"
   },
   "devDependencies": {
     "@repo/config-eslint": "workspace:*",

@@ -3,7 +3,7 @@
 import { AppTable, useAppTable } from '@repo/table'
 import type { ColumnDef } from '@tanstack/react-table'
 import { useMemo } from 'react'
-import type { AlgorithmResponse } from '../api'
+import type { AlgorithmResponse } from '../fetchers'
 import { useAlgorithmsQuery } from '../hooks'
 
 /**
@@ -14,23 +14,28 @@ export function AlgorithmTable() {
     () => [
       {
         accessorKey: 'algorithmId',
-        header: '알고리즘 ID',
+        header: 'ID',
+        size: 80,
       },
       {
         accessorKey: 'algorithmKey',
         header: '알고리즘 키',
+        size: 200,
       },
       {
         accessorKey: 'algorithmName',
         header: '알고리즘명',
+        size: 200,
       },
       {
         accessorKey: 'algorithmDescription',
         header: '알고리즘 설명',
+        size: 300,
       },
       {
         accessorKey: 'algorithmType',
         header: '알고리즘 타입',
+        size: 100,
       },
     ],
     [],
