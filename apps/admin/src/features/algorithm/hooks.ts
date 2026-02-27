@@ -1,5 +1,6 @@
 import { strictQueryOptions } from '@repo/query-utils'
-import { getAlgorithmParameterRules, getAlgorithms } from '../api/algorithm-api'
+import { useQuery } from '@tanstack/react-query'
+import { getAlgorithmParameterRules, getAlgorithms } from './api'
 
 /**
  * 알고리즘 쿼리
@@ -15,4 +16,11 @@ export const algorithmQueries = {
       queryKey: ['algorithms/rules'],
       queryFn: getAlgorithmParameterRules,
     }),
+}
+
+/**
+ * 알고리즘 목록 조회 훅
+ */
+export function useAlgorithmsQuery() {
+  return useQuery(algorithmQueries.list())
 }

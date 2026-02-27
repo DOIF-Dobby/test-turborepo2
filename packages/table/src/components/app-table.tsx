@@ -41,7 +41,6 @@ export function AppTable<TData extends RowData>(props: AppTableProps<TData>) {
     getScrollElement: () => scrollRef.current,
     estimateSize: () => rowHeight,
     overscan: 15,
-    useFlushSync: false,
     initialRect: { width: table.getTotalSize(), height: tableHeight },
   })
 

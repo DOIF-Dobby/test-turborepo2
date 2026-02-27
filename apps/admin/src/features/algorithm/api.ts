@@ -1,7 +1,18 @@
-import type {
-  AlgorithmParameterRuleResponse,
-  AlgorithmResponse,
-} from '../types/algorithm-type'
+/**
+ * 알고리즘 타입
+ */
+export type AlgorithmType = 'HEDGING' | 'NORMAL'
+
+/**
+ * 알고리즘 응답 타입
+ */
+export type AlgorithmResponse = {
+  algorithmId: number
+  algorithmKey: string
+  algorithmName: string
+  algorithmDescription: string
+  algorithmType: AlgorithmType
+}
 
 /**
  * 알고리즘 목록 조회 API
@@ -23,6 +34,13 @@ export async function getAlgorithms(): Promise<AlgorithmResponse[]> {
       algorithmType: 'HEDGING',
     },
   ])
+}
+
+/**
+ * 알고리즘 파라미터 규칙 응답 타입
+ */
+export type AlgorithmParameterRuleResponse = {
+  parameterRuleId: number
 }
 
 /**

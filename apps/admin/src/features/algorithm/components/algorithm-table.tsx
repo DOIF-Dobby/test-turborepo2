@@ -3,8 +3,8 @@
 import { AppTable, useAppTable } from '@repo/table'
 import type { ColumnDef } from '@tanstack/react-table'
 import { useMemo } from 'react'
-import { useAlgorithms } from '../hooks/use-algorithms'
-import type { AlgorithmResponse } from '../types/algorithm-type'
+import type { AlgorithmResponse } from '../api'
+import { useAlgorithmsQuery } from '../hooks'
 
 /**
  * 알고리즘 테이블
@@ -36,7 +36,7 @@ export function AlgorithmTable() {
     [],
   )
 
-  const { data, isFetching } = useAlgorithms()
+  const { data, isFetching } = useAlgorithmsQuery()
 
   const table = useAppTable({
     data,
