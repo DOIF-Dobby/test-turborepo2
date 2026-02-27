@@ -6,7 +6,7 @@ export const tableVariants = swTwVariants({
     container: ['bg-background', 'rounded-xl', 'outline', 'outline-base-200'],
     headerGroup: ['bg-base-0', 'border-b', 'border-base-100'],
     headerRow: ['h-12'],
-    head: ['flex', 'items-center', 'gap-sw-3xs'],
+    head: [],
     headText: [
       'font-paragraph-1',
       'text-paragraph-1',
@@ -40,6 +40,7 @@ export const tableVariants = swTwVariants({
         head: [
           'flex',
           'items-center',
+          'gap-sw-3xs',
           'first-of-type:pl-sw-md',
           'last-of-type:pr-sw-md',
         ],

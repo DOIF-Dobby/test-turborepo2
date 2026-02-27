@@ -15,6 +15,7 @@ type Props = Omit<React.ComponentProps<typeof TableComponent>, 'renderAs'>
 interface AppTableProps<TData extends RowData> extends Props {
   table: Table<TData>
   rowHeight?: number
+  tableHeight?: number
   showFooter?: boolean
   isLoading?: boolean
 }
@@ -23,6 +24,7 @@ export function AppTable<TData extends RowData>(props: AppTableProps<TData>) {
   const {
     table,
     rowHeight = 52,
+    tableHeight = 300,
     showFooter = false,
     isLoading = false,
     ...otherProps
@@ -39,6 +41,8 @@ export function AppTable<TData extends RowData>(props: AppTableProps<TData>) {
     getScrollElement: () => scrollRef.current,
     estimateSize: () => rowHeight,
     overscan: 15,
+    useFlushSync: false,
+    initialRect: { width: table.getTotalSize(), height: tableHeight },
   })
 
   const { onClickRow } = table.options.meta ?? {}
@@ -136,7 +140,7 @@ export function AppTable<TData extends RowData>(props: AppTableProps<TData>) {
             viewportRef={scrollRef}
             orientation="vertical"
             style={{
-              height: '300px',
+              height: tableHeight,
             }}
           >
             <TableComponent.Body

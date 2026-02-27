@@ -27,7 +27,10 @@ const newPerson = (index: number): Person => {
     age: faker.number.int(40),
     visits: faker.number.int(1000),
     progress: faker.number.int(100),
-    createdAt: faker.date.anytime(),
+    createdAt: faker.date.between({
+      from: '2020-01-01T00:00:00.000Z',
+      to: '2023-01-01T00:00:00.000Z',
+    }),
     status: faker.helpers.shuffle<Person['status']>([
       'relationship',
       'complicated',
@@ -37,6 +40,7 @@ const newPerson = (index: number): Person => {
 }
 
 export function makeData(...lens: number[]) {
+  faker.seed(12345)
   const makeDataLevel = (depth = 0): Person[] => {
     const len = lens[depth]!
     return range(len).map((d): Person => {

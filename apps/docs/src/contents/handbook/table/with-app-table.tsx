@@ -1,7 +1,7 @@
 'use client'
 
 import { AppTable, useAppTable } from '@repo/table'
-import { createColumnHelper } from '@tanstack/react-table'
+import type { ColumnDef } from '@tanstack/react-table'
 import { useMemo } from 'react'
 
 type Person = {
@@ -40,40 +40,38 @@ const defaultData: Person[] = [
   },
 ]
 
-const columnHelper = createColumnHelper<Person>()
-
-const columns = [
-  columnHelper.accessor('firstName', {
-    cell: (info) => info.getValue(),
-    footer: (info) => info.column.id,
-  }),
-  columnHelper.accessor((row) => row.lastName, {
-    id: 'lastName',
-    cell: (info) => <i>{info.getValue()}</i>,
-    header: () => <span>Last Name</span>,
-    footer: (info) => info.column.id,
-  }),
-  columnHelper.accessor('age', {
-    header: () => 'Age',
-    cell: (info) => info.renderValue(),
-    footer: (info) => info.column.id,
-  }),
-  columnHelper.accessor('visits', {
-    header: () => <span>Visits</span>,
-    footer: (info) => info.column.id,
-  }),
-  columnHelper.accessor('status', {
-    header: 'Status',
-    footer: (info) => info.column.id,
-  }),
-  columnHelper.accessor('progress', {
-    header: 'Profile Progress',
-    footer: (info) => info.column.id,
-  }),
-]
-
 export default function WithTableComponent() {
   const data = useMemo(() => [...defaultData], [])
+
+  const columns = useMemo<ColumnDef<Person>[]>(
+    () => [
+      {
+        accessorKey: 'firstName',
+        header: '이름',
+      },
+      {
+        accessorKey: 'lastName',
+        header: '성',
+      },
+      {
+        accessorKey: 'age',
+        header: '나이',
+      },
+      {
+        accessorKey: 'visits',
+        header: '방문 횟수',
+      },
+      {
+        accessorKey: 'status',
+        header: '상태',
+      },
+      {
+        accessorKey: 'progress',
+        header: '진행률',
+      },
+    ],
+    [],
+  )
 
   const table = useAppTable({
     data,
