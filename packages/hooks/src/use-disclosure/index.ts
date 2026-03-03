@@ -8,7 +8,12 @@ export interface UseDisclosureProps {
 }
 
 export function useDisclosure(props: UseDisclosureProps = {}) {
-  const { isOpen: isOpenProp, onOpen, onClose, onOpenChange } = props
+  const {
+    isOpen: isOpenProp,
+    onOpen,
+    onClose,
+    onOpenChange: onOpenChangeProps,
+  } = props
 
   const [isOpenState, setIsOpenState] = useState(false)
 
@@ -21,16 +26,16 @@ export function useDisclosure(props: UseDisclosureProps = {}) {
       setIsOpenState(true)
     }
     onOpen?.()
-    onOpenChange?.(true)
-  }, [isControlled, onOpen, onOpenChange])
+    onOpenChangeProps?.(true)
+  }, [isControlled, onOpen, onOpenChangeProps])
 
   const close = useCallback(() => {
     if (!isControlled) {
       setIsOpenState(false)
     }
     onClose?.()
-    onOpenChange?.(false)
-  }, [isControlled, onClose, onOpenChange])
+    onOpenChangeProps?.(false)
+  }, [isControlled, onClose, onOpenChangeProps])
 
   const toggle = useCallback(() => {
     if (isOpen) {
@@ -40,11 +45,23 @@ export function useDisclosure(props: UseDisclosureProps = {}) {
     }
   }, [isOpen, open, close])
 
+  const onOpenChange = useCallback(
+    (isOpen: boolean) => {
+      if (isOpen) {
+        open()
+      } else {
+        close()
+      }
+    },
+    [close, open],
+  )
+
   return {
     isOpen,
     open,
     close,
     toggle,
+    onOpenChange,
   }
 }
 

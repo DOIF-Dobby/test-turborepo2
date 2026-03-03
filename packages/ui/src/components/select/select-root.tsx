@@ -41,7 +41,7 @@ export interface SelectRootProps<
   Item extends DefaultSelectItem = DefaultSelectItem,
   Multiple extends boolean | undefined = false,
 > extends Props<Multiple> {
-  items: Item[]
+  items: readonly Item[]
   multiple?: Multiple
   children?: (item: Item) => React.ReactNode
 
@@ -55,6 +55,7 @@ export interface SelectRootProps<
   isRequired?: boolean
   description?: React.ReactNode
   errorMessage?: React.ReactNode
+  zIndex?: number
 
   onClear?: () => void
 }
@@ -93,6 +94,7 @@ export function SelectRoot<
     disableAnimation,
     startContent,
     isClearable = true,
+    zIndex = 50,
     items,
     multiple,
     errorMessage,
@@ -255,6 +257,9 @@ export function SelectRoot<
             alignItemWithTrigger={false}
             align="start"
             sideOffset={sideOffset}
+            style={{
+              zIndex,
+            }}
           >
             <SelectPrimitive.Popup
               data-slot="popup"

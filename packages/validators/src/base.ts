@@ -13,6 +13,14 @@ export function vRequired(errorMessage?: string) {
 }
 
 /**
+ * 문자열 필수 체크
+ */
+export function vRequiredString(errorMessage?: string) {
+  const defaultErrorMessage = '필수 입력입니다.'
+  return v.pipe(v.string(), v.nonEmpty(errorMessage ?? defaultErrorMessage))
+}
+
+/**
  * Checkbox, Multiple Select, Multiple Combobox 의 최소 갯수 체크
  */
 export function vRequiredMultiple(errorMessage?: string, min = 1) {

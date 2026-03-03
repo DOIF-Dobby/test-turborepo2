@@ -7,17 +7,22 @@ import {
 } from '@/components/button/action-buttons'
 import { TableToolbar } from '@/components/table/table-toolbar'
 import { useDisclosure } from '@repo/hooks/use-disclosure'
-import { AppTable, useAppTable } from '@repo/table'
+import { AppTable, useAppTable, useTableSelection } from '@repo/table'
 import type { ColumnDef } from '@tanstack/react-table'
 import { useMemo } from 'react'
-import type { AlgorithmResponse } from '../fetchers'
-import { useAlgorithmsQuery } from '../hooks'
-import { AlgorithmFormModal } from './algorithm-form-modal'
+import type { AlgorithmResponse } from '../api'
+import { ALGORITHM_TYPES_MAP } from '../constants'
+import { useAlgorithms, useDeleteAlgorithm } from '../hooks'
+import { AlgorithmAddModal } from './algorithm-add-modal'
+import { AlgorithmEditModal } from './algorithm-edit-modal'
 
 /**
  * 알고리즘 테이블
  */
 export function AlgorithmTable() {
+  // 알고리즘 목록 조회
+  const { data, isLoading } = useAlgorithms()
+
   const columns = useMemo<ColumnDef<AlgorithmResponse>[]>(
     () => [
       {
@@ -44,12 +49,11 @@ export function AlgorithmTable() {
         accessorKey: 'algorithmType',
         header: '알고리즘 타입',
         size: 100,
+        accessorFn: (row) => ALGORITHM_TYPES_MAP[row.algorithmType],
       },
     ],
     [],
   )
-
-  const { data, isFetching } = useAlgorithmsQuery()
 
   const table = useAppTable({
     data,
@@ -57,11 +61,19 @@ export function AlgorithmTable() {
     enableRowSelection: true,
   })
 
-  const selectedAlgorithm = table
-    .getSelectedRowModel()
-    .rows.map((row) => row.original)[0]
+  const { selectionItem, hasSelection } = useTableSelection(table)
 
-  const { isOpen, open, close } = useDisclosure()
+  const addModal = useDisclosure()
+  const editModal = useDisclosure()
+
+  // 알고리즘 삭제
+  const deleteAlgorithm = useDeleteAlgorithm()
+  const handleDeleteAlgorithm = async () => {
+    if (selectionItem) {
+      await deleteAlgorithm.mutateAsync(selectionItem.algorithmId)
+      table.resetRowSelection()
+    }
+  }
 
   return (
     <>
@@ -69,19 +81,19 @@ export function AlgorithmTable() {
         title="알고리즘 관리"
         actions={
           <>
-            <AddButton onPress={open} />
-            <EditButton onPress={open} isDisabled={!selectedAlgorithm} />
-            <DeleteButton isDisabled={!selectedAlgorithm} />
+            <AddButton onPress={addModal.open} />
+            <EditButton onPress={editModal.open} isDisabled={!hasSelection} />
+            <DeleteButton
+              isDisabled={!hasSelection}
+              onDelete={handleDeleteAlgorithm}
+            />
           </>
         }
       />
-      <AppTable table={table} isLoading={isFetching} />
+      <AppTable table={table} isLoading={isLoading} />
 
-      <AlgorithmFormModal
-        open={isOpen}
-        onOpenChange={close}
-        algorithm={selectedAlgorithm}
-      />
+      <AlgorithmAddModal modalState={addModal} />
+      <AlgorithmEditModal modalState={editModal} data={selectionItem} />
     </>
   )
 }

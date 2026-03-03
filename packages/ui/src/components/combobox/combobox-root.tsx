@@ -36,7 +36,7 @@ export interface ComboboxRootProps<
   Item extends DefaultComboboxItem = DefaultComboboxItem,
   Multiple extends boolean | undefined = false,
 > extends Props<Multiple> {
-  items: Item[]
+  items: readonly Item[]
   multiple?: Multiple
 
   sideOffset?: number

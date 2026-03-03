@@ -144,6 +144,7 @@ export function Button(props: ButtonProps) {
       data-slot="button"
       data-pressed={isPressed}
       data-loading={isLoading}
+      disabled={isDisabled}
     >
       {asChild ? (
         children

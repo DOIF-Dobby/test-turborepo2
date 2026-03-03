@@ -24,7 +24,8 @@ export const buttonVariants = swTwVariants({
     'disabled:cursor-default',
 
     // 로딩 중일 때는 투명도 60%
-    'disabled:data-[loading=true]:opacity-60',
+    'data-[loading=true]:opacity-60',
+    'data-[loading=true]:pointer-events-none',
   ],
   variants: {
     color: {
