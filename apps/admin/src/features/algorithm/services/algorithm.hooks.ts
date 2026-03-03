@@ -1,28 +1,24 @@
 import { useAdminMutation } from '@/hooks/use-admin-mutation'
-import { strictQueryOptions } from '@repo/query-utils'
-import { useQuery } from '@tanstack/react-query'
+import type { ContentApiResponse } from '@/types/api'
+import { queryOptions, useQuery } from '@tanstack/react-query'
 import {
+  type AlgorithmResponse,
   type AlgorithmUpdateRequest,
   createAlgorithm,
   deleteAlgorithm,
-  getAlgorithmParameterRules,
-  getAlgorithms,
   updateAlgorithm,
-} from './api'
+} from './algorithm.api'
 
 /**
  * 알고리즘 쿼리
  */
 export const algorithmQueries = {
+  rootKey: ['algorithms'] as const,
   list: () =>
-    strictQueryOptions({
-      queryKey: ['algorithms'],
-      queryFn: getAlgorithms,
-    }),
-  rules: () =>
-    strictQueryOptions({
-      queryKey: ['algorithms/rules'],
-      queryFn: getAlgorithmParameterRules,
+    queryOptions({
+      queryKey: algorithmQueries.rootKey,
+      select: ({ data }: ContentApiResponse<AlgorithmResponse>) =>
+        data?.content,
     }),
 }
 
@@ -39,7 +35,7 @@ export function useAlgorithms() {
 export function useCreateAlgorithm() {
   return useAdminMutation({
     mutationFn: createAlgorithm,
-    invalidateKeys: [algorithmQueries.list().queryKey],
+    invalidateKeys: [algorithmQueries.rootKey],
     successTitle: '알고리즘 추가 성공',
     errorTitle: '알고리즘 추가 실패',
   })
@@ -52,7 +48,7 @@ export function useUpdateAlgorithm() {
   return useAdminMutation({
     mutationFn: ({ id, data }: { id: number; data: AlgorithmUpdateRequest }) =>
       updateAlgorithm(id, data),
-    invalidateKeys: [algorithmQueries.list().queryKey],
+    invalidateKeys: [algorithmQueries.rootKey],
     successTitle: '알고리즘 수정 성공',
     errorTitle: '알고리즘 수정 실패',
   })
@@ -64,7 +60,7 @@ export function useUpdateAlgorithm() {
 export function useDeleteAlgorithm() {
   return useAdminMutation({
     mutationFn: deleteAlgorithm,
-    invalidateKeys: [algorithmQueries.list().queryKey],
+    invalidateKeys: [algorithmQueries.rootKey],
     successTitle: '알고리즘 삭제 성공',
     errorTitle: '알고리즘 삭제 실패',
   })

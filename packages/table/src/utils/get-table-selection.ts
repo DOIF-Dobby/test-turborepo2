@@ -1,6 +1,6 @@
 import type { RowData, Table } from '@tanstack/react-table'
 
-export function useTableSelection<TData extends RowData>(table: Table<TData>) {
+export function getTableSelection<TData extends RowData>(table: Table<TData>) {
   const selectedRows = table.getSelectedRowModel().rows
 
   return {

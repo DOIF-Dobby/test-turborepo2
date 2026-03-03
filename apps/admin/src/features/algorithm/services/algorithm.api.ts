@@ -1,6 +1,6 @@
 import { apiClient } from '@/libs/http/api-client'
-import type { ContentApiResponse, UnitApiResponse } from '@/types/api'
-import type { AlgorithmType } from './constants'
+import type { UnitApiResponse } from '@/types/api'
+import type { AlgorithmType } from '../constants/definitions'
 
 /**
  * 알고리즘 응답 타입
@@ -11,37 +11,6 @@ export type AlgorithmResponse = {
   algorithmName: string
   algorithmDescription: string
   algorithmType: AlgorithmType
-}
-
-/**
- * 알고리즘 목록 조회 API
- */
-export async function getAlgorithms() {
-  const response = await apiClient
-    .get('algorithms')
-    .json<ContentApiResponse<AlgorithmResponse>>()
-
-  return response.data?.content ?? []
-}
-
-/**
- * 알고리즘 파라미터 규칙 응답 타입
- */
-export type AlgorithmParameterRule = {
-  parameterRuleId: number
-}
-
-/**
- * 알고리즘 파라미터 규칙 목록 조회 API
- */
-export async function getAlgorithmParameterRules(): Promise<
-  AlgorithmParameterRule[]
-> {
-  return Promise.resolve([
-    {
-      parameterRuleId: 1,
-    },
-  ])
 }
 
 type AlgorithmCreateRequest = {

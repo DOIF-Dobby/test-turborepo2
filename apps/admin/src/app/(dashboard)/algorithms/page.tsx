@@ -1,5 +1,5 @@
-import { AlgorithmTable } from '@/features/algorithm/components/algorithm-table'
-import { algorithmQueries } from '@/features/algorithm/hooks'
+import { AlgorithmView } from '@/features/algorithm/components/algorithm.view'
+import { algorithmQueries } from '@/features/algorithm/services/algorithm.hooks'
 import { getDehydratedQueries, Hydrate } from '@/libs/query/dehydrator'
 
 export const dynamic = 'force-dynamic'
@@ -9,7 +9,7 @@ export default async function AlgorithmsPage() {
 
   return (
     <Hydrate state={state}>
-      <AlgorithmTable />
+      <AlgorithmView />
     </Hydrate>
   )
 }

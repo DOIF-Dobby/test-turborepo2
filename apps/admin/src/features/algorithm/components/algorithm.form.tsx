@@ -3,9 +3,12 @@ import { keysOf, pick } from '@repo/utils/object'
 import { safePromise } from '@repo/utils/promise'
 import { vRequiredString } from '@repo/validators'
 import * as v from 'valibot'
-import type { AlgorithmResponse } from '../api'
-import { ALGORITHM_TYPES } from '../constants'
-import { useCreateAlgorithm, useUpdateAlgorithm } from '../hooks'
+import { ALGORITHM_TYPES } from '../constants/definitions'
+import type { AlgorithmResponse } from '../services/algorithm.api'
+import {
+  useCreateAlgorithm,
+  useUpdateAlgorithm,
+} from '../services/algorithm.hooks'
 
 const FormSchema = v.object({
   algorithmKey: vRequiredString(),

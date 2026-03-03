@@ -1,8 +1,8 @@
 import type { UseDisclosureReturn } from '@repo/hooks/use-disclosure'
 import { Frame } from '@repo/ui/components/frame'
 import { Modal } from '@repo/ui/components/modal'
-import type { AlgorithmResponse } from '../api'
-import { AlgorithmForm } from './algorithm-form'
+import type { AlgorithmResponse } from '../services/algorithm.api'
+import { AlgorithmForm } from './algorithm.form'
 
 interface AlgorithmEditModalProps {
   modalState: UseDisclosureReturn

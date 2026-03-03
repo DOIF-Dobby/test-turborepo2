@@ -1,0 +1,34 @@
+'use client'
+
+import { getTableSelection, useAppTable } from '@repo/table'
+import { ALGORITHM_COLUMNS } from '../constants/columns'
+import { useAlgorithms } from '../services/algorithm.hooks'
+import { AlgorithmParameterRuleSection } from './algorithm-parameter-rule.section'
+import { AlgorithmSection } from './algorithm.section'
+
+/**
+ * 알고리즘 View
+ */
+export function AlgorithmView() {
+  // 알고리즘 목록 조회
+  const { data, isLoading } = useAlgorithms()
+
+  const table = useAppTable({
+    data,
+    columns: ALGORITHM_COLUMNS,
+    enableRowSelection: true,
+  })
+
+  const { selectionItem } = getTableSelection(table)
+
+  return (
+    <>
+      <div className="gap-sw-xl flex flex-col">
+        <AlgorithmSection table={table} isLoading={isLoading} />
+        <AlgorithmParameterRuleSection
+          algorithmId={selectionItem?.algorithmId}
+        />
+      </div>
+    </>
+  )
+}
