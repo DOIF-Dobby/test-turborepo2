@@ -1,31 +1,33 @@
 import type { PropsWithDisclosure } from '@/types/ui'
 import { Frame } from '@repo/ui/components/frame'
 import { Modal } from '@repo/ui/components/modal'
-import type { AlgorithmResponse } from '../services/algorithm.api'
-import { AlgorithmForm } from './algorithm.form'
+import { ParameterRuleForm } from './parameter-rule.form'
 
 interface Props {
-  data?: AlgorithmResponse
+  algorithmId?: number
 }
 
-export function AlgorithmEditModal({
+export function ParameterRuleAddModal({
   disclosure,
-  data,
+  algorithmId,
 }: PropsWithDisclosure<Props>) {
-  if (!data) {
+  if (!algorithmId) {
     return null
   }
 
   return (
     <Modal open={disclosure.isOpen} onOpenChange={disclosure.onOpenChange}>
       <Frame>
-        <Modal.Title>알고리즘 수정</Modal.Title>
+        <Modal.Title>알고리즘 파라미터 규칙 추가</Modal.Title>
         <Modal.Description>
-          알고리즘 정보를 수정할 수 있습니다.
+          알고리즘 파라미터 규칙을 추가할 수 있습니다.
         </Modal.Description>
       </Frame>
       <Frame>
-        <AlgorithmForm initialData={data} onSuccess={disclosure.close} />
+        <ParameterRuleForm
+          algorithmId={algorithmId}
+          onSuccess={disclosure.close}
+        />
       </Frame>
     </Modal>
   )

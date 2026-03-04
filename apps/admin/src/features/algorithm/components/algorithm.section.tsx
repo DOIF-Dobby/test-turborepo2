@@ -34,21 +34,26 @@ export function AlgorithmSection({ table, isLoading }: AlgorithmSectionProps) {
   }
 
   return (
-    <section>
-      <TableToolbar
-        title="알고리즘 목록"
-        actions={
-          <>
-            <AddButton onPress={addModal.open} />
-            <EditButton onPress={editModal.open} isDisabled={!hasSelection} />
-            <DeleteButton isDisabled={!hasSelection} onDelete={handleDelete} />
-          </>
-        }
-      />
-      <AppTable table={table} isLoading={isLoading} />
+    <>
+      <section>
+        <TableToolbar
+          title="알고리즘 목록"
+          actions={
+            <>
+              <AddButton onPress={addModal.open} />
+              <EditButton onPress={editModal.open} isDisabled={!hasSelection} />
+              <DeleteButton
+                isDisabled={!hasSelection}
+                onDelete={handleDelete}
+              />
+            </>
+          }
+        />
+        <AppTable table={table} isLoading={isLoading} />
+      </section>
 
-      <AlgorithmAddModal modalState={addModal} />
-      <AlgorithmEditModal modalState={editModal} data={selectionItem} />
-    </section>
+      <AlgorithmAddModal disclosure={addModal} />
+      <AlgorithmEditModal disclosure={editModal} data={selectionItem} />
+    </>
   )
 }

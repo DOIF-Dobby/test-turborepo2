@@ -27,7 +27,7 @@ const defaultValues: FormType = {
 }
 
 interface AlgorithmFormProps {
-  initialData?: AlgorithmResponse | null
+  initialData?: AlgorithmResponse
   onSuccess?: () => void
 }
 
@@ -62,18 +62,21 @@ export function AlgorithmForm({ initialData, onSuccess }: AlgorithmFormProps) {
   return (
     <AppForm form={form} className="flex flex-col gap-sw-sm">
       <form.AppField name="algorithmKey">
-        {(field) => <field.TextField label="알고리즘 키" isDisabled={isEdit} />}
+        {(field) => (
+          <field.TextField label="알고리즘 키" isRequired isDisabled={isEdit} />
+        )}
       </form.AppField>
       <form.AppField name="algorithmName">
-        {(field) => <field.TextField label="알고리즘명" />}
+        {(field) => <field.TextField label="알고리즘명" isRequired />}
       </form.AppField>
       <form.AppField name="algorithmDescription">
-        {(field) => <field.TextField label="알고리즘 설명" />}
+        {(field) => <field.TextField label="알고리즘 설명" isRequired />}
       </form.AppField>
       <form.AppField name="algorithmType">
         {(field) => (
           <field.Select
             label="알고리즘 타입"
+            isRequired
             items={ALGORITHM_TYPES}
             isClearable={false}
             isDisabled={isEdit}

@@ -16,7 +16,7 @@ interface AdminMutationOptions<
   successTitle?: string
   successMessage?: string | ((data: TData) => string)
   errorTitle?: string
-  invalidateKeys?: QueryKey[]
+  invalidateKeys?: QueryKey[] | ((variables: TVariables) => QueryKey[])
 }
 
 export function useAdminMutation<
@@ -32,10 +32,13 @@ export function useAdminMutation<
     ...options,
     onSuccess: async (data, variables, onMutateResult, context) => {
       if (options.invalidateKeys) {
+        const keys =
+          typeof options.invalidateKeys === 'function'
+            ? options.invalidateKeys(variables)
+            : options.invalidateKeys
+
         await Promise.all(
-          options.invalidateKeys.map((key) =>
-            queryClient.invalidateQueries({ queryKey: key }),
-          ),
+          keys.map((key) => queryClient.invalidateQueries({ queryKey: key })),
         )
       }
 

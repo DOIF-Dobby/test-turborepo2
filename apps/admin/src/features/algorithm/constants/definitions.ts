@@ -11,3 +11,12 @@ export const ALGORITHM_TYPES_MAP = arrayToMap(ALGORITHM_TYPES, 'value', 'label')
  * 알고리즘 타입
  */
 export type AlgorithmType = (typeof ALGORITHM_TYPES)[number]['value']
+
+export const PARAMTER_TYPES = [
+  { value: 'INT', label: 'INT' },
+  { value: 'DECIMAL', label: 'DECIMAL' },
+  { value: 'STRING', label: 'STRING' },
+  { value: 'BOOLEAN', label: 'BOOLEAN' },
+] as const
+
+export type ParameterType = (typeof PARAMTER_TYPES)[number]['value']

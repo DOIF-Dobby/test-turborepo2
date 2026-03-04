@@ -1,6 +1,6 @@
 import type { ColumnDef } from '@tanstack/react-table'
-import type { AlgorithmParameterRuleResponse } from '../services/algorithm-parameter-rule.api'
 import type { AlgorithmResponse } from '../services/algorithm.api'
+import type { AlgorithmParameterRuleResponse } from '../services/parameter-rule.api'
 import { ALGORITHM_TYPES_MAP } from './definitions'
 
 export const ALGORITHM_COLUMNS: ColumnDef<AlgorithmResponse>[] = [
@@ -60,13 +60,13 @@ export const ALGORITHM_PARAMETER_RULE_COLUMNS: ColumnDef<AlgorithmParameterRuleR
       size: 140,
     },
     {
-      accessorKey: 'upperBound',
-      header: '상한 값',
+      accessorKey: 'lowerBound',
+      header: '하한 값',
       size: 140,
     },
     {
-      accessorKey: 'lowerBound',
-      header: '하한 값',
+      accessorKey: 'upperBound',
+      header: '상한 값',
       size: 140,
     },
   ]

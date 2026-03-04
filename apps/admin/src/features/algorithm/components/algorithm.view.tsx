@@ -3,8 +3,8 @@
 import { getTableSelection, useAppTable } from '@repo/table'
 import { ALGORITHM_COLUMNS } from '../constants/columns'
 import { useAlgorithms } from '../services/algorithm.hooks'
-import { AlgorithmParameterRuleSection } from './algorithm-parameter-rule.section'
 import { AlgorithmSection } from './algorithm.section'
+import { AlgorithmParameterRuleSection } from './parameter-rule.section'
 
 /**
  * 알고리즘 View
