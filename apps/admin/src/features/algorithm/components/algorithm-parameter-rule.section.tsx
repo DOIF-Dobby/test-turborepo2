@@ -21,9 +21,9 @@ export function AlgorithmParameterRuleSection({
   })
 
   return (
-    <div>
-      <TableToolbar title="알고리즘 파라미터 규칙 관리" />
+    <section>
+      <TableToolbar title="알고리즘 파라미터 규칙 목록" />
       <AppTable table={ruleTable} isLoading={isLoading} />
-    </div>
+    </section>
   )
 }

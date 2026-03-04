@@ -7,22 +7,22 @@ export const ALGORITHM_COLUMNS: ColumnDef<AlgorithmResponse>[] = [
   {
     accessorKey: 'algorithmId',
     header: 'ID',
-    size: 80,
+    size: 100,
   },
   {
     accessorKey: 'algorithmKey',
     header: '알고리즘 키',
-    size: 200,
+    size: 250,
   },
   {
     accessorKey: 'algorithmName',
     header: '알고리즘명',
-    size: 200,
+    size: 250,
   },
   {
     accessorKey: 'algorithmDescription',
     header: '알고리즘 설명',
-    size: 300,
+    size: 350,
   },
   {
     accessorKey: 'algorithmType',
@@ -37,36 +37,36 @@ export const ALGORITHM_PARAMETER_RULE_COLUMNS: ColumnDef<AlgorithmParameterRuleR
     {
       accessorKey: 'parameterRuleId',
       header: 'ID',
-      size: 80,
+      size: 100,
     },
     {
       accessorKey: 'ruleKey',
       header: '규칙 키',
-      size: 200,
+      size: 250,
     },
     {
       accessorKey: 'ruleName',
       header: '규칙명',
-      size: 200,
+      size: 250,
     },
     {
       accessorKey: 'ruleDescription',
       header: '규칙 설명',
-      size: 300,
+      size: 350,
     },
     {
       accessorKey: 'parameterType',
       header: '파라미터 타입',
-      size: 120,
+      size: 140,
     },
     {
       accessorKey: 'upperBound',
       header: '상한 값',
-      size: 120,
+      size: 140,
     },
     {
       accessorKey: 'lowerBound',
       header: '하한 값',
-      size: 120,
+      size: 140,
     },
   ]

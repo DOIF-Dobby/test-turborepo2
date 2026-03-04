@@ -34,9 +34,9 @@ export function AlgorithmSection({ table, isLoading }: AlgorithmSectionProps) {
   }
 
   return (
-    <div>
+    <section>
       <TableToolbar
-        title="알고리즘 관리"
+        title="알고리즘 목록"
         actions={
           <>
             <AddButton onPress={addModal.open} />
@@ -49,6 +49,6 @@ export function AlgorithmSection({ table, isLoading }: AlgorithmSectionProps) {
 
       <AlgorithmAddModal modalState={addModal} />
       <AlgorithmEditModal modalState={editModal} data={selectionItem} />
-    </div>
+    </section>
   )
 }

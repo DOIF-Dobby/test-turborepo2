@@ -1,6 +1,13 @@
-import { swClsx } from '@repo/ui/utils/clsx'
+import { DashboardContainer } from '@/components/layout/dashboard-container'
+import { DashboardContent } from '@/components/layout/dashboard-content'
+import { DashboardHeader } from '@/components/layout/dashboard-header'
 import type { PropsWithChildren } from 'react'
 
 export default async function DashboardLayout({ children }: PropsWithChildren) {
-  return <div className={swClsx('bg-red-200 px-sw-md')}>{children}</div>
+  return (
+    <DashboardContainer>
+      <DashboardHeader />
+      <DashboardContent>{children}</DashboardContent>
+    </DashboardContainer>
+  )
 }

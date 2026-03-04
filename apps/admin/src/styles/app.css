@@ -3,4 +3,5 @@
 
 @theme {
   --breakpoint-desktop: 1680px;
+  --spacing-desktop: 1680px;
 }
