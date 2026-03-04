@@ -1,2 +1,6 @@
 @import '@repo/ui/styles.css';
 @import '@repo/table/styles.css';
+
+@theme {
+  --breakpoint-desktop: 1680px;
+}

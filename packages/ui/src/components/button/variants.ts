@@ -39,11 +39,11 @@ export const buttonVariants = swTwVariants({
       light: '',
     },
     size: {
-      md: ['rounded-input-md', 'text-button-md h-13', 'min-h-sw-btn-md'],
-      sm: ['rounded-input-sm', 'text-button-sm h-11', 'min-h-sw-btn-sm'],
-      xs: ['rounded-input-xs', 'text-button-xs h-9', 'min-h-sw-btn-xs'],
-      '2xs': ['rounded-input-xs', 'text-button-2xs h-7', 'min-h-sw-btn-2xs'],
-      '3xs': ['rounded-input-xs', 'text-button-2xs h-5', 'min-h-sw-btn-3xs'],
+      md: ['rounded-input-md', 'h-13 text-button-md', 'min-h-sw-btn-md'],
+      sm: ['rounded-input-sm', 'h-11 text-button-sm', 'min-h-sw-btn-sm'],
+      xs: ['rounded-input-xs', 'h-9 text-button-xs', 'min-h-sw-btn-xs'],
+      '2xs': ['rounded-input-xs', 'h-7 text-button-2xs', 'min-h-sw-btn-2xs'],
+      '3xs': ['rounded-input-xs', 'h-5 text-button-2xs', 'min-h-sw-btn-3xs'],
     },
     fullWidth: {
       true: ['w-full'],

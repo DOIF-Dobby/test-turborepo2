@@ -2,12 +2,9 @@ import { DocsHeader } from '@/components/navigation/docs-header'
 import { DocsMenus } from '@/components/navigation/docs-menus'
 import { DocsProviders, DocsUIProviderWrapper } from '@/providers/docs-provider'
 import { gatherContentsSlugs } from '@/utils/gather-slugs'
+import type { PropsWithChildren } from 'react'
 
-export default async function DocsLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
+export default async function DocsLayout({ children }: PropsWithChildren) {
   const contentPathArrays = await gatherContentsSlugs()
 
   return (

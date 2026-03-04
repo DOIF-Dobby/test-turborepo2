@@ -14,7 +14,7 @@ const config = {
     require.resolve("prettier-plugin-organize-imports"),
     require.resolve("prettier-plugin-tailwindcss"),
   ],
-  tailwindFunctions: ["tv", "extendVariants"],
+  tailwindFunctions: ["swTwVariants", "swClsx"],
 };
 
 export default config;
