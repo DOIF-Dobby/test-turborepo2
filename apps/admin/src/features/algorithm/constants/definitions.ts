@@ -1,22 +1,22 @@
 import { arrayToMap } from '@repo/utils/array'
 
-export const ALGORITHM_TYPES = [
+export const AlgorithmTypes = [
   { value: 'NORMAL', label: '일반' },
   { value: 'HEDGING', label: '헷징' },
 ] as const
 
-export const ALGORITHM_TYPES_MAP = arrayToMap(ALGORITHM_TYPES, 'value', 'label')
+export const AlgorithmTypesMap = arrayToMap(AlgorithmTypes, 'value', 'label')
 
 /**
  * 알고리즘 타입
  */
-export type AlgorithmType = (typeof ALGORITHM_TYPES)[number]['value']
+export type AlgorithmType = (typeof AlgorithmTypes)[number]['value']
 
-export const PARAMTER_TYPES = [
+export const ParameterTypes = [
   { value: 'INT', label: 'INT' },
   { value: 'DECIMAL', label: 'DECIMAL' },
   { value: 'STRING', label: 'STRING' },
   { value: 'BOOLEAN', label: 'BOOLEAN' },
 ] as const
 
-export type ParameterType = (typeof PARAMTER_TYPES)[number]['value']
+export type ParameterType = (typeof ParameterTypes)[number]['value']

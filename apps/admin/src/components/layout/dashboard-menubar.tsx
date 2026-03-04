@@ -6,6 +6,22 @@ import { swTwVariants } from '@repo/ui/utils/tw-variants'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
+type DashboardMenuItem = {
+  type: 'item'
+  name: string
+  href: string
+  items?: never
+}
+
+type DashboardSubMenu = {
+  type: 'menu'
+  name: string
+  items: DashboardMenuProps[]
+  href?: never
+}
+
+type DashboardMenuProps = DashboardMenuItem | DashboardSubMenu
+
 const menus: DashboardMenuProps[] = [
   {
     type: 'item',
@@ -19,7 +35,7 @@ const menus: DashboardMenuProps[] = [
       {
         type: 'item',
         href: '/trading/settings',
-        name: '거래 설정',
+        name: '자동 거래 관리',
       },
       {
         type: 'item',
@@ -56,22 +72,6 @@ export function DashboardMenubar() {
   )
 }
 
-type DashboardMenuItem = {
-  type: 'item'
-  name: string
-  href: string
-  items?: never
-}
-
-type DashboardSubMenu = {
-  type: 'menu'
-  name: string
-  items: DashboardMenuProps[]
-  href?: never
-}
-
-type DashboardMenuProps = DashboardMenuItem | DashboardSubMenu
-
 const dashboardMenuVariants = swTwVariants({
   slots: {
     item: [
@@ -97,9 +97,12 @@ function DashboardMenu(props: DashboardMenuProps) {
   const slots = dashboardMenuVariants({})
 
   if (type === 'menu') {
+    const isSelected = items.some((item) => item.href === pathname)
     return (
       <Menu>
-        <Menu.Trigger className={slots.item()}>{name}</Menu.Trigger>
+        <Menu.Trigger className={slots.item({ isSelected })}>
+          {name}
+        </Menu.Trigger>
         <Menu.Content disableAnimation showArrow={false}>
           {items.map((item) => {
             if (item.type === 'item') {

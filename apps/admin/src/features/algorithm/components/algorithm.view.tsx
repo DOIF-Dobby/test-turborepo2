@@ -1,7 +1,7 @@
 'use client'
 
 import { getTableSelection, useAppTable } from '@repo/table'
-import { ALGORITHM_COLUMNS } from '../constants/columns'
+import { AlgorithmColumns } from '../constants/columns'
 import { useAlgorithms } from '../services/algorithm.hooks'
 import { AlgorithmSection } from './algorithm.section'
 import { AlgorithmParameterRuleSection } from './parameter-rule.section'
@@ -15,7 +15,7 @@ export function AlgorithmView() {
 
   const table = useAppTable({
     data,
-    columns: ALGORITHM_COLUMNS,
+    columns: AlgorithmColumns,
     enableRowSelection: true,
   })
 

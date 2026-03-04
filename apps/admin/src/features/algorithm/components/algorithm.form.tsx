@@ -3,7 +3,7 @@ import { keysOf, pick } from '@repo/utils/object'
 import { safePromise } from '@repo/utils/promise'
 import { vRequiredString } from '@repo/validators'
 import * as v from 'valibot'
-import { ALGORITHM_TYPES } from '../constants/definitions'
+import { AlgorithmTypes } from '../constants/definitions'
 import type { AlgorithmResponse } from '../services/algorithm.api'
 import {
   useCreateAlgorithm,
@@ -14,7 +14,7 @@ const FormSchema = v.object({
   algorithmKey: vRequiredString(),
   algorithmName: vRequiredString(),
   algorithmDescription: vRequiredString(),
-  algorithmType: v.picklist(ALGORITHM_TYPES.map((t) => t.value)),
+  algorithmType: v.picklist(AlgorithmTypes.map((t) => t.value)),
 })
 
 type FormType = v.InferInput<typeof FormSchema>
@@ -77,7 +77,7 @@ export function AlgorithmForm({ initialData, onSuccess }: AlgorithmFormProps) {
           <field.Select
             label="알고리즘 타입"
             isRequired
-            items={ALGORITHM_TYPES}
+            items={AlgorithmTypes}
             isClearable={false}
             isDisabled={isEdit}
           />

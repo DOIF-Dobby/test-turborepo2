@@ -1,9 +1,9 @@
 import type { ColumnDef } from '@tanstack/react-table'
 import type { AlgorithmResponse } from '../services/algorithm.api'
 import type { AlgorithmParameterRuleResponse } from '../services/parameter-rule.api'
-import { ALGORITHM_TYPES_MAP } from './definitions'
+import { AlgorithmTypesMap } from './definitions'
 
-export const ALGORITHM_COLUMNS: ColumnDef<AlgorithmResponse>[] = [
+export const AlgorithmColumns: ColumnDef<AlgorithmResponse>[] = [
   {
     accessorKey: 'algorithmId',
     header: 'ID',
@@ -28,11 +28,11 @@ export const ALGORITHM_COLUMNS: ColumnDef<AlgorithmResponse>[] = [
     accessorKey: 'algorithmType',
     header: '알고리즘 타입',
     size: 120,
-    accessorFn: (row) => ALGORITHM_TYPES_MAP[row.algorithmType],
+    accessorFn: (row) => AlgorithmTypesMap[row.algorithmType],
   },
 ]
 
-export const ALGORITHM_PARAMETER_RULE_COLUMNS: ColumnDef<AlgorithmParameterRuleResponse>[] =
+export const AlgorithmParameterRuleColumns: ColumnDef<AlgorithmParameterRuleResponse>[] =
   [
     {
       accessorKey: 'parameterRuleId',

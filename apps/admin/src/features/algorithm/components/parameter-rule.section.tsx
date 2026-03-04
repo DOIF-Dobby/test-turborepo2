@@ -6,7 +6,7 @@ import {
 import { TableToolbar } from '@/components/table/table-toolbar'
 import { useDisclosure } from '@repo/hooks/use-disclosure'
 import { AppTable, getTableSelection, useAppTable } from '@repo/table'
-import { ALGORITHM_PARAMETER_RULE_COLUMNS } from '../constants/columns'
+import { AlgorithmParameterRuleColumns } from '../constants/columns'
 import {
   useAlgorithmParameterRules,
   useDeleteParameterRule,
@@ -31,7 +31,7 @@ export function AlgorithmParameterRuleSection({
   const { data, isLoading } = useAlgorithmParameterRules(algorithmId)
   const table = useAppTable({
     data,
-    columns: ALGORITHM_PARAMETER_RULE_COLUMNS,
+    columns: AlgorithmParameterRuleColumns,
     enableRowSelection: true,
   })
 

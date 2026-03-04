@@ -4,7 +4,7 @@ import { safePromise } from '@repo/utils/promise'
 import { emptyIfNull } from '@repo/utils/string'
 import { vRequiredString } from '@repo/validators'
 import * as v from 'valibot'
-import { PARAMTER_TYPES } from '../constants/definitions'
+import { ParameterTypes } from '../constants/definitions'
 import type { AlgorithmParameterRuleResponse } from '../services/parameter-rule.api'
 import {
   useCreateParameterRule,
@@ -15,7 +15,7 @@ const FormSchema = v.object({
   ruleKey: vRequiredString(),
   ruleName: vRequiredString(),
   ruleDescription: vRequiredString(),
-  parameterType: v.picklist(PARAMTER_TYPES.map((t) => t.value)),
+  parameterType: v.picklist(ParameterTypes.map((t) => t.value)),
   lowerBound: v.string(),
   upperBound: v.string(),
 })
@@ -102,7 +102,7 @@ export function ParameterRuleForm({
           <field.Select
             label="파라미터 타입"
             isRequired
-            items={PARAMTER_TYPES}
+            items={ParameterTypes}
             isClearable={false}
           />
         )}
