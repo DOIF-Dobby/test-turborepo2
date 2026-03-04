@@ -13,7 +13,7 @@ export default function Controlled() {
   const [value, setValue] = useState(['apple', 'banana'])
 
   return (
-    <div className="gap-sw-md flex">
+    <div className="flex gap-sw-md">
       <div className="w-1/2">
         <Select value={value} onValueChange={setValue} items={items} multiple />
       </div>

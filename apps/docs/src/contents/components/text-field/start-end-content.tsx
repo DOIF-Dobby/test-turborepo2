@@ -3,7 +3,7 @@ import { FuelIcon } from 'lucide-react'
 
 export default function StartEndContent() {
   return (
-    <div className="gap-sw-2xs flex">
+    <div className="flex gap-sw-2xs">
       <TextField label="Start content" startContent={<FuelIcon />} />
       <TextField label="End content" endContent={<FuelIcon />} />
       <TextField

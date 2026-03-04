@@ -44,7 +44,7 @@ export default function AppFormExample() {
   })
 
   return (
-    <AppForm form={form} className="gap-sw-md flex flex-col">
+    <AppForm form={form} className="flex flex-col gap-sw-md">
       <form.AppField name="requiredDate">
         {(field) => <field.DatePicker label="Required Date" isRequired />}
       </form.AppField>
@@ -65,7 +65,7 @@ export default function AppFormExample() {
         {(field) => <field.DatePicker label="Required Max Date" isRequired />}
       </form.AppField>
 
-      <div className="gap-sw-sm flex">
+      <div className="flex gap-sw-sm">
         <form.AppField name="startDate">
           {(field) => <field.DatePicker label="Start Date" isRequired />}
         </form.AppField>

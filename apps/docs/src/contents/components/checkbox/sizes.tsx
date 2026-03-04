@@ -4,7 +4,7 @@ const sizes = ['md', 'sm'] as const
 
 export default function Sizes() {
   return (
-    <div className="gap-sw-md flex items-start">
+    <div className="flex items-start gap-sw-md">
       {sizes.map((size) => (
         <Checkbox key={size} size={size}>
           {size}

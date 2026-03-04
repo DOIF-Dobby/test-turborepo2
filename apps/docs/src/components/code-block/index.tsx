@@ -15,7 +15,7 @@ export function CodeBlock({ preview, code }: Props) {
         <Tabs.Tab value="code">Code</Tabs.Tab>
       </Tabs.List>
       <Tabs.Panel value="preview">
-        <div className="border-base-200 not-prose overflow-x-auto rounded-lg border p-4">
+        <div className="not-prose overflow-x-auto rounded-lg border border-base-200 p-4">
           {preview}
         </div>
       </Tabs.Panel>

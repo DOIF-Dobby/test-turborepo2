@@ -7,7 +7,7 @@ export default function Controlled() {
   const [open, setOpen] = useState(false)
 
   return (
-    <div className="gap-sw-sm flex">
+    <div className="flex gap-sw-sm">
       <Collapsible open={open} onOpenChange={setOpen}>
         <Collapsible.Trigger>Trigger</Collapsible.Trigger>
         <Collapsible.Panel>Panel</Collapsible.Panel>

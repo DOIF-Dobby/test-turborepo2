@@ -4,10 +4,10 @@ const variants: SpinnerProps['variant'][] = ['dot', 'ring']
 
 export default function Variants() {
   return (
-    <div className="gap-sw-xl flex">
+    <div className="flex gap-sw-xl">
       {variants.map((variant) => (
         <div key={variant}>
-          <div className="gap-sw-2xs flex items-center">
+          <div className="flex items-center gap-sw-2xs">
             <Spinner variant={variant} />
             <span>{variant}</span>
           </div>

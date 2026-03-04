@@ -86,7 +86,7 @@ export const selectVariants = swTwVariants({
     ],
     clearIcon: ['size-4'],
     scrollUpArrow: [
-      'top-0 z-1 flex h-4 w-full cursor-default items-center justify-center rounded-md  text-center text-xs text-base-600',
+      'top-0 z-1 flex h-4 w-full cursor-default items-center justify-center rounded-md text-center text-xs text-base-600',
     ],
     scrollDownArrow: [
       'bottom-0 z-1 flex h-4 w-full cursor-default items-center justify-center rounded-md text-center text-xs text-base-600',
@@ -96,7 +96,7 @@ export const selectVariants = swTwVariants({
     size: {
       md: {
         container: ['gap-sw-2xs'],
-        trigger: ['min-h-sw-btn-md', 'py-sw-2xs px-sw-sm', 'rounded-input-md'],
+        trigger: ['min-h-sw-btn-md', 'px-sw-sm py-sw-2xs', 'rounded-input-md'],
         value: ['text-heading-5', 'font-heading-5', 'leading-heading-5'],
         errorMessage: [
           'text-paragraph-2',
@@ -107,7 +107,7 @@ export const selectVariants = swTwVariants({
       },
       sm: {
         container: ['gap-sw-3xs'],
-        trigger: ['min-h-sw-btn-sm', 'py-sw-3xs px-sw-sm', 'rounded-input-sm'],
+        trigger: ['min-h-sw-btn-sm', 'px-sw-sm py-sw-3xs', 'rounded-input-sm'],
         value: ['text-paragraph-1', 'font-paragraph-1', 'leading-paragraph-1'],
         errorMessage: [
           'text-paragraph-2',

@@ -8,7 +8,7 @@ export default function Controlled() {
   const [value, setValue] = useState<DateValue | null>(getToday())
 
   return (
-    <div className="gap-sw-sm flex flex-col">
+    <div className="flex flex-col gap-sw-sm">
       <div>선택된 값: {value?.toString()}</div>
       <DateField label="Controlled" value={value} onChange={setValue} />
     </div>

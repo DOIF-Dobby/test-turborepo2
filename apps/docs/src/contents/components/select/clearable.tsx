@@ -8,7 +8,7 @@ const items = [
 
 export default function Clearable() {
   return (
-    <div className="gap-sw-2xs flex">
+    <div className="flex gap-sw-2xs">
       <Select
         isClearable
         classNames={{

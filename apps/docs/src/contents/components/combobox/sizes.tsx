@@ -32,7 +32,7 @@ const sizes = ['md', 'sm'] as const
 
 export default function Sizes() {
   return (
-    <div className="gap-sw-md flex">
+    <div className="flex gap-sw-md">
       {sizes.map((size) => (
         <Combobox
           key={size}

@@ -4,7 +4,7 @@ const variants = ['solid', 'underlined'] as const
 
 export default function Disabled() {
   return (
-    <div className="gap-sw-md flex">
+    <div className="flex gap-sw-md">
       {variants.map((variant) => (
         <Tabs key={variant} variant={variant}>
           <Tabs.List>

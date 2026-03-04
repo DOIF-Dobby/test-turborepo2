@@ -10,7 +10,7 @@ const items = [
 
 export default function Sizes() {
   return (
-    <div className="gap-sw-md flex">
+    <div className="flex gap-sw-md">
       {sizes.map((size) => (
         <Select
           items={items}

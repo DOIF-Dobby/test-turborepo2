@@ -30,7 +30,7 @@ export default function TanstackFormValibot() {
 
   return (
     <form
-      className="gap-sw-md flex flex-col"
+      className="flex flex-col gap-sw-md"
       onSubmit={(e) => {
         e.preventDefault()
         form.handleSubmit()

@@ -9,7 +9,7 @@ export default function Timeout() {
   const toast = useToast()
 
   return (
-    <div className="gap-sw-md flex">
+    <div className="flex gap-sw-md">
       {timeout.map((timeout) => (
         <Button
           key={timeout}

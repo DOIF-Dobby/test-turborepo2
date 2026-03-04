@@ -92,7 +92,7 @@ function PaginationControlledAppTable() {
 
   return (
     <>
-      <div className="gap-sw-2xs flex flex-col">
+      <div className="flex flex-col gap-sw-2xs">
         <AppTable table={table} isLoading={dataQuery.isFetching} />
         <AppTablePaginationBar table={table} />
       </div>

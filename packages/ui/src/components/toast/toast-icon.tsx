@@ -15,24 +15,24 @@ export function ToastIcon({ type }: { type: ToastItemType }) {
 
 export function ToastSuccessIcon() {
   return (
-    <div className="bg-status-good mt-1 flex size-5 items-center justify-center rounded-full">
-      <CheckIcon className="stroke-background size-4 stroke-3" />
+    <div className="mt-1 flex size-5 items-center justify-center rounded-full bg-status-good">
+      <CheckIcon className="size-4 stroke-background stroke-3" />
     </div>
   )
 }
 
 export function ToastErrorIcon() {
   return (
-    <div className="bg-status-poor mt-1 flex size-5 items-center justify-center rounded-full">
-      <AlertIcon className="stroke-background size-5 stroke-3" />
+    <div className="mt-1 flex size-5 items-center justify-center rounded-full bg-status-poor">
+      <AlertIcon className="size-5 stroke-background stroke-3" />
     </div>
   )
 }
 
 export function ToastInfoIcon() {
   return (
-    <div className="bg-base-500 mt-1 flex size-5 items-center justify-center rounded-full">
-      <InfoIcon className="stroke-background size-5 stroke-3" />
+    <div className="mt-1 flex size-5 items-center justify-center rounded-full bg-base-500">
+      <InfoIcon className="size-5 stroke-background stroke-3" />
     </div>
   )
 }

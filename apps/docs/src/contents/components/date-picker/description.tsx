@@ -4,7 +4,7 @@ const sizes = ['md', 'sm', 'xs'] as const
 
 export default function Description() {
   return (
-    <div className="gap-sw-sm flex">
+    <div className="flex gap-sw-sm">
       {sizes.map((size) => (
         <div key={size} className="w-full">
           <DatePicker

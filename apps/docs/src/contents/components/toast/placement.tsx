@@ -16,7 +16,7 @@ export default function Placement() {
   const toast = useToast()
 
   return (
-    <div className="gap-sw-md flex">
+    <div className="flex gap-sw-md">
       {placements.map((placement) => (
         <Button
           key={placement}

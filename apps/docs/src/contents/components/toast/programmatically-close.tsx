@@ -9,7 +9,7 @@ export default function ProgrammaticallyClose() {
   const toastId = useRef<string>(undefined)
 
   return (
-    <div className="gap-sw-md flex">
+    <div className="flex gap-sw-md">
       <Button
         onPress={() => {
           toastId.current = toast.add({

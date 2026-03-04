@@ -46,7 +46,7 @@ export const dateFieldVariants = swTwVariants({
         container: ['gap-sw-2xs'],
         fieldWrapper: [
           'min-h-sw-btn-md',
-          'py-sw-2xs px-sw-sm',
+          'px-sw-sm py-sw-2xs',
           'rounded-input-md',
         ],
         errorMessage: [
@@ -60,7 +60,7 @@ export const dateFieldVariants = swTwVariants({
         container: ['gap-sw-3xs'],
         fieldWrapper: [
           'min-h-sw-btn-sm',
-          'py-sw-3xs px-sw-sm',
+          'px-sw-sm py-sw-3xs',
           'rounded-input-sm',
         ],
         errorMessage: [
@@ -78,7 +78,7 @@ export const dateFieldVariants = swTwVariants({
         container: ['gap-sw-3xs'],
         fieldWrapper: [
           'min-h-sw-btn-xs',
-          'py-sw-3xs px-sw-xs',
+          'px-sw-xs py-sw-3xs',
           'rounded-input-xs',
         ],
         errorMessage: [

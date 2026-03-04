@@ -125,12 +125,12 @@ export const comboboxVariants = swTwVariants({
     size: {
       md: {
         container: ['gap-sw-2xs'],
-        field: ['min-h-sw-btn-md', 'py-sw-2xs px-sw-sm', 'rounded-input-md'],
+        field: ['min-h-sw-btn-md', 'px-sw-sm py-sw-2xs', 'rounded-input-md'],
         input: ['text-heading-5', 'font-heading-5', 'leading-heading-5'],
       },
       sm: {
         container: ['gap-sw-3xs'],
-        field: ['min-h-sw-btn-sm', 'py-sw-3xs px-sw-sm', 'rounded-input-sm'],
+        field: ['min-h-sw-btn-sm', 'px-sw-sm py-sw-3xs', 'rounded-input-sm'],
         input: ['text-paragraph-1', 'font-paragraph-1', 'leading-paragraph-1'],
       },
     },

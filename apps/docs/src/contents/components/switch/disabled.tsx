@@ -4,9 +4,9 @@ const colors = ['cta1', 'cta2', 'destructive'] as const
 
 export default function Disabled() {
   return (
-    <div className="gap-sw-sm flex flex-col">
+    <div className="flex flex-col gap-sw-sm">
       {colors.map((color) => (
-        <div className="gap-sw-md flex" key={color}>
+        <div className="flex gap-sw-md" key={color}>
           <Switch color={color} isDisabled>
             Disabled
           </Switch>

@@ -24,7 +24,7 @@ export default function CheckboxItem() {
   }
 
   return (
-    <div className="gap-sw-md flex">
+    <div className="flex gap-sw-md">
       <Menu>
         <Menu.Trigger>
           <Button>Press me</Button>

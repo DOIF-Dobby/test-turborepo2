@@ -207,7 +207,7 @@ export function SelectRoot<
           suppressHydrationWarning
           className={swClsx(slots.trigger({ className: classNames?.trigger }))}
         >
-          <div className="gap-sw-2xs flex flex-1 items-center overflow-hidden">
+          <div className="flex flex-1 items-center gap-sw-2xs overflow-hidden">
             {startContent && <span className="shrink-0">{startContent}</span>}
 
             <span

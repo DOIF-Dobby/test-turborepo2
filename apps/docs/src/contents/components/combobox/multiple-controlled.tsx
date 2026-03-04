@@ -34,7 +34,7 @@ const items = [
 export default function MultipleControlled() {
   const [value, setValue] = useState(['apple', 'banana'])
   return (
-    <div className="gap-sw-md flex">
+    <div className="flex gap-sw-md">
       <Combobox
         items={items}
         multiple

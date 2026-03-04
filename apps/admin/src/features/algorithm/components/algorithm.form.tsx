@@ -60,7 +60,7 @@ export function AlgorithmForm({ initialData, onSuccess }: AlgorithmFormProps) {
   })
 
   return (
-    <AppForm form={form} className="gap-sw-sm flex flex-col">
+    <AppForm form={form} className="flex flex-col gap-sw-sm">
       <form.AppField name="algorithmKey">
         {(field) => <field.TextField label="알고리즘 키" isDisabled={isEdit} />}
       </form.AppField>

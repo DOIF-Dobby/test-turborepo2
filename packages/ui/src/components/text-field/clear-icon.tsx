@@ -2,6 +2,6 @@ import { X } from 'lucide-react'
 
 export function ClearIcon() {
   return (
-    <X className="fill-base-500 stroke-background size-4" strokeWidth={3} />
+    <X className="size-4 fill-base-500 stroke-background" strokeWidth={3} />
   )
 }

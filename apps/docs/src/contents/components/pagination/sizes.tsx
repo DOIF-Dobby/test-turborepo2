@@ -5,7 +5,7 @@ const sizes: ButtonProps['size'][] = ['3xs', '2xs', 'xs', 'sm', 'md']
 
 export default function Sizes() {
   return (
-    <div className="gap-sw-md flex flex-col">
+    <div className="flex flex-col gap-sw-md">
       {sizes.map((size) => (
         <div key={size}>
           <div>{size}</div>

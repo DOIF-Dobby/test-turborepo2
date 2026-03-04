@@ -14,9 +14,9 @@ export const inputVariants = swTwVariants({
   ],
   variants: {
     size: {
-      md: 'text-heading-5 font-heading-5 leading-heading-5',
-      sm: 'text-paragraph-1 font-paragraph-1 leading-paragraph-1',
-      xs: 'text-paragraph-3 font-paragraph-3 leading-paragraph-3',
+      md: 'text-heading-5 leading-heading-5 font-heading-5',
+      sm: 'text-paragraph-1 leading-paragraph-1 font-paragraph-1',
+      xs: 'text-paragraph-3 leading-paragraph-3 font-paragraph-3',
     },
   },
   defaultVariants: {

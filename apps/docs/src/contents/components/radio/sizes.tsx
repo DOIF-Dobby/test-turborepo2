@@ -4,7 +4,7 @@ const sizes = ['sm', 'md', 'lg'] as const
 
 export default function Sizes() {
   return (
-    <div className="gap-sw-md flex flex-col">
+    <div className="flex flex-col gap-sw-md">
       {sizes.map((size) => (
         <div key={size}>
           <RadioGroup label={size}>

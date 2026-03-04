@@ -9,7 +9,7 @@ export default function Controlled() {
   const [open, setOpen] = useState(false)
 
   return (
-    <div className="gap-sw-md flex">
+    <div className="flex gap-sw-md">
       <Popover open={open} onOpenChange={setOpen}>
         <Popover.Trigger>
           <Button>Open</Button>

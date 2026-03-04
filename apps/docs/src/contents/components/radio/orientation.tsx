@@ -4,7 +4,7 @@ const orientations = ['horizontal', 'vertical'] as const
 
 export default function Orientation() {
   return (
-    <div className="gap-sw-md flex flex-col">
+    <div className="flex flex-col gap-sw-md">
       {orientations.map((orientation) => (
         <div key={orientation}>
           <RadioGroup orientation={orientation} label={orientation}>

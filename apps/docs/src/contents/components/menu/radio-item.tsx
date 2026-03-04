@@ -8,7 +8,7 @@ export default function RadioItem() {
   const [value, setValue] = useState('item-1')
 
   return (
-    <div className="gap-sw-md flex">
+    <div className="flex gap-sw-md">
       <Menu>
         <Menu.Trigger>
           <Button>Press me</Button>

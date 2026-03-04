@@ -6,9 +6,9 @@ const aligns = ['start', 'center', 'end'] as const
 
 export default function Placement() {
   return (
-    <div className="gap-sw-xl flex">
+    <div className="flex gap-sw-xl">
       {aligns.map((align) => (
-        <div key={align} className="gap-sw-xl flex flex-col">
+        <div key={align} className="flex flex-col gap-sw-xl">
           {sides.map((side) => (
             <Tooltip
               key={`${side}-${align}`}

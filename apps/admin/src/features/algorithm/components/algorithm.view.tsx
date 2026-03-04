@@ -23,7 +23,7 @@ export function AlgorithmView() {
 
   return (
     <>
-      <div className="gap-sw-xl flex flex-col">
+      <div className="flex flex-col gap-sw-xl">
         <AlgorithmSection table={table} isLoading={isLoading} />
         <AlgorithmParameterRuleSection
           algorithmId={selectionItem?.algorithmId}

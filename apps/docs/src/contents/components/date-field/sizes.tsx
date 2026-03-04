@@ -4,7 +4,7 @@ const sizes = ['md', 'sm', 'xs'] as const
 
 export default function Sizes() {
   return (
-    <div className="gap-sw-sm flex">
+    <div className="flex gap-sw-sm">
       {sizes.map((size) => (
         <DateField
           key={size}

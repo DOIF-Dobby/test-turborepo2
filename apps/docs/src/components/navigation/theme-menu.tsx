@@ -15,7 +15,7 @@ export function ThemeMenu() {
 
   if (!mounted) {
     return (
-      <div className="h-sw-btn-sm flex w-28 items-center justify-center gap-2">
+      <div className="flex h-sw-btn-sm w-28 items-center justify-center gap-2">
         <Skeleton className="size-5 rounded-full" />
         <Skeleton className="h-8 w-12 rounded-md" />
       </div>

@@ -7,7 +7,7 @@ export default function Controlled() {
   const [value, setValue] = useState('Hello')
 
   return (
-    <div className="gap-sw-md flex flex-col">
+    <div className="flex flex-col gap-sw-md">
       <TextField
         label="Controoled"
         value={value}

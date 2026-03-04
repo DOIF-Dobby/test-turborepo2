@@ -3,7 +3,7 @@ import { ScrollExampleItems } from './scroll-example-items'
 
 export default function Orientation() {
   return (
-    <div className="gap-sw-md flex">
+    <div className="flex gap-sw-md">
       <div>
         <div>vertical</div>
         <ScrollArea

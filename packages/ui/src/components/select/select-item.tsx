@@ -45,7 +45,7 @@ export function SelectItem(props: SelectItemProps) {
         }),
       )}
     >
-      <div className="gap-sw-2xs flex min-w-0 flex-1 items-center">
+      <div className="flex min-w-0 flex-1 items-center gap-sw-2xs">
         {startContent && <span className="shrink-0">{startContent}</span>}
 
         <span

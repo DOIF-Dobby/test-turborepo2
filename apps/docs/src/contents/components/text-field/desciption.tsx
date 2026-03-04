@@ -4,7 +4,7 @@ const sizes = ['md', 'sm', 'xs'] as const
 
 export default function Description() {
   return (
-    <div className="gap-sw-md flex">
+    <div className="flex gap-sw-md">
       {sizes.map((size) => (
         <TextField
           key={size}

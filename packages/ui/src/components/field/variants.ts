@@ -15,9 +15,9 @@ export const fieldLabelVariants = swTwVariants({
   ],
   variants: {
     size: {
-      md: ['text-paragraph-1 font-paragraph-1 leading-paragraph-1'],
-      sm: ['text-paragraph-1 font-paragraph-1 leading-paragraph-1'],
-      xs: ['text-paragraph-3 font-paragraph-3 leading-paragraph-3'],
+      md: ['text-paragraph-1 leading-paragraph-1 font-paragraph-1'],
+      sm: ['text-paragraph-1 leading-paragraph-1 font-paragraph-1'],
+      xs: ['text-paragraph-3 leading-paragraph-3 font-paragraph-3'],
     },
   },
   defaultVariants: {
@@ -29,9 +29,9 @@ export const fieldDescriptionVariants = swTwVariants({
   base: ['text-base-600'],
   variants: {
     size: {
-      md: ['text-paragraph-1 font-paragraph-1 leading-paragraph-1'],
-      sm: ['text-paragraph-1 font-paragraph-1 leading-paragraph-1'],
-      xs: ['text-paragraph-3 font-paragraph-3 leading-paragraph-3'],
+      md: ['text-paragraph-1 leading-paragraph-1 font-paragraph-1'],
+      sm: ['text-paragraph-1 leading-paragraph-1 font-paragraph-1'],
+      xs: ['text-paragraph-3 leading-paragraph-3 font-paragraph-3'],
     },
   },
   defaultVariants: {
@@ -43,9 +43,9 @@ export const fieldErrorVariants = swTwVariants({
   base: ['text-destructive'],
   variants: {
     size: {
-      md: ['text-paragraph-1 font-paragraph-1 leading-paragraph-1'],
-      sm: ['text-paragraph-1 font-paragraph-1 leading-paragraph-1'],
-      xs: ['text-paragraph-3 font-paragraph-3 leading-paragraph-3'],
+      md: ['text-paragraph-1 leading-paragraph-1 font-paragraph-1'],
+      sm: ['text-paragraph-1 leading-paragraph-1 font-paragraph-1'],
+      xs: ['text-paragraph-3 leading-paragraph-3 font-paragraph-3'],
     },
   },
   defaultVariants: {

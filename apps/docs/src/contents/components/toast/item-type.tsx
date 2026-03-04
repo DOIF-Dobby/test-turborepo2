@@ -9,7 +9,7 @@ export default function ItemType() {
   const toast = useToast()
 
   return (
-    <div className="gap-sw-md flex">
+    <div className="flex gap-sw-md">
       {itemTypes.map((itemType) => (
         <Button
           key={itemType}

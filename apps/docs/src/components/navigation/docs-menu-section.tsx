@@ -47,10 +47,10 @@ export function DocsMenuSection({ title, contentPaths }: DocsMenuSectionProps) {
               <Link href={href} key={href}>
                 <li
                   className={swClsx(
-                    'text-base-600 px-sw-xs py-sw-2xs rounded-input-sm',
+                    'rounded-input-sm px-sw-xs py-sw-2xs text-base-600',
                     pathname === href
-                      ? 'text-cta1 font-semibold'
-                      : 'hover:text-base-700 hover:bg-base-200',
+                      ? 'font-semibold text-cta1'
+                      : 'hover:bg-base-200 hover:text-base-700',
                   )}
                 >
                   {pascalCase(content || '')}

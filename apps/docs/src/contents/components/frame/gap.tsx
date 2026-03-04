@@ -25,9 +25,9 @@ export default function Gap() {
 
   return (
     <>
-      <div className="gap-sw-xs flex">
+      <div className="flex gap-sw-xs">
         {gaps.map((gapOption) => (
-          <label key={gapOption} className="gap-sw-3xs flex items-center">
+          <label key={gapOption} className="flex items-center gap-sw-3xs">
             <input
               type="radio"
               name="gap"

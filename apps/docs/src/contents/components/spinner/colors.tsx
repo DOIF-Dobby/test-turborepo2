@@ -5,12 +5,12 @@ const colors: SpinnerProps['color'][] = ['cta1', 'cta2', 'destructive']
 
 export default function Colors() {
   return (
-    <div className="gap-sw-sm flex flex-col">
+    <div className="flex flex-col gap-sw-sm">
       {colors.map((color) => (
-        <div className="gap-sw-xl flex" key={color}>
+        <div className="flex gap-sw-xl" key={color}>
           {variants.map((variant) => (
             <div key={variant}>
-              <div className="gap-sw-2xs flex items-center">
+              <div className="flex items-center gap-sw-2xs">
                 <Spinner variant={variant} color={color} />
                 <span>{variant}</span>
               </div>

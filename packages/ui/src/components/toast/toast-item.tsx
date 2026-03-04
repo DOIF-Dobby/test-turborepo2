@@ -30,7 +30,7 @@ export function ToastItem({ toast, vertical }: ToastItemProps) {
         ) : (
           <>
             {itemType && <ToastIcon type={itemType} />}
-            <div className="gap-sw-2xs flex flex-col">
+            <div className="flex flex-col gap-sw-2xs">
               <Toast.Title
                 className={swClsx(
                   slots.title({ className: classNames?.title }),

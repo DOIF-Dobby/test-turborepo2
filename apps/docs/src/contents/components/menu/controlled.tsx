@@ -8,7 +8,7 @@ export default function Controlled() {
   const [open, setOpen] = useState(false)
 
   return (
-    <div className="gap-sw-md flex">
+    <div className="flex gap-sw-md">
       <Menu open={open} onOpenChange={setOpen}>
         <Menu.Trigger>
           <Button>Open</Button>

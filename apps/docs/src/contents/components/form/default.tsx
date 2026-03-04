@@ -13,7 +13,7 @@ export default function Default() {
 
   return (
     <Form
-      className="gap-sw-md flex flex-col"
+      className="flex flex-col gap-sw-md"
       errors={errors}
       onSubmit={async (event) => {
         event.preventDefault()

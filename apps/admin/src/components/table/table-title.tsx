@@ -8,7 +8,7 @@ export function TableTitle({
   return (
     <h4
       className={swClsx(
-        'text-base-600 text-[18px] leading-[133%] font-normal',
+        'text-[18px] leading-[133%] font-normal text-base-600',
         className,
       )}
       {...props}

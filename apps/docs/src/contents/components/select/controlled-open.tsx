@@ -12,7 +12,7 @@ const items = [
 export default function ControlledOpen() {
   const [open, setOpen] = useState(false)
   return (
-    <div className="gap-sw-md flex">
+    <div className="flex gap-sw-md">
       <div className="w-1/2">
         <Select open={open} onOpenChange={setOpen} items={items} />
       </div>

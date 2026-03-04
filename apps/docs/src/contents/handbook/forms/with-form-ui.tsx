@@ -39,7 +39,7 @@ export default function WithFormUI() {
   })
 
   return (
-    <AppForm form={form} className="gap-sw-md flex flex-col">
+    <AppForm form={form} className="flex flex-col gap-sw-md">
       <NameFields form={form} />
 
       <form.AppField name="radioFruit">
@@ -73,7 +73,7 @@ const NameFields = withForm({
     return (
       <div>
         <Heading4>Name</Heading4>
-        <div className="gap-sw-md flex">
+        <div className="flex gap-sw-md">
           <form.AppField name="firstName">
             {(field) => <field.TextField label="First Name" />}
           </form.AppField>

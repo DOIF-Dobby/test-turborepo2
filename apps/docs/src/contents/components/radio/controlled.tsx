@@ -7,7 +7,7 @@ export default function Controlled() {
   const [value, setValue] = useState('apple')
 
   return (
-    <div className="gap-sw-md flex flex-col">
+    <div className="flex flex-col gap-sw-md">
       <RadioGroup value={value} onValueChange={setValue}>
         <Radio value="apple">Apple</Radio>
         <Radio value="banana">Banana</Radio>

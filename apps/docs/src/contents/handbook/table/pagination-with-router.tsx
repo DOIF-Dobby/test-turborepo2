@@ -99,7 +99,7 @@ export function PaginationWithRouterTable() {
   })
 
   return (
-    <div className="gap-sw-2xs flex flex-col items-center">
+    <div className="flex flex-col items-center gap-sw-2xs">
       <AppTable table={table} />
       <AppTablePaginationBar table={table} />
     </div>

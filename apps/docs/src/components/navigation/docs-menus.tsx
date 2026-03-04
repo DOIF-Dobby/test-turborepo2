@@ -28,9 +28,9 @@ export function DocsMenus({ contentPathArrays }: DocsMenusProps) {
   }, [contentPathArrays])
 
   return (
-    <aside className="border-r-base-200 bg-background pt-sw-md sticky top-16 z-10 max-h-[calc(100dvh-4rem)] min-h-[calc(100dvh-4rem)] min-w-3xs border-r">
+    <aside className="sticky top-16 z-10 max-h-[calc(100dvh-4rem)] min-h-[calc(100dvh-4rem)] min-w-3xs border-r border-r-base-200 bg-background pt-sw-md">
       <ScrollArea className="h-full">
-        <div className="gap-sw-xs flex flex-col">
+        <div className="flex flex-col gap-sw-xs">
           <DocsMenuSection title="Guides" contentPaths={guides} />
           <DocsMenuSection title="Handbook" contentPaths={handbook} />
           <DocsMenuSection title="Components" contentPaths={components} />

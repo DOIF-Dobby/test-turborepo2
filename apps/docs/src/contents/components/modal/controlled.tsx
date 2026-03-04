@@ -10,7 +10,7 @@ export default function Controlled() {
 
   return (
     <>
-      <div className="gap-sw-md flex flex-col">
+      <div className="flex flex-col gap-sw-md">
         <Button onPress={() => setOpen(true)} className="w-fit">
           Open Modal
         </Button>

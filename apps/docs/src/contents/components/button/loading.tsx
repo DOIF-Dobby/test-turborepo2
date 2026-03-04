@@ -4,7 +4,7 @@ const variants = ['solid', 'bordered', 'light'] as const
 
 export default function Loading() {
   return (
-    <div className="gap-sw-sm flex">
+    <div className="flex gap-sw-sm">
       {variants.map((variant) => (
         <Button key={variant} variant={variant} isLoading>
           Loading...

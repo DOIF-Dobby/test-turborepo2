@@ -10,7 +10,7 @@ const modalHandle = Modal.createHandle<{ name: string; age: number }>()
 export default function Default() {
   return (
     <>
-      <div className="gap-sw-md flex">
+      <div className="flex gap-sw-md">
         <Modal.Trigger
           handle={modalHandle}
           payload={{ name: 'Apple', age: 10 }}

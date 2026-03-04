@@ -10,9 +10,9 @@ interface TableToolbarProps {
  */
 export function TableToolbar({ title, actions }: TableToolbarProps) {
   return (
-    <div className="gap-sw-2xs mb-sw-xs flex items-center justify-between">
+    <div className="mb-sw-xs flex items-center justify-between gap-sw-2xs">
       <TableTitle>{title}</TableTitle>
-      <div className="gap-sw-2xs flex items-center">{actions}</div>
+      <div className="flex items-center gap-sw-2xs">{actions}</div>
     </div>
   )
 }

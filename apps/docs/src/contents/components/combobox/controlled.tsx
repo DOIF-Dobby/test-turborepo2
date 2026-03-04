@@ -34,7 +34,7 @@ const items = [
 export default function Controlled() {
   const [value, setValue] = useState<string | null>('')
   return (
-    <div className="gap-sw-md flex">
+    <div className="flex gap-sw-md">
       <Combobox
         items={items}
         value={value}

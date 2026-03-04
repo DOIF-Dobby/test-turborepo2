@@ -7,7 +7,7 @@ export default function Controlled() {
   const [value, setValue] = useState<string[]>(['apple', 'banana'])
 
   return (
-    <div className="gap-sw-md flex flex-col">
+    <div className="flex flex-col gap-sw-md">
       <CheckboxGroup value={value} onValueChange={setValue}>
         <Checkbox value="apple">Apple</Checkbox>
         <Checkbox value="banana">Banana</Checkbox>
