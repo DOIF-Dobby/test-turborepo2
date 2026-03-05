@@ -164,8 +164,23 @@ export const selectItemVariants = swTwVariants({
   },
 })
 
+export const selectGroupVariants = swTwVariants({
+  slots: {
+    group: ['not-last:mb-sw-xs'],
+    label: [
+      'text-base-600',
+      'font-paragraph-1',
+      'leading-paragraph-1',
+      'text-paragraph-1',
+    ],
+  },
+})
+
 export type SelectVariants = VariantProps<typeof selectVariants>
 export type SelectSlots = keyof ReturnType<typeof selectVariants>
 
 export type SelectItemVariants = VariantProps<typeof selectItemVariants>
 export type SelectItemSlots = keyof ReturnType<typeof selectItemVariants>
+
+export type SelectGroupVariants = VariantProps<typeof selectGroupVariants>
+export type SelectGroupSlots = keyof ReturnType<typeof selectGroupVariants>

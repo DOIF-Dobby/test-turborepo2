@@ -44,6 +44,7 @@ export interface SelectRootProps<
   items: readonly Item[]
   multiple?: Multiple
   children?: (item: Item) => React.ReactNode
+  renderList?: () => React.ReactNode
 
   classNames?: SlotsToClasses<SelectSlots>
   placeholder?: string
@@ -77,6 +78,7 @@ export function SelectRoot<
 >(props: SelectRootProps<Item, Multiple>) {
   const {
     children,
+    renderList,
     classNames,
     label,
     name,
@@ -311,16 +313,16 @@ export function SelectRoot<
                         }),
                       )}
                     >
-                      {items.map((item) => {
-                        if (children) {
-                          return children(item)
-                        }
-                        return (
-                          <SelectItem key={item.value} value={item.value}>
-                            {item.label}
-                          </SelectItem>
-                        )
-                      })}
+                      {renderList
+                        ? renderList() // 그룹 모드
+                        : items.map((item) => {
+                            if (children) return children(item)
+                            return (
+                              <SelectItem key={item.value} value={item.value}>
+                                {item.label}
+                              </SelectItem>
+                            )
+                          })}
                     </SelectPrimitive.List>
                     <SelectPrimitive.ScrollDownArrow
                       suppressHydrationWarning
