@@ -1,8 +1,19 @@
-import { Currencies, type Currency } from '@/constants/domain'
-import { AlgorithmTypesMap } from '@/features/algorithm/constants/definitions'
+import {
+  Currencies,
+  FinancialAssetTypes,
+  type Currency,
+  type FinancialAssetType,
+} from '@/constants/domain'
+import {
+  AlgorithmTypesMap,
+  type AlgorithmType,
+} from '@/features/algorithm/constants/definitions'
 import { useAlgorithms } from '@/features/algorithm/services/algorithm.hooks'
+import { currencyUtils } from '@/utils/domain'
 import { AppForm, useAppForm } from '@repo/forms'
-import { sortBy } from '@repo/utils/array'
+import { Select } from '@repo/ui/components/select'
+import { groupBy, sortBy } from '@repo/utils/array'
+import { onInputAmount, onKeyDownAmount } from '@repo/utils/mask'
 import { parseAmount } from '@repo/utils/number'
 import { safePromise } from '@repo/utils/promise'
 import { vRequiredString } from '@repo/validators'
@@ -76,13 +87,22 @@ export function SettingsForm({ initialData, onSuccess }: SettingsFormProps) {
     .map((key) => ({
       label: key,
       value: key,
+      assetType: currencyUtils.getAssetType(key as Currency),
     }))
+
+  const groupedCurrencyItems = groupBy(currencyItems, (item) => item.assetType)
 
   const algorithmItems = sortBy(algorithms, ['algorithmType']).map(
     (algorithm) => ({
-      label: `${algorithm.algorithmName} - ${AlgorithmTypesMap[algorithm.algorithmType]}`,
+      label: algorithm.algorithmName,
       value: algorithm.algorithmId.toString(),
+      algorithmType: algorithm.algorithmType,
     }),
+  )
+
+  const groupedAlgorithmItems = groupBy(
+    algorithmItems,
+    (item) => item.algorithmType,
   )
 
   return (
@@ -95,6 +115,24 @@ export function SettingsForm({ initialData, onSuccess }: SettingsFormProps) {
             isRequired
             items={algorithmItems}
             isClearable={false}
+            renderList={() => (
+              <>
+                {Object.entries(groupedAlgorithmItems).map(
+                  ([group, groupItems]) => (
+                    <Select.Group
+                      key={group}
+                      label={AlgorithmTypesMap[group as AlgorithmType]}
+                    >
+                      {groupItems?.map((item) => (
+                        <Select.Item key={item.value} value={item.value}>
+                          {item.label}
+                        </Select.Item>
+                      ))}
+                    </Select.Group>
+                  ),
+                )}
+              </>
+            )}
           />
         )}
       </form.AppField>
@@ -106,11 +144,43 @@ export function SettingsForm({ initialData, onSuccess }: SettingsFormProps) {
             isRequired
             items={currencyItems}
             isClearable={false}
+            renderList={() => (
+              <>
+                {Object.entries(groupedCurrencyItems).map(
+                  ([group, groupItems]) => (
+                    <Select.Group
+                      key={group}
+                      label={FinancialAssetTypes[group as FinancialAssetType]}
+                    >
+                      {groupItems?.map((item) => (
+                        <Select.Item key={item.value} value={item.value}>
+                          {item.label}
+                        </Select.Item>
+                      ))}
+                    </Select.Group>
+                  ),
+                )}
+              </>
+            )}
           />
         )}
       </form.AppField>
       <form.AppField name="orderAmountRatio">
-        {(field) => <field.TextField label="주문 금액 비율" isRequired />}
+        {(field) => (
+          <field.TextField
+            label="주문 금액 비율"
+            isRequired
+            onInput={onInputAmount}
+            onKeyDown={onKeyDownAmount}
+            isClearable={false}
+            endContent={
+              <span className="min-w-fit text-sm text-base-700">%</span>
+            }
+            classNames={{
+              input: 'text-right',
+            }}
+          />
+        )}
       </form.AppField>
 
       <form.SubmitButton>저장</form.SubmitButton>

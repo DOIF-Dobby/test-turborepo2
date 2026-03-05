@@ -37,6 +37,7 @@ export function ToastItem({ toast, vertical }: ToastItemProps) {
                 )}
               />
               <Toast.Description
+                render={(props) => <div {...props} />}
                 className={swClsx(
                   slots.description({ className: classNames?.description }),
                 )}

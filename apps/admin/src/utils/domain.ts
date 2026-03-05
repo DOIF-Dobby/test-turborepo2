@@ -39,4 +39,6 @@ export const currencyUtils = {
     const currency = Currencies[code]
     return currency.suffixText
   },
+
+  getAssetType: (code: Currency) => Currencies[code].assetType,
 }

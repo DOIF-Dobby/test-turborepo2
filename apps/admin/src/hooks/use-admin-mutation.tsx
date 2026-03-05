@@ -1,3 +1,4 @@
+import { ApiError } from '@/libs/http/api-error'
 import type { ApiResponse } from '@/types/api'
 import { useToast } from '@repo/ui/components/toast'
 import {
@@ -60,14 +61,35 @@ export function useAdminMutation<
       }
     },
     onError: (error, variables, onMutateResult, context) => {
-      toast.add({
-        title: options.errorTitle ?? '요청 실패',
-        description:
-          error instanceof Error
-            ? error.message
-            : '알 수 없는 에러가 발생했습니다.',
-        itemType: 'error',
-      })
+      if (error instanceof ApiError) {
+        const { errorData } = error
+
+        toast.add({
+          title: options.errorTitle ?? errorData.message ?? '요청 실패',
+          description: (
+            <span>
+              <div>{errorData.message}</div>
+              {errorData.data &&
+                Object.entries(errorData.data).map(([key, value]) => (
+                  <div key={key}>
+                    {key}: {value as string}
+                  </div>
+                ))}
+            </span>
+          ),
+          itemType: 'error',
+        })
+      } else {
+        toast.add({
+          title: options.errorTitle ?? '요청 실패',
+          description:
+            error instanceof Error
+              ? error.message
+              : '알 수 없는 에러가 발생했습니다.',
+          itemType: 'error',
+        })
+      }
+
       options.onError?.(error, variables, onMutateResult, context)
     },
   })

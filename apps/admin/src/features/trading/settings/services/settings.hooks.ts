@@ -82,10 +82,7 @@ export function useUpdateTradingSetting() {
 export function useDeleteTradingSetting() {
   return useAdminMutation({
     mutationFn: deleteTradingSetting,
-    invalidateKeys: (id) => [
-      tradingSettingsQueries.listKey,
-      tradingSettingsQueries.detailKey(id),
-    ],
+    invalidateKeys: [tradingSettingsQueries.listKey],
     successTitle: '거래 설정 삭제 성공',
     errorTitle: '거래 설정 삭제 실패',
   })

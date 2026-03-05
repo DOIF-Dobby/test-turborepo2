@@ -4,7 +4,11 @@ import { SectionItem } from '@/components/section/section-item'
 import { SectionToolbar } from '@/components/section/section-toolbar'
 import { useDisclosure } from '@repo/hooks/use-disclosure'
 import { Frame } from '@repo/ui/components/frame'
-import { useTradingSettingDetail } from '../services/settings.hooks'
+import { useRouter } from 'next/navigation'
+import {
+  useDeleteTradingSetting,
+  useTradingSettingDetail,
+} from '../services/settings.hooks'
 import { TradingSettingsActivationSwitch } from './settings.activation-switch'
 import { SettingsEditModal } from './settings.edit-modal'
 
@@ -15,8 +19,16 @@ interface TradingSettingDetailInfoSectionProps {
 export function TradingSettingDetailInfoSection({
   tradingSettingId,
 }: TradingSettingDetailInfoSectionProps) {
+  const router = useRouter()
+
   const { data } = useTradingSettingDetail(tradingSettingId)
+  const deleteMutation = useDeleteTradingSetting()
   const editModal = useDisclosure()
+
+  const handleDelete = async () => {
+    await deleteMutation.mutateAsync(tradingSettingId)
+    router.push('/trading/settings')
+  }
 
   if (!data) {
     return null
@@ -31,7 +43,7 @@ export function TradingSettingDetailInfoSection({
         actions={
           <>
             <EditButton onPress={editModal.open} />
-            <DeleteButton />
+            <DeleteButton onDelete={handleDelete} />
           </>
         }
       />
