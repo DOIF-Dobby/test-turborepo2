@@ -1,6 +1,6 @@
 import { swClsx } from '@repo/ui/utils/clsx'
 
-export function TableTitle({
+export function SectionTitle({
   children,
   className,
   ...props

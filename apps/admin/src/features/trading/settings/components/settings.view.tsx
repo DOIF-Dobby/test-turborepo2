@@ -1,16 +1,23 @@
 'use client'
 
 import { useTradingSettings } from '../services/settings.hooks'
-import { SettingsHedgingSection } from './settings-hedging.section'
-import { SettingsNormalSection } from './settings-normal.section'
+import { SettingsActivationModal } from './settings.activation-modal'
+import { SettingsDeactivationModal } from './settings.deactivation-modal'
+import { SettingsHedgingSection } from './settings.hedging-section'
+import { SettingsNormalSection } from './settings.normal-section'
 
 export function TradingSettingsView() {
   const { data = [], isLoading } = useTradingSettings()
 
   return (
     <>
-      <SettingsHedgingSection data={data} isLoading={isLoading} />
-      <SettingsNormalSection data={data} isLoading={isLoading} />
+      <div className="flex flex-col gap-sw-xl">
+        <SettingsHedgingSection data={data} isLoading={isLoading} />
+        <SettingsNormalSection data={data} isLoading={isLoading} />
+      </div>
+
+      <SettingsActivationModal />
+      <SettingsDeactivationModal />
     </>
   )
 }

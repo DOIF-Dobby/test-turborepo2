@@ -43,7 +43,7 @@
       "tailwindcss": "4.1.18",
       "@tailwindcss/postcss": "4.1.18",
       "@internationalized/date": "3.10.1",
-      "lucide-react": "0.562.0",
+      "lucide-react": "0.577.0",
       "typescript": "5.9.2",
       "prettier": "3.7.4",
       "@types/node": "22.15.3",

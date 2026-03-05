@@ -14,3 +14,5 @@ export const Modal = Object.assign(ModalRoot, {
 })
 
 export type { ModalRootProps } from './modal-root'
+
+export type ModalHandle<T> = ReturnType<typeof DialogPrimitive.createHandle<T>>

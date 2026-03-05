@@ -97,7 +97,11 @@ function DashboardMenu(props: DashboardMenuProps) {
   const slots = dashboardMenuVariants({})
 
   if (type === 'menu') {
-    const isSelected = items.some((item) => item.href === pathname)
+    const isSelected = items.some(
+      (item) =>
+        item.href &&
+        (pathname === item.href || pathname.startsWith(`${item.href}/`)),
+    )
     return (
       <Menu>
         <Menu.Trigger className={slots.item({ isSelected })}>
@@ -125,7 +129,12 @@ function DashboardMenu(props: DashboardMenuProps) {
   }
 
   return (
-    <Link href={href} className={slots.item({ isSelected: pathname === href })}>
+    <Link
+      href={href}
+      className={slots.item({
+        isSelected: pathname === href || pathname.startsWith(`${href}/`),
+      })}
+    >
       {name}
     </Link>
   )

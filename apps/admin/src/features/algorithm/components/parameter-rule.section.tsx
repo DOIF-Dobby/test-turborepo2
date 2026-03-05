@@ -3,7 +3,7 @@ import {
   DeleteButton,
   EditButton,
 } from '@/components/button/action-buttons'
-import { TableToolbar } from '@/components/table/table-toolbar'
+import { SectionToolbar } from '@/components/section/section-toolbar'
 import { useDisclosure } from '@repo/hooks/use-disclosure'
 import { AppTable, getTableSelection, useAppTable } from '@repo/table'
 import { AlgorithmParameterRuleColumns } from '../constants/columns'
@@ -51,7 +51,7 @@ export function AlgorithmParameterRuleSection({
   return (
     <>
       <section>
-        <TableToolbar
+        <SectionToolbar
           title="알고리즘 파라미터 규칙 목록"
           actions={
             <>

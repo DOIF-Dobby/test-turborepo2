@@ -3,7 +3,7 @@ import {
   DeleteButton,
   EditButton,
 } from '@/components/button/action-buttons'
-import { TableToolbar } from '@/components/table/table-toolbar'
+import { SectionToolbar } from '@/components/section/section-toolbar'
 import { useDisclosure } from '@repo/hooks/use-disclosure'
 import { AppTable, getTableSelection } from '@repo/table'
 import type { Table } from '@tanstack/react-table'
@@ -36,7 +36,7 @@ export function AlgorithmSection({ table, isLoading }: AlgorithmSectionProps) {
   return (
     <>
       <section>
-        <TableToolbar
+        <SectionToolbar
           title="알고리즘 목록"
           actions={
             <>

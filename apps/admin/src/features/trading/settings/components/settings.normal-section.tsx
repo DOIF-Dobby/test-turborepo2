@@ -1,4 +1,4 @@
-import { TableToolbar } from '@/components/table/table-toolbar'
+import { SectionToolbar } from '@/components/section/section-toolbar'
 import { AppTable, useAppTable } from '@repo/table'
 import { useMemo } from 'react'
 import { useTradingSettingColumns } from '../hooks/use-trading-setting-columns'
@@ -29,7 +29,7 @@ export function SettingsNormalSection({
   return (
     <>
       <section>
-        <TableToolbar title="일반 알고리즘" />
+        <SectionToolbar title="일반 알고리즘" />
         <AppTable table={table} isLoading={isLoading} />
       </section>
     </>
