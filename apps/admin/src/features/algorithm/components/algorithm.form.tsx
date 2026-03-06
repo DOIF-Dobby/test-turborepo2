@@ -2,6 +2,7 @@ import { AppForm, useAppForm } from '@repo/forms'
 import { keysOf, pick } from '@repo/utils/object'
 import { safePromise } from '@repo/utils/promise'
 import { vRequiredString } from '@repo/validators'
+import { useMemo } from 'react'
 import * as v from 'valibot'
 import { AlgorithmTypes } from '../constants/domain'
 import type { AlgorithmResponse } from '../services/algorithm.api'
@@ -37,10 +38,16 @@ export function AlgorithmForm({ initialData, onSuccess }: AlgorithmFormProps) {
 
   const isEdit = !!initialData
 
+  const formDefaultValues = useMemo<FormType>(() => {
+    if (initialData) {
+      return pick(initialData, keysOf(defaultValues))
+    }
+
+    return defaultValues
+  }, [initialData])
+
   const form = useAppForm({
-    defaultValues: isEdit
-      ? pick(initialData, keysOf(defaultValues))
-      : defaultValues,
+    defaultValues: formDefaultValues,
     validators: {
       onDynamic: FormSchema,
     },

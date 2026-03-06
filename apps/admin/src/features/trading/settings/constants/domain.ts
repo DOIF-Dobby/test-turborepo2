@@ -1,3 +1,5 @@
+import { arrayToMap } from '@repo/utils/array'
+
 export const AllowDays = [
   { value: 'allowMonday', label: '월' },
   { value: 'allowTuesday', label: '화' },
@@ -7,3 +9,5 @@ export const AllowDays = [
   { value: 'allowSaturday', label: '토' },
   { value: 'allowSunday', label: '일' },
 ] as const
+
+export const AllowDaysMap = arrayToMap(AllowDays, 'value', 'label')

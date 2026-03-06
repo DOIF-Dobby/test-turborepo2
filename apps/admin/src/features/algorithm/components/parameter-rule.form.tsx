@@ -3,6 +3,7 @@ import { keysOf, pick } from '@repo/utils/object'
 import { safePromise } from '@repo/utils/promise'
 import { emptyIfNull } from '@repo/utils/string'
 import { vRequiredString } from '@repo/validators'
+import { useMemo } from 'react'
 import * as v from 'valibot'
 import { ParameterTypes } from '../constants/domain'
 import type { AlgorithmParameterRuleResponse } from '../services/parameter-rule.api'
@@ -47,14 +48,20 @@ export function ParameterRuleForm({
 
   const isEdit = !!initialData
 
+  const formDefaultValues = useMemo<FormType>(() => {
+    if (initialData) {
+      return {
+        ...pick(initialData, keysOf(defaultValues)),
+        upperBound: emptyIfNull(initialData.upperBound),
+        lowerBound: emptyIfNull(initialData.lowerBound),
+      }
+    }
+
+    return defaultValues
+  }, [initialData])
+
   const form = useAppForm({
-    defaultValues: isEdit
-      ? {
-          ...pick(initialData, keysOf(defaultValues)),
-          upperBound: emptyIfNull(initialData.upperBound),
-          lowerBound: emptyIfNull(initialData.lowerBound),
-        }
-      : defaultValues,
+    defaultValues: formDefaultValues,
     validators: {
       onDynamic: FormSchema,
     },

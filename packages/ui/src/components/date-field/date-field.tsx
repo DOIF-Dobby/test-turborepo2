@@ -166,6 +166,7 @@ export function DateField(props: DateFieldProps) {
       <Field.Control
         ref={hiddenRef}
         className="peer sr-only"
+        tabIndex={-1}
         {...inputProps}
         type="text"
       />

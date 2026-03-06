@@ -5,6 +5,10 @@ import type { ColumnDef } from '@tanstack/react-table'
 import { useMemo } from 'react'
 import { AllowDays } from '../constants/domain'
 import type { TradingScheduleResponse } from '../services/schedule.api'
+import {
+  useActivateTradingSchedule,
+  useDeactivateTradingSchedule,
+} from '../services/schedule.hooks'
 import type { TradingSettingWithAlgorithmResponse } from '../services/settings.api'
 import { tradingSettingsQueries } from '../services/settings.hooks'
 
@@ -16,6 +20,9 @@ export function useTradingScheduleColumns(tradingSettingId: number) {
   >(tradingSettingsQueries.detailKey(tradingSettingId))
 
   const { data: tradingSettingData } = response ?? {}
+
+  const { mutateAsync: activate } = useActivateTradingSchedule()
+  const { mutateAsync: deactivate } = useDeactivateTradingSchedule()
 
   return useMemo<ColumnDef<TradingScheduleResponse>[]>(
     () => [
@@ -52,20 +59,37 @@ export function useTradingScheduleColumns(tradingSettingId: number) {
         accessorKey: 'isActive',
         header: '활성화',
         cell: ({ row: { original } }) => {
-          const { isActive } = original
+          const { isActive, tradingSettingId, scheduleId } = original
+
+          if (!tradingSettingData) {
+            return null
+          }
 
           return (
             <div onClick={(e) => e.stopPropagation()}>
               <Switch
                 defaultChecked={isActive}
                 size="sm"
-                isDisabled={tradingSettingData?.isActive}
+                isDisabled={tradingSettingData.isActive}
+                onCheckedChange={async (checked) => {
+                  if (checked) {
+                    await activate({
+                      tradingSettingId,
+                      scheduleId,
+                    })
+                  } else {
+                    await deactivate({
+                      tradingSettingId,
+                      scheduleId,
+                    })
+                  }
+                }}
               />
             </div>
           )
         },
       },
     ],
-    [tradingSettingData],
+    [tradingSettingData, activate, deactivate],
   )
 }

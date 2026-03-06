@@ -5,10 +5,12 @@ import type { TradingScheduleResponse } from '../services/schedule.api'
 import { TradingScheduleForm } from './schedule.form'
 
 interface Props {
+  tradingSettingId: number
   data?: TradingScheduleResponse
 }
 
 export function TradingScheduleEditModal({
+  tradingSettingId,
   disclosure,
   data,
 }: PropsWithDisclosure<Props>) {
@@ -24,6 +26,7 @@ export function TradingScheduleEditModal({
       </Frame>
       <Frame>
         <TradingScheduleForm
+          tradingSettingId={tradingSettingId}
           initialData={data}
           onSuccess={() => disclosure.close()}
         />

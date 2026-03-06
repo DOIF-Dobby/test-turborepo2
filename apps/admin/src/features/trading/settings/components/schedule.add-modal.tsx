@@ -3,7 +3,14 @@ import { Frame } from '@repo/ui/components/frame'
 import { Modal } from '@repo/ui/components/modal'
 import { TradingScheduleForm } from './schedule.form'
 
-export function TradingScheduleAddModal({ disclosure }: PropsWithDisclosure) {
+type Props = {
+  tradingSettingId: number
+}
+
+export function TradingScheduleAddModal({
+  disclosure,
+  tradingSettingId,
+}: PropsWithDisclosure<Props>) {
   return (
     <Modal open={disclosure.isOpen} onOpenChange={disclosure.onOpenChange}>
       <Frame>
@@ -11,7 +18,10 @@ export function TradingScheduleAddModal({ disclosure }: PropsWithDisclosure) {
         <Modal.Description>자동 거래 스케줄을 추가합니다.</Modal.Description>
       </Frame>
       <Frame>
-        <TradingScheduleForm onSuccess={() => disclosure.close()} />
+        <TradingScheduleForm
+          tradingSettingId={tradingSettingId}
+          onSuccess={() => disclosure.close()}
+        />
       </Frame>
     </Modal>
   )

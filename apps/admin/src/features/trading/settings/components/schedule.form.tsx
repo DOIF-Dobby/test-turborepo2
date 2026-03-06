@@ -1,36 +1,59 @@
+import { parseTime, Time } from '@repo/date'
 import { AppForm, useAppForm } from '@repo/forms'
 import { Radio } from '@repo/ui/components/radio'
-import { vRequired, vRequiredMultiple } from '@repo/validators'
+import { mapValues } from '@repo/utils/object'
+import { safePromise } from '@repo/utils/promise'
+import {
+  vRequiredMultiple,
+  vRequiredString,
+  vRequiredTime,
+  vTimeRange,
+} from '@repo/validators'
+import { useMemo } from 'react'
 import * as v from 'valibot'
-import { AllowDays } from '../constants/domain'
+import { AllowDays, AllowDaysMap } from '../constants/domain'
 import type { TradingScheduleResponse } from '../services/schedule.api'
 import {
   useCreateTradingSchedule,
   useUpdateTradingSchedule,
 } from '../services/schedule.hooks'
 
-const FormSchema = v.object({
-  startTime: vRequired(),
-  endTime: vRequired(),
-  allowDays: vRequiredMultiple(),
-  allowHoliday: vRequired(),
-})
+const FormSchema = v.pipe(
+  v.object({
+    startTime: vRequiredTime(),
+    endTime: vRequiredTime(),
+    allowDays: vRequiredMultiple(),
+    allowHoliday: vRequiredString(),
+  }),
+  vTimeRange({
+    startKey: 'startTime',
+    endKey: 'endTime',
+  }),
+)
 
 type FormType = v.InferInput<typeof FormSchema>
 
 const defaultValues: FormType = {
-  startTime: '',
-  endTime: '',
-  allowDays: [],
-  allowHoliday: 'Y',
+  startTime: new Time(0, 0, 0),
+  endTime: new Time(23, 59, 59),
+  allowDays: [
+    'allowMonday',
+    'allowTuesday',
+    'allowWednesday',
+    'allowThursday',
+    'allowFriday',
+  ],
+  allowHoliday: 'N',
 }
 
 interface TradingScheduleFormProps {
+  tradingSettingId: number
   initialData?: TradingScheduleResponse
   onSuccess?: () => void
 }
 
 export function TradingScheduleForm({
+  tradingSettingId,
   initialData,
   onSuccess,
 }: TradingScheduleFormProps) {
@@ -39,33 +62,66 @@ export function TradingScheduleForm({
 
   const isEdit = !!initialData
 
+  const formDefaultValues = useMemo<FormType>(() => {
+    if (initialData) {
+      const allowDays = AllowDays.filter(
+        (allowDay) => initialData[allowDay.value],
+      ).map((allowDay) => allowDay.value)
+
+      return {
+        startTime: parseTime(initialData.startTime),
+        endTime: parseTime(initialData.endTime),
+        allowDays,
+        allowHoliday: initialData.allowHoliday ? 'Y' : 'N',
+      }
+    }
+    return defaultValues
+  }, [initialData])
+
   const form = useAppForm({
-    defaultValues,
+    defaultValues: formDefaultValues,
     validators: {
       onDynamic: FormSchema,
     },
     onSubmit: async ({ value }) => {
       const { allowDays } = value
 
-      const allowDaysParam = AllowDays.reduce(
-        (prev, cur) => ({
-          ...prev,
-          [cur.value]: allowDays.includes(cur.value),
-        }),
-        {},
+      const allowDaysParam = mapValues(AllowDaysMap, (_, key) =>
+        allowDays.includes(key),
       )
 
-      console.log(allowDaysParam)
+      const data = {
+        startTime: value.startTime!.toString(),
+        endTime: value.endTime!.toString(),
+        allowHoliday: value.allowHoliday === 'Y',
+        ...allowDaysParam,
+      }
+
+      const mutation = isEdit
+        ? updateMutation.mutateAsync({
+            tradingSettingId,
+            scheduleId: initialData.scheduleId,
+            data,
+          })
+        : createMutation.mutateAsync({
+            tradingSettingId,
+            data,
+          })
+
+      const result = await safePromise(mutation)
+      if (result) {
+        onSuccess?.()
+      }
     },
   })
 
   return (
     <AppForm form={form}>
       <form.AppField name="startTime">
-        {(field) => <field.TextField isRequired label="시작 시간" />}
+        {(field) => <field.TimeField isRequired label="시작 시간" />}
       </form.AppField>
       <form.AppField name="endTime">
-        {(field) => <field.TextField isRequired label="종료 시간" />}
+        {(field) => <field.TimeField isRequired label="종료 시간" />}
       </form.AppField>
       <form.AppField name="allowDays">
         {(field) => (

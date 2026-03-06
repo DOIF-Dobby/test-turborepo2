@@ -16,6 +16,7 @@ import { groupBy, sortBy } from '@repo/utils/array'
 import { parseAmount } from '@repo/utils/number'
 import { safePromise } from '@repo/utils/promise'
 import { vAmountString, vRequired, vRequiredString } from '@repo/validators'
+import { useMemo } from 'react'
 import * as v from 'valibot'
 import type { TradingSettingWithAlgorithmResponse } from '../services/settings.api'
 import {
@@ -52,14 +53,19 @@ export function TradingSettingsForm({
 
   const isEdit = !!initialData
 
+  const formDefaultValues = useMemo<FormType>(() => {
+    if (initialData) {
+      return {
+        algorithmId: initialData.algorithmId.toString(),
+        currency: initialData.currency,
+        orderAmountRatio: initialData.orderAmountRatio.toString(),
+      }
+    }
+    return defaultValues
+  }, [initialData])
+
   const form = useAppForm({
-    defaultValues: isEdit
-      ? {
-          algorithmId: initialData.algorithmId.toString(),
-          currency: initialData.currency,
-          orderAmountRatio: initialData.orderAmountRatio.toString(),
-        }
-      : defaultValues,
+    defaultValues: formDefaultValues,
     validators: {
       onDynamic: FormSchema,
     },

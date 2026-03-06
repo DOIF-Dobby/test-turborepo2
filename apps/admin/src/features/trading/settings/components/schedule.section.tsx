@@ -7,7 +7,10 @@ import { SectionToolbar } from '@/components/section/section-toolbar'
 import { useDisclosure } from '@repo/hooks/use-disclosure'
 import { AppTable, getTableSelection, useAppTable } from '@repo/table'
 import { useTradingScheduleColumns } from '../hooks/use-trading-schedule-columns'
-import { useTradingSettingScheduleList } from '../services/schedule.hooks'
+import {
+  useDeleteTradingSchedule,
+  useTradingSettingScheduleList,
+} from '../services/schedule.hooks'
 import type { TradingSettingWithAlgorithmResponse } from '../services/settings.api'
 import { TradingScheduleAddModal } from './schedule.add-modal'
 import { TradingScheduleEditModal } from './schedule.edit-modal'
@@ -23,6 +26,7 @@ export function TradingSettingScheduleSection({
 
   const addModal = useDisclosure()
   const editModal = useDisclosure()
+  const deleteMutation = useDeleteTradingSchedule()
   const { data, isLoading } = useTradingSettingScheduleList(tradingSettingId)
 
   const columns = useTradingScheduleColumns(tradingSettingId)
@@ -34,6 +38,16 @@ export function TradingSettingScheduleSection({
   })
 
   const { hasSelection, selectionItem } = getTableSelection(table)
+
+  const handleDelete = async () => {
+    if (selectionItem) {
+      await deleteMutation.mutateAsync({
+        tradingSettingId,
+        scheduleId: selectionItem?.scheduleId,
+      })
+      table.resetRowSelection()
+    }
+  }
 
   return (
     <>
@@ -47,15 +61,25 @@ export function TradingSettingScheduleSection({
                 isDisabled={settingIsActive || !hasSelection}
                 onPress={editModal.open}
               />
-              <DeleteButton isDisabled={settingIsActive || !hasSelection} />
+              <DeleteButton
+                isDisabled={settingIsActive || !hasSelection}
+                onDelete={handleDelete}
+              />
             </>
           }
         />
         <AppTable table={table} isLoading={isLoading} />
       </section>
 
-      <TradingScheduleAddModal disclosure={addModal} />
-      <TradingScheduleEditModal disclosure={editModal} data={selectionItem} />
+      <TradingScheduleAddModal
+        disclosure={addModal}
+        tradingSettingId={tradingSettingId}
+      />
+      <TradingScheduleEditModal
+        disclosure={editModal}
+        data={selectionItem}
+        tradingSettingId={tradingSettingId}
+      />
     </>
   )
 }

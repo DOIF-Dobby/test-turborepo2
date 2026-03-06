@@ -86,8 +86,8 @@ export function useDeleteTradingSchedule() {
     invalidateKeys: ({ tradingSettingId }) => [
       tradingScheduleQueries.rootKey(tradingSettingId),
     ],
-    successTitle: '스케줄 수정 성공',
-    errorTitle: '스케줄 수정 실패',
+    successTitle: '스케줄 삭제 성공',
+    errorTitle: '스케줄 삭제 실패',
   })
 }
 
