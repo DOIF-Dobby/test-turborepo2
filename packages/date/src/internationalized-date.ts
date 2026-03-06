@@ -1,6 +1,7 @@
 import {
   getDayOfWeek,
   getLocalTimeZone,
+  Time,
   today,
   type DateValue,
 } from '@internationalized/date'
@@ -27,4 +28,13 @@ export function isWeekend(date: DateValue, locale: string = 'ko-KR') {
 
   // 일요일(0) 또는 토요일(6)이면 주말
   return day === 0 || day === 6
+}
+
+/**
+ * 현재 시간을 Time 객체로 반환하는 함수입니다.
+ */
+export function getCurrentTime() {
+  const now = new Date()
+
+  return new Time(now.getHours(), now.getMinutes(), now.getSeconds())
 }

@@ -8,6 +8,7 @@ import { FormDatePicker } from './fields/form-date-picker'
 import { FormRadioGroup } from './fields/form-radio-group'
 import { FormSelect } from './fields/form-select'
 import { FormTextField } from './fields/form-text-field'
+import { FormTimeField } from './fields/form-time-field'
 import { fieldContext, formContext } from './form-context'
 
 export const {
@@ -25,6 +26,7 @@ export const {
     Combobox: FormCombobox,
     DateField: FormDateField,
     DatePicker: FormDatePicker,
+    TimeField: FormTimeField,
   },
   formComponents: {
     SubmitButton: FormButton,

@@ -8,6 +8,7 @@ import {
   vRequired,
   vRequiredDate,
   vRequiredMultiple,
+  vRequiredTime,
 } from '@repo/validators'
 import * as v from 'valibot'
 
@@ -22,6 +23,7 @@ const Schema = v.object({
   comboboxMultipleFruit: vRequiredMultiple('2개 이상 선택해주세요.', 2),
   dateField: vRequiredDate('날짜를 입력해주세요.'),
   datePicker: vRequiredDate('날짜를 입력해주세요.'),
+  timeField: vRequiredTime('시간을 입력해주세요.'),
 })
 
 const formDefaultValues: v.InferInput<typeof Schema> = {
@@ -35,6 +37,7 @@ const formDefaultValues: v.InferInput<typeof Schema> = {
   comboboxMultipleFruit: [],
   dateField: null,
   datePicker: null,
+  timeField: null,
 }
 
 export default function AppFormExample() {
@@ -139,6 +142,10 @@ export default function AppFormExample() {
 
       <form.AppField name="datePicker">
         {(field) => <field.DatePicker label="Date Picker" />}
+      </form.AppField>
+
+      <form.AppField name="timeField">
+        {(field) => <field.TimeField label="Time Field" />}
       </form.AppField>
 
       <form.SubmitButton>Submit</form.SubmitButton>
