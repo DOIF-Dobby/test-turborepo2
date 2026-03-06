@@ -6,6 +6,7 @@ import {
 import { SectionToolbar } from '@/components/section/section-toolbar'
 import { useDisclosure } from '@repo/hooks/use-disclosure'
 import { AppTable, getTableSelection, useAppTable } from '@repo/table'
+import { useState } from 'react'
 import { useTradingScheduleColumns } from '../hooks/use-trading-schedule-columns'
 import {
   useDeleteTradingSchedule,
@@ -24,6 +25,8 @@ export function TradingSettingScheduleSection({
 }: TradingSettingScheduleSectionProps) {
   const { tradingSettingId, isActive: settingIsActive } = tradingSettingData
 
+  const [rowSelection, setRowSelection] = useState({})
+
   const addModal = useDisclosure()
   const editModal = useDisclosure()
   const deleteMutation = useDeleteTradingSchedule()
@@ -34,7 +37,11 @@ export function TradingSettingScheduleSection({
   const table = useAppTable({
     data,
     columns,
-    enableRowSelection: true,
+    enableRowSelection: !settingIsActive,
+    state: {
+      rowSelection: settingIsActive ? {} : rowSelection,
+    },
+    onRowSelectionChange: setRowSelection,
   })
 
   const { hasSelection, selectionItem } = getTableSelection(table)
