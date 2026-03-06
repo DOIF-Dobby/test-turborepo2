@@ -13,10 +13,9 @@ import { currencyUtils } from '@/utils/domain'
 import { AppForm, useAppForm } from '@repo/forms'
 import { Select } from '@repo/ui/components/select'
 import { groupBy, sortBy } from '@repo/utils/array'
-import { onInputAmount, onKeyDownAmount } from '@repo/utils/mask'
 import { parseAmount } from '@repo/utils/number'
 import { safePromise } from '@repo/utils/promise'
-import { vRequiredString } from '@repo/validators'
+import { vAmountString, vRequired, vRequiredString } from '@repo/validators'
 import * as v from 'valibot'
 import type { TradingSettingWithAlgorithmResponse } from '../services/settings.api'
 import {
@@ -25,9 +24,9 @@ import {
 } from '../services/settings.hooks'
 
 const FormSchema = v.object({
-  algorithmId: vRequiredString(),
-  currency: vRequiredString(),
-  orderAmountRatio: vRequiredString(),
+  algorithmId: vRequired(),
+  currency: vRequired(),
+  orderAmountRatio: v.pipe(vRequiredString(), vAmountString()),
 })
 
 type FormType = v.InferInput<typeof FormSchema>
@@ -167,18 +166,11 @@ export function SettingsForm({ initialData, onSuccess }: SettingsFormProps) {
       </form.AppField>
       <form.AppField name="orderAmountRatio">
         {(field) => (
-          <field.TextField
+          <field.AmountTextField
             label="주문 금액 비율"
             isRequired
-            onInput={onInputAmount}
-            onKeyDown={onKeyDownAmount}
-            isClearable={false}
-            endContent={
-              <span className="min-w-fit text-sm text-base-700">%</span>
-            }
-            classNames={{
-              input: 'text-right',
-            }}
+            allowMinus={false}
+            unit="%"
           />
         )}
       </form.AppField>

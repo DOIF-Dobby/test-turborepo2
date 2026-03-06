@@ -64,6 +64,7 @@ export function TextField(props: TextFieldProps) {
     startContent,
     endContent,
     name,
+    textAlign,
     ...otherProps
   } = props
 
@@ -109,7 +110,7 @@ export function TextField(props: TextFieldProps) {
     isTextInput: true,
   })
 
-  const slots = textFieldVariants({ size, isDisabled })
+  const slots = textFieldVariants({ size, isDisabled, textAlign })
 
   return (
     <Field

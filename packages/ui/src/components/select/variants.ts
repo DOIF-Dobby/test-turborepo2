@@ -166,12 +166,13 @@ export const selectItemVariants = swTwVariants({
 
 export const selectGroupVariants = swTwVariants({
   slots: {
-    group: ['not-last:mb-sw-xs'],
+    group: ['not-last:mb-sw-xs', 'mt-sw-2xs'],
     label: [
       'text-base-600',
       'font-paragraph-1',
       'leading-paragraph-1',
       'text-paragraph-1',
+      'ml-sw-4xs',
     ],
   },
 })

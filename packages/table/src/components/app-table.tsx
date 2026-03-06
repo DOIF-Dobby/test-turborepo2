@@ -3,6 +3,7 @@
 import { ScrollArea } from '@repo/ui/components/scroll-area'
 import { Spinner } from '@repo/ui/components/spinner'
 import { Table as TableComponent } from '@repo/ui/components/table'
+import { Heading5 } from '@repo/ui/components/typography'
 import { swClsx } from '@repo/ui/utils/clsx'
 import { flexRender, type RowData, type Table } from '@tanstack/react-table'
 import { useVirtualizer } from '@tanstack/react-virtual'
@@ -211,6 +212,15 @@ export function AppTable<TData extends RowData>(props: AppTableProps<TData>) {
               style={{ pointerEvents: 'all' }}
             >
               <Spinner />
+            </div>
+          )}
+
+          {rows.length === 0 && !isLoading && (
+            <div
+              className="absolute inset-0 z-50 flex items-center justify-center bg-transparent"
+              style={{ pointerEvents: 'all' }}
+            >
+              <Heading5 className="text-base-500">No data</Heading5>
             </div>
           )}
         </div>

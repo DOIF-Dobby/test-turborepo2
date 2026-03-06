@@ -1,7 +1,6 @@
 import type { Currency } from '@/constants/domain'
 import { currencyUtils } from '@/utils/domain'
 import { AppForm, useAppForm } from '@repo/forms'
-import { onInputAmount, onKeyDownAmount } from '@repo/utils/mask'
 import { parseAmount } from '@repo/utils/number'
 import { safePromise } from '@repo/utils/promise'
 import { vAmountString } from '@repo/validators'
@@ -30,7 +29,7 @@ export function SettingsActivationForm({
   onSuccess,
 }: SettingsActivationFormProps) {
   const activate = useActivateTradingSetting()
-  const endContent = currencyUtils.getSuffix(currency)
+  const unit = currencyUtils.getSuffix(currency)
 
   const form = useAppForm({
     defaultValues,
@@ -59,20 +58,10 @@ export function SettingsActivationForm({
     <AppForm form={form} className="flex flex-col gap-sw-md">
       <form.AppField name="initialPosition">
         {(field) => (
-          <field.TextField
+          <field.AmountTextField
             label="초기 포지션"
             description="+ 이면 매수, - 이면 매도"
-            onInput={onInputAmount}
-            onKeyDown={onKeyDownAmount}
-            isClearable={false}
-            endContent={
-              <span className="min-w-fit text-sm text-base-700">
-                {endContent}
-              </span>
-            }
-            classNames={{
-              input: 'text-right',
-            }}
+            unit={unit}
           />
         )}
       </form.AppField>

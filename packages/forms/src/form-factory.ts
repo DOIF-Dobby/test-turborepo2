@@ -1,4 +1,5 @@
 import { createFormHook, revalidateLogic } from '@tanstack/react-form'
+import { FormAmountTextField } from './fields/form-amount-text-field'
 import { FormButton } from './fields/form-button'
 import { FormCheckboxGroup } from './fields/form-checkbox-group'
 import { FormCombobox } from './fields/form-combobox'
@@ -17,6 +18,7 @@ export const {
 } = createFormHook({
   fieldComponents: {
     TextField: FormTextField,
+    AmountTextField: FormAmountTextField,
     RadioGroup: FormRadioGroup,
     Select: FormSelect,
     CheckboxGroup: FormCheckboxGroup,

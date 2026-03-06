@@ -87,9 +87,21 @@ export const textFieldVariants = swTwVariants({
         label: ['text-base-500'],
       },
     },
+    textAlign: {
+      left: {
+        input: ['text-left'],
+      },
+      center: {
+        input: ['text-center'],
+      },
+      right: {
+        input: ['text-right'],
+      },
+    },
   },
   defaultVariants: {
     size: 'md',
+    textAlign: 'left',
   },
 })
 

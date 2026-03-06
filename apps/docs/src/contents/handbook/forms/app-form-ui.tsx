@@ -3,11 +3,17 @@
 import { AppForm, useAppForm } from '@repo/forms'
 import { Checkbox } from '@repo/ui/components/checkbox'
 import { Radio } from '@repo/ui/components/radio'
-import { vRequired, vRequiredDate, vRequiredMultiple } from '@repo/validators'
+import {
+  vAmountString,
+  vRequired,
+  vRequiredDate,
+  vRequiredMultiple,
+} from '@repo/validators'
 import * as v from 'valibot'
 
 const Schema = v.object({
   firstName: v.pipe(v.string(), v.minLength(3, '3글자 이상 입력하세요.')),
+  amount: vAmountString(),
   radioFruit: vRequired('과일을 하나 선택해주세요.'),
   checkboxFruit: vRequiredMultiple('2개 이상 선택해주세요.', 2),
   selectFruit: vRequired('과일을 하나 선택해주세요.'),
@@ -20,6 +26,7 @@ const Schema = v.object({
 
 const formDefaultValues: v.InferInput<typeof Schema> = {
   firstName: '',
+  amount: '',
   radioFruit: null,
   checkboxFruit: [],
   selectFruit: null,
@@ -46,6 +53,10 @@ export default function AppFormExample() {
     <AppForm form={form} className="flex flex-col gap-sw-md">
       <form.AppField name="firstName">
         {(field) => <field.TextField label="First Name" />}
+      </form.AppField>
+
+      <form.AppField name="amount">
+        {(field) => <field.AmountTextField label="Amount" unit="원" />}
       </form.AppField>
 
       <form.AppField name="radioFruit">

@@ -3,18 +3,20 @@
  */
 export function onInputAmount(
   e: React.FormEvent<HTMLInputElement>,
-  integerPartLength: number = 9,
+  integerPartLength: number = 12,
   allowDecimals: boolean = true,
+  allowMinus: boolean = true,
 ) {
   const input = e.currentTarget
   const originalValue = input.value
   const cursorPosition = input.selectionStart || 0
 
-  // 1. 숫자, 소수점, 마이너스 부호만 남기기
-  let rawValue = originalValue.replace(/[^\d.-]/g, '')
+  // 1. 숫자, 소수점, 마이너스 부호만 남기기 (allowMinus에 따라 필터링)
+  const regex = allowMinus ? /[^\d.-]/g : /[^\d.]/g
+  let rawValue = originalValue.replace(regex, '')
 
   // 2. 마이너스 부호 처리 (맨 앞에만 위치하도록 보정)
-  const isNegative = rawValue.startsWith('-')
+  const isNegative = allowMinus && rawValue.startsWith('-')
   rawValue = rawValue.replace(/-/g, '')
   if (isNegative) rawValue = '-' + rawValue
 
@@ -24,7 +26,7 @@ export function onInputAmount(
   } else {
     const parts = rawValue.split('.')
     if (parts.length > 2) {
-      rawValue = parts[0] + '.' + parts.slice(1).join('')
+      rawValue = (parts[0] ?? '') + '.' + parts.slice(1).join('')
     }
   }
 
@@ -33,11 +35,10 @@ export function onInputAmount(
   let integerPart = parts[0] ?? ''
   let decimalPart = parts[1]
 
-  // --- 핵심: -0 및 선행 0 처리 로직 ---
   const sign = integerPart.startsWith('-') ? '-' : ''
   let absInteger = integerPart.replace(/^-/, '')
 
-  // absInteger가 0으로 시작하고 그 뒤에 숫자가 더 있다면 (예: 01, 05) 앞의 0 제거
+  // 선행 0 처리
   if (absInteger.length > 1 && absInteger.startsWith('0')) {
     absInteger = absInteger.replace(/^0+/, '') || '0'
   }
@@ -47,7 +48,6 @@ export function onInputAmount(
     absInteger = absInteger.slice(0, integerPartLength)
   }
 
-  // 최종 정수부 조립 (입력 중인 '-' 또는 '-0' 상태 유지)
   integerPart = sign + absInteger
 
   // 소수부 2자리 제한
@@ -55,8 +55,7 @@ export function onInputAmount(
     decimalPart = decimalPart.slice(0, 2)
   }
 
-  // 5. 최종 포맷팅 (콤마 추가)
-  // absInteger가 비어있는 경우는 사용자가 "-"만 입력한 상태임
+  // 5. 최종 포맷팅
   const formattedInteger =
     absInteger === '' && isNegative
       ? '-'
@@ -70,7 +69,7 @@ export function onInputAmount(
   // 6. 커서 위치 계산
   const charsBeforeCursor = originalValue
     .slice(0, cursorPosition)
-    .replace(/[^\d-]/g, '').length
+    .replace(allowMinus ? /[^\d-]/g : /[^\d]/g, '').length
 
   input.value = formattedValue
 
@@ -83,14 +82,15 @@ export function onInputAmount(
     i++
   ) {
     const char = formattedValue[i]
-    if (char && /[\d-]/.test(char)) {
+    if (char && (allowMinus ? /[\d-]/ : /[\d]/).test(char)) {
       charCount++
     }
     newCursorPos = i + 1
   }
 
   if (originalValue[cursorPosition - 1] === '.') {
-    newCursorPos = formattedValue.indexOf('.') + 1
+    const dotIndex = formattedValue.indexOf('.')
+    if (dotIndex !== -1) newCursorPos = dotIndex + 1
   }
 
   input.setSelectionRange(newCursorPos, newCursorPos)
@@ -101,8 +101,9 @@ export function onInputAmount(
  */
 export function onKeyDownAmount(
   e: React.KeyboardEvent<HTMLInputElement>,
+  integerPartLength: number = 12,
   allowDecimals: boolean = true,
-  integerPartLength: number = 9,
+  allowMinus: boolean = true,
 ) {
   const input = e.currentTarget
   const cursorPosition = input.selectionStart || 0
@@ -116,14 +117,14 @@ export function onKeyDownAmount(
     'Delete',
     'Enter',
     allowDecimals && '.',
-    '-',
-  ]
+    allowMinus && '-',
+  ].filter(Boolean) as string[]
 
   if (e.ctrlKey || e.metaKey) return
 
-  // 마이너스 부호: 맨 앞이고 아직 없을 때만 허용
+  // 마이너스 부호 제약
   if (e.key === '-') {
-    if (cursorPosition !== 0 || value.includes('-')) {
+    if (!allowMinus || cursorPosition !== 0 || value.includes('-')) {
       e.preventDefault()
     }
     return
