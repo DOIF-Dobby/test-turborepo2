@@ -1,3 +1,5 @@
+import { AlgorithmTypesMap } from '@/features/algorithm/constants/domain'
+import { formatDateTime } from '@repo/date'
 import type { ColumnDef } from '@tanstack/react-table'
 import { SquareArrowRightEnter } from 'lucide-react'
 import Link from 'next/link'
@@ -24,10 +26,29 @@ export function useTradingSettingColumns() {
         size: 250,
       },
       {
+        accessorKey: 'algorithmType',
+        header: '알고리즘 타입',
+        size: 120,
+        accessorFn: (row) => AlgorithmTypesMap[row.algorithmType],
+      },
+      {
         accessorKey: 'orderAmountRatio',
         header: '주문 금액 비율',
         size: 150,
         accessorFn: ({ orderAmountRatio }) => `${orderAmountRatio}%`,
+      },
+      {
+        accessorKey: 'lastActivatedAt',
+        header: '최근 활성화 일시',
+        size: 180,
+        accessorFn: ({ lastActivatedAt }) => formatDateTime(lastActivatedAt),
+      },
+      {
+        accessorKey: 'lastOrderGeneratedAt',
+        header: '최근 주문 생성 일시',
+        size: 180,
+        accessorFn: ({ lastOrderGeneratedAt }) =>
+          formatDateTime(lastOrderGeneratedAt),
       },
       {
         accessorKey: 'isActive',

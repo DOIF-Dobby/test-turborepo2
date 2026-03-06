@@ -1,9 +1,9 @@
 import type { PropsWithDisclosure } from '@/types/ui'
 import { Frame } from '@repo/ui/components/frame'
 import { Modal } from '@repo/ui/components/modal'
-import { SettingsForm } from './settings.form'
+import { TradingSettingsForm } from './settings.form'
 
-export function SettingsAddModal({ disclosure }: PropsWithDisclosure) {
+export function TradingSettingsAddModal({ disclosure }: PropsWithDisclosure) {
   return (
     <Modal open={disclosure.isOpen} onOpenChange={disclosure.onOpenChange}>
       <Frame>
@@ -13,7 +13,7 @@ export function SettingsAddModal({ disclosure }: PropsWithDisclosure) {
         </Modal.Description>
       </Frame>
       <Frame>
-        <SettingsForm onSuccess={disclosure.close} />
+        <TradingSettingsForm onSuccess={disclosure.close} />
       </Frame>
     </Modal>
   )

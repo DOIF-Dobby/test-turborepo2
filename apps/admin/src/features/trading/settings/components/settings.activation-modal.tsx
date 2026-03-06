@@ -13,7 +13,7 @@ type SettingsActivationModaHandleProps = {
 export const settingsActivationModalHandle: ModalHandle<SettingsActivationModaHandleProps> =
   Modal.createHandle<SettingsActivationModaHandleProps>()
 
-export function SettingsActivationModal() {
+export function TradingSettingsActivationModal() {
   return (
     <Modal handle={settingsActivationModalHandle}>
       {({ payload }) => {

@@ -6,7 +6,7 @@ import { AppTable, useAppTable } from '@repo/table'
 import { useMemo } from 'react'
 import { useTradingSettingColumns } from '../hooks/use-trading-setting-columns'
 import type { TradingSettingWithAlgorithmResponse } from '../services/settings.api'
-import { SettingsAddModal } from './settings-add-modal'
+import { TradingSettingsAddModal } from './settings.add-modal'
 
 interface SettingsHedgingSectionProps {
   data: TradingSettingWithAlgorithmResponse[]
@@ -67,7 +67,7 @@ export function SettingsHedgingSection({
         </div>
       </section>
 
-      <SettingsAddModal disclosure={addModal} />
+      <TradingSettingsAddModal disclosure={addModal} />
     </>
   )
 }

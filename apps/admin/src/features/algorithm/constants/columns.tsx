@@ -1,7 +1,7 @@
 import type { ColumnDef } from '@tanstack/react-table'
 import type { AlgorithmResponse } from '../services/algorithm.api'
 import type { AlgorithmParameterRuleResponse } from '../services/parameter-rule.api'
-import { AlgorithmTypesMap } from './definitions'
+import { AlgorithmTypesMap } from './domain'
 
 export const AlgorithmColumns: ColumnDef<AlgorithmResponse>[] = [
   {

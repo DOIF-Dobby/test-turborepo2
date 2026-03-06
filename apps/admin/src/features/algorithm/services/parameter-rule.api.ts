@@ -1,7 +1,7 @@
 import { apiClient } from '@/libs/http/api-client'
 import type { UnitApiResponse } from '@/types/api'
 import { nullIfEmpty } from '@repo/utils/string'
-import type { ParameterType } from '../constants/definitions'
+import type { ParameterType } from '../constants/domain'
 
 /**
  * 알고리즘 파라미터 규칙 응답 타입

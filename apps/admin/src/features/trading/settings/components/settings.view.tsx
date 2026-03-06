@@ -1,8 +1,8 @@
 'use client'
 
 import { useTradingSettings } from '../services/settings.hooks'
-import { SettingsActivationModal } from './settings.activation-modal'
-import { SettingsDeactivationModal } from './settings.deactivation-modal'
+import { TradingSettingsActivationModal } from './settings.activation-modal'
+import { TradingSettingsDeactivationModal } from './settings.deactivation-modal'
 import { SettingsHedgingSection } from './settings.hedging-section'
 import { SettingsNormalSection } from './settings.normal-section'
 
@@ -16,8 +16,8 @@ export function TradingSettingsView() {
         <SettingsNormalSection data={data} isLoading={isLoading} />
       </div>
 
-      <SettingsActivationModal />
-      <SettingsDeactivationModal />
+      <TradingSettingsActivationModal />
+      <TradingSettingsDeactivationModal />
     </>
   )
 }

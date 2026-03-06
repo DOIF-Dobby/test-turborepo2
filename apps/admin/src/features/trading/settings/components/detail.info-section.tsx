@@ -5,23 +5,28 @@ import { SectionToolbar } from '@/components/section/section-toolbar'
 import { useDisclosure } from '@repo/hooks/use-disclosure'
 import { Frame } from '@repo/ui/components/frame'
 import { useRouter } from 'next/navigation'
-import {
-  useDeleteTradingSetting,
-  useTradingSettingDetail,
-} from '../services/settings.hooks'
+import type { TradingSettingWithAlgorithmResponse } from '../services/settings.api'
+import { useDeleteTradingSetting } from '../services/settings.hooks'
 import { TradingSettingsActivationSwitch } from './settings.activation-switch'
-import { SettingsEditModal } from './settings.edit-modal'
+import { TradingSettingsEditModal } from './settings.edit-modal'
 
 interface TradingSettingDetailInfoSectionProps {
-  tradingSettingId: number
+  tradingSettingData: TradingSettingWithAlgorithmResponse
 }
 
 export function TradingSettingDetailInfoSection({
-  tradingSettingId,
+  tradingSettingData,
 }: TradingSettingDetailInfoSectionProps) {
+  const {
+    algorithmName,
+    currency,
+    isActive,
+    orderAmountRatio,
+    tradingSettingId,
+  } = tradingSettingData
+
   const router = useRouter()
 
-  const { data } = useTradingSettingDetail(tradingSettingId)
   const deleteMutation = useDeleteTradingSetting()
   const editModal = useDisclosure()
 
@@ -30,44 +35,46 @@ export function TradingSettingDetailInfoSection({
     router.push('/trading/settings')
   }
 
-  if (!data) {
-    return null
-  }
-
-  const { algorithmName, currency, isActive, orderAmountRatio } = data
-
   return (
     <>
-      <SectionToolbar
-        title="자동 거래 설정 정보"
-        actions={
-          <>
-            <EditButton onPress={editModal.open} />
-            <DeleteButton onDelete={handleDelete} />
-          </>
-        }
-      />
-      <SectionCard>
-        <Frame direction="col">
-          <SectionItem title="ID:" value={tradingSettingId} />
-          <SectionItem title="통화:" value={currency} />
-          <SectionItem title="알고리즘:" value={algorithmName} />
-          <SectionItem title="주문 금액 비율:" value={`${orderAmountRatio}%`} />
-          <SectionItem
-            title="활성화"
-            value={
-              <TradingSettingsActivationSwitch
-                algorithmName={algorithmName}
-                currency={currency}
-                isActive={isActive}
-                tradingSettingId={tradingSettingId}
-              />
-            }
-          />
-        </Frame>
-      </SectionCard>
+      <section>
+        <SectionToolbar
+          title="자동 거래 설정 정보"
+          actions={
+            <>
+              <EditButton onPress={editModal.open} isDisabled={isActive} />
+              <DeleteButton onDelete={handleDelete} isDisabled={isActive} />
+            </>
+          }
+        />
+        <SectionCard>
+          <Frame direction="col">
+            <SectionItem title="ID:" value={tradingSettingId} />
+            <SectionItem title="통화:" value={currency} />
+            <SectionItem title="알고리즘:" value={algorithmName} />
+            <SectionItem
+              title="주문 금액 비율:"
+              value={`${orderAmountRatio}%`}
+            />
+            <SectionItem
+              title="활성화"
+              value={
+                <TradingSettingsActivationSwitch
+                  algorithmName={algorithmName}
+                  currency={currency}
+                  isActive={isActive}
+                  tradingSettingId={tradingSettingId}
+                />
+              }
+            />
+          </Frame>
+        </SectionCard>
+      </section>
 
-      <SettingsEditModal disclosure={editModal} data={data} />
+      <TradingSettingsEditModal
+        disclosure={editModal}
+        data={tradingSettingData}
+      />
     </>
   )
 }

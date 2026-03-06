@@ -7,7 +7,7 @@ import {
 import {
   AlgorithmTypesMap,
   type AlgorithmType,
-} from '@/features/algorithm/constants/definitions'
+} from '@/features/algorithm/constants/domain'
 import { useAlgorithms } from '@/features/algorithm/services/algorithm.hooks'
 import { currencyUtils } from '@/utils/domain'
 import { AppForm, useAppForm } from '@repo/forms'
@@ -37,12 +37,15 @@ const defaultValues: FormType = {
   orderAmountRatio: '',
 }
 
-interface SettingsFormProps {
+interface TradingSettingsFormProps {
   initialData?: TradingSettingWithAlgorithmResponse
   onSuccess?: () => void
 }
 
-export function SettingsForm({ initialData, onSuccess }: SettingsFormProps) {
+export function TradingSettingsForm({
+  initialData,
+  onSuccess,
+}: TradingSettingsFormProps) {
   const createMutation = useCreateTradingSetting()
   const updateMutation = useUpdateTradingSetting()
   const { data: algorithms = [] } = useAlgorithms()
@@ -105,7 +108,7 @@ export function SettingsForm({ initialData, onSuccess }: SettingsFormProps) {
   )
 
   return (
-    <AppForm form={form} className="flex flex-col gap-sw-md">
+    <AppForm form={form}>
       <form.AppField name="algorithmId">
         {(field) => (
           <field.Select

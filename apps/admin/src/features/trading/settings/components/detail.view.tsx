@@ -1,8 +1,10 @@
 'use client'
 
+import { useTradingSettingDetail } from '../services/settings.hooks'
 import { TradingSettingDetailInfoSection } from './detail.info-section'
-import { SettingsActivationModal } from './settings.activation-modal'
-import { SettingsDeactivationModal } from './settings.deactivation-modal'
+import { TradingSettingScheduleSection } from './schedule.section'
+import { TradingSettingsActivationModal } from './settings.activation-modal'
+import { TradingSettingsDeactivationModal } from './settings.deactivation-modal'
 
 interface TradingSettingsDetailViewProps {
   tradingSettingId: number
@@ -11,12 +13,21 @@ interface TradingSettingsDetailViewProps {
 export function TradingSettingsDetailView({
   tradingSettingId,
 }: TradingSettingsDetailViewProps) {
+  const { data } = useTradingSettingDetail(tradingSettingId)
+
+  if (!data) {
+    return null
+  }
+
   return (
     <>
-      <TradingSettingDetailInfoSection tradingSettingId={tradingSettingId} />
+      <div className="flex flex-col gap-sw-md">
+        <TradingSettingDetailInfoSection tradingSettingData={data} />
+        <TradingSettingScheduleSection tradingSettingData={data} />
+      </div>
 
-      <SettingsActivationModal />
-      <SettingsDeactivationModal />
+      <TradingSettingsActivationModal />
+      <TradingSettingsDeactivationModal />
     </>
   )
 }

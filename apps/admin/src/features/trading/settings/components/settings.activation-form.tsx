@@ -55,7 +55,7 @@ export function SettingsActivationForm({
   })
 
   return (
-    <AppForm form={form} className="flex flex-col gap-sw-md">
+    <AppForm form={form}>
       <form.AppField name="initialPosition">
         {(field) => (
           <field.AmountTextField

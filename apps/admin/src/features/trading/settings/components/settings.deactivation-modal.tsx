@@ -15,7 +15,7 @@ type SettingsDeactivationModaHandleProps = {
 export const settingsDeactivationModalHandle: ModalHandle<SettingsDeactivationModaHandleProps> =
   Modal.createHandle<SettingsDeactivationModaHandleProps>()
 
-export function SettingsDeactivationModal() {
+export function TradingSettingsDeactivationModal() {
   const deactivate = useDeactivateTradingSetting()
 
   return (

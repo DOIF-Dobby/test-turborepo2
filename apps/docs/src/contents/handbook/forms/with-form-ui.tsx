@@ -39,7 +39,7 @@ export default function WithFormUI() {
   })
 
   return (
-    <AppForm form={form} className="flex flex-col gap-sw-md">
+    <AppForm form={form}>
       <NameFields form={form} />
 
       <form.AppField name="radioFruit">

@@ -50,7 +50,7 @@ export default function AppFormExample() {
   })
 
   return (
-    <AppForm form={form} className="flex flex-col gap-sw-md">
+    <AppForm form={form}>
       <form.AppField name="firstName">
         {(field) => <field.TextField label="First Name" />}
       </form.AppField>

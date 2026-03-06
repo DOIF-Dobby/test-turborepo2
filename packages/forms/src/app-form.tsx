@@ -1,3 +1,4 @@
+import { swClsx } from '@repo/ui/utils/clsx'
 import type {
   ComponentProps,
   ComponentType,
@@ -20,12 +21,14 @@ export interface AppFormProps<
 export function AppForm<T extends BaseFormInstance>({
   children,
   form,
+  className,
   onSubmit,
   ...props
 }: AppFormProps<T>) {
   return (
     <form
       {...props}
+      className={swClsx('gap-sw-md flex flex-col', className)}
       onSubmit={(e) => {
         e.preventDefault()
         e.stopPropagation()

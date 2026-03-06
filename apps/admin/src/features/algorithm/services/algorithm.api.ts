@@ -1,6 +1,6 @@
 import { apiClient } from '@/libs/http/api-client'
 import type { UnitApiResponse } from '@/types/api'
-import type { AlgorithmType } from '../constants/definitions'
+import type { AlgorithmType } from '../constants/domain'
 
 /**
  * 알고리즘 응답 타입

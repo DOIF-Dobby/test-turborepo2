@@ -4,7 +4,7 @@ import { safePromise } from '@repo/utils/promise'
 import { emptyIfNull } from '@repo/utils/string'
 import { vRequiredString } from '@repo/validators'
 import * as v from 'valibot'
-import { ParameterTypes } from '../constants/definitions'
+import { ParameterTypes } from '../constants/domain'
 import type { AlgorithmParameterRuleResponse } from '../services/parameter-rule.api'
 import {
   useCreateParameterRule,
@@ -81,7 +81,7 @@ export function ParameterRuleForm({
   })
 
   return (
-    <AppForm form={form} className="flex flex-col gap-sw-sm">
+    <AppForm form={form}>
       <form.AppField name="ruleKey">
         {(field) => (
           <field.TextField

@@ -1,5 +1,5 @@
 import type { Currency } from '@/constants/domain'
-import type { AlgorithmType } from '@/features/algorithm/constants/definitions'
+import type { AlgorithmType } from '@/features/algorithm/constants/domain'
 import { apiClient } from '@/libs/http/api-client'
 import type { UnitApiResponse } from '@/types/api'
 

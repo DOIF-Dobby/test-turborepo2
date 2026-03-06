@@ -3,7 +3,7 @@ import { keysOf, pick } from '@repo/utils/object'
 import { safePromise } from '@repo/utils/promise'
 import { vRequiredString } from '@repo/validators'
 import * as v from 'valibot'
-import { AlgorithmTypes } from '../constants/definitions'
+import { AlgorithmTypes } from '../constants/domain'
 import type { AlgorithmResponse } from '../services/algorithm.api'
 import {
   useCreateAlgorithm,
@@ -60,7 +60,7 @@ export function AlgorithmForm({ initialData, onSuccess }: AlgorithmFormProps) {
   })
 
   return (
-    <AppForm form={form} className="flex flex-col gap-sw-sm">
+    <AppForm form={form}>
       <form.AppField name="algorithmKey">
         {(field) => (
           <field.TextField label="알고리즘 키" isRequired isDisabled={isEdit} />

@@ -2,13 +2,13 @@ import type { PropsWithDisclosure } from '@/types/ui'
 import { Frame } from '@repo/ui/components/frame'
 import { Modal } from '@repo/ui/components/modal'
 import type { TradingSettingWithAlgorithmResponse } from '../services/settings.api'
-import { SettingsForm } from './settings.form'
+import { TradingSettingsForm } from './settings.form'
 
 interface Props {
   data?: TradingSettingWithAlgorithmResponse
 }
 
-export function SettingsEditModal({
+export function TradingSettingsEditModal({
   disclosure,
   data,
 }: PropsWithDisclosure<Props>) {
@@ -25,7 +25,7 @@ export function SettingsEditModal({
         </Modal.Description>
       </Frame>
       <Frame>
-        <SettingsForm initialData={data} onSuccess={disclosure.close} />
+        <TradingSettingsForm initialData={data} onSuccess={disclosure.close} />
       </Frame>
     </Modal>
   )
