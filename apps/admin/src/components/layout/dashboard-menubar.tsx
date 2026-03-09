@@ -45,20 +45,14 @@ const menus: DashboardMenuProps[] = [
     ],
   },
   {
-    type: 'menu',
-    name: '제한 관리',
-    items: [
-      {
-        type: 'item',
-        href: '/limit/period',
-        name: '기간 제한',
-      },
-      {
-        type: 'item',
-        href: '/limit/emergency',
-        name: '긴급 제한',
-      },
-    ],
+    type: 'item',
+    href: '/trade-limit',
+    name: '거래 제한',
+  },
+  {
+    type: 'item',
+    href: '/futures',
+    name: '해외선물 관리',
   },
 ]
 
