@@ -28,10 +28,10 @@ export function TradingSettingsDetailView({
         <TradingSettingParameterSection tradingSettingData={data} />
 
         <div className="flex gap-sw-md">
-          <div className="w-3/5">
+          <div className="w-1/2">
             <TradingSettingScheduleSection tradingSettingData={data} />
           </div>
-          <div className="w-2/5">
+          <div className="w-1/2">
             <TradingPeriodLimitSection tradingSettingData={data} />
           </div>
         </div>

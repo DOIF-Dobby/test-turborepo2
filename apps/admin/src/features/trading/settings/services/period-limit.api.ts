@@ -6,11 +6,13 @@ export type TradingPeriodLimitResponse = {
   tradingSettingId: number
   startDateTime: string
   endDateTime: string
+  reason: string
 }
 
 export type TradingPeriodLimitAddRequest = {
   startDateTime: string
   endDateTime: string
+  reason: string
 }
 
 /**

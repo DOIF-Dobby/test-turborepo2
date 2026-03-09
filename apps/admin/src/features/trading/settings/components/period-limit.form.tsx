@@ -1,7 +1,7 @@
 import { getCurrentDateTime, parseDateTime } from '@repo/date'
 import { AppForm, useAppForm } from '@repo/forms'
 import { safePromise } from '@repo/utils/promise'
-import { vDateRange, vRequiredDate } from '@repo/validators'
+import { vDateRange, vRequiredDate, vRequiredString } from '@repo/validators'
 import { useMemo } from 'react'
 import * as v from 'valibot'
 import type { TradingPeriodLimitResponse } from '../services/period-limit.api'
@@ -14,6 +14,7 @@ const FormSchema = v.pipe(
   v.object({
     startDateTime: vRequiredDate(),
     endDateTime: vRequiredDate(),
+    reason: vRequiredString(),
   }),
   vDateRange({
     startKey: 'startDateTime',
@@ -26,6 +27,7 @@ type FormType = v.InferInput<typeof FormSchema>
 const defaultValues: FormType = {
   startDateTime: getCurrentDateTime(),
   endDateTime: getCurrentDateTime(),
+  reason: '',
 }
 
 interface TradingPeriodLimitFormProps {
@@ -50,6 +52,7 @@ export function TradingPeriodLimitForm({
       return {
         startDateTime,
         endDateTime,
+        reason: initialData.reason,
       }
     }
     return defaultValues
@@ -63,11 +66,12 @@ export function TradingPeriodLimitForm({
       onDynamic: FormSchema,
     },
     onSubmit: async ({ value }) => {
-      const { startDateTime, endDateTime } = value
+      const { startDateTime, endDateTime, reason } = value
 
       const data = {
         startDateTime: startDateTime!.toString(),
         endDateTime: endDateTime!.toString(),
+        reason,
       }
 
       const mutation = isEdit
@@ -93,6 +97,10 @@ export function TradingPeriodLimitForm({
 
       <form.AppField name="endDateTime">
         {(field) => <field.DateTimePicker label="종료일시" isRequired />}
+      </form.AppField>
+
+      <form.AppField name="reason">
+        {(field) => <field.TextField label="제한 사유" isRequired />}
       </form.AppField>
 
       <form.SubmitButton>저장</form.SubmitButton>

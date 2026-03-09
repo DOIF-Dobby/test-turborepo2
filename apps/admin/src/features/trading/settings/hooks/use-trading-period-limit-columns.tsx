@@ -23,6 +23,11 @@ export function useTradingPeriodLimitColumns() {
         size: 180,
         accessorFn: (row) => formatDateTime(row.endDateTime),
       },
+      {
+        accessorKey: 'reason',
+        header: '제한 사유',
+        size: 370,
+      },
     ],
     [],
   )
