@@ -7,32 +7,31 @@ import { SectionToolbar } from '@/components/section/section-toolbar'
 import { useDisclosure } from '@repo/hooks/use-disclosure'
 import { AppTable, getTableSelection, useAppTable } from '@repo/table'
 import { useState } from 'react'
-import { useTradingScheduleColumns } from '../hooks/use-trading-schedule-columns'
+import { useTradingParameterColumns } from '../hooks/use-tradiing-parameter-columns'
 import {
-  useDeleteTradingSchedule,
-  useTradingSettingScheduleList,
-} from '../services/schedule.hooks'
+  useDeleteTradingParameter,
+  useTradingSettingParameters,
+} from '../services/parameter.hooks'
 import type { TradingSettingWithAlgorithmResponse } from '../services/settings.api'
-import { TradingScheduleAddModal } from './schedule.add-modal'
-import { TradingScheduleEditModal } from './schedule.edit-modal'
+import { TradingParameterAddModal } from './parameter.add-modal'
+import { TradingParameterEditModal } from './parameter.edit-modal'
 
-interface TradingSettingScheduleSectionProps {
+interface TradingSettingParameterSectionProps {
   tradingSettingData: TradingSettingWithAlgorithmResponse
 }
 
-export function TradingSettingScheduleSection({
+export function TradingSettingParameterSection({
   tradingSettingData,
-}: TradingSettingScheduleSectionProps) {
+}: TradingSettingParameterSectionProps) {
   const { tradingSettingId, isActive: settingIsActive } = tradingSettingData
-
   const [rowSelection, setRowSelection] = useState({})
-
   const addModal = useDisclosure()
   const editModal = useDisclosure()
-  const deleteMutation = useDeleteTradingSchedule()
-  const { data, isLoading } = useTradingSettingScheduleList(tradingSettingId)
+  const deleteMutation = useDeleteTradingParameter()
 
-  const columns = useTradingScheduleColumns(tradingSettingId)
+  const { data, isLoading } = useTradingSettingParameters(tradingSettingId)
+
+  const columns = useTradingParameterColumns()
 
   const table = useAppTable({
     data,
@@ -50,7 +49,7 @@ export function TradingSettingScheduleSection({
     if (selectionItem) {
       await deleteMutation.mutateAsync({
         tradingSettingId,
-        scheduleId: selectionItem.scheduleId,
+        parameterId: selectionItem.parameterId,
       })
       table.resetRowSelection()
     }
@@ -60,7 +59,7 @@ export function TradingSettingScheduleSection({
     <>
       <section>
         <SectionToolbar
-          title="스케줄 관리"
+          title="파라미터 관리"
           actions={
             <>
               <AddButton isDisabled={settingIsActive} onPress={addModal.open} />
@@ -78,14 +77,14 @@ export function TradingSettingScheduleSection({
         <AppTable table={table} isLoading={isLoading} />
       </section>
 
-      <TradingScheduleAddModal
+      <TradingParameterAddModal
+        tradingSettingId={tradingSettingId}
         disclosure={addModal}
-        tradingSettingId={tradingSettingId}
       />
-      <TradingScheduleEditModal
-        disclosure={editModal}
-        data={selectionItem}
+      <TradingParameterEditModal
         tradingSettingId={tradingSettingId}
+        data={selectionItem}
+        disclosure={editModal}
       />
     </>
   )

@@ -5,12 +5,12 @@ export const getQueryClient = createGetQueryClient({
   defaultOptions: {
     queries: {
       staleTime: 1000 * 10,
-      queryFn: async ({ queryKey }) => {
+      queryFn: ({ queryKey }) => {
         const path = queryKey
           .filter((key) => key !== null && key !== undefined)
           .join('/')
 
-        return await apiClient.get(path).json()
+        return apiClient.get(path).json()
       },
     },
   },

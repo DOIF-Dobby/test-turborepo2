@@ -17,6 +17,10 @@ export type AlgorithmParameterRuleResponse = {
   lowerBound: string
 }
 
+export type AvailableParameterRuleResponse = AlgorithmParameterRuleResponse & {
+  isDisabled: boolean
+}
+
 export type ParameterRuleAddRequest = {
   ruleKey: string
   ruleName: string

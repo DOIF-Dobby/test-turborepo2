@@ -10,7 +10,7 @@ import {
 
 type Props = Omit<
   React.ComponentProps<typeof SelectPrimitive.Item>,
-  keyof SelectItemVariants | 'className'
+  keyof SelectItemVariants | 'className' | 'disabled'
 > &
   SelectItemVariants
 
@@ -19,6 +19,7 @@ interface SelectItemProps extends Props {
   classNames?: SlotsToClasses<SelectItemSlots>
   itemIndicatorIcon?: React.ReactNode
   startContent?: React.ReactNode
+  isDisabled?: boolean
 }
 
 export function SelectItem(props: SelectItemProps) {
@@ -28,17 +29,21 @@ export function SelectItem(props: SelectItemProps) {
     classNames,
     itemIndicatorIcon = <CheckIcon className="size-4" />,
     startContent,
+    isDisabled,
     ref,
     ...otherProps
   } = props
 
-  const slots = selectItemVariants({})
+  const slots = selectItemVariants({
+    isDisabled,
+  })
 
   return (
     <SelectPrimitive.Item
       {...otherProps}
       ref={ref}
       value={value}
+      disabled={isDisabled}
       className={swClsx(
         slots.item({
           className: classNames?.item,

@@ -2,6 +2,7 @@
 
 import { useTradingSettingDetail } from '../services/settings.hooks'
 import { TradingSettingDetailInfoSection } from './detail.info-section'
+import { TradingSettingParameterSection } from './parameter.section'
 import { TradingSettingScheduleSection } from './schedule.section'
 import { TradingSettingsActivationModal } from './settings.activation-modal'
 import { TradingSettingsDeactivationModal } from './settings.deactivation-modal'
@@ -24,6 +25,7 @@ export function TradingSettingsDetailView({
       <div className="flex flex-col gap-sw-md">
         <TradingSettingDetailInfoSection tradingSettingData={data} />
         <TradingSettingScheduleSection tradingSettingData={data} />
+        <TradingSettingParameterSection tradingSettingData={data} />
       </div>
 
       <TradingSettingsActivationModal />

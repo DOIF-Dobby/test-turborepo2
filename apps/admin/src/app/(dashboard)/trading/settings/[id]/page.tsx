@@ -1,6 +1,7 @@
 import { DashboardPageHeader } from '@/components/layout/dashboard-page-header'
 import { algorithmQueries } from '@/features/algorithm/services/algorithm.hooks'
 import { TradingSettingsDetailView } from '@/features/trading/settings/components/detail.view'
+import { tradingParameterQueries } from '@/features/trading/settings/services/parameter.hooks'
 import { tradingScheduleQueries } from '@/features/trading/settings/services/schedule.hooks'
 import { tradingSettingsQueries } from '@/features/trading/settings/services/settings.hooks'
 import { getDehydratedQueries, Hydrate } from '@/libs/query/dehydrator'
@@ -19,6 +20,8 @@ export default async function TradingSettingDetailPage({
     tradingSettingsQueries.detail(tradingSettingId),
     algorithmQueries.list(),
     tradingScheduleQueries.list(tradingSettingId),
+    tradingParameterQueries.list(tradingSettingId),
+    tradingParameterQueries.availableRules(tradingSettingId),
   ])
 
   return (

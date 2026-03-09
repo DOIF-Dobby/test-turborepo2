@@ -162,6 +162,14 @@ export const selectItemVariants = swTwVariants({
     ],
     itemIndicator: ['text-base-700'],
   },
+  variants: {
+    isDisabled: {
+      true: {
+        item: ['pointer-events-none'],
+        itemText: ['text-base-500'],
+      },
+    },
+  },
 })
 
 export const selectGroupVariants = swTwVariants({
