@@ -1,0 +1,19 @@
+import { DateTimePicker } from '@repo/ui/components/date-picker'
+
+const sizes = ['md', 'sm', 'xs'] as const
+
+export default function Description() {
+  return (
+    <div className="flex gap-sw-sm">
+      {sizes.map((size) => (
+        <div key={size} className="w-full">
+          <DateTimePicker
+            size={size}
+            label="DateTimePicker field"
+            description="This is an date time picker"
+          />
+        </div>
+      ))}
+    </div>
+  )
+}

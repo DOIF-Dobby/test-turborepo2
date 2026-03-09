@@ -5,6 +5,8 @@ import { FormCheckboxGroup } from './fields/form-checkbox-group'
 import { FormCombobox } from './fields/form-combobox'
 import { FormDateField } from './fields/form-date-field'
 import { FormDatePicker } from './fields/form-date-picker'
+import { FormDateTimeField } from './fields/form-date-time-field'
+import { FormDateTimePicker } from './fields/form-date-time-picker'
 import { FormRadioGroup } from './fields/form-radio-group'
 import { FormSelect } from './fields/form-select'
 import { FormTextField } from './fields/form-text-field'
@@ -25,7 +27,9 @@ export const {
     CheckboxGroup: FormCheckboxGroup,
     Combobox: FormCombobox,
     DateField: FormDateField,
+    DateTimeField: FormDateTimeField,
     DatePicker: FormDatePicker,
+    DateTimePicker: FormDateTimePicker,
     TimeField: FormTimeField,
   },
   formComponents: {

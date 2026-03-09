@@ -12,10 +12,10 @@ import {
 import { useTimeFieldState } from 'react-stately'
 import type { SlotsToClasses } from '../../types'
 import { swClsx } from '../../utils/clsx'
-import { triggerChange } from '../date-picker/trigger-change'
 import { Field } from '../field'
 import type { FieldState } from '../field/field-type'
 import { DateSegment } from './date-segment'
+import { triggerChange } from './trigger-change'
 import {
   dateFieldVariants,
   type DateFieldSlots,

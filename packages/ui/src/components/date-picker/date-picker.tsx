@@ -11,10 +11,10 @@ import { swClsx } from '../../utils/clsx'
 import { Button } from '../button'
 import { Calendar } from '../calendar'
 import { DateField } from '../date-field'
+import { triggerChange } from '../date-field/trigger-change'
 import { Field } from '../field'
 import type { FieldState } from '../field/field-type'
 import { Popover } from '../popover'
-import { triggerChange } from './trigger-change'
 import {
   datePickerVariants,
   type DatePickerSlots,
@@ -29,6 +29,7 @@ export interface DatePickerProps extends Props {
   classNames?: SlotsToClasses<DatePickerSlots>
   errorMessage?: React.ReactNode
   disableAnimation?: boolean
+  startContent?: (className: string) => React.ReactNode
 }
 
 export function DatePicker(props: DatePickerProps) {
@@ -41,6 +42,7 @@ export function DatePicker(props: DatePickerProps) {
     isTouched,
     isInvalid,
     errorMessage,
+    startContent,
     ...otherProps
   } = props
 
@@ -88,6 +90,20 @@ export function DatePicker(props: DatePickerProps) {
     disableAnimation: shouldDisableAnimation,
   })
 
+  const startContentNode = useMemo(() => {
+    if (!startContent) {
+      return (
+        <CalendarIcon
+          className={swClsx(
+            slots.startIcon({ className: classNames?.startIcon }),
+          )}
+        />
+      )
+    }
+
+    return startContent(slots.startIcon({ className: classNames?.startIcon }))
+  }, [startContent, slots, classNames])
+
   return (
     <Field
       name={props.name}
@@ -123,13 +139,7 @@ export function DatePicker(props: DatePickerProps) {
           minValue={props.minValue}
           maxValue={props.maxValue}
           isDateUnavailable={props.isDateUnavailable}
-          startContent={
-            <CalendarIcon
-              className={swClsx(
-                slots.startIcon({ className: classNames?.startIcon }),
-              )}
-            />
-          }
+          startContent={startContentNode}
           endContent={
             <Popover.Trigger handle={popoverHandle}>
               <Button
