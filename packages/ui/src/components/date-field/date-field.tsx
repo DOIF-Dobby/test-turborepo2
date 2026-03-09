@@ -1,6 +1,11 @@
 'use client'
 
-import { CalendarDate, createCalendar, type DateValue } from '@repo/date'
+import {
+  CalendarDate,
+  CalendarDateTime,
+  createCalendar,
+  type DateValue,
+} from '@repo/date'
 import { useControllableState } from '@repo/hooks/use-controllable-state'
 import { useRef } from 'react'
 import {
@@ -60,6 +65,8 @@ export function DateField(props: DateFieldProps) {
     startContent,
     endContent,
     withPicker = false,
+    granularity,
+    hourCycle,
     inputRef: inputRefProp,
     onChange,
     isDateUnavailable,
@@ -74,8 +81,18 @@ export function DateField(props: DateFieldProps) {
 
   const ariaLabelledby = otherProps['aria-labelledby'] ?? 'date-field'
 
-  const minDate = minValue ?? new CalendarDate(1, 1, 1)
-  const maxDate = maxValue ?? new CalendarDate(9999, 12, 31)
+  const isTime = granularity !== 'day'
+
+  const minDate =
+    minValue ??
+    (isTime
+      ? new CalendarDateTime(1, 1, 1, 0, 0, 0)
+      : new CalendarDate(1, 1, 1))
+  const maxDate =
+    maxValue ??
+    (isTime
+      ? new CalendarDateTime(9999, 12, 31, 23, 59, 59)
+      : new CalendarDate(9999, 12, 31))
 
   const [date, setDate] = useControllableState({
     value: valueProps,
@@ -121,6 +138,8 @@ export function DateField(props: DateFieldProps) {
     isDisabled,
     isReadOnly,
     locale,
+    granularity,
+    hourCycle,
     onChange: handleDateChange,
     createCalendar,
   })

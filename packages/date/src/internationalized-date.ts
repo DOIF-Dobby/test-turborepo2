@@ -1,9 +1,11 @@
 import {
   getDayOfWeek,
   getLocalTimeZone,
+  now,
   parseDate,
   parseTime,
   Time,
+  toCalendarDateTime,
   today,
   type DateValue,
 } from '@internationalized/date'
@@ -15,6 +17,27 @@ import {
  */
 export function getToday(timeZone: string = getLocalTimeZone()) {
   return today(timeZone)
+}
+
+/**
+ * @description 로컬 타임존을 기준으로 현재 날짜와 시간을 반환합니다.
+ * @param timeZone - 타임존 (기본값: 로컬 타임존)
+ * @param includeMs - 밀리초 포함 여부 (기본값: false)
+ * @returns 현재 날짜와 시간 (CalendarDateTime)
+ */
+export function getCurrentDateTime(
+  timeZone: string = getLocalTimeZone(),
+  includeMs: boolean = false,
+) {
+  const zonedDateTime = now(timeZone)
+  const dateTime = toCalendarDateTime(zonedDateTime)
+
+  // 밀리초를 포함하고 싶지 않다면 0으로 초기화합니다.
+  if (!includeMs) {
+    return dateTime.set({ millisecond: 0 })
+  }
+
+  return dateTime
 }
 
 /**

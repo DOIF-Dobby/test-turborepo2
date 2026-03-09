@@ -2,6 +2,7 @@ export * from '@internationalized/date'
 
 export {
   formatToDateTimeString,
+  getCurrentDateTime,
   getCurrentTime,
   getToday,
   isWeekend,
