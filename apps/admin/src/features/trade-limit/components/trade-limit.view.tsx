@@ -1,5 +1,11 @@
 'use client'
 
+import { GlobalPeriodLimitSection } from './global-period-limit.section'
+
 export function TradeLimitView() {
-  return <div>TradeLimitView</div>
+  return (
+    <div>
+      <GlobalPeriodLimitSection />
+    </div>
+  )
 }
