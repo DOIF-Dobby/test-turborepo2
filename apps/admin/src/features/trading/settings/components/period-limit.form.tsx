@@ -1,12 +1,7 @@
-import {
-  formatToDateTimeString,
-  getToday,
-  parseDateTimeString,
-  Time,
-} from '@repo/date'
+import { getCurrentDateTime, parseDateTime } from '@repo/date'
 import { AppForm, useAppForm } from '@repo/forms'
 import { safePromise } from '@repo/utils/promise'
-import { vRequiredDate, vRequiredTime } from '@repo/validators'
+import { vDateRange, vRequiredDate } from '@repo/validators'
 import { useMemo } from 'react'
 import * as v from 'valibot'
 import type { TradingPeriodLimitResponse } from '../services/period-limit.api'
@@ -15,20 +10,22 @@ import {
   useUpdateTradingPeriodLimit,
 } from '../services/period-limit.hooks'
 
-const FormSchema = v.object({
-  startDate: vRequiredDate(),
-  startTime: vRequiredTime(),
-  endDate: vRequiredDate(),
-  endTime: vRequiredTime(),
-})
+const FormSchema = v.pipe(
+  v.object({
+    startDateTime: vRequiredDate(),
+    endDateTime: vRequiredDate(),
+  }),
+  vDateRange({
+    startKey: 'startDateTime',
+    endKey: 'endDateTime',
+  }),
+)
 
 type FormType = v.InferInput<typeof FormSchema>
 
 const defaultValues: FormType = {
-  startDate: getToday(),
-  startTime: new Time(0, 0, 0),
-  endDate: getToday(),
-  endTime: new Time(23, 59, 59),
+  startDateTime: getCurrentDateTime(),
+  endDateTime: getCurrentDateTime(),
 }
 
 interface TradingPeriodLimitFormProps {
@@ -47,14 +44,12 @@ export function TradingPeriodLimitForm({
 
   const formDefaultValues = useMemo<FormType>(() => {
     if (initialData) {
-      const start = parseDateTimeString(initialData.startDateTime)
-      const end = parseDateTimeString(initialData.endDateTime)
+      const startDateTime = parseDateTime(initialData.startDateTime)
+      const endDateTime = parseDateTime(initialData.endDateTime)
 
       return {
-        startDate: start.dateValue,
-        startTime: start.timeValue,
-        endDate: end.dateValue,
-        endTime: end.timeValue,
+        startDateTime,
+        endDateTime,
       }
     }
     return defaultValues
@@ -68,11 +63,11 @@ export function TradingPeriodLimitForm({
       onDynamic: FormSchema,
     },
     onSubmit: async ({ value }) => {
-      const { startDate, startTime, endDate, endTime } = value
+      const { startDateTime, endDateTime } = value
 
       const data = {
-        startDateTime: formatToDateTimeString(startDate!, startTime!),
-        endDateTime: formatToDateTimeString(endDate!, endTime!),
+        startDateTime: startDateTime!.toString(),
+        endDateTime: endDateTime!.toString(),
       }
 
       const mutation = isEdit
@@ -92,35 +87,13 @@ export function TradingPeriodLimitForm({
 
   return (
     <AppForm form={form}>
-      <div className="flex items-end gap-sw-2xs">
-        <form.AppField name="startDate">
-          {(field) => (
-            <field.DatePicker
-              classNames={{ container: 'w-1/2' }}
-              label="시작일시"
-              isRequired
-            />
-          )}
-        </form.AppField>
-        <form.AppField name="startTime">
-          {(field) => <field.TimeField classNames={{ container: 'w-1/2' }} />}
-        </form.AppField>
-      </div>
+      <form.AppField name="startDateTime">
+        {(field) => <field.DateTimePicker label="시작일시" isRequired />}
+      </form.AppField>
 
-      <div className="flex items-end gap-sw-2xs">
-        <form.AppField name="endDate">
-          {(field) => (
-            <field.DatePicker
-              classNames={{ container: 'w-1/2' }}
-              label="종료일시"
-              isRequired
-            />
-          )}
-        </form.AppField>
-        <form.AppField name="endTime">
-          {(field) => <field.TimeField classNames={{ container: 'w-1/2' }} />}
-        </form.AppField>
-      </div>
+      <form.AppField name="endDateTime">
+        {(field) => <field.DateTimePicker label="종료일시" isRequired />}
+      </form.AppField>
 
       <form.SubmitButton>저장</form.SubmitButton>
     </AppForm>
