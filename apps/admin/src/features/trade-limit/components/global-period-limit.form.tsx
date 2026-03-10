@@ -1,4 +1,4 @@
-import { getCurrentDateTime, parseDateTime } from '@repo/date'
+import { getEndOfDay, getStartOfDay, getToday, parseDateTime } from '@repo/date'
 import { AppForm, useAppForm } from '@repo/forms'
 import { safePromise } from '@repo/utils/promise'
 import { vDateRange, vRequiredDate, vRequiredString } from '@repo/validators'
@@ -28,8 +28,8 @@ type FormType = v.InferInput<typeof FormSchema>
 
 const defaultValues: FormType = {
   targetType: 'ALL',
-  startDateTime: getCurrentDateTime(),
-  endDateTime: getCurrentDateTime(),
+  startDateTime: getStartOfDay(getToday()),
+  endDateTime: getEndOfDay(getToday()),
   reason: '',
 }
 

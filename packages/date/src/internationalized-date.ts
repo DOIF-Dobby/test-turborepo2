@@ -120,3 +120,17 @@ export function formatToDateTimeString(
 
   return `${datePart}T${hh}:${mm}:${ss}`
 }
+
+/**
+ * 날짜를 받아서 그 날의 00:00:00(시작) 또는 23:59:59(끝)를 반환
+ */
+
+// 1. 시작 시간 (00:00:00)
+export function getStartOfDay(date: DateValue) {
+  return toCalendarDateTime(date, new Time(0, 0, 0))
+}
+
+// 2. 끝 시간 (23:59:59)
+export function getEndOfDay(date: DateValue) {
+  return toCalendarDateTime(date, new Time(23, 59, 59))
+}

@@ -4,6 +4,8 @@ export {
   formatToDateTimeString,
   getCurrentDateTime,
   getCurrentTime,
+  getEndOfDay,
+  getStartOfDay,
   getToday,
   isWeekend,
   parseDateFromISO,

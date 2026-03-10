@@ -12,7 +12,7 @@ export function SectionToolbar({ title, actions }: SectionToolbarProps) {
   return (
     <div className="mb-sw-xs flex items-center justify-between gap-sw-2xs">
       <SectionTitle>{title}</SectionTitle>
-      <div className="flex items-center gap-sw-2xs">{actions}</div>
+      {actions && <div className="flex items-center gap-sw-2xs">{actions}</div>}
     </div>
   )
 }

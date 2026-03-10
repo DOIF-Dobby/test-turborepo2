@@ -1,0 +1,8 @@
+import type { VariantProps } from 'tailwind-variants'
+import { swTwVariants } from '../../utils/tw-variants'
+
+export const iconWrapperVariants = swTwVariants({
+  base: ['flex', 'size-fit', 'items-center', 'justify-center', 'rounded-full'],
+})
+
+export type IconWrapperVariants = VariantProps<typeof iconWrapperVariants>
