@@ -4,7 +4,7 @@ import { currencyUtils } from '@/utils/domain'
 import { useDisclosure } from '@repo/hooks/use-disclosure'
 import { AppTable, useAppTable } from '@repo/table'
 import { useMemo } from 'react'
-import { useTradingSettingColumns } from '../hooks/use-trading-setting-columns'
+import { useTradingSettingColumns } from '../hooks/use-trading-setting.columns'
 import type { TradingSettingWithAlgorithmResponse } from '../services/settings.api'
 import { TradingSettingsAddModal } from './settings.add-modal'
 

@@ -7,7 +7,7 @@ import { SectionToolbar } from '@/components/section/section-toolbar'
 import { useDisclosure } from '@repo/hooks/use-disclosure'
 import { AppTable, getTableSelection, useAppTable } from '@repo/table'
 import { useState } from 'react'
-import { useTradingPeriodLimitColumns } from '../hooks/use-trading-period-limit-columns'
+import { useTradingPeriodLimitColumns } from '../hooks/use-trading-period-limit.columns'
 import {
   useDeleteTradingPeriodLimit,
   useTradingPeriodLimits,

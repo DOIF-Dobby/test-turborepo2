@@ -1,3 +1,5 @@
+import { groupBy } from '@repo/utils/array'
+
 export const FinancialAssetTypes = {
   FIAT: '법정 화폐',
   GIFT_CERTIFICATE: '상품권',
@@ -53,3 +55,16 @@ export const Currencies = {
 } as const
 
 export type Currency = keyof typeof Currencies
+
+export const currencyItems = Object.keys(Currencies)
+  .filter((key) => key !== 'KRW')
+  .map((key) => ({
+    label: key,
+    value: key as Currency,
+    assetType: Currencies[key as Currency].assetType,
+  }))
+
+export const groupedCurrencyItems = groupBy(
+  currencyItems,
+  (item) => item.assetType,
+)

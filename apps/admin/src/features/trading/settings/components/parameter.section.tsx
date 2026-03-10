@@ -7,7 +7,7 @@ import { SectionToolbar } from '@/components/section/section-toolbar'
 import { useDisclosure } from '@repo/hooks/use-disclosure'
 import { AppTable, getTableSelection, useAppTable } from '@repo/table'
 import { useState } from 'react'
-import { useTradingParameterColumns } from '../hooks/use-trading-parameter-columns'
+import { useTradingParameterColumns } from '../hooks/use-trading-parameter.columns'
 import {
   useDeleteTradingParameter,
   useTradingSettingParameters,

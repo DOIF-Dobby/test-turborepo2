@@ -6,7 +6,7 @@ import {
 import { SectionToolbar } from '@/components/section/section-toolbar'
 import { useDisclosure } from '@repo/hooks/use-disclosure'
 import { AppTable, getTableSelection, useAppTable } from '@repo/table'
-import { useGlobalPeriodLimitColumns } from '../hooks/use-global-period-limit-columns'
+import { useGlobalPeriodLimitColumns } from '../hooks/use-global-period-limit.columns'
 import {
   useDeleteGlobalPeriodLimit,
   useGlobalPeriodLimits,

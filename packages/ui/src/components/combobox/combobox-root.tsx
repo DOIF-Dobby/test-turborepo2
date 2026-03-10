@@ -13,6 +13,7 @@ import { swClsx } from '../../utils/clsx'
 import { Field } from '../field'
 import type { FieldState } from '../field/field-type'
 import { ScrollArea } from '../scroll-area'
+import { Spinner } from '../spinner'
 import { ComboboxItem } from './combobox-item'
 import {
   type ComboboxSlots,
@@ -27,7 +28,12 @@ export type DefaultComboboxItem = {
 
 type Props<Multiple extends boolean | undefined> = Omit<
   React.ComponentProps<typeof ComboboxPrimitive.Root<string, Multiple>>,
-  keyof ComboboxVariants | 'className' | 'disabled' | 'items' | 'children'
+  | keyof ComboboxVariants
+  | 'className'
+  | 'disabled'
+  | 'items'
+  | 'children'
+  | 'readOnly'
 > &
   ComboboxVariants &
   FieldState
@@ -46,6 +52,8 @@ export interface ComboboxRootProps<
   isRequired?: boolean
   placeholder?: string
   zIndex?: number
+  isReadOnly?: boolean
+  isLoading?: boolean
 
   errorMessage?: React.ReactNode
   startContent?: React.ReactNode
@@ -83,6 +91,8 @@ export function ComboboxRoot<
     label,
     description,
     isDisabled,
+    isReadOnly,
+    isLoading,
     isDirty,
     isTouched,
     isInvalid,
@@ -158,6 +168,7 @@ export function ComboboxRoot<
           setValue(val)
         }}
         disabled={isDisabled}
+        readOnly={isReadOnly}
         itemToStringValue={(itemValue) => itemValue}
         itemToStringLabel={(itemValue) => {
           const item = itemsMap.get(itemValue)
@@ -226,6 +237,12 @@ export function ComboboxRoot<
                       )}
                       {...focusProps}
                     />
+
+                    {isLoading && (
+                      <div className="flex items-center px-sw-3xs">
+                        <Spinner className="text-base-700" size="sm" />
+                      </div>
+                    )}
                   </>
                 )}
               </ComboboxPrimitive.Value>
@@ -240,6 +257,11 @@ export function ComboboxRoot<
                 )}
                 {...focusProps}
               />
+              {isLoading && (
+                <div className="flex items-center px-sw-3xs">
+                  <Spinner className="text-base-700" size="sm" />
+                </div>
+              )}
               <ComboboxPrimitive.Clear
                 suppressHydrationWarning
                 className={swClsx(

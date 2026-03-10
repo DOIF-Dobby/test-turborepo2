@@ -1,7 +1,7 @@
 import { SectionToolbar } from '@/components/section/section-toolbar'
 import { AppTable, useAppTable } from '@repo/table'
 import { useMemo } from 'react'
-import { useTradingSettingColumns } from '../hooks/use-trading-setting-columns'
+import { useTradingSettingColumns } from '../hooks/use-trading-setting.columns'
 import type { TradingSettingWithAlgorithmResponse } from '../services/settings.api'
 
 interface SettingsNormalSectionProps {

@@ -18,6 +18,7 @@ import type { SlotsToClasses } from '../../types'
 import { swClsx } from '../../utils/clsx'
 import { Field } from '../field'
 import type { FieldState } from '../field/field-type'
+import { Spinner } from '../spinner'
 import { SelectItem } from './select-item'
 import {
   selectVariants,
@@ -32,7 +33,12 @@ export type DefaultSelectItem = {
 
 type Props<Multiple extends boolean | undefined> = Omit<
   React.ComponentProps<typeof SelectPrimitive.Root<string, Multiple>>,
-  keyof SelectVariants | 'className' | 'disabled' | 'items' | 'children'
+  | keyof SelectVariants
+  | 'className'
+  | 'disabled'
+  | 'items'
+  | 'children'
+  | 'readOnly'
 > &
   SelectVariants &
   FieldState
@@ -57,6 +63,8 @@ export interface SelectRootProps<
   description?: React.ReactNode
   errorMessage?: React.ReactNode
   zIndex?: number
+  isLoading?: boolean
+  isReadOnly?: boolean
 
   onClear?: () => void
 }
@@ -100,6 +108,8 @@ export function SelectRoot<
     items,
     multiple,
     errorMessage,
+    isLoading,
+    isReadOnly,
     onValueChange,
     onClear,
     ...otherProps
@@ -159,7 +169,7 @@ export function SelectRoot<
     ? value.length > 0
     : value !== undefined && value !== null && value !== ''
 
-  const showClear = isClearable && hasValue && !isDisabled
+  const showClear = isClearable && hasValue && !isDisabled && !isReadOnly
   const shouldDisableAnimation = useDisableAnimation(disableAnimation)
 
   const slots = selectVariants({
@@ -197,6 +207,7 @@ export function SelectRoot<
           setValue(val)
         }}
         disabled={isDisabled}
+        readOnly={isReadOnly}
         multiple={multiple}
         itemToStringValue={(itemValue) => itemValue}
         itemToStringLabel={(itemValue) => {
@@ -210,7 +221,9 @@ export function SelectRoot<
           className={swClsx(slots.trigger({ className: classNames?.trigger }))}
         >
           <div className="flex flex-1 items-center gap-sw-2xs overflow-hidden">
-            {startContent && <span className="shrink-0">{startContent}</span>}
+            {startContent && (
+              <span className="flex items-center">{startContent}</span>
+            )}
 
             <span
               className={swClsx(slots.value({ className: classNames?.value }))}
@@ -218,6 +231,12 @@ export function SelectRoot<
               <SelectPrimitive.Value placeholder={placeholder} />
             </span>
           </div>
+
+          {isLoading && (
+            <div className="flex items-center px-sw-3xs">
+              <Spinner className="text-base-700" size="sm" />
+            </div>
+          )}
 
           <div className="flex items-center gap-1">
             {showClear && (

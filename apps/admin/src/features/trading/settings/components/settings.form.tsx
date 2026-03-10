@@ -1,6 +1,7 @@
 import {
-  Currencies,
+  currencyItems,
   FinancialAssetTypes,
+  groupedCurrencyItems,
   type Currency,
   type FinancialAssetType,
 } from '@/constants/domain'
@@ -9,7 +10,6 @@ import {
   type AlgorithmType,
 } from '@/features/algorithm/constants/domain'
 import { useAlgorithms } from '@/features/algorithm/services/algorithm.hooks'
-import { currencyUtils } from '@/utils/domain'
 import { AppForm, useAppForm } from '@repo/forms'
 import { Select } from '@repo/ui/components/select'
 import { groupBy, sortBy } from '@repo/utils/array'
@@ -89,16 +89,6 @@ export function TradingSettingsForm({
       }
     },
   })
-
-  const currencyItems = Object.keys(Currencies)
-    .filter((key) => key !== 'KRW')
-    .map((key) => ({
-      label: key,
-      value: key,
-      assetType: currencyUtils.getAssetType(key as Currency),
-    }))
-
-  const groupedCurrencyItems = groupBy(currencyItems, (item) => item.assetType)
 
   const algorithmItems = sortBy(algorithms, ['algorithmType']).map(
     (algorithm) => ({
