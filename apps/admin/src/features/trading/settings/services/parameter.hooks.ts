@@ -12,11 +12,8 @@ import {
 } from './parameter.api'
 
 export const tradingParameterQueries = {
-  rootKey: (tradingSettingId: number) => [
-    'trading-settings',
-    tradingSettingId,
-    'parameters',
-  ],
+  rootKey: (tradingSettingId: number) =>
+    ['trading-settings', tradingSettingId, 'parameters'] as const,
   availableRulesKey: (tradingSettingId: number) =>
     ['trading-settings', tradingSettingId, 'available-rules'] as const,
   list: (tradingSettingId: number) =>

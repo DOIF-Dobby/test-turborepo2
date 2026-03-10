@@ -1,10 +1,18 @@
 import type { Currency } from '@/constants/domain'
-import type { ContentApiResponse } from '@/types/api'
+import { useAdminMutation } from '@/hooks/use-admin-mutation'
+import type { ApiResponse, ContentApiResponse } from '@/types/api'
 import { queryOptions, useQuery } from '@tanstack/react-query'
-import type { ContractCodeResponse } from './futures.api'
+import {
+  updateFuturesRiskPolicy,
+  type ContractCodeResponse,
+  type FuturesRiskPolicyResponse,
+  type LiquidationSafeRate,
+} from './futures.api'
 
 export const futuresQueries = {
-  rootKey: ['futures'],
+  rootKey: ['futures'] as const,
+  riskPolicyKey: ['futures/risk-policy'] as const,
+  safeRateKey: ['futures/liquidation-safe-rate'] as const,
   contractCodesKey: (currency: Currency | null) => [
     'futures',
     'contract-codes',
@@ -17,6 +25,16 @@ export const futuresQueries = {
         data?.content,
       enabled: !!currency,
     }),
+  riskPolicy: () =>
+    queryOptions({
+      queryKey: futuresQueries.riskPolicyKey,
+      select: ({ data }: ApiResponse<FuturesRiskPolicyResponse>) => data,
+    }),
+  safeRate: () =>
+    queryOptions({
+      queryKey: futuresQueries.safeRateKey,
+      select: ({ data }: ApiResponse<LiquidationSafeRate>) => data,
+    }),
 }
 
 /**
@@ -24,4 +42,30 @@ export const futuresQueries = {
  */
 export function useContractCodes(currency: Currency | null) {
   return useQuery(futuresQueries.contractCodes(currency))
+}
+
+/**
+ * 선물 리스크 정책 조회 훅
+ */
+export function useFuturesRiskPolicy() {
+  return useQuery(futuresQueries.riskPolicy())
+}
+
+/**
+ * 선물 리스크 정책 수정 훅
+ */
+export function useUpdateFuturesRiskPolicy() {
+  return useAdminMutation({
+    mutationFn: updateFuturesRiskPolicy,
+    invalidateKeys: [futuresQueries.riskPolicyKey],
+    successTitle: '청산 안전율 수정 성공',
+    errorTitle: '청산 안전율 수정 실패',
+  })
+}
+
+/**
+ * 현재 청산 안전율 조회 훅
+ */
+export function useSafeRate() {
+  return useQuery(futuresQueries.safeRate())
 }

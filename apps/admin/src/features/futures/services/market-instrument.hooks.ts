@@ -7,7 +7,7 @@ import {
 } from './market-instrument.api'
 
 export const marketInstrumentQueries = {
-  rootKey: ['market-instruments'],
+  rootKey: ['market-instruments'] as const,
   list: () =>
     queryOptions({
       queryKey: marketInstrumentQueries.rootKey,
