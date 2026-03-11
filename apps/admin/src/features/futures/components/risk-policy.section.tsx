@@ -1,3 +1,5 @@
+'use client'
+
 import { EditButton } from '@/components/button/action-buttons'
 import { SectionCard } from '@/components/section/section-card'
 import { SectionItem } from '@/components/section/section-item'
@@ -13,13 +15,9 @@ export function RiskPolicySection() {
 
   const { data: riskPolicy } = useFuturesRiskPolicy()
 
-  if (!riskPolicy) {
-    return null
-  }
-
   return (
     <>
-      <div>
+      <section>
         <SectionToolbar
           title="청산 안전율"
           actions={<EditButton onPress={editModal.open} />}
@@ -32,7 +30,7 @@ export function RiskPolicySection() {
             />
           </Frame>
         </SectionCard>
-      </div>
+      </section>
 
       <RiskPolicyEditModal disclosure={editModal} data={riskPolicy} />
     </>

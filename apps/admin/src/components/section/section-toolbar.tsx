@@ -1,7 +1,7 @@
 import { SectionTitle } from './section-title'
 
 interface SectionToolbarProps {
-  title: string
+  title: React.ReactNode
   actions?: React.ReactNode
 }
 
@@ -11,7 +11,7 @@ interface SectionToolbarProps {
 export function SectionToolbar({ title, actions }: SectionToolbarProps) {
   return (
     <div className="mb-sw-xs flex items-center justify-between gap-sw-2xs">
-      <SectionTitle>{title}</SectionTitle>
+      {typeof title === 'string' ? <SectionTitle>{title}</SectionTitle> : title}
       {actions && <div className="flex items-center gap-sw-2xs">{actions}</div>}
     </div>
   )

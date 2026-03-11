@@ -1,6 +1,6 @@
 import { useAdminMutation } from '@/hooks/use-admin-mutation'
 import type { ApiResponse, ContentApiResponse } from '@/types/api'
-import { queryOptions, useQuery } from '@tanstack/react-query'
+import { queryOptions, useQuery, useSuspenseQuery } from '@tanstack/react-query'
 import {
   activateTradingSetting,
   createTradingSetting,
@@ -32,7 +32,7 @@ export const tradingSettingsQueries = {
     queryOptions({
       queryKey: tradingSettingsQueries.detailKey(tradingSettingId),
       select: ({ data }: ApiResponse<TradingSettingWithAlgorithmResponse>) =>
-        data,
+        data!,
     }),
 }
 
@@ -128,5 +128,5 @@ export function useDeactivateTradingSetting() {
  * 거래 설정 상세 정보 조회 훅
  */
 export function useTradingSettingDetail(tradingSettingId: number) {
-  return useQuery(tradingSettingsQueries.detail(tradingSettingId))
+  return useSuspenseQuery(tradingSettingsQueries.detail(tradingSettingId))
 }

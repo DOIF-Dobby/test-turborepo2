@@ -1,3 +1,5 @@
+'use client'
+
 import { AddButton, EditButton } from '@/components/button/action-buttons'
 import { SectionToolbar } from '@/components/section/section-toolbar'
 import { useDisclosure } from '@repo/hooks/use-disclosure'

@@ -1,18 +1,20 @@
 import type { Currency } from '@/constants/domain'
 import { useAdminMutation } from '@/hooks/use-admin-mutation'
 import type { ApiResponse, ContentApiResponse } from '@/types/api'
-import { queryOptions, useQuery } from '@tanstack/react-query'
+import { queryOptions, useQuery, useSuspenseQuery } from '@tanstack/react-query'
+import type { CommodityCurrency } from '../constants/domain'
 import {
+  getFuturesSummary,
   updateFuturesRiskPolicy,
   type ContractCodeResponse,
   type FuturesRiskPolicyResponse,
-  type FuturesSummaryResponse,
 } from './futures.api'
 
 export const futuresQueries = {
   rootKey: ['futures'] as const,
   riskPolicyKey: ['futures/risk-policy'] as const,
-  summaryKey: ['futures/summary'] as const,
+  summaryKey: (commodityCurrencyCode: string) =>
+    ['futures/summary', commodityCurrencyCode] as const,
   contractCodesKey: (currency: Currency | null) => [
     'futures',
     'contract-codes',
@@ -28,12 +30,13 @@ export const futuresQueries = {
   riskPolicy: () =>
     queryOptions({
       queryKey: futuresQueries.riskPolicyKey,
-      select: ({ data }: ApiResponse<FuturesRiskPolicyResponse>) => data,
+      select: ({ data }: ApiResponse<FuturesRiskPolicyResponse>) => data!,
     }),
-  summary: () =>
+  summary: (commodityCurrencyCode: CommodityCurrency) =>
     queryOptions({
-      queryKey: futuresQueries.summaryKey,
-      select: ({ data }: ApiResponse<FuturesSummaryResponse>) => data,
+      queryKey: futuresQueries.summaryKey(commodityCurrencyCode),
+      queryFn: () => getFuturesSummary(commodityCurrencyCode),
+      select: ({ data }) => data!,
     }),
 }
 
@@ -48,7 +51,7 @@ export function useContractCodes(currency: Currency | null) {
  * 선물 리스크 정책 조회 훅
  */
 export function useFuturesRiskPolicy() {
-  return useQuery(futuresQueries.riskPolicy())
+  return useSuspenseQuery(futuresQueries.riskPolicy())
 }
 
 /**
@@ -66,6 +69,9 @@ export function useUpdateFuturesRiskPolicy() {
 /**
  * 현재 청산 안전율 조회 훅
  */
-export function useFuturesSummary() {
-  return useQuery(futuresQueries.summary())
+export function useFuturesSummary(commodityCurrencyCode: CommodityCurrency) {
+  return useSuspenseQuery({
+    ...futuresQueries.summary(commodityCurrencyCode),
+    refetchInterval: 10 * 1000,
+  })
 }

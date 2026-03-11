@@ -6,7 +6,7 @@ export function SectionTitle({
   ...props
 }: React.ComponentProps<'h4'>) {
   return (
-    <h4
+    <h2
       className={swClsx(
         'text-[18px] leading-[133%] font-normal text-base-600',
         className,
@@ -14,6 +14,6 @@ export function SectionTitle({
       {...props}
     >
       {children}
-    </h4>
+    </h2>
   )
 }

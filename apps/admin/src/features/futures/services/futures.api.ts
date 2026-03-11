@@ -1,6 +1,7 @@
 import type { TradeSideType } from '@/constants/domain'
 import { apiClient } from '@/libs/http/api-client'
-import type { UnitApiResponse } from '@/types/api'
+import type { ApiResponse, UnitApiResponse } from '@/types/api'
+import type { CommodityCurrency } from '../constants/domain'
 
 export type CommodityContractCode = {
   contractCode: string
@@ -111,5 +112,20 @@ export type FuturesSummaryResponse = {
   balance: CommodityBalanceResponse
   positions: CommodityPositionResponse[]
   totalPnl: number
-  safeRate: LiquidationSafeRate | null
+  totalPositionValue: number
+  totalProfitRate: number
+  safeRate: number
+}
+
+/**
+ * 해외선물 요약 조회 API
+ */
+export function getFuturesSummary(commodityCurrencyCode: CommodityCurrency) {
+  return apiClient
+    .get('futures/summary', {
+      searchParams: {
+        commodityCurrencyCode,
+      },
+    })
+    .json<ApiResponse<FuturesSummaryResponse>>()
 }

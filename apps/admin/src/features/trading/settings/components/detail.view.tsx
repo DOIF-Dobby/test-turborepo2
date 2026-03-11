@@ -17,10 +17,6 @@ export function TradingSettingsDetailView({
 }: TradingSettingsDetailViewProps) {
   const { data } = useTradingSettingDetail(tradingSettingId)
 
-  if (!data) {
-    return null
-  }
-
   return (
     <>
       <div className="flex flex-col gap-sw-md">

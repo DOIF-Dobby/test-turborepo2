@@ -8,10 +8,6 @@ import { GlobalEmergencyLimitDeactivateItem } from './global-emergency-limit.dea
 export function GlobalEmergencyLimitSection() {
   const { data } = useGlobalEmergencyLimit()
 
-  if (!data) {
-    return null
-  }
-
   return (
     <div>
       <SectionToolbar title="전역 긴급 제한" />
