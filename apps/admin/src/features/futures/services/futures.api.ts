@@ -1,3 +1,4 @@
+import type { TradeSideType } from '@/constants/domain'
 import { apiClient } from '@/libs/http/api-client'
 import type { UnitApiResponse } from '@/types/api'
 
@@ -60,4 +61,55 @@ export type LiquidationSafeRate = {
   requiredMargin: number
   totalPositionValue: number
   totalProfitRate: number
+}
+
+export type CommodityAvailableContractResponse = {
+  contractCode: string
+  side: TradeSideType
+  unsettledQuantity: number
+  liquidationPossibleQuantity: number
+  newOrderPossibleQuantity: number
+  totalOrderPossibleQuantity: number
+  marketPriceTotalOrderPossibleQuantity: number
+}
+
+export type CommodityBalanceResponse = {
+  accountNumber: string
+  accountProductCode: string
+  currencyCode: string
+  totalAsset: number
+  depositBalance: number
+  requiredMargin: number
+  maintenanceMargin: number
+  unrealizedPnl: number
+  realizedPnl: number
+  orderPossibleAmount: number
+  withdrawalPossibleAmount: number
+  fee: number
+  riskRate: number
+  availableContract: CommodityAvailableContractResponse | null
+}
+
+export type CommodityPositionResponse = {
+  accountNumber: string
+  accountProductCode: string
+  symbolCode: string
+  symbolName: string
+  productTypeCode: string
+  currencyCode: string
+  side: TradeSideType
+  quantity: number
+  avgPrice: number
+  currentPrice: number
+  unrealizedPnl: number
+  pnlPercent: number
+  liquidationPossibleQuantity: number
+  futureOptionDivision: string
+}
+
+export type FuturesSummaryResponse = {
+  balance: CommodityBalanceResponse
+  positions: CommodityPositionResponse[]
+  totalPnl: number
+  safeRate: LiquidationSafeRate | null
 }

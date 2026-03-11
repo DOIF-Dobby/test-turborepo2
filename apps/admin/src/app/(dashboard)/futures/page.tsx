@@ -9,7 +9,6 @@ export const dynamic = 'force-dynamic'
 export default async function FuturesPage() {
   const state = await getDehydratedQueries([
     futuresQueries.riskPolicy(),
-    futuresQueries.safeRate(),
     marketInstrumentQueries.list(),
   ])
 

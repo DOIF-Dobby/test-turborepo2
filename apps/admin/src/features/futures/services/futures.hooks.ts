@@ -6,13 +6,13 @@ import {
   updateFuturesRiskPolicy,
   type ContractCodeResponse,
   type FuturesRiskPolicyResponse,
-  type LiquidationSafeRate,
+  type FuturesSummaryResponse,
 } from './futures.api'
 
 export const futuresQueries = {
   rootKey: ['futures'] as const,
   riskPolicyKey: ['futures/risk-policy'] as const,
-  safeRateKey: ['futures/liquidation-safe-rate'] as const,
+  summaryKey: ['futures/summary'] as const,
   contractCodesKey: (currency: Currency | null) => [
     'futures',
     'contract-codes',
@@ -30,10 +30,10 @@ export const futuresQueries = {
       queryKey: futuresQueries.riskPolicyKey,
       select: ({ data }: ApiResponse<FuturesRiskPolicyResponse>) => data,
     }),
-  safeRate: () =>
+  summary: () =>
     queryOptions({
-      queryKey: futuresQueries.safeRateKey,
-      select: ({ data }: ApiResponse<LiquidationSafeRate>) => data,
+      queryKey: futuresQueries.summaryKey,
+      select: ({ data }: ApiResponse<FuturesSummaryResponse>) => data,
     }),
 }
 
@@ -66,6 +66,6 @@ export function useUpdateFuturesRiskPolicy() {
 /**
  * 현재 청산 안전율 조회 훅
  */
-export function useSafeRate() {
-  return useQuery(futuresQueries.safeRate())
+export function useFuturesSummary() {
+  return useQuery(futuresQueries.summary())
 }

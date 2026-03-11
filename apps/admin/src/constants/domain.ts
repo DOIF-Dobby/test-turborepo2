@@ -68,3 +68,10 @@ export const groupedCurrencyItems = groupBy(
   currencyItems,
   (item) => item.assetType,
 )
+
+export const TradeSide = {
+  BUY: '매수',
+  SELL: '매도',
+} as const
+
+export type TradeSideType = keyof typeof TradeSide
