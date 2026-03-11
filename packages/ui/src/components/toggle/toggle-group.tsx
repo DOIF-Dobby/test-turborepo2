@@ -9,24 +9,37 @@ import { toggleGroupVariants, type ToggleGroupVariants } from './variants'
 
 type Props = Omit<
   React.ComponentProps<typeof ToggleGroupPrimitive>,
-  keyof ToggleGroupVariants | 'className'
+  | keyof ToggleGroupVariants
+  | 'className'
+  | 'value'
+  | 'defaultValue'
+  | 'onValueChange'
+  | 'multiple'
 > &
   ToggleGroupVariants
 
-export interface ToggleGroupProps extends Props {
+type ToggleGroupValue<Multiple extends boolean> = Multiple extends true
+  ? string[]
+  : string
+
+export interface ToggleGroupProps<Multiple extends boolean> extends Props {
+  multiple?: Multiple
   className?: string
   motionAnimation?: boolean
   disallowEmpty?: boolean
-  value?: string[]
-  defaultValue?: string[]
+  value?: ToggleGroupValue<Multiple>
+  defaultValue?: ToggleGroupValue<Multiple>
   onValueChange?: (
-    value: string[],
+    value: ToggleGroupValue<Multiple>,
     eventDetails: ToggleGroupPrimitive.ChangeEventDetails,
   ) => void
 }
 
-export function ToggleGroup(props: ToggleGroupProps) {
+export function ToggleGroup<Multiple extends boolean = false>(
+  props: ToggleGroupProps<Multiple>,
+) {
   const {
+    multiple = false as Multiple,
     children,
     className,
     motionAnimation = false,
@@ -37,7 +50,7 @@ export function ToggleGroup(props: ToggleGroupProps) {
     ...ohterProps
   } = props
 
-  const [value, setValue] = useControllableState<readonly string[]>({
+  const [value, setValue] = useControllableState<ToggleGroupValue<Multiple>>({
     defaultValue,
     value: valueProp,
   })
@@ -55,12 +68,19 @@ export function ToggleGroup(props: ToggleGroupProps) {
       return
     }
 
-    // 상태 업데이트 (uncontrolled일 때 동작)
-    setValue(nextValue)
+    const resultValue = (
+      multiple ? nextValue : (nextValue[0] ?? '')
+    ) as ToggleGroupValue<Multiple>
 
-    // 부모에게 알림 (controlled일 때 동작)
-    onValueChange?.(nextValue, eventDetails)
+    setValue(resultValue)
+    onValueChange?.(resultValue, eventDetails)
   }
+
+  const primitiveValue = (() => {
+    if (Array.isArray(value)) return value
+    if (value) return [value] // '', undefined, null 모두 빈 배열로
+    return []
+  })()
 
   return (
     <ToggleGroupContext
@@ -72,7 +92,8 @@ export function ToggleGroup(props: ToggleGroupProps) {
       <ToggleGroupPrimitive
         suppressHydrationWarning
         className={swClsx(styles)}
-        value={value}
+        multiple={multiple}
+        value={primitiveValue}
         onValueChange={handleValueChange}
         {...ohterProps}
       >

@@ -4,7 +4,7 @@ import { Toggle, ToggleGroup } from '@repo/ui/components/toggle'
 import { useState } from 'react'
 
 export default function GroupControlled() {
-  const [value, setValue] = useState(['toggle1'])
+  const [value, setValue] = useState('toggle1')
 
   return (
     <div>
@@ -14,7 +14,7 @@ export default function GroupControlled() {
         <Toggle value="toggle3">Toggle 3</Toggle>
       </ToggleGroup>
 
-      <div>pressed: {value.join(', ')}</div>
+      <div>pressed: {String(value)}</div>
     </div>
   )
 }
