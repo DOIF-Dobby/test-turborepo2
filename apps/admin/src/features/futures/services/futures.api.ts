@@ -112,9 +112,11 @@ export type FuturesSummaryResponse = {
   balance: CommodityBalanceResponse
   positions: CommodityPositionResponse[]
   totalPnl: number
-  totalPositionValue: number
-  totalProfitRate: number
+  marketPricePositionValue: number
+  avgPricePositionValue: number
+  profitRate: number
   safeRate: number
+  marginRate: number
 }
 
 /**

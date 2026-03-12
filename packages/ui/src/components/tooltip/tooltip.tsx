@@ -17,7 +17,7 @@ import {
 
 type Props = Omit<
   React.ComponentProps<typeof TooltipPrimitive.Root>,
-  keyof TooltipVariants
+  keyof TooltipVariants | 'disabled'
 > &
   TooltipVariants
 
@@ -35,6 +35,7 @@ export interface TooltipProps extends Props {
   render?: TooltipTriggerProps['render']
   delay?: TooltipTriggerProps['delay']
   closeDelay?: TooltipTriggerProps['closeDelay']
+  isDisabled?: boolean
 }
 
 export function Tooltip(props: TooltipProps) {
@@ -52,13 +53,14 @@ export function Tooltip(props: TooltipProps) {
     render,
     delay,
     closeDelay,
+    isDisabled,
     ...otherProps
   } = props
 
   const slots = tooltipVariants({})
 
   return (
-    <TooltipPrimitive.Root {...otherProps}>
+    <TooltipPrimitive.Root disabled={isDisabled} {...otherProps}>
       <TooltipPrimitive.Trigger
         delay={delay}
         closeDelay={closeDelay}

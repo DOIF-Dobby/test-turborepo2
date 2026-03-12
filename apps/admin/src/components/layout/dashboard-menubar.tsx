@@ -73,6 +73,7 @@ const dashboardMenuVariants = swTwVariants({
       'font-medium',
       'cursor-pointer',
       'hover:text-base-700',
+      'line-clamp-2',
     ],
   },
   variants: {
@@ -106,7 +107,9 @@ function DashboardMenu(props: DashboardMenuProps) {
             if (item.type === 'item') {
               return (
                 <Menu.Item key={item.href}>
-                  <Link href={item.href}>{item.name}</Link>
+                  <Link href={item.href} className="line-clamp-2">
+                    {item.name}
+                  </Link>
                 </Menu.Item>
               )
             }

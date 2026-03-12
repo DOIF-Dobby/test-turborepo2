@@ -12,7 +12,6 @@ export default async function FuturesPage() {
   const state = await getDehydratedQueries([
     futuresQueries.riskPolicy(),
     marketInstrumentQueries.list(),
-    futuresQueries.summary('TKR'),
   ])
 
   return (

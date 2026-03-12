@@ -16,10 +16,12 @@ function UserInfo() {
   return (
     <div className="flex items-center gap-1 rounded-full border border-base-200 px-2.5 py-1.5">
       <UserIcon />
-      <span className="text-sm leading-[135%] font-semibold text-base-700">
+      <span className="line-clamp-2 text-sm leading-[135%] font-semibold text-base-700">
         김수환
       </span>
-      <span className="text-sm leading-[135%] text-base-700">외환담당자</span>
+      <span className="line-clamp-2 text-sm leading-[135%] text-base-700">
+        외환담당자
+      </span>
     </div>
   )
 }
@@ -31,7 +33,7 @@ function LogoutButton() {
         <Modal.Trigger>
           <Button
             variant="bordered"
-            className="h-[38px] min-h-[38px] rounded-md border-base-300 px-3 py-2 text-base leading-[135%] text-base-800"
+            className="h-[38px] min-h-[38px] truncate rounded-md border-base-300 px-3 py-2 text-base leading-[135%] text-base-800"
           >
             로그아웃
           </Button>

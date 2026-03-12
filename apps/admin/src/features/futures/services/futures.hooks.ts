@@ -70,7 +70,7 @@ export function useUpdateFuturesRiskPolicy() {
  * 현재 청산 안전율 조회 훅
  */
 export function useFuturesSummary(commodityCurrencyCode: CommodityCurrency) {
-  return useSuspenseQuery({
+  return useQuery({
     ...futuresQueries.summary(commodityCurrencyCode),
     refetchInterval: 10 * 1000,
   })

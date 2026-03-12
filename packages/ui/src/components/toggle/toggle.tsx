@@ -13,7 +13,7 @@ import {
 
 type Props = Omit<
   React.ComponentProps<typeof TogglePrimitive>,
-  keyof ToggleVariants | 'classNames'
+  keyof ToggleVariants | 'className'
 > &
   ToggleVariants
 
