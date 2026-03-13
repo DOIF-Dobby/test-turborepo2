@@ -1,4 +1,4 @@
-import { DashboardPageHeader } from '@/components/layout/dashboard-page-header'
+import { DashboardPageHeader } from '@/components/layout/dashboard/dashboard-page-header'
 import { AlgorithmView } from '@/features/algorithm/components/algorithm.view'
 import { algorithmQueries } from '@/features/algorithm/services/algorithm.hooks'
 import { getDehydratedQueries, Hydrate } from '@/libs/query/dehydrator'

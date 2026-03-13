@@ -1,5 +1,5 @@
 import { useAdminMutation } from '@/hooks/use-admin-mutation'
-import type { ApiResponse, ContentApiResponse } from '@/types/api'
+import type { ApiSuccessResponse, ContentApiResponse } from '@/types/api'
 import { queryOptions, useQuery, useSuspenseQuery } from '@tanstack/react-query'
 import {
   activateTradingSetting,
@@ -26,13 +26,14 @@ export const tradingSettingsQueries = {
       select: ({
         data,
       }: ContentApiResponse<TradingSettingWithAlgorithmResponse>) =>
-        data?.content,
+        data.content,
     }),
   detail: (tradingSettingId: number) =>
     queryOptions({
       queryKey: tradingSettingsQueries.detailKey(tradingSettingId),
-      select: ({ data }: ApiResponse<TradingSettingWithAlgorithmResponse>) =>
-        data!,
+      select: ({
+        data,
+      }: ApiSuccessResponse<TradingSettingWithAlgorithmResponse>) => data,
     }),
 }
 

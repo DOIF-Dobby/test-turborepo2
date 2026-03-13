@@ -18,7 +18,7 @@ export const tradingScheduleQueries = {
     queryOptions({
       queryKey: tradingScheduleQueries.rootKey(tradingSettingId),
       select: ({ data }: ContentApiResponse<TradingScheduleResponse>) =>
-        data?.content,
+        data.content,
     }),
 }
 

@@ -1,4 +1,4 @@
-import { DashboardPageHeader } from '@/components/layout/dashboard-page-header'
+import { DashboardPageHeader } from '@/components/layout/dashboard/dashboard-page-header'
 import { MarketInstrumentSection } from '@/features/futures/components/market-instrument.section'
 import { RiskPolicySection } from '@/features/futures/components/risk-policy.section'
 import { FutureSummarySection } from '@/features/futures/components/summary.section'

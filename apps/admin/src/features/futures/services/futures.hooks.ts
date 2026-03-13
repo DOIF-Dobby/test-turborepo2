@@ -1,6 +1,6 @@
 import type { Currency } from '@/constants/domain'
 import { useAdminMutation } from '@/hooks/use-admin-mutation'
-import type { ApiResponse, ContentApiResponse } from '@/types/api'
+import type { ApiSuccessResponse, ContentApiResponse } from '@/types/api'
 import { queryOptions, useQuery, useSuspenseQuery } from '@tanstack/react-query'
 import type { CommodityCurrency } from '../constants/domain'
 import {
@@ -24,19 +24,19 @@ export const futuresQueries = {
     queryOptions({
       queryKey: futuresQueries.contractCodesKey(currency),
       select: ({ data }: ContentApiResponse<ContractCodeResponse>) =>
-        data?.content,
+        data.content,
       enabled: !!currency,
     }),
   riskPolicy: () =>
     queryOptions({
       queryKey: futuresQueries.riskPolicyKey,
-      select: ({ data }: ApiResponse<FuturesRiskPolicyResponse>) => data!,
+      select: ({ data }: ApiSuccessResponse<FuturesRiskPolicyResponse>) => data,
     }),
   summary: (commodityCurrencyCode: CommodityCurrency) =>
     queryOptions({
       queryKey: futuresQueries.summaryKey(commodityCurrencyCode),
       queryFn: () => getFuturesSummary(commodityCurrencyCode),
-      select: ({ data }) => data!,
+      select: ({ data }) => data,
     }),
 }
 

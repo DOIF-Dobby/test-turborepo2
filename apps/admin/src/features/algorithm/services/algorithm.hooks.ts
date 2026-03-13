@@ -17,8 +17,7 @@ export const algorithmQueries = {
   list: () =>
     queryOptions({
       queryKey: algorithmQueries.rootKey,
-      select: ({ data }: ContentApiResponse<AlgorithmResponse>) =>
-        data?.content,
+      select: ({ data }: ContentApiResponse<AlgorithmResponse>) => data.content,
     }),
 }
 

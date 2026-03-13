@@ -16,7 +16,7 @@ export const tradingPeriodLimitQueries = {
     queryOptions({
       queryKey: tradingPeriodLimitQueries.rootKey(tradingSettingId),
       select: ({ data }: ContentApiResponse<TradingPeriodLimitResponse>) =>
-        data?.content,
+        data.content,
     }),
 }
 

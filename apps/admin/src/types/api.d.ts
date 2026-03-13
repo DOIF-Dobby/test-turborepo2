@@ -1,11 +1,19 @@
-/**
- * 기본 API 응답 구조
- */
-export interface ApiResponse<T = void> {
+export interface ApiSuccessResponse<T> {
+  code: 'OK'
+  message: string
+  data: T
+}
+
+export interface ApiErrorResponse<T> {
   code: string
   message: string
   data: T | null
 }
+
+/**
+ * 기본 API 응답 구조
+ */
+export type ApiResponse<T> = ApiSuccessResponse<T> | ApiErrorResponse<T>
 
 /**
  * 리스트(Content) 응답 구조
@@ -28,5 +36,5 @@ export interface Page<T> {
 }
 
 export type UnitApiResponse = ApiResponse<void>
-export type ContentApiResponse<T> = ApiResponse<Content<T>>
-export type PageApiResponse<T> = ApiResponse<Page<T>>
+export type ContentApiResponse<T> = ApiSuccessResponse<Content<T>>
+export type PageApiResponse<T> = ApiSuccessResponse<Page<T>>

@@ -1,6 +1,6 @@
 import { tradingSettingsQueries } from '@/features/trading/settings/services/settings.hooks'
 import { useAdminMutation } from '@/hooks/use-admin-mutation'
-import type { ApiResponse } from '@/types/api'
+import type { ApiSuccessResponse } from '@/types/api'
 import { queryOptions, useSuspenseQuery } from '@tanstack/react-query'
 import {
   activateGlobalEmergencyLimit,
@@ -13,7 +13,8 @@ export const globalEmergencyLimitQueries = {
   info: () =>
     queryOptions({
       queryKey: globalEmergencyLimitQueries.rootKey,
-      select: ({ data }: ApiResponse<GlobalEmergencyLimitResponse>) => data!,
+      select: ({ data }: ApiSuccessResponse<GlobalEmergencyLimitResponse>) =>
+        data,
     }),
 }
 

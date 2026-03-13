@@ -1,4 +1,4 @@
-import { AppLogo } from '../icon/app-logo'
+import { AppLogo } from '../../icon/app-logo'
 import { DashboardMenubar } from './dashboard-menubar'
 import { UserSection } from './user-section'
 

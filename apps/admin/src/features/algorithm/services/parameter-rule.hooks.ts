@@ -20,8 +20,8 @@ export const parameterRuleQueries = {
     queryOptions({
       queryKey: parameterRuleQueries.rootKey(algorithmId),
       enabled: !!algorithmId,
-      select: (response: ContentApiResponse<AlgorithmParameterRuleResponse>) =>
-        response.data?.content,
+      select: ({ data }: ContentApiResponse<AlgorithmParameterRuleResponse>) =>
+        data.content,
     }),
 }
 

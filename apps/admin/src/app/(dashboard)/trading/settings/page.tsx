@@ -1,4 +1,4 @@
-import { DashboardPageHeader } from '@/components/layout/dashboard-page-header'
+import { DashboardPageHeader } from '@/components/layout/dashboard/dashboard-page-header'
 import { TradingSettingsView } from '@/features/trading/settings/components/settings.view'
 import { tradingSettingsQueries } from '@/features/trading/settings/services/settings.hooks'
 import { getDehydratedQueries, Hydrate } from '@/libs/query/dehydrator'

@@ -1,4 +1,4 @@
-import type { ApiResponse } from '@/types/api'
+import type { ApiSuccessResponse } from '@/types/api'
 import { Switch } from '@repo/ui/components/switch'
 import { useQueryClient } from '@tanstack/react-query'
 import type { ColumnDef } from '@tanstack/react-table'
@@ -16,7 +16,7 @@ export function useTradingScheduleColumns(tradingSettingId: number) {
   const queryClient = useQueryClient()
 
   const response = queryClient.getQueryData<
-    ApiResponse<TradingSettingWithAlgorithmResponse>
+    ApiSuccessResponse<TradingSettingWithAlgorithmResponse>
   >(tradingSettingsQueries.detailKey(tradingSettingId))
 
   const { data: tradingSettingData } = response ?? {}

@@ -1,4 +1,4 @@
-import type { ApiResponse } from '@/types/api'
+import type { ApiErrorResponse } from '@/types/api'
 import {
   HTTPError,
   type KyRequest,
@@ -7,13 +7,13 @@ import {
 } from 'ky'
 
 export class ApiError<T = unknown> extends HTTPError<T> {
-  errorData: ApiResponse<T>
+  errorData: ApiErrorResponse<T>
 
   constructor(
     response: KyResponse,
     request: KyRequest,
     options: NormalizedOptions,
-    errorData: ApiResponse<T>,
+    errorData: ApiErrorResponse<T>,
   ) {
     super(response, request, options)
     this.name = 'ApiError'

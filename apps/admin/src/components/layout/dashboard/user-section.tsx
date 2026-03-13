@@ -1,7 +1,7 @@
 import { Button } from '@repo/ui/components/button'
 import { Frame } from '@repo/ui/components/frame'
 import { Modal } from '@repo/ui/components/modal'
-import { UserIcon } from '../icon/user-icon'
+import { UserIcon } from '../../icon/user-icon'
 
 export function UserSection() {
   return (

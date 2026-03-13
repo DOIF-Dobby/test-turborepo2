@@ -15,7 +15,7 @@ export const globalPeriodLimitQueries = {
     queryOptions({
       queryKey: globalPeriodLimitQueries.rootKey,
       select: ({ data }: ContentApiResponse<GlobalPeriodLimitResponse>) =>
-        data?.content,
+        data.content,
     }),
 }
 

@@ -20,13 +20,13 @@ export const tradingParameterQueries = {
     queryOptions({
       queryKey: tradingParameterQueries.rootKey(tradingSettingId),
       select: ({ data }: ContentApiResponse<TradingSettingParameterResponse>) =>
-        data?.content,
+        data.content,
     }),
   availableRules: (tradingSettingId: number) =>
     queryOptions({
       queryKey: tradingParameterQueries.availableRulesKey(tradingSettingId),
       select: ({ data }: ContentApiResponse<AvailableParameterRuleResponse>) =>
-        data?.content,
+        data.content,
     }),
 }
 

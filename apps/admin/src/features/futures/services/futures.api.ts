@@ -1,6 +1,6 @@
 import type { TradeSideType } from '@/constants/domain'
 import { apiClient } from '@/libs/http/api-client'
-import type { ApiResponse, UnitApiResponse } from '@/types/api'
+import type { ApiSuccessResponse, UnitApiResponse } from '@/types/api'
 import type { CommodityCurrency } from '../constants/domain'
 
 export type CommodityContractCode = {
@@ -129,5 +129,5 @@ export function getFuturesSummary(commodityCurrencyCode: CommodityCurrency) {
         commodityCurrencyCode,
       },
     })
-    .json<ApiResponse<FuturesSummaryResponse>>()
+    .json<ApiSuccessResponse<FuturesSummaryResponse>>()
 }

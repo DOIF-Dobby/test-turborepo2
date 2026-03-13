@@ -12,7 +12,7 @@ export const marketInstrumentQueries = {
     queryOptions({
       queryKey: marketInstrumentQueries.rootKey,
       select: ({ data }: ContentApiResponse<MarketInstrumentResponse>) =>
-        data?.content,
+        data.content,
     }),
 }
 
