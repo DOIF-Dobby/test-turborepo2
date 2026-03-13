@@ -17,8 +17,8 @@ export default async function LoginPage({ searchParams }: LoginPageProps) {
   }
 
   return (
-    <div className="flex h-full justify-center bg-blue-200 pt-sw-4xl">
-      <div className="w-120 bg-violet-200 py-sw-sm">
+    <div className="flex h-full justify-center pt-sw-4xl">
+      <div className="w-120 rounded-xl border border-base-200 bg-background py-sw-sm">
         <Frame>
           <AppLogo />
         </Frame>

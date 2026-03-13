@@ -2,6 +2,7 @@ import { DashboardContainer } from '@/components/layout/dashboard/dashboard-cont
 import { DashboardContent } from '@/components/layout/dashboard/dashboard-content'
 import { DashboardHeader } from '@/components/layout/dashboard/dashboard-header'
 import { tokenManager } from '@/libs/token/token-manager'
+import type { TokenPayload } from '@/types/auth'
 import { headers } from 'next/headers'
 import { redirect } from 'next/navigation'
 import type { PropsWithChildren } from 'react'
@@ -18,9 +19,11 @@ export default async function DashboardLayout({ children }: PropsWithChildren) {
     redirect(`/login?callbackUrl=${encodeURIComponent(pathname)}`)
   }
 
+  const tokenPayload = await tokenManager.getTokenPayload<TokenPayload>()
+
   return (
     <DashboardContainer>
-      <DashboardHeader />
+      <DashboardHeader tokenPayload={tokenPayload!} />
       <DashboardContent>{children}</DashboardContent>
     </DashboardContainer>
   )

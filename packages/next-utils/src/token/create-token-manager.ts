@@ -8,6 +8,11 @@ type CreateTokenManagerOptions = {
 export function createTokenManager(options: CreateTokenManagerOptions) {
   const { accessTokenName } = options
 
+  const getAccessToken = async () => {
+    const cookieStore = await cookies()
+    return cookieStore.get(accessTokenName)?.value ?? null
+  }
+
   return {
     setAccessToken: async (token: string) => {
       const decoded = jwtDecode(token)
@@ -23,14 +28,17 @@ export function createTokenManager(options: CreateTokenManagerOptions) {
       })
     },
 
-    getAccessToken: async () => {
-      const cookieStore = await cookies()
-      return cookieStore.get(accessTokenName)?.value ?? null
-    },
+    getAccessToken,
 
     clearAccessToken: async () => {
       const cookieStore = await cookies()
       cookieStore.delete(accessTokenName)
+    },
+
+    getTokenPayload: async <T = unknown>() => {
+      const token = await getAccessToken()
+      if (!token) return null
+      return jwtDecode<T>(token)
     },
   }
 }

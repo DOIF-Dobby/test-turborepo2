@@ -6,6 +6,7 @@ import { tradingPeriodLimitQueries } from '@/features/trading/settings/services/
 import { tradingScheduleQueries } from '@/features/trading/settings/services/schedule.hooks'
 import { tradingSettingsQueries } from '@/features/trading/settings/services/settings.hooks'
 import { getDehydratedQueries, Hydrate } from '@/libs/query/dehydrator'
+import { notFound } from 'next/navigation'
 
 type Params = Promise<{ id: string }>
 
@@ -17,14 +18,20 @@ export default async function TradingSettingDetailPage({
   const { id } = await params
   const tradingSettingId = Number(id)
 
-  const state = await getDehydratedQueries([
+  const queries = [
     tradingSettingsQueries.detail(tradingSettingId),
     algorithmQueries.list(),
     tradingScheduleQueries.list(tradingSettingId),
     tradingParameterQueries.list(tradingSettingId),
     tradingParameterQueries.availableRules(tradingSettingId),
     tradingPeriodLimitQueries.list(tradingSettingId),
-  ])
+  ]
+
+  const state = await getDehydratedQueries(queries)
+
+  if (state.queries.length !== queries.length) {
+    notFound()
+  }
 
   return (
     <>

@@ -43,11 +43,18 @@ export function LoginForm({ callbackUrl }: LoginFormProps) {
   return (
     <AppForm form={form}>
       <form.AppField name="username">
-        {(field) => <field.TextField label="ID" isRequired />}
+        {(field) => (
+          <field.TextField label="ID" isRequired autoComplete="username" />
+        )}
       </form.AppField>
       <form.AppField name="password">
         {(field) => (
-          <field.TextField label="Password" isRequired type="password" />
+          <field.TextField
+            label="Password"
+            isRequired
+            type="password"
+            autoComplete="current-password"
+          />
         )}
       </form.AppField>
 
