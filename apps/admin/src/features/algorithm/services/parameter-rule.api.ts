@@ -1,4 +1,4 @@
-import { apiClient } from '@/libs/http/api-client'
+import { browserApiClient } from '@/libs/http/api-client.browser'
 import type { UnitApiResponse } from '@/types/api'
 import { nullIfEmpty } from '@repo/utils/string'
 import type { ParameterType } from '../constants/domain'
@@ -39,7 +39,7 @@ export function addParameterRule(
 ) {
   const { upperBound, lowerBound, ...rest } = formData
 
-  return apiClient
+  return browserApiClient
     .post(`algorithms/${algorithmId}/rules`, {
       json: {
         ...rest,
@@ -65,7 +65,7 @@ export function updateParameterRule(
 ) {
   const { upperBound, lowerBound, ...rest } = formData
 
-  return apiClient
+  return browserApiClient
     .put(`algorithms/${algorithmId}/rules/${ruleId}`, {
       json: {
         ...rest,
@@ -80,7 +80,7 @@ export function updateParameterRule(
  * 알고리즘 파라미터 규칙 삭제 API
  */
 export function removeParameterRule(algorithmId: number, ruleId: number) {
-  return apiClient
+  return browserApiClient
     .delete(`algorithms/${algorithmId}/rules/${ruleId}`)
     .json<UnitApiResponse>()
 }

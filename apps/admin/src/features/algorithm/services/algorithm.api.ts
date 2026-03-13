@@ -1,4 +1,4 @@
-import { apiClient } from '@/libs/http/api-client'
+import { browserApiClient } from '@/libs/http/api-client.browser'
 import type { UnitApiResponse } from '@/types/api'
 import type { AlgorithmType } from '../constants/domain'
 
@@ -24,7 +24,7 @@ type AlgorithmCreateRequest = {
  * 알고리즘 추가 API
  */
 export function createAlgorithm(formData: AlgorithmCreateRequest) {
-  return apiClient
+  return browserApiClient
     .post('algorithms', {
       json: formData,
     })
@@ -43,7 +43,7 @@ export function updateAlgorithm(
   algorithmId: number,
   formData: AlgorithmUpdateRequest,
 ) {
-  return apiClient
+  return browserApiClient
     .put(`algorithms/${algorithmId}`, {
       json: formData,
     })
@@ -54,5 +54,7 @@ export function updateAlgorithm(
  * 알고리즘 삭제 API
  */
 export function deleteAlgorithm(algorithmId: number) {
-  return apiClient.delete(`algorithms/${algorithmId}`).json<UnitApiResponse>()
+  return browserApiClient
+    .delete(`algorithms/${algorithmId}`)
+    .json<UnitApiResponse>()
 }

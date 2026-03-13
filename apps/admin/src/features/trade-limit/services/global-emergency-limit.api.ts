@@ -1,4 +1,4 @@
-import { apiClient } from '@/libs/http/api-client'
+import { browserApiClient } from '@/libs/http/api-client.browser'
 import type { UnitApiResponse } from '@/types/api'
 
 export type GlobalEmergencyLimitResponse = {
@@ -13,7 +13,7 @@ export type GlobalEmergencyLimitResponse = {
  * 전역 긴급 제한 활성화 API
  */
 export function activateGlobalEmergencyLimit() {
-  return apiClient
+  return browserApiClient
     .put('global-emergency-limits/activation')
     .json<UnitApiResponse>()
 }
@@ -22,7 +22,7 @@ export function activateGlobalEmergencyLimit() {
  * 전역 긴급 제한 비활성화 API
  */
 export function deactivateGlobalEmergencyLimit() {
-  return apiClient
+  return browserApiClient
     .delete('global-emergency-limits/activation')
     .json<UnitApiResponse>()
 }

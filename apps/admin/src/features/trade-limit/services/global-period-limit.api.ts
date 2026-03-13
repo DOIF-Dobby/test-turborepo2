@@ -1,4 +1,4 @@
-import { apiClient } from '@/libs/http/api-client'
+import { browserApiClient } from '@/libs/http/api-client.browser'
 import type { UnitApiResponse } from '@/types/api'
 import type { GlobalPeriodLimitTargetType } from '../constants/domain'
 
@@ -21,7 +21,7 @@ export type GlobalPeriodLimitCreateRequest = {
  * 전역 기간 제한 추가 API
  */
 export function createGlobalPeriodLimit(data: GlobalPeriodLimitCreateRequest) {
-  return apiClient
+  return browserApiClient
     .post(`global-period-limits`, {
       json: data,
     })
@@ -40,7 +40,7 @@ export function updateGlobalPeriodLimit(
   limitId: number,
   data: GlobalPeriodLimitUpdateRequest,
 ) {
-  return apiClient
+  return browserApiClient
     .put(`global-period-limits/${limitId}`, {
       json: data,
     })
@@ -51,7 +51,7 @@ export function updateGlobalPeriodLimit(
  * 전역 기간 제한 삭제 API
  */
 export function deleteGlobalPeriodLimit(limitId: number) {
-  return apiClient
+  return browserApiClient
     .delete(`global-period-limits/${limitId}`)
     .json<UnitApiResponse>()
 }

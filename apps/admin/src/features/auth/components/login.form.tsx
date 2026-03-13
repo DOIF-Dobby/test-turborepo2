@@ -1,8 +1,11 @@
+'use client'
+
 import { AppForm, useAppForm } from '@repo/forms'
 import { safePromise } from '@repo/utils/promise'
 import { vRequiredString } from '@repo/validators'
+import { useRouter } from 'next/navigation'
 import * as v from 'valibot'
-import { useLogin } from '../services/login.hooks'
+import { useLogin } from '../services/auth.hooks'
 
 const FormSchema = v.object({
   username: vRequiredString(),
@@ -16,8 +19,13 @@ const defaultValues: FormType = {
   password: '',
 }
 
-export function LoginForm() {
+interface LoginFormProps {
+  callbackUrl: string
+}
+
+export function LoginForm({ callbackUrl }: LoginFormProps) {
   const loginMutation = useLogin()
+  const router = useRouter()
 
   const form = useAppForm({
     defaultValues,
@@ -26,8 +34,8 @@ export function LoginForm() {
     },
     onSubmit: async ({ value }) => {
       const result = await safePromise(loginMutation.mutateAsync(value))
-      if (result) {
-        console.log(result.data.accessToken)
+      if (result && result.code === 'OK') {
+        router.replace(callbackUrl)
       }
     },
   })

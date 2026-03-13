@@ -1,18 +1,23 @@
-import type { ApiResponse } from '@/types/api'
+import type { ApiErrorResponse } from '@/types/api'
 import { createBaseClient } from '@repo/http'
-import { isServer } from '@repo/utils/common'
 import { ApiError } from './api-error'
 
-const browserClient = createBaseClient({
+export const browserApiClient = createBaseClient({
   prefixUrl: '/api/',
   hooks: {
     beforeError: [
       async (error) => {
         const { response, request, options } = error
 
+        if (response.status === 401) {
+          const callbackUrl = encodeURIComponent(window.location.pathname)
+          window.location.replace(`/login?callbackUrl=${callbackUrl}`)
+          return error
+        }
+
         if (response && response.body) {
           try {
-            const errorData = await response.json<ApiResponse<null>>()
+            const errorData = await response.json<ApiErrorResponse<null>>()
 
             return new ApiError(response, request, options, errorData)
           } catch {
@@ -24,9 +29,3 @@ const browserClient = createBaseClient({
     ],
   },
 })
-
-const serverClient = createBaseClient({
-  prefixUrl: process.env.BACKEND_API_HOST,
-})
-
-export const apiClient = isServer ? serverClient : browserClient

@@ -1,6 +1,4 @@
-import { Button } from '@repo/ui/components/button'
-import { Frame } from '@repo/ui/components/frame'
-import { Modal } from '@repo/ui/components/modal'
+import { LogoutButton } from '../../../features/auth/components/logout-button'
 import { UserIcon } from '../../icon/user-icon'
 
 export function UserSection() {
@@ -23,38 +21,5 @@ function UserInfo() {
         외환담당자
       </span>
     </div>
-  )
-}
-
-function LogoutButton() {
-  return (
-    <Modal
-      trigger={
-        <Modal.Trigger>
-          <Button
-            variant="bordered"
-            className="h-[38px] min-h-[38px] truncate rounded-md border-base-300 px-3 py-2 text-base leading-[135%] text-base-800"
-          >
-            로그아웃
-          </Button>
-        </Modal.Trigger>
-      }
-    >
-      <Frame>
-        <Modal.Title>로그아웃 하시겠습니까?</Modal.Title>
-      </Frame>
-      <Frame direction="row">
-        <Modal.Close
-          render={
-            <Button className="w-1/2" variant="light">
-              취소
-            </Button>
-          }
-        />
-        <Button color="destructive" className="w-1/2">
-          로그아웃
-        </Button>
-      </Frame>
-    </Modal>
   )
 }

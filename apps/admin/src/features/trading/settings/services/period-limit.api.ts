@@ -1,4 +1,4 @@
-import { apiClient } from '@/libs/http/api-client'
+import { browserApiClient } from '@/libs/http/api-client.browser'
 import type { UnitApiResponse } from '@/types/api'
 
 export type TradingPeriodLimitResponse = {
@@ -22,7 +22,7 @@ export function createTradingPeriodLimit(
   tradingSettingId: number,
   data: TradingPeriodLimitAddRequest,
 ) {
-  return apiClient
+  return browserApiClient
     .post(`trading-settings/${tradingSettingId}/period-limits`, {
       json: data,
     })
@@ -39,7 +39,7 @@ export function updateTradingPeriodLimit(
   periodLimitId: number,
   data: TradingPeriodLimitUpdateRequest,
 ) {
-  return apiClient
+  return browserApiClient
     .put(
       `trading-settings/${tradingSettingId}/period-limits/${periodLimitId}`,
       {
@@ -56,7 +56,7 @@ export function deleteTradingPeriodLimit(
   tradingSettingId: number,
   periodLimitId: number,
 ) {
-  return apiClient
+  return browserApiClient
     .delete(
       `trading-settings/${tradingSettingId}/period-limits/${periodLimitId}`,
     )

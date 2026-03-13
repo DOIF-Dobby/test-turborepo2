@@ -1,6 +1,6 @@
 import type { Currency } from '@/constants/domain'
 import type { AlgorithmType } from '@/features/algorithm/constants/domain'
-import { apiClient } from '@/libs/http/api-client'
+import { browserApiClient } from '@/libs/http/api-client.browser'
 import type { UnitApiResponse } from '@/types/api'
 
 export type TradingSettingWithAlgorithmResponse = {
@@ -29,7 +29,7 @@ export type TradingSettingCreateRequest = {
  * 트레이딩 설정 추가 API
  */
 export function createTradingSetting(formData: TradingSettingCreateRequest) {
-  return apiClient
+  return browserApiClient
     .post('trading-settings', {
       json: formData,
     })
@@ -48,7 +48,7 @@ export function updateTradingSetting(
   tradingSettingId: number,
   formData: TradingSettingUpdateRequest,
 ) {
-  return apiClient
+  return browserApiClient
     .put(`trading-settings/${tradingSettingId}`, {
       json: formData,
     })
@@ -59,7 +59,7 @@ export function updateTradingSetting(
  * 트레이딩 설정 삭제 API
  */
 export function deleteTradingSetting(tradingSettingId: number) {
-  return apiClient
+  return browserApiClient
     .delete(`trading-settings/${tradingSettingId}`)
     .json<UnitApiResponse>()
 }
@@ -75,7 +75,7 @@ export function activateTradingSetting(
   tradingSettingId: number,
   formData: TradingSettingActivationRequest = {},
 ) {
-  return apiClient
+  return browserApiClient
     .put(`trading-settings/${tradingSettingId}/activation`, {
       json: formData,
     })
@@ -86,7 +86,7 @@ export function activateTradingSetting(
  * 트레이딩 설정 비활성화 API
  */
 export function deactivateTradingSetting(tradingSettingId: number) {
-  return apiClient
+  return browserApiClient
     .delete(`trading-settings/${tradingSettingId}/activation`)
     .json<UnitApiResponse>()
 }

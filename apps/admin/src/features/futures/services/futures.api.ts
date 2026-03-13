@@ -1,5 +1,5 @@
 import type { TradeSideType } from '@/constants/domain'
-import { apiClient } from '@/libs/http/api-client'
+import { browserApiClient } from '@/libs/http/api-client.browser'
 import type { ApiSuccessResponse, UnitApiResponse } from '@/types/api'
 import type { CommodityCurrency } from '../constants/domain'
 
@@ -49,7 +49,7 @@ export type UpdateFuturesRiskPolicyRequest = {
  * 선물 리스크 정책 수정
  */
 export function updateFuturesRiskPolicy(data: UpdateFuturesRiskPolicyRequest) {
-  return apiClient
+  return browserApiClient
     .put<UpdateFuturesRiskPolicyRequest>('futures/risk-policy', {
       json: data,
     })
@@ -123,7 +123,7 @@ export type FuturesSummaryResponse = {
  * 해외선물 요약 조회 API
  */
 export function getFuturesSummary(commodityCurrencyCode: CommodityCurrency) {
-  return apiClient
+  return browserApiClient
     .get('futures/summary', {
       searchParams: {
         commodityCurrencyCode,

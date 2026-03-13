@@ -1,5 +1,5 @@
 import type { Currency } from '@/constants/domain'
-import { apiClient } from '@/libs/http/api-client'
+import { browserApiClient } from '@/libs/http/api-client.browser'
 import type { UnitApiResponse } from '@/types/api'
 
 export type MarketInstrumentResponse = {
@@ -19,7 +19,7 @@ export type MarketInstrumentSaveRequest = {
  * 월물 코드를 저장합니다.
  */
 export function saveMarketInstrument(data: MarketInstrumentSaveRequest) {
-  return apiClient
+  return browserApiClient
     .post('market-instruments', {
       json: data,
     })

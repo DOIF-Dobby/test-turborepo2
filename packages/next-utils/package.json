@@ -15,7 +15,9 @@
     "react": "*",
     "next": "*"
   },
-  "dependencies": {},
+  "dependencies": {
+    "jwt-decode": "*"
+  },
   "devDependencies": {
     "next": "*",
     "@next/eslint-plugin-next": "*",

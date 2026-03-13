@@ -1,4 +1,4 @@
-import { apiClient } from '@/libs/http/api-client'
+import { browserApiClient } from '@/libs/http/api-client.browser'
 import type { UnitApiResponse } from '@/types/api'
 
 export type TradingScheduleResponse = {
@@ -37,7 +37,7 @@ export function createTradingSchedule(
   tradingSettingId: number,
   data: TradingScheduleAddRequest,
 ) {
-  return apiClient
+  return browserApiClient
     .post(`trading-settings/${tradingSettingId}/schedules`, {
       json: data,
     })
@@ -54,7 +54,7 @@ export function updateTradingSchedule(
   scheduleId: number,
   data: TradingScheduleUpdateRequest,
 ) {
-  return apiClient
+  return browserApiClient
     .put(`trading-settings/${tradingSettingId}/schedules/${scheduleId}`, {
       json: data,
     })
@@ -68,7 +68,7 @@ export function deleteTradingSchedule(
   tradingSettingId: number,
   scheduleId: number,
 ) {
-  return apiClient
+  return browserApiClient
     .delete(`trading-settings/${tradingSettingId}/schedules/${scheduleId}`)
     .json<UnitApiResponse>()
 }
@@ -80,7 +80,7 @@ export function activateTradingSchedule(
   tradingSettingId: number,
   scheduleId: number,
 ) {
-  return apiClient
+  return browserApiClient
     .put(
       `trading-settings/${tradingSettingId}/schedules/${scheduleId}/activation`,
     )
@@ -94,7 +94,7 @@ export function deactivateTradingSchedule(
   tradingSettingId: number,
   scheduleId: number,
 ) {
-  return apiClient
+  return browserApiClient
     .delete(
       `trading-settings/${tradingSettingId}/schedules/${scheduleId}/activation`,
     )

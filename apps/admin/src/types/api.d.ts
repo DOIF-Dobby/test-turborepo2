@@ -35,6 +35,6 @@ export interface Page<T> {
   isLast: boolean
 }
 
-export type UnitApiResponse = ApiResponse<void>
+export type UnitApiResponse = ApiSuccessResponse<Record<string, never> | null>
 export type ContentApiResponse<T> = ApiSuccessResponse<Content<T>>
 export type PageApiResponse<T> = ApiSuccessResponse<Page<T>>

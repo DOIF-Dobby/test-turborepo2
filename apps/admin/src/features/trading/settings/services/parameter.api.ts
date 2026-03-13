@@ -1,5 +1,5 @@
 import type { ParameterType } from '@/features/algorithm/constants/domain'
-import { apiClient } from '@/libs/http/api-client'
+import { browserApiClient } from '@/libs/http/api-client.browser'
 import type { UnitApiResponse } from '@/types/api'
 
 export type TradingSettingParameterResponse = {
@@ -27,7 +27,7 @@ export function createTradingParameter(
   tradingSettingId: number,
   data: TradingSettingParameterAddRequest,
 ) {
-  return apiClient
+  return browserApiClient
     .post(`trading-settings/${tradingSettingId}/parameters`, {
       json: data,
     })
@@ -46,7 +46,7 @@ export function updateTradingParameter(
   parameterId: number,
   data: TradingSettingParameterUpdateRequest,
 ) {
-  return apiClient
+  return browserApiClient
     .put(`trading-settings/${tradingSettingId}/parameters/${parameterId}`, {
       json: data,
     })
@@ -60,7 +60,7 @@ export function deleteTradingParameter(
   tradingSettingId: number,
   parameterId: number,
 ) {
-  return apiClient
+  return browserApiClient
     .delete(`trading-settings/${tradingSettingId}/parameters/${parameterId}`)
     .json<UnitApiResponse>()
 }
