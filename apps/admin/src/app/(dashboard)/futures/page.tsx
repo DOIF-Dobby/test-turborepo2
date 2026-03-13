@@ -6,8 +6,6 @@ import { futuresQueries } from '@/features/futures/services/futures.hooks'
 import { marketInstrumentQueries } from '@/features/futures/services/market-instrument.hooks'
 import { getDehydratedQueries, Hydrate } from '@/libs/query/dehydrator'
 
-export const dynamic = 'force-dynamic'
-
 export default async function FuturesPage() {
   const state = await getDehydratedQueries([
     futuresQueries.riskPolicy(),

@@ -4,8 +4,6 @@ import { globalEmergencyLimitQueries } from '@/features/trade-limit/services/glo
 import { globalPeriodLimitQueries } from '@/features/trade-limit/services/global-period-limit.hooks'
 import { getDehydratedQueries, Hydrate } from '@/libs/query/dehydrator'
 
-export const dynamic = 'force-dynamic'
-
 export default async function TradeLimitPage() {
   const state = await getDehydratedQueries([
     globalEmergencyLimitQueries.info(),

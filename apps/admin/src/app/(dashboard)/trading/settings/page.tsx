@@ -3,8 +3,6 @@ import { TradingSettingsView } from '@/features/trading/settings/components/sett
 import { tradingSettingsQueries } from '@/features/trading/settings/services/settings.hooks'
 import { getDehydratedQueries, Hydrate } from '@/libs/query/dehydrator'
 
-export const dynamic = 'force-dynamic'
-
 export default async function TradingSettingsPage() {
   const state = await getDehydratedQueries([tradingSettingsQueries.list()])
 
