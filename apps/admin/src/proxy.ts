@@ -1,6 +1,6 @@
 import { type NextRequest, NextResponse } from 'next/server'
 
-export function middleware(request: NextRequest) {
+export function proxy(request: NextRequest) {
   const response = NextResponse.next()
   // 현재 경로를 헤더에 추가
   response.headers.set('x-pathname', request.nextUrl.pathname)
