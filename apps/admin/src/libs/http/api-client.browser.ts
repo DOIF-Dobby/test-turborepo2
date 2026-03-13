@@ -9,15 +9,13 @@ export const browserApiClient = createBaseClient({
       async (error) => {
         const { response, request, options } = error
 
-        if (response.status === 401) {
-          const callbackUrl = encodeURIComponent(window.location.pathname)
-          window.location.replace(`/login?callbackUrl=${callbackUrl}`)
-          return error
-        }
-
         if (response && response.body) {
           try {
             const errorData = await response.json<ApiErrorResponse<null>>()
+
+            if (response.status === 401) {
+              window.dispatchEvent(new CustomEvent('unauthorized'))
+            }
 
             return new ApiError(response, request, options, errorData)
           } catch {

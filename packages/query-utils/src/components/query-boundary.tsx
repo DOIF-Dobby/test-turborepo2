@@ -14,7 +14,7 @@ export function QueryBoundary<TData>(props: QueryBoundaryProps<TData>) {
     fallback,
     forceFallback = false,
     children,
-    errorFallback = (error) => <>{error?.message}</>,
+    errorFallback,
   } = props
 
   const { isLoading, data, isError, error } = query
@@ -23,7 +23,7 @@ export function QueryBoundary<TData>(props: QueryBoundaryProps<TData>) {
     return <>{fallback}</>
   }
 
-  if (isError) {
+  if (isError && errorFallback) {
     return <>{errorFallback(error)}</>
   }
 
